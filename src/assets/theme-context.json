@@ -1,0 +1,304 @@
+{
+  "meta": {
+    "name": "Magic Bus India Foundation",
+    "slogan": "Childhood to Livelihood",
+    "version": "1.0.0",
+    "brand_personality": ["optimistic", "youthful", "credible", "impact-focused"]
+  },
+  "foundations": {
+    "colors": {
+      "brand": {
+        "red": "#E12228",
+        "redDark": "#C01E23",
+        "yellow": "#FFCC04",
+        "black": "#000000"
+      },
+      "neutrals": {
+        "bg": "#FAFAFA",
+        "surface": "#FFFFFF",
+        "ink": "#1A1A1A",
+        "muted": "#666666",
+        "border": "#E0E0E0",
+        "subtle": "#F5F5F5"
+      },
+      "state": {
+        "info": "#2563EB",
+        "success": "#16A34A",
+        "warning": "#F59E0B",
+        "danger": "#DC2626"
+      },
+      "overlays": {
+        "glassWhite": "rgba(255,255,255,0.95)",
+        "frostWhite": "rgba(255,255,255,0.10)",
+        "scrim": "rgba(0,0,0,0.10)"
+      },
+      "gradients": {
+        "brandSweep": "linear-gradient(135deg, #FFCC04 0%, #E12228 100%)",
+        "placeholder": "linear-gradient(135deg, #e8e8e8 0%, #f5f5f5 100%)"
+      }
+    },
+    "typography": {
+      "fonts": {
+        "headline": "'Dosis', sans-serif",
+        "copy": "'Work Sans', sans-serif",
+        "alt": "'Lato', sans-serif"
+      },
+      "scale": {
+        "xs": "0.75rem",
+        "sm": "0.875rem",
+        "base": "1rem",
+        "lg": "1.125rem",
+        "xl": "1.25rem",
+        "2xl": "1.5rem",
+        "3xl": "1.875rem",
+        "4xl": "2.25rem",
+        "5xl": "3rem",
+        "6xl": "3.75rem",
+        "7xl": "4.5rem"
+      },
+      "weights": {
+        "regular": 400,
+        "semibold": 600,
+        "bold": 700,
+        "extrabold": 800
+      },
+      "lineHeights": {
+        "tight": 1.2,
+        "snug": 1.35,
+        "normal": 1.6
+      },
+      "tracking": {
+        "label": "0.12em",
+        "tight": "-0.01em",
+        "normal": "0"
+      }
+    },
+    "radii": {
+      "sm": "8px",
+      "md": "12px",
+      "lg": "16px",
+      "xl": "20px",
+      "pill": "9999px"
+    },
+    "shadows": {
+      "hairline": "0 1px 3px rgba(0,0,0,0.05)",
+      "card": "0 2px 8px rgba(0,0,0,0.04)",
+      "cardHover": "0 16px 48px rgba(0,0,0,0.12)",
+      "elevated": "0 12px 40px rgba(0,0,0,0.08)"
+    },
+    "spacing": {
+      "xs": "0.5rem",
+      "sm": "0.75rem",
+      "md": "1rem",
+      "lg": "1.5rem",
+      "xl": "2rem",
+      "2xl": "3rem",
+      "3xl": "4.5rem"
+    },
+    "breakpoints": {
+      "sm": "640px",
+      "md": "768px",
+      "lg": "1024px",
+      "xl": "1280px",
+      "2xl": "1536px"
+    }
+  },
+  "semantic": {
+    "text": {
+      "primary": "{foundations.colors.neutrals.ink}",
+      "secondary": "{foundations.colors.neutrals.muted}",
+      "inverse": "{foundations.colors.neutrals.surface}",
+      "brand": "{foundations.colors.brand.red}"
+    },
+    "surface": {
+      "default": "{foundations.colors.neutrals.surface}",
+      "muted": "{foundations.colors.neutrals.subtle}",
+      "brand": "{foundations.colors.brand.black}",
+      "emphasis": "{foundations.colors.brand.red}"
+    },
+    "cta": {
+      "primaryBg": "{foundations.colors.brand.red}",
+      "primaryBgHover": "{foundations.colors.brand.redDark}",
+      "primaryText": "#FFFFFF",
+      "secondaryBg": "#FFFFFF",
+      "secondaryBorder": "{foundations.colors.neutrals.border}",
+      "secondaryText": "{foundations.colors.neutrals.ink}"
+    }
+  },
+  "components": {
+    "button": {
+      "base": {
+        "radius": "{foundations.radii.pill}",
+        "paddingY": "0.875rem",
+        "paddingX": "2rem",
+        "fontWeight": "{foundations.typography.weights.semibold}",
+        "fontSize": "0.95rem",
+        "letterSpacing": "0.3px",
+        "transition": "all 300ms cubic-bezier(0.4, 0, 0.2, 1)"
+      },
+      "variants": {
+        "primary": {
+          "bg": "{semantic.cta.primaryBg}",
+          "text": "{semantic.cta.primaryText}",
+          "hoverBg": "{semantic.cta.primaryBgHover}",
+          "hoverShadow": "{foundations.shadows.cardHover}",
+          "effects": ["scale-105"]
+        },
+        "secondary": {
+          "bg": "{semantic.cta.secondaryBg}",
+          "text": "{semantic.cta.secondaryText}",
+          "border": "2px solid {semantic.cta.secondaryBorder}",
+          "hoverBorder": "{foundations.colors.brand.black}",
+          "effects": ["scale-105"]
+        },
+        "inverse": {
+          "bg": "#FFFFFF",
+          "text": "{foundations.colors.brand.black}"
+        }
+      }
+    },
+    "card": {
+      "bg": "{foundations.colors.neutrals.surface}",
+      "radius": "{foundations.radii.lg}",
+      "padding": "{foundations.spacing.xl}",
+      "shadow": "{foundations.shadows.card}",
+      "hover": {
+        "shadow": "{foundations.shadows.cardHover}",
+        "translateY": "-8px"
+      }
+    },
+    "nav": {
+      "bg": "{foundations.colors.overlays.glassWhite}",
+      "blur": "12px",
+      "height": "56px",
+      "shadow": "{foundations.shadows.hairline}",
+      "link": {
+        "fontWeight": "{foundations.typography.weights.semibold}",
+        "size": "0.875rem",
+        "hoverColor": "{foundations.colors.brand.red}",
+        "underlineActive": true
+      },
+      "ctaGroup": {
+        "donate": "primary",
+        "secondary": "secondary"
+      }
+    },
+    "sectionLabel": {
+      "fontSize": "0.75rem",
+      "letterSpacing": "{foundations.typography.tracking.label}",
+      "weight": "{foundations.typography.weights.bold}",
+      "transform": "uppercase",
+      "color": "#999999"
+    },
+    "statNumber": {
+      "fontSize": "3rem",
+      "fontWeight": "{foundations.typography.weights.extrabold}",
+      "gradient": "{foundations.colors.gradients.brandSweep}"
+    },
+    "statNumberRed": {
+      "fontSize": "3rem",
+      "fontWeight": "{foundations.typography.weights.extrabold}",
+      "color": "{foundations.colors.brand.red}"
+    },
+    "iconCircle": {
+      "size": "64px",
+      "radius": "50%",
+      "bg": "linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%)",
+      "fontSize": "1.75rem"
+    },
+    "placeholderBox": {
+      "bg": "{foundations.colors.gradients.placeholder}",
+      "radius": "{foundations.radii.md}",
+      "shadowHover": "{foundations.shadows.elevated}",
+      "effectsHover": ["translateY(-4px)"],
+      "shimmer": true
+    },
+    "imgPlaceholder": {
+      "gradient": "linear-gradient(135deg, #e8e8e8 25%, #f5f5f5 50%, #e8e8e8 75%)",
+      "animate": "gradient-shift",
+      "radius": "{foundations.radii.md}"
+    },
+    "testimonialDot": {
+      "size": "8px",
+      "radius": "{foundations.radii.pill}",
+      "bg": "rgba(255,255,255,0.3)",
+      "active": {
+        "width": "24px",
+        "radius": "4px",
+        "bg": "#FFFFFF"
+      }
+    },
+    "scrollIndicator": {
+      "outline": "2px solid rgba(0,0,0,0.5)",
+      "radius": "{foundations.radii.pill}",
+      "thumb": "rgba(0,0,0,0.7)"
+    },
+    "sections": {
+      "hero": {
+        "bg": "{foundations.colors.brand.yellow}",
+        "overlay": "{foundations.colors.overlays.scrim}",
+        "titleColor": "{foundations.colors.brand.black}",
+        "copyColor": "rgba(0,0,0,0.8)",
+        "actions": ["primary", "secondary"]
+      },
+      "darkFeature": {
+        "bg": "{foundations.colors.brand.black}",
+        "text": "#FFFFFF",
+        "accent": "{foundations.colors.brand.yellow}",
+        "glassPanels": true
+      },
+      "impact": {
+        "bg": "#FFFFFF",
+        "statStyle": "statNumberRed",
+        "cards": "card"
+      },
+      "ctaBand": {
+        "bg": "{foundations.colors.brand.red}",
+        "text": "#FFFFFF"
+      },
+      "footer": {
+        "bgGradient": "linear-gradient(135deg, #111827, #1F2937, #111827)",
+        "text": "#FFFFFF",
+        "accent": "{foundations.colors.brand.yellow}"
+      }
+    }
+  },
+  "contentGuidelines": {
+    "labels": {
+      "case": "uppercase",
+      "tracking": "{foundations.typography.tracking.label}"
+    },
+    "headings": {
+      "font": "{foundations.typography.fonts.headline}",
+      "weight": "{foundations.typography.weights.bold}",
+      "lineHeight": "{foundations.typography.lineHeights.snug}"
+    },
+    "copy": {
+      "font": "{foundations.typography.fonts.copy}",
+      "lineHeight": "{foundations.typography.lineHeights.normal}"
+    },
+    "tone": [
+      "Use clear, action-first verbs",
+      "Highlight measurable impact",
+      "Keep sentences short to medium length"
+    ]
+  },
+  "llmInstructions": {
+    "use": [
+      "Respect brand colors and typography exactly.",
+      "Prefer unique shapes, soft shadows, and subtle motion.",
+      "Primary CTAs use the primary button variant; secondary actions use the secondary variant.",
+      "When a section has a dark background, invert text to white and use yellow as accent."
+    ],
+    "avoid": [
+      "Harsh neon colors outside the palette",
+      "Excessive animation or more than 2 motion types in one viewport",
+      "Thin gray text on yellow backgrounds (contrast issues)"
+    ],
+    "accessibility": {
+      "minContrast": "AA",
+      "focusVisible": true,
+      "hitTargetMin": "44px"
+    }
+  }
+}
