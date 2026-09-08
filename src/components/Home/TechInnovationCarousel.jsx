@@ -9,40 +9,33 @@ function cn(...inputs) {
 const slides = [
   {
     title: "FPD",
-    // TODO: placeholder copy — replace once the real FPD description is confirmed.
-    description: "A dedicated platform supporting field programme delivery and data management.",
-    badge: "Platform",
     Icon: LayoutDashboard,
     gradient: "from-cyan-500 to-blue-700",
-    // image: "/path/to/fpd-card.jpg",
+    image: "/tech-cards/fpd.jpg",
   },
   {
     title: "MB Pay",
-    description: "Seamless digital payments for programme fees, stipends, and vendor transactions.",
-    badge: "Fintech",
     Icon: Wallet,
     gradient: "from-blue-500 to-indigo-700",
+    image: "/tech-cards/mb-pay.jpg",
   },
   {
     title: "MB Insights",
-    description: "Real-time dashboards that track outreach, outcomes, and programme performance.",
-    badge: "Analytics",
     Icon: BarChart3,
     gradient: "from-emerald-500 to-teal-700",
+    image: "/tech-cards/mb-insights.jpg",
   },
   {
     title: "MB Donor Portal",
-    description: "A dedicated portal for donors to track contributions and see their impact.",
-    badge: "Donor Tech",
     Icon: HeartHandshake,
     gradient: "from-rose-500 to-red-700",
+    image: "/tech-cards/mb-donor-portal.jpg",
   },
   {
     title: "Chatbots",
-    description: "AI-powered chatbots that guide youth and partners through Magic Bus programmes.",
-    badge: "AI",
     Icon: Bot,
     gradient: "from-amber-500 to-orange-700",
+    image: "/tech-cards/chatbots.jpg",
   },
 ];
 
@@ -200,26 +193,30 @@ function Card({ slide, index, total, progress, config }) {
 
       <motion.div style={{ opacity: dimOpacity }} className="absolute inset-0 bg-black pointer-events-none" />
 
-      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+      {!image && (
+        <>
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
 
-      <span className="absolute top-3 right-3 sm:top-5 sm:right-5 lg:top-6 lg:right-6 px-2 sm:px-3 py-0.5 sm:py-1 rounded-full bg-white/95 backdrop-blur-md text-[10px] sm:text-xs font-bold uppercase tracking-widest text-black">
-        {slide.badge}
-      </span>
+          <span className="absolute top-3 right-3 sm:top-5 sm:right-5 lg:top-6 lg:right-6 px-2 sm:px-3 py-0.5 sm:py-1 rounded-full bg-white/95 backdrop-blur-md text-[10px] sm:text-xs font-bold uppercase tracking-widest text-black">
+            {slide.badge}
+          </span>
 
-      <div className="absolute bottom-5 left-3 right-3 sm:bottom-8 sm:left-5 sm:right-5 lg:bottom-10 lg:left-6 lg:right-6 text-white text-center sm:text-left">
-        <motion.p
-          style={{ opacity: textOpacity }}
-          className="text-sm sm:text-lg lg:text-xl font-bold leading-tight mb-0.5 sm:mb-1 drop-shadow-md"
-        >
-          {slide.title}
-        </motion.p>
-        <motion.p
-          style={{ opacity: textOpacity }}
-          className="hidden sm:block text-xs text-white/70 line-clamp-2 italic font-medium"
-        >
-          {slide.description}
-        </motion.p>
-      </div>
+          <div className="absolute bottom-5 left-3 right-3 sm:bottom-8 sm:left-5 sm:right-5 lg:bottom-10 lg:left-6 lg:right-6 text-white text-center sm:text-left">
+            <motion.p
+              style={{ opacity: textOpacity }}
+              className="text-sm sm:text-lg lg:text-xl font-bold leading-tight mb-0.5 sm:mb-1 drop-shadow-md"
+            >
+              {slide.title}
+            </motion.p>
+            <motion.p
+              style={{ opacity: textOpacity }}
+              className="hidden sm:block text-xs text-white/70 line-clamp-2 italic font-medium"
+            >
+              {slide.description}
+            </motion.p>
+          </div>
+        </>
+      )}
     </motion.div>
   );
 }
