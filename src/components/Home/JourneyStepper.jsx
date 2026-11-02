@@ -180,7 +180,7 @@ export default function JourneyZigzagAnimated() {
             transition={{ duration: 0.6, ease: EASE_EXPO, delay: 0.4 }}
           >
             <motion.a
-              href="#"
+              href="/our-approach"
               whileHover={{ scale: 1.04, y: -2 }}
               whileTap={{ scale: 0.97 }}
               transition={{ type: "spring", stiffness: 300, damping: 18 }}
