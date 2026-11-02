@@ -182,6 +182,7 @@ const STAGES = [
 
 const CX = 350;
 const CY = 350;
+const NODE_R = 305;
 
 const canHover = () =>
   typeof window !== "undefined" && window.matchMedia && window.matchMedia("(hover: hover) and (pointer: fine)").matches;
@@ -223,13 +224,6 @@ export default function EnablingEcosystemWheel() {
   const info = DATA[activeId];
   const meta = META[activeId];
   const isPreview = hovered && hovered !== pinned;
-  const glow = (id) =>
-    pinned === id
-      ? "drop-shadow(0 0 7px rgba(225,34,40,0.6))"
-      : hovered === id
-        ? "drop-shadow(0 0 8px rgba(37,99,235,0.55))"
-        : "none";
-
   const props = (id) => ({
     role: "button",
     tabIndex: 0,
@@ -245,35 +239,94 @@ export default function EnablingEcosystemWheel() {
         setPinned(id);
       }
     },
-    style: { cursor: "pointer", outline: "none", filter: glow(id), transition: "filter .2s" },
+    style: { cursor: "pointer", outline: "none" },
   });
 
-  const ring = (id, r1, r2, a0, a1, lines, size) => {
-    const [lx, ly] = pt((r1 + r2) / 2, (a0 + a1) / 2);
+  const [govtX, govtY] = pt(NODE_R, -45);
+  const [commX, commY] = pt(NODE_R, 45);
+  const [partX, partY] = pt(NODE_R, 135);
+  const [schoolX, schoolY] = pt(NODE_R, -135);
+
+  const SHAPES = [
+    { id: "social", kind: "ring", r1: 72, r2: 160, a0: 0, a1: 120, lines: ["Social"], size: 22 },
+    { id: "emotional", kind: "ring", r1: 72, r2: 160, a0: 120, a1: 240, lines: ["Emotional"], size: 22 },
+    { id: "cognitive", kind: "ring", r1: 72, r2: 160, a0: 240, a1: 360, lines: ["Cognitive"], size: 22 },
+    { id: "future", kind: "ring", r1: 168, r2: 264, a0: -45, a1: 45, lines: ["Future", "Skills"], size: 21 },
+    { id: "academic", kind: "ring", r1: 168, r2: 264, a0: 45, a1: 135, lines: ["Academic", "Domain"], size: 18 },
+    { id: "sports", kind: "ring", r1: 168, r2: 264, a0: 135, a1: 225, lines: ["Sports", "Domain"], size: 21 },
+    { id: "wellbeing", kind: "ring", r1: 168, r2: 264, a0: 225, a1: 315, lines: ["Well-being", "& Safety"], size: 16.5 },
+    { id: "hub", kind: "hub" },
+    { id: "govt", kind: "node", x: govtX, y: govtY, Icon: Landmark, lines: ["Government", "System"], above: true },
+    { id: "community", kind: "node", x: commX, y: commY, Icon: Users, lines: ["Community", "System"], above: true },
+    { id: "partners", kind: "node", x: partX, y: partY, Icon: Handshake, lines: ["Partner", "Organisations"], above: false },
+    { id: "school", kind: "node", x: schoolX, y: schoolY, Icon: School, lines: ["School Leadership", "& Teachers"], above: false },
+  ];
+
+  const originOf = (sh) => {
+    if (sh.kind === "ring") return pt((sh.r1 + sh.r2) / 2, (sh.a0 + sh.a1) / 2);
+    if (sh.kind === "node") return [sh.x, sh.y];
+    return [CX, CY];
+  };
+
+  const body = (sh) => {
+    if (sh.kind === "ring") {
+      const [lx, ly] = originOf(sh);
+      return (
+        <>
+          <path d={sector(sh.r1, sh.r2, sh.a0, sh.a1)} fill={DATA[sh.id].color} stroke="#fff" strokeWidth={3} />
+          <Lines x={lx} y={ly} lines={sh.lines} size={sh.size} color={DATA[sh.id].text || "#fff"} />
+        </>
+      );
+    }
+    if (sh.kind === "hub") {
+      return (
+        <>
+          <circle cx={CX} cy={CY} r={66} fill="#fff" stroke="#e2e8f0" strokeWidth={3} />
+          <Lines x={CX} y={CY} lines={["Well-being,", "Empowerment", "& Gender", "Equity"]} size={14} color="#334155" />
+        </>
+      );
+    }
     return (
-      <g key={id} {...props(id)}>
-        <path d={sector(r1, r2, a0, a1)} fill={DATA[id].color} stroke="#fff" strokeWidth={3} />
-        <Lines x={lx} y={ly} lines={lines} size={size} color={DATA[id].text || "#fff"} />
+      <>
+        <circle cx={sh.x} cy={sh.y} r={36} fill={DATA[sh.id].color} stroke="#fff" strokeWidth={3} />
+        <sh.Icon x={sh.x - 17} y={sh.y - 17} width={34} height={34} color="#fff" strokeWidth={1.8} />
+        <Lines x={sh.x} y={sh.above ? sh.y - 62 : sh.y + 62} lines={sh.lines} size={17} color="#1f2937" />
+      </>
+    );
+  };
+
+  // Enlarged copy drawn on top so a hovered piece can grow without being hidden by its neighbours.
+  const overlay = (id) => {
+    const sh = SHAPES.find((x) => x.id === id);
+    const [ox, oy] = originOf(sh);
+    const isPinned = pinned === id;
+    const scale = hovered === id ? (sh.kind === "node" ? 1.14 : 1.07) : 1.04;
+    return (
+      <g
+        key={`ov-${id}-${isPinned ? "p" : "h"}`}
+        aria-hidden="true"
+        pointerEvents="none"
+        style={{
+          "--s": scale,
+          transformOrigin: `${ox}px ${oy}px`,
+          transformBox: "view-box",
+          animation: "eewPop .18s ease-out forwards",
+          filter: isPinned ? "drop-shadow(0 0 8px rgba(225,34,40,0.6))" : "drop-shadow(0 0 9px rgba(37,99,235,0.55))",
+        }}
+      >
+        {body(sh)}
       </g>
     );
   };
 
-  const node = (id, deg, Icon, lines, above) => {
-    const [x, y] = pt(300, deg);
-    return (
-      <g key={id} {...props(id)}>
-        <circle cx={x} cy={y} r={34} fill={DATA[id].color} stroke="#fff" strokeWidth={3} />
-        <Icon x={x - 16} y={y - 16} width={32} height={32} color="#fff" strokeWidth={1.8} />
-        <Lines x={x} y={above ? y - 58 : y + 58} lines={lines} size={14} color="#1f2937" />
-      </g>
-    );
-  };
+  const overlayIds = [...new Set([pinned, hovered].filter(Boolean))];
 
   const chips = ["cognitive", "social", "emotional", "future", "academic", "sports", "wellbeing", "hub"];
 
   return (
     <section id="ecosystem" className="py-14 bg-slate-50">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+      <style>{"@keyframes eewPop{from{transform:scale(1)}to{transform:scale(var(--s))}}"}</style>
+      <div className="max-w-[1400px] mx-auto px-4 lg:px-8">
         <div className="text-center mb-10">
           <p className="text-xs font-bold uppercase tracking-widest text-brand-red">Childhood to Livelihood - Holistic Pedagogy</p>
           <h2 className="mt-2 text-2xl md:text-4xl font-extrabold text-brand-black">The Enabling Ecosystem &amp; Life Skills Wheel</h2>
@@ -282,36 +335,24 @@ export default function EnablingEcosystemWheel() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10 items-start">
-          <div className="rounded-3xl bg-white border shadow-sm p-4">
+        <div className="grid grid-cols-1 md:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] gap-6 lg:gap-8 items-start">
+          <div className="rounded-3xl bg-white border shadow-sm p-2 md:p-4">
             <svg
               viewBox="0 0 700 700"
-              className="w-full max-w-[620px] mx-auto h-auto"
+              className="w-full h-auto"
               role="group"
               aria-label="Enabling Ecosystem wheel"
               onMouseLeave={() => setHovered(null)}
             >
-              <circle cx={CX} cy={CY} r={300} fill="none" stroke="#94a3b8" strokeWidth={2} strokeDasharray="6 8" />
-
-              {ring("social", 64, 152, 0, 120, ["Social"], 17)}
-              {ring("emotional", 64, 152, 120, 240, ["Emotional"], 17)}
-              {ring("cognitive", 64, 152, 240, 360, ["Cognitive"], 17)}
-
-              {ring("future", 160, 246, -45, 45, ["Future", "Skills"], 17)}
-              {ring("academic", 160, 246, 45, 135, ["Academic", "Domain"], 15)}
-              {ring("sports", 160, 246, 135, 225, ["Sports", "Domain"], 17)}
-              {ring("wellbeing", 160, 246, 225, 315, ["Well-being", "& Safety"], 14)}
-
-              <g {...props("hub")}>
-                <circle cx={CX} cy={CY} r={58} fill="#fff" stroke="#e2e8f0" strokeWidth={3} />
-                <Lines x={CX} y={CY} lines={["Well-being,", "Empowerment", "& Gender", "Equity"]} size={11} color="#334155" />
-              </g>
-
-              {node("govt", -45, Landmark, ["Government", "System"], true)}
-              {node("community", 45, Users, ["Community", "System"], true)}
-              {node("partners", 135, Handshake, ["Partner", "Organisations"], false)}
-              {node("school", -135, School, ["School Leadership", "& Teachers"], false)}
+              <circle cx={CX} cy={CY} r={NODE_R} fill="none" stroke="#94a3b8" strokeWidth={2} strokeDasharray="6 8" />
+              {SHAPES.map((sh) => (
+                <g key={sh.id} {...props(sh.id)}>
+                  {body(sh)}
+                </g>
+              ))}
+              {overlayIds.map(overlay)}
             </svg>
+          </div>
           </div>
 
           <div className="md:sticky md:top-32 space-y-4">
