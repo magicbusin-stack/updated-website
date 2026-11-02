@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Landmark, Users, School, Handshake } from "lucide-react";
+import { Landmark, Users, School, Handshake, Brain, Smile, Rocket, BookOpen, Trophy, ShieldPlus, Heart, ListChecks } from "lucide-react";
 
 // DRAFT COPY: descriptions come from a Stitch design mock-up and must be confirmed
 // by the programme team before publishing. Statistics were deliberately left out.
@@ -155,6 +155,24 @@ const DATA = {
   },
 };
 
+// Icon and readable dark text colour for each item (used in the info panel).
+// To show Stitch-style stat cards, add  stats: [["Label", "Value", "Description"], ...]  to an item
+// in DATA above, using ONLY figures the programme team has confirmed.
+const META = {
+  cognitive: { Icon: Brain, ink: "#1D4ED8", chip: "Cognitive" },
+  social: { Icon: Users, ink: "#B45309", chip: "Social" },
+  emotional: { Icon: Smile, ink: "#4D7C0F", chip: "Emotional" },
+  future: { Icon: Rocket, ink: "#0F766E", chip: "Future Skills" },
+  academic: { Icon: BookOpen, ink: "#C2410C", chip: "Academics" },
+  sports: { Icon: Trophy, ink: "#B91C1C", chip: "Sports (S4E)" },
+  wellbeing: { Icon: ShieldPlus, ink: "#047857", chip: "Well-being" },
+  hub: { Icon: Heart, ink: "#B91C1C", chip: "Centre Core" },
+  govt: { Icon: Landmark, ink: "#1E293B" },
+  school: { Icon: School, ink: "#C2410C" },
+  community: { Icon: Users, ink: "#166534" },
+  partners: { Icon: Handshake, ink: "#4338CA" },
+};
+
 const STAGES = [
   { id: "explorer", name: "Explorer", grades: "Grades 5 - 6", desc: "Sparking curiosity through guided playground activities, peer discovery and emotional expression.", mantra: "Play - Ask - Discover" },
   { id: "learner", name: "Learner", grades: "Grades 7 - 8", desc: "Deepening active listening, classroom habits, resilience and personal accountability.", mantra: "Listen - Learn - Explore" },
@@ -203,6 +221,7 @@ export default function EnablingEcosystemWheel() {
   const [hovered, setHovered] = useState(null);
   const activeId = hovered || pinned;
   const info = DATA[activeId];
+  const meta = META[activeId];
   const isPreview = hovered && hovered !== pinned;
   const dim = (id) => (activeId === id ? 1 : 0.6);
 
@@ -292,52 +311,98 @@ export default function EnablingEcosystemWheel() {
             </svg>
           </div>
 
-          <div className="md:sticky md:top-32">
-            <div className="rounded-3xl border bg-white shadow-lg p-6 md:p-7" style={{ borderTop: `6px solid ${info.color}` }}>
+          <div className="md:sticky md:top-32 space-y-4">
+            <div className="relative overflow-hidden rounded-2xl border border-slate-200/70 bg-white p-6 shadow-sm">
+              <div className="absolute inset-x-0 top-0 h-1.5 transition-colors" style={{ background: info.color }} />
+              <div className="flex items-start justify-between gap-3 pt-1">
+                <div className="space-y-1.5">
+                  <div className="flex flex-wrap items-center gap-2">
+                    <span className="rounded-full px-2.5 py-0.5 text-[11px] font-bold" style={{ background: `${info.color}1A`, color: meta.ink }}>
+                      {info.category}
+                    </span>
+                    <span className="text-[11px] font-semibold text-slate-500">{info.layer}</span>
+                    <span className="inline-flex items-center gap-1.5 rounded-full bg-slate-100 px-2 py-0.5 text-[11px] font-semibold text-slate-600">
+                      <span className={`h-2 w-2 rounded-full ${isPreview ? "bg-emerald-500 animate-pulse" : "bg-slate-400"}`} />
+                      {isPreview ? "Hovered live" : "Pinned"}
+                    </span>
+                  </div>
+                  <h3 className="text-xl md:text-2xl font-semibold tracking-tight text-slate-900">{info.title}</h3>
+                </div>
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl shadow-sm" style={{ background: `${info.color}1A`, color: info.color }}>
+                  <meta.Icon className="h-6 w-6" />
+                </div>
+              </div>
+              <p className="mt-4 text-[15px] leading-6 text-slate-600">{info.desc}</p>
+            </div>
+
+            <div className="space-y-3 rounded-2xl border border-slate-200/70 bg-white p-6 shadow-sm">
               <div className="flex items-center justify-between gap-3">
-                <span className="text-xs font-bold uppercase tracking-wide" style={{ color: info.color }}>
-                  {info.category} - {info.layer}
-                </span>
-                <span className={`text-[11px] font-bold px-2 py-0.5 rounded-full ${isPreview ? "bg-gray-100 text-gray-600" : "bg-black text-white"}`}>
-                  {isPreview ? "Preview" : "Pinned"}
+                <h4 className="flex items-center gap-2 text-base font-semibold text-slate-900">
+                  <ListChecks className="h-5 w-5 text-brand-red" />
+                  Core Competencies &amp; Modules
+                </h4>
+                <span className="rounded bg-slate-100 px-2 py-0.5 text-[11px] font-bold text-slate-700">
+                  {info.modules.length} Components
                 </span>
               </div>
-              <h3 className="mt-3 text-xl md:text-2xl font-bold text-gray-900">{info.title}</h3>
-              <p className="mt-2 text-gray-600 leading-relaxed text-sm md:text-base">{info.desc}</p>
-
-              <h4 className="mt-5 text-sm font-bold text-gray-900">
-                Core competencies &amp; modules <span className="text-gray-400 font-medium">({info.modules.length})</span>
-              </h4>
-              <ol className="mt-3 space-y-2">
+              <ol className="flex flex-col gap-2">
                 {info.modules.map(([name, text], i) => (
-                  <li key={name} className="flex gap-3 rounded-xl bg-slate-50 p-3">
-                    <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-white border text-xs font-bold text-gray-700">{i + 1}</span>
+                  <li key={name} className="flex items-start gap-3 rounded-lg bg-slate-50 p-3">
+                    <span
+                      className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-xs font-bold"
+                      style={{ background: `${info.color}1A`, color: meta.ink }}
+                    >
+                      {i + 1}
+                    </span>
                     <div>
-                      <p className="font-semibold text-gray-900 text-sm">{name}</p>
-                      <p className="text-gray-600 text-sm leading-snug">{text}</p>
+                      <p className="text-sm font-semibold text-slate-900">{name}</p>
+                      <p className="text-sm leading-snug text-slate-600">{text}</p>
                     </div>
                   </li>
                 ))}
               </ol>
             </div>
 
-            <div className="mt-4 flex flex-wrap gap-2" aria-label="Choose a domain">
-              {chips.map((id) => (
-                <button
-                  key={id}
-                  type="button"
-                  onClick={() => setPinned(id)}
-                  onMouseEnter={() => canHover() && setHovered(id)}
-                  onMouseLeave={() => setHovered(null)}
-                  aria-pressed={pinned === id}
-                  className={`px-3 py-1.5 rounded-full text-xs font-semibold border transition ${
-                    activeId === id ? "text-white border-transparent" : "bg-white text-gray-700 hover:bg-gray-50"
-                  }`}
-                  style={activeId === id ? { background: DATA[id].color } : undefined}
-                >
-                  {id === "hub" ? "Centre" : DATA[id].title.replace(" Competencies", "").replace(" Domain", "").replace(" (S4E)", "")}
-                </button>
-              ))}
+            {info.stats && (
+              <div className="grid grid-cols-2 gap-3">
+                {info.stats.map(([label, value, text]) => (
+                  <div key={label} className="rounded-xl border border-slate-200/70 bg-white p-4 shadow-sm">
+                    <p className="text-[10px] font-bold uppercase tracking-wider text-slate-500">{label}</p>
+                    <p className="mt-1 text-2xl font-bold text-brand-red">{value}</p>
+                    <p className="mt-1 text-xs leading-snug text-slate-600">{text}</p>
+                  </div>
+                ))}
+              </div>
+            )}
+
+            <div className="rounded-2xl border border-slate-200/70 bg-white p-4 shadow-sm">
+              <div className="flex items-center justify-between">
+                <p className="text-[10px] font-bold uppercase tracking-wider text-slate-500">Inspect other domains</p>
+                <p className="text-[10px] text-slate-400">Hover to preview</p>
+              </div>
+              <div className="mt-3 flex flex-wrap gap-2" aria-label="Choose a domain">
+                {chips.map((id) => {
+                  const on = activeId === id;
+                  return (
+                    <button
+                      key={id}
+                      type="button"
+                      onClick={() => setPinned(id)}
+                      onMouseEnter={() => canHover() && setHovered(id)}
+                      onMouseLeave={() => setHovered(null)}
+                      aria-pressed={pinned === id}
+                      className="rounded-full border px-3 py-1 text-xs font-semibold transition"
+                      style={
+                        on
+                          ? { background: DATA[id].color, color: "#fff", borderColor: DATA[id].color }
+                          : { background: `${DATA[id].color}14`, color: META[id].ink, borderColor: `${DATA[id].color}33` }
+                      }
+                    >
+                      {META[id].chip}
+                    </button>
+                  );
+                })}
+              </div>
             </div>
           </div>
         </div>
