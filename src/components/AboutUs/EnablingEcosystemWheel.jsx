@@ -353,7 +353,6 @@ export default function EnablingEcosystemWheel() {
               {overlayIds.map(overlay)}
             </svg>
           </div>
-          </div>
 
           <div className="md:sticky md:top-32 space-y-4">
             <div className="relative overflow-hidden rounded-2xl border border-slate-200/70 bg-white p-6 shadow-sm">
