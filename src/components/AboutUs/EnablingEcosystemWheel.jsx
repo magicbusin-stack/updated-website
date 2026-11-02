@@ -223,7 +223,12 @@ export default function EnablingEcosystemWheel() {
   const info = DATA[activeId];
   const meta = META[activeId];
   const isPreview = hovered && hovered !== pinned;
-  const dim = (id) => (activeId === id ? 1 : 0.6);
+  const glow = (id) =>
+    pinned === id
+      ? "drop-shadow(0 0 7px rgba(225,34,40,0.6))"
+      : hovered === id
+        ? "drop-shadow(0 0 8px rgba(37,99,235,0.55))"
+        : "none";
 
   const props = (id) => ({
     role: "button",
@@ -240,15 +245,14 @@ export default function EnablingEcosystemWheel() {
         setPinned(id);
       }
     },
-    style: { cursor: "pointer", outline: "none", opacity: dim(id), transition: "opacity .2s" },
+    style: { cursor: "pointer", outline: "none", filter: glow(id), transition: "filter .2s" },
   });
 
   const ring = (id, r1, r2, a0, a1, lines, size) => {
     const [lx, ly] = pt((r1 + r2) / 2, (a0 + a1) / 2);
-    const on = activeId === id;
     return (
       <g key={id} {...props(id)}>
-        <path d={sector(r1, r2, a0, a1)} fill={DATA[id].color} stroke={on ? "#111" : "#fff"} strokeWidth={on ? 4 : 2} />
+        <path d={sector(r1, r2, a0, a1)} fill={DATA[id].color} stroke="#fff" strokeWidth={3} />
         <Lines x={lx} y={ly} lines={lines} size={size} color={DATA[id].text || "#fff"} />
       </g>
     );
@@ -256,10 +260,9 @@ export default function EnablingEcosystemWheel() {
 
   const node = (id, deg, Icon, lines, above) => {
     const [x, y] = pt(300, deg);
-    const on = activeId === id;
     return (
       <g key={id} {...props(id)}>
-        <circle cx={x} cy={y} r={34} fill={DATA[id].color} stroke={on ? "#111" : "#fff"} strokeWidth={on ? 4 : 3} />
+        <circle cx={x} cy={y} r={34} fill={DATA[id].color} stroke="#fff" strokeWidth={3} />
         <Icon x={x - 16} y={y - 16} width={32} height={32} color="#fff" strokeWidth={1.8} />
         <Lines x={x} y={above ? y - 58 : y + 58} lines={lines} size={14} color="#1f2937" />
       </g>
@@ -300,7 +303,7 @@ export default function EnablingEcosystemWheel() {
               {ring("wellbeing", 160, 246, 225, 315, ["Well-being", "& Safety"], 14)}
 
               <g {...props("hub")}>
-                <circle cx={CX} cy={CY} r={58} fill="#fff" stroke={activeId === "hub" ? "#111" : "#cbd5e1"} strokeWidth={activeId === "hub" ? 4 : 2} />
+                <circle cx={CX} cy={CY} r={58} fill="#fff" stroke="#e2e8f0" strokeWidth={3} />
                 <Lines x={CX} y={CY} lines={["Well-being,", "Empowerment", "& Gender", "Equity"]} size={11} color="#334155" />
               </g>
 
