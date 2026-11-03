@@ -180,9 +180,9 @@ const STAGES = [
   { id: "collaborator", name: "Collaborator", grades: "Grades 10 - 12", desc: "Negotiation, group work, career stream selection, digital literacy and community action.", mantra: "Debate - Adapt - Connect" },
 ];
 
-const CX = 350;
-const CY = 350;
-const NODE_R = 305;
+const CX = 370;
+const CY = 370;
+const NODE_R = 318;
 
 const canHover = () =>
   typeof window !== "undefined" && window.matchMedia && window.matchMedia("(hover: hover) and (pointer: fine)").matches;
@@ -248,13 +248,13 @@ export default function EnablingEcosystemWheel() {
   const [schoolX, schoolY] = pt(NODE_R, -135);
 
   const SHAPES = [
-    { id: "social", kind: "ring", r1: 72, r2: 160, a0: 0, a1: 120, lines: ["Social"], size: 22 },
-    { id: "emotional", kind: "ring", r1: 72, r2: 160, a0: 120, a1: 240, lines: ["Emotional"], size: 22 },
-    { id: "cognitive", kind: "ring", r1: 72, r2: 160, a0: 240, a1: 360, lines: ["Cognitive"], size: 22 },
-    { id: "future", kind: "ring", r1: 168, r2: 264, a0: -45, a1: 45, lines: ["Future", "Skills"], size: 21 },
-    { id: "academic", kind: "ring", r1: 168, r2: 264, a0: 45, a1: 135, lines: ["Academic", "Domain"], size: 18 },
-    { id: "sports", kind: "ring", r1: 168, r2: 264, a0: 135, a1: 225, lines: ["Sports", "Domain"], size: 21 },
-    { id: "wellbeing", kind: "ring", r1: 168, r2: 264, a0: 225, a1: 315, lines: ["Well-being", "& Safety"], size: 16.5 },
+    { id: "social", kind: "ring", r1: 70, r2: 170, a0: 0, a1: 120, lines: ["Social"], size: 20 },
+    { id: "emotional", kind: "ring", r1: 70, r2: 170, a0: 120, a1: 240, lines: ["Emotional"], size: 20 },
+    { id: "cognitive", kind: "ring", r1: 70, r2: 170, a0: 240, a1: 360, lines: ["Cognitive"], size: 20 },
+    { id: "future", kind: "ring", r1: 178, r2: 272, a0: -45, a1: 45, lines: ["Future", "Skills"], size: 22 },
+    { id: "academic", kind: "ring", r1: 178, r2: 272, a0: 45, a1: 135, lines: ["Academic", "Domain"], size: 19 },
+    { id: "sports", kind: "ring", r1: 178, r2: 272, a0: 135, a1: 225, lines: ["Sports", "Domain"], size: 22 },
+    { id: "wellbeing", kind: "ring", r1: 178, r2: 272, a0: 225, a1: 315, lines: ["Well-being", "& Safety"], size: 16 },
     { id: "hub", kind: "hub" },
     { id: "govt", kind: "node", x: govtX, y: govtY, Icon: Landmark, lines: ["Government", "System"], above: true },
     { id: "community", kind: "node", x: commX, y: commY, Icon: Users, lines: ["Community", "System"], above: true },
@@ -268,7 +268,7 @@ export default function EnablingEcosystemWheel() {
     return [CX, CY];
   };
 
-  const body = (sh) => {
+  const body = (sh, withLabels = true) => {
     if (sh.kind === "ring") {
       const [lx, ly] = originOf(sh);
       return (
@@ -288,9 +288,9 @@ export default function EnablingEcosystemWheel() {
     }
     return (
       <>
-        <circle cx={sh.x} cy={sh.y} r={36} fill={DATA[sh.id].color} stroke="#fff" strokeWidth={3} />
-        <sh.Icon x={sh.x - 17} y={sh.y - 17} width={34} height={34} color="#fff" strokeWidth={1.8} />
-        <Lines x={sh.x} y={sh.above ? sh.y - 62 : sh.y + 62} lines={sh.lines} size={17} color="#1f2937" />
+        <circle cx={sh.x} cy={sh.y} r={38} fill={DATA[sh.id].color} stroke="#fff" strokeWidth={3} />
+        <sh.Icon x={sh.x - 18} y={sh.y - 18} width={36} height={36} color="#fff" strokeWidth={1.8} />
+        {withLabels && <Lines x={sh.x} y={sh.above ? sh.y - 66 : sh.y + 66} lines={sh.lines} size={18} color="#1f2937" />}
       </>
     );
   };
@@ -314,19 +314,17 @@ export default function EnablingEcosystemWheel() {
           filter: isPinned ? "drop-shadow(0 0 8px rgba(225,34,40,0.6))" : "drop-shadow(0 0 9px rgba(37,99,235,0.55))",
         }}
       >
-        {body(sh)}
+        {body(sh, false)}
       </g>
     );
   };
 
   const overlayIds = [...new Set([pinned, hovered].filter(Boolean))];
 
-  const chips = ["cognitive", "social", "emotional", "future", "academic", "sports", "wellbeing", "hub"];
-
   return (
     <section id="ecosystem" className="py-14 bg-slate-50">
       <style>{"@keyframes eewPop{from{transform:scale(1)}to{transform:scale(var(--s))}}"}</style>
-      <div className="max-w-[1400px] mx-auto px-4 lg:px-8">
+      <div className="max-w-[1500px] mx-auto px-4 lg:px-8">
         <div className="text-center mb-10">
           <p className="text-xs font-bold uppercase tracking-widest text-brand-red">Childhood to Livelihood - Holistic Pedagogy</p>
           <h2 className="mt-2 text-2xl md:text-4xl font-extrabold text-brand-black">The Enabling Ecosystem &amp; Life Skills Wheel</h2>
@@ -335,10 +333,10 @@ export default function EnablingEcosystemWheel() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] gap-6 lg:gap-8 items-start">
+        <div className="grid grid-cols-1 md:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)] gap-6 lg:gap-8 items-start">
           <div className="rounded-3xl bg-white border shadow-sm p-2 md:p-4">
             <svg
-              viewBox="0 0 700 700"
+              viewBox="0 0 740 740"
               className="w-full h-auto"
               role="group"
               aria-label="Enabling Ecosystem wheel"
@@ -360,31 +358,31 @@ export default function EnablingEcosystemWheel() {
               <div className="flex items-start justify-between gap-3 pt-1">
                 <div className="space-y-1.5">
                   <div className="flex flex-wrap items-center gap-2">
-                    <span className="rounded-full px-2.5 py-0.5 text-[11px] font-bold" style={{ background: `${info.color}1A`, color: meta.ink }}>
+                    <span className="rounded-full px-2.5 py-0.5 text-xs font-bold" style={{ background: `${info.color}1A`, color: meta.ink }}>
                       {info.category}
                     </span>
-                    <span className="text-[11px] font-semibold text-slate-500">{info.layer}</span>
-                    <span className="inline-flex items-center gap-1.5 rounded-full bg-slate-100 px-2 py-0.5 text-[11px] font-semibold text-slate-600">
+                    <span className="text-xs font-semibold text-slate-500">{info.layer}</span>
+                    <span className="inline-flex items-center gap-1.5 rounded-full bg-slate-100 px-2 py-0.5 text-xs font-semibold text-slate-600">
                       <span className={`h-2 w-2 rounded-full ${isPreview ? "bg-emerald-500 animate-pulse" : "bg-slate-400"}`} />
                       {isPreview ? "Hovered live" : "Pinned"}
                     </span>
                   </div>
-                  <h3 className="text-xl md:text-2xl font-semibold tracking-tight text-slate-900">{info.title}</h3>
+                  <h3 className="text-2xl md:text-3xl font-semibold tracking-tight text-slate-900">{info.title}</h3>
                 </div>
                 <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl shadow-sm" style={{ background: `${info.color}1A`, color: info.color }}>
                   <meta.Icon className="h-6 w-6" />
                 </div>
               </div>
-              <p className="mt-4 text-[15px] leading-6 text-slate-600">{info.desc}</p>
+              <p className="mt-4 text-base md:text-[17px] leading-7 text-slate-600">{info.desc}</p>
             </div>
 
             <div className="space-y-3 rounded-2xl border border-slate-200/70 bg-white p-6 shadow-sm">
               <div className="flex items-center justify-between gap-3">
-                <h4 className="flex items-center gap-2 text-base font-semibold text-slate-900">
+                <h4 className="flex items-center gap-2 text-lg font-semibold text-slate-900">
                   <ListChecks className="h-5 w-5 text-brand-red" />
                   Core Competencies &amp; Modules
                 </h4>
-                <span className="rounded bg-slate-100 px-2 py-0.5 text-[11px] font-bold text-slate-700">
+                <span className="rounded bg-slate-100 px-2 py-0.5 text-xs font-bold text-slate-700">
                   {info.modules.length} Components
                 </span>
               </div>
@@ -392,14 +390,14 @@ export default function EnablingEcosystemWheel() {
                 {info.modules.map(([name, text], i) => (
                   <li key={name} className="flex items-start gap-3 rounded-lg bg-slate-50 p-3">
                     <span
-                      className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-xs font-bold"
+                      className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-sm font-bold"
                       style={{ background: `${info.color}1A`, color: meta.ink }}
                     >
                       {i + 1}
                     </span>
                     <div>
-                      <p className="text-sm font-semibold text-slate-900">{name}</p>
-                      <p className="text-sm leading-snug text-slate-600">{text}</p>
+                      <p className="text-base font-semibold text-slate-900">{name}</p>
+                      <p className="text-[15px] leading-snug text-slate-600">{text}</p>
                     </div>
                   </li>
                 ))}
@@ -417,36 +415,6 @@ export default function EnablingEcosystemWheel() {
                 ))}
               </div>
             )}
-
-            <div className="rounded-2xl border border-slate-200/70 bg-white p-4 shadow-sm">
-              <div className="flex items-center justify-between">
-                <p className="text-[10px] font-bold uppercase tracking-wider text-slate-500">Inspect other domains</p>
-                <p className="text-[10px] text-slate-400">Hover to preview</p>
-              </div>
-              <div className="mt-3 flex flex-wrap gap-2" aria-label="Choose a domain">
-                {chips.map((id) => {
-                  const on = activeId === id;
-                  return (
-                    <button
-                      key={id}
-                      type="button"
-                      onClick={() => setPinned(id)}
-                      onMouseEnter={() => canHover() && setHovered(id)}
-                      onMouseLeave={() => setHovered(null)}
-                      aria-pressed={pinned === id}
-                      className="rounded-full border px-3 py-1 text-xs font-semibold transition"
-                      style={
-                        on
-                          ? { background: DATA[id].color, color: "#fff", borderColor: DATA[id].color }
-                          : { background: `${DATA[id].color}14`, color: META[id].ink, borderColor: `${DATA[id].color}33` }
-                      }
-                    >
-                      {META[id].chip}
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
           </div>
         </div>
 
