@@ -352,52 +352,65 @@ export default function EnablingEcosystemWheel() {
             </svg>
           </div>
 
-          <div className="md:sticky md:top-32 space-y-4">
-            <div className="relative overflow-hidden rounded-2xl border border-slate-200/70 bg-white p-6 shadow-sm">
-              <div className="absolute inset-x-0 top-0 h-1.5 transition-colors" style={{ background: info.color }} />
-              <div className="flex items-start justify-between gap-3 pt-1">
-                <div className="space-y-1.5">
+          <div className="md:sticky md:top-32 space-y-5">
+            <div
+              className="relative overflow-hidden rounded-3xl border p-6 md:p-8 shadow-md transition-colors"
+              style={{ background: `linear-gradient(135deg, ${info.color}26 0%, #ffffff 65%)`, borderColor: `${info.color}55` }}
+            >
+              <div className="absolute inset-x-0 top-0 h-2 transition-colors" style={{ background: info.color }} />
+              <div className="flex items-start justify-between gap-4 pt-1">
+                <div className="space-y-3">
                   <div className="flex flex-wrap items-center gap-2">
-                    <span className="rounded-full px-2.5 py-0.5 text-xs font-bold" style={{ background: `${info.color}1A`, color: meta.ink }}>
+                    <span className="rounded-full px-3 py-1 text-xs md:text-sm font-bold" style={{ background: info.color, color: info.text || "#fff" }}>
                       {info.category}
                     </span>
-                    <span className="text-xs font-semibold text-slate-500">{info.layer}</span>
-                    <span className="inline-flex items-center gap-1.5 rounded-full bg-slate-100 px-2 py-0.5 text-xs font-semibold text-slate-600">
+                    <span className="text-xs md:text-sm font-semibold text-slate-600">{info.layer}</span>
+                    <span className="inline-flex items-center gap-1.5 rounded-full bg-white/80 px-2.5 py-1 text-xs md:text-sm font-semibold text-slate-700 shadow-sm">
                       <span className={`h-2 w-2 rounded-full ${isPreview ? "bg-emerald-500 animate-pulse" : "bg-slate-400"}`} />
                       {isPreview ? "Hovered live" : "Pinned"}
                     </span>
                   </div>
-                  <h3 className="text-2xl md:text-3xl font-semibold tracking-tight text-slate-900">{info.title}</h3>
+                  <h3 className="text-3xl md:text-4xl font-bold leading-tight tracking-tight text-slate-900">{info.title}</h3>
                 </div>
-                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl shadow-sm" style={{ background: `${info.color}1A`, color: info.color }}>
-                  <meta.Icon className="h-6 w-6" />
+                <div
+                  className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl shadow-md"
+                  style={{ background: info.color, color: info.text || "#fff" }}
+                >
+                  <meta.Icon className="h-7 w-7" />
                 </div>
               </div>
-              <p className="mt-4 text-base md:text-[17px] leading-7 text-slate-600">{info.desc}</p>
+              <p className="mt-5 text-lg md:text-xl leading-8 text-slate-700">{info.desc}</p>
             </div>
 
-            <div className="space-y-3 rounded-2xl border border-slate-200/70 bg-white p-6 shadow-sm">
+            <div
+              className="space-y-4 rounded-3xl border p-5 md:p-6 shadow-sm transition-colors"
+              style={{ background: `${info.color}0F`, borderColor: `${info.color}33` }}
+            >
               <div className="flex items-center justify-between gap-3">
-                <h4 className="flex items-center gap-2 text-lg font-semibold text-slate-900">
-                  <ListChecks className="h-5 w-5 text-brand-red" />
+                <h4 className="flex items-center gap-2 text-xl md:text-2xl font-bold text-slate-900">
+                  <ListChecks className="h-6 w-6" style={{ color: info.color }} />
                   Core Competencies &amp; Modules
                 </h4>
-                <span className="rounded bg-slate-100 px-2 py-0.5 text-xs font-bold text-slate-700">
+                <span className="shrink-0 rounded-full px-3 py-1 text-xs md:text-sm font-bold" style={{ background: info.color, color: info.text || "#fff" }}>
                   {info.modules.length} Components
                 </span>
               </div>
-              <ol className="flex flex-col gap-2">
+              <ol className="flex flex-col gap-3">
                 {info.modules.map(([name, text], i) => (
-                  <li key={name} className="flex items-start gap-3 rounded-lg bg-slate-50 p-3">
+                  <li
+                    key={name}
+                    className="flex items-start gap-4 rounded-2xl bg-white p-4 md:p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
+                    style={{ borderLeft: `6px solid ${info.color}` }}
+                  >
                     <span
-                      className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-sm font-bold"
-                      style={{ background: `${info.color}1A`, color: meta.ink }}
+                      className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-base font-bold"
+                      style={{ background: info.color, color: info.text || "#fff" }}
                     >
                       {i + 1}
                     </span>
                     <div>
-                      <p className="text-base font-semibold text-slate-900">{name}</p>
-                      <p className="text-[15px] leading-snug text-slate-600">{text}</p>
+                      <p className="text-lg md:text-xl font-bold leading-snug text-slate-900">{name}</p>
+                      <p className="mt-1 text-base md:text-lg leading-relaxed text-slate-600">{text}</p>
                     </div>
                   </li>
                 ))}
