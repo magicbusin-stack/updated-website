@@ -8,8 +8,6 @@ import {
   BookOpen,
   Briefcase,
   GraduationCap,
-  School,
-  Map,
   HeartPulse,
   CreditCard,
   Smartphone,
@@ -22,7 +20,6 @@ import {
   Pause,
 } from "lucide-react";
 import Layout from "../components/Layout";
-import StatsCircularProgress from "../components/ui/stat-card-circular-progress";
 import InfoCard from "../components/ui/info-card";
 
 const fadeUp = {
@@ -33,6 +30,14 @@ const fadeUp = {
     transition: { delay: 0.06 * i, duration: 0.5, ease: "easeOut" },
   }),
 };
+
+const INDIAN_STATES = [
+  "Andhra Pradesh", "Arunachal Pradesh", "Assam", "Bihar", "Chhattisgarh", "Goa", "Gujarat", "Haryana",
+  "Himachal Pradesh", "Jharkhand", "Karnataka", "Kerala", "Madhya Pradesh", "Maharashtra", "Manipur",
+  "Meghalaya", "Mizoram", "Nagaland", "Odisha", "Punjab", "Rajasthan", "Sikkim", "Tamil Nadu", "Telangana",
+  "Tripura", "Uttar Pradesh", "Uttarakhand", "West Bengal", "Andaman and Nicobar Islands", "Chandigarh",
+  "Dadra and Nagar Haveli and Daman and Diu", "Delhi", "Jammu and Kashmir", "Ladakh", "Lakshadweep", "Puducherry",
+];
 
 export default function DonateNow() {
   // === CONFIGURATION ===
@@ -83,6 +88,7 @@ export default function DonateNow() {
   const [wants80G, setWants80G] = useState(false);
   const [taxForm, setTaxForm] = useState({
     panCard: "",
+    dob: "",
     address: "",
     pincode: "",
     state: "",
@@ -145,7 +151,7 @@ export default function DonateNow() {
     }
 
     if (wants80G) {
-      const taxRequired = ["panCard", "address", "pincode", "state", "city"];
+      const taxRequired = ["panCard", "dob", "address", "pincode", "state", "city"];
       taxRequired.forEach((k) => {
         if (!taxForm[k]?.trim()) errs[k] = "Required";
       });
@@ -195,18 +201,30 @@ export default function DonateNow() {
                 <span className="inline-block bg-brand-yellow text-brand-black px-3 py-1 rounded-full text-sm font-semibold">
                   Be a changemaker
                 </span>
-                <h1 className="mt-5 text-3xl sm:text-4xl lg:text-5xl font-heading font-black uppercase leading-[1.05] tracking-tight text-brand-black">
-                  We can save the <span className="text-brand-red">future</span>
+                <h1 className="mt-5 text-3xl sm:text-4xl font-heading font-black leading-[1.15] tracking-tight text-brand-black">
+                  Empower the Future of India with Magic Bus
                 </h1>
-                <p className="mt-5 max-w-md text-base md:text-lg text-gray-600">
-                  Support life skills education, education enhancement and livelihood
-                  skilling for children and youth — and help them break the cycle of
-                  poverty.
-                </p>
+                <div className="mt-5 space-y-4 text-base md:text-lg leading-relaxed text-gray-600">
+                  <p>
+                    Imagine a world where every young person has access to education and the opportunity to reach their
+                    full potential. This is the world that Magic Bus is striving to create. With your support, we can
+                    make this a reality.
+                  </p>
+                  <p>
+                    Your contribution will help us give young people the tools they need to succeed. Through our
+                    programmes, we empower young people with{" "}
+                    <strong className="text-gray-800">life skills education</strong>,{" "}
+                    <strong className="text-gray-800">education enhancement</strong>, and{" "}
+                    <strong className="text-gray-800">livelihood skilling</strong> to equip them to break out of poverty
+                    and build a better life for themselves and their families.
+                  </p>
+                  <p>
+                    Every donation can make a difference. Donate today and help us create a more just and equitable
+                    society for all.
+                  </p>
+                </div>
 
-                {/* Video — contained in its own box, native aspect ratio. Stays
-                    put in this column, but is fully interactive: play/pause,
-                    mute/unmute, and a real browser fullscreen button. */}
+                {/* Video: contained in its own aspect-ratio box (no absolute/fixed page layers, no 100vh) */}
                 <div className="group relative mt-8 w-full aspect-video rounded-2xl overflow-hidden shadow-lg bg-[#111]">
                   <video
                     ref={videoRef}
@@ -220,8 +238,14 @@ export default function DonateNow() {
                     preload="auto"
                     onClick={togglePlay}
                   />
+                  <div className="pointer-events-none absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-black/85 via-black/30 to-transparent" />
 
-                  {/* Center play/pause affordance — shows on hover, or always when paused */}
+                  <div className="pointer-events-none absolute top-4 left-4 flex items-center gap-2 rounded-full bg-white/90 px-3 py-1 shadow-sm backdrop-blur-md">
+                    <span className="h-2 w-2 rounded-full bg-emerald-500" />
+                    <span className="text-xs font-bold text-slate-800">Verified Impact Story</span>
+                  </div>
+
+                  {/* Center play/pause: shows on hover, or always when paused */}
                   <button
                     type="button"
                     onClick={togglePlay}
@@ -235,9 +259,8 @@ export default function DonateNow() {
                     </span>
                   </button>
 
-                  {/* Fullscreen control — desktop only; always visible there
-                      (not hover-only, since hover doesn't exist on touch) */}
-                  <div className="hidden lg:flex absolute bottom-3 right-3 items-center gap-2">
+                  {/* Fullscreen: desktop only */}
+                  <div className="hidden lg:flex absolute top-4 right-4 items-center gap-2">
                     <button
                       type="button"
                       onClick={handleFullscreen}
@@ -247,6 +270,33 @@ export default function DonateNow() {
                       <Maximize className="h-4 w-4" />
                     </button>
                   </div>
+
+                  <div className="pointer-events-none absolute bottom-4 left-4 right-4 text-white">
+                    <div className="mb-1 flex items-center justify-between text-xs font-semibold text-amber-300">
+                      <span>Sunita Devi &bull; Livelihood Skilling Graduate</span>
+                      <span className="text-slate-300">Mumbai, Maharashtra</span>
+                    </div>
+                    <p className="line-clamp-2 text-sm text-slate-200">
+                      "With vocational skilling from Magic Bus, I secured independent employment and now educate both my
+                      younger siblings."
+                    </p>
+                  </div>
+                </div>
+
+                {/* Key numbers */}
+                <div className="mt-6 grid grid-cols-3 gap-3">
+                  {[
+                    { value: "5M+", label: "Children Reached", red: false },
+                    { value: "21", label: "States", red: true },
+                    { value: "100%", label: "Secure Donation", red: false },
+                  ].map((st) => (
+                    <div key={st.label} className="rounded-xl border border-gray-200 bg-white p-3.5 text-center shadow-sm">
+                      <span className={`block text-2xl font-black tracking-tight ${st.red ? "text-brand-red" : "text-gray-900"}`}>
+                        {st.value}
+                      </span>
+                      <span className="text-[11px] font-medium text-gray-500">{st.label}</span>
+                    </div>
+                  ))}
                 </div>
               </motion.div>
 
@@ -260,16 +310,6 @@ export default function DonateNow() {
                 variants={fadeUp}
               >
                 <div className="bg-white rounded-3xl p-6 lg:p-8 shadow-xl border border-gray-100">
-                  {/* tax exemption strip */}
-                  <div className="bg-brand-yellow/15 border border-brand-yellow/40 text-brand-black px-4 py-3 rounded-xl mb-6 text-center">
-                    <div className="text-sm md:text-base font-black tracking-tight">
-                      50% Tax Exemption Under Section 80G*
-                    </div>
-                    <div className="text-xs text-gray-600 mt-0.5 font-medium">
-                      *Only applicable for Indian citizens
-                    </div>
-                  </div>
-
                   {/* frequency toggle */}
                   <div className="mb-5">
                     <div className="inline-flex w-full rounded-full bg-gray-100 p-1" role="tablist">
@@ -464,6 +504,7 @@ export default function DonateNow() {
                               <input
                                 name="panCard"
                                 type="text"
+                                maxLength={10}
                                 placeholder="PAN Card No. *"
                                 value={taxForm.panCard}
                                 onChange={handleTaxFormChange}
@@ -477,18 +518,34 @@ export default function DonateNow() {
                               {errors.panCard && <span className="text-xs text-brand-red block">Required</span>}
                             </div>
                             <div>
-                              <textarea
-                                name="address"
-                                placeholder="Address"
-                                value={taxForm.address}
+                              <input
+                                name="dob"
+                                type="date"
+                                max={new Date().toISOString().slice(0, 10)}
+                                value={taxForm.dob}
                                 onChange={handleTaxFormChange}
-                                rows={2}
-                                className={`w-full rounded-xl border bg-white px-4 py-3 text-sm resize-none transition-colors focus:outline-none focus:ring-2 focus:ring-brand-yellow/50 ${
-                                  errors.address ? "border-brand-red" : "border-gray-200 focus:border-brand-yellow"
+                                aria-label="Date of Birth"
+                                className={`w-full rounded-xl border bg-white px-4 py-3 text-sm transition-colors focus:outline-none focus:ring-2 focus:ring-brand-yellow/50 ${
+                                  errors.dob ? "border-brand-red" : "border-gray-200 focus:border-brand-yellow"
                                 }`}
                               />
-                              {errors.address && <span className="text-xs text-brand-red block">Required</span>}
+                              <p className="text-xs text-gray-500 mt-1">Date of Birth *</p>
+                              {errors.dob && <span className="text-xs text-brand-red block">Required</span>}
                             </div>
+                          </div>
+
+                          <div>
+                            <textarea
+                              name="address"
+                              placeholder="Address"
+                              value={taxForm.address}
+                              onChange={handleTaxFormChange}
+                              rows={2}
+                              className={`w-full rounded-xl border bg-white px-4 py-3 text-sm resize-none transition-colors focus:outline-none focus:ring-2 focus:ring-brand-yellow/50 ${
+                                errors.address ? "border-brand-red" : "border-gray-200 focus:border-brand-yellow"
+                              }`}
+                            />
+                            {errors.address && <span className="text-xs text-brand-red block">Required</span>}
                           </div>
 
                           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
@@ -499,13 +556,25 @@ export default function DonateNow() {
                               onChange={handleTaxFormChange}
                               error={errors.pincode}
                             />
-                            <Field
-                              name="state"
-                              placeholder="State"
-                              value={taxForm.state}
-                              onChange={handleTaxFormChange}
-                              error={errors.state}
-                            />
+                            <div>
+                              <select
+                                name="state"
+                                value={taxForm.state}
+                                onChange={handleTaxFormChange}
+                                aria-label="State"
+                                className={`w-full rounded-xl border bg-white px-4 py-3 text-sm transition-colors focus:outline-none focus:ring-2 focus:ring-brand-yellow/50 ${
+                                  errors.state ? "border-brand-red" : "border-gray-200 focus:border-brand-yellow"
+                                }`}
+                              >
+                                <option value="">State</option>
+                                {INDIAN_STATES.map((st) => (
+                                  <option key={st} value={st}>
+                                    {st}
+                                  </option>
+                                ))}
+                              </select>
+                              {errors.state && <span className="text-xs text-brand-red mt-1 block">Required</span>}
+                            </div>
                             <Field
                               name="city"
                               placeholder="City"
@@ -533,63 +602,6 @@ export default function DonateNow() {
                 </div>
               </motion.aside>
             </div>
-          </div>
-        </section>
-
-        {/* ===== WHY DONATE ===== */}
-        <section className="py-16 md:py-20">
-          <div className="max-w-4xl mx-auto px-6 lg:px-8">
-            <motion.div
-              className="space-y-6"
-              initial="hidden"
-              whileInView="show"
-              viewport={{ once: true }}
-              variants={fadeUp}
-            >
-              <h2 className="text-2xl md:text-3xl font-semibold text-brand-black text-center">
-                Empower the Future of India with Magic Bus
-              </h2>
-
-              <div className="text-gray-700 space-y-4 leading-relaxed">
-                <p>
-                  Imagine a world where every young person has access to education and the opportunity to reach their full potential.
-                  This is the world that Magic Bus is striving to create. With your support, we can make this a reality.
-                </p>
-
-                <p>
-                  Your contribution will help us give young people the tools they need to succeed. Through our
-                  programmes, we empower young people with <strong>life skills education</strong>, <strong>education enhancement</strong>,
-                  and <strong>livelihood skilling</strong> to equip them to break out of poverty and build a better life for themselves and their families.
-                </p>
-
-                <p>
-                  Every donation can make a difference. Donate today and help us create a more just and equitable society for all.
-                </p>
-              </div>
-
-              {/* Legal / disclaimer */}
-              <div className="mt-2 p-4 rounded-lg bg-yellow-50 border-l-4 border-brand-yellow/70">
-                <p className="text-base md:text-lg text-brand-red font-bold leading-snug">
-                  All donations to Magic Bus are eligible for{" "}
-                  <mark className="bg-brand-yellow text-brand-black px-1.5 py-0.5 rounded font-black">
-                    50% tax exemption under Section 80G
-                  </mark>{" "}
-                  of the Income Tax Act.
-                </p>
-                <p className="text-sm text-gray-700 mt-2">
-                  Magic Bus is a non-profit organisation registered as <em>Magic Bus India Foundation</em>.
-                </p>
-              </div>
-
-              {/* Impact / quick stats */}
-              <StatsCircularProgress
-                stats={[
-                  { icon: GraduationCap, value: 1.6, decimalPlaces: 1, suffix: "M", label: "Children Educated", color: "#E12228" },
-                  { icon: School, value: 735, label: "Education Centres", color: "#FFCC04" },
-                  { icon: Map, value: 21, label: "States", color: "#21BDEA" },
-                ]}
-              />
-            </motion.div>
           </div>
         </section>
 
