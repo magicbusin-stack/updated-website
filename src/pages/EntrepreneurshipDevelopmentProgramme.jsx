@@ -25,6 +25,7 @@ import HeroBanner from "../components/HeroBanner";
 import FAQSection from "../components/Home/FAQSectiom";
 import { edpFAQ } from "../components/Home/faqItems";
 import FaqSchema from "../components/seo/FaqSchema";
+import usePageMeta from "../hooks/usePageMeta";
 
 /* ─────────────────────────── animation helpers ─────────────────────────── */
 const EASE = [0.16, 1, 0.3, 1];
@@ -62,15 +63,15 @@ function FadeIn({ children, delay = 0, className = "" }) {
 const challengeStats = [
     {
         num: "35.3%",
-        label: "Women's Labour Force Participation",
-        sub: "India's female LFPR — one of the lowest in Asia",
+        label: "Female Labour Force Participation",
+        sub: "Women aged 15+ in India, December 2025",
         color: "from-brand-red to-[#c41a1f]",
         textColor: "text-white",
     },
     {
         num: "90%",
-        label: "Vulnerable Workforce",
-        sub: "Workers in India lack quality, secure employment",
+        label: "Informal Employment",
+        sub: "Of India’s workers remain informally employed, often with limited income security and social protection",
         color: "from-[#F59E0B] to-[#D97706]",
         textColor: "text-[#1A1A1A]",
     },
@@ -92,18 +93,24 @@ function NeedSection() {
                             <Target className="w-3.5 h-3.5 text-brand-yellow" />
                             <span className="text-[11px] font-bold uppercase tracking-[0.22em] text-white/50">The Need</span>
                         </div>
-                        <h2 className="text-4xl md:text-5xl font-extrabold text-white leading-[1.1] mb-6">
+                        <h2 className="text-3xl md:text-4xl font-extrabold text-white leading-[1.15] mb-6">
                             Demographic{" "}
                             <span className="text-brand-yellow">Challenges</span>{" "}
-                            of India
+                            and Female Labour Force Participation in India
                         </h2>
-                        <p className="text-lg text-white/60 leading-relaxed mb-8">
-                            In India, the labour force participation of women stands at just{" "}
-                            <span className="text-white font-bold">35.3%</span>. Nearly{" "}
-                            <span className="text-white font-bold">90% of the workforce</span> is
-                            vulnerable due to lack of quality jobs. These challenges call for
-                            targeted interventions to help underserved communities become
-                            financially independent.
+                        <p className="text-base md:text-lg text-white/60 leading-relaxed mb-5">
+                            India’s demographic opportunity is constrained by low and uneven participation of women in the
+                            labour market and the continued dominance of informal work. While female labour force participation
+                            among women aged 15+ reached{" "}
+                            <span className="text-white font-bold">35.3% in December 2025</span>, around{" "}
+                            <span className="text-white font-bold">90% of India’s workers</span> remain informally employed, often
+                            with limited income security, social protection and pathways for progression.
+                        </p>
+                        <p className="text-base md:text-lg text-white/60 leading-relaxed mb-8">
+                            These realities underline the need for programmes that go beyond skilling alone—supporting underserved
+                            youth and women to build capabilities, agency, market access and sustainable livelihoods through wage
+                            employment, self-employment and enterprise development, as envisaged through Magic Bus’s Economic
+                            Empowerment Programme, including LRCs and EDP interventions.
                         </p>
 
                         {/* Divider line */}
@@ -149,35 +156,75 @@ function AboutSection() {
     return (
         <section className="py-24 bg-[#FDFBF7] overflow-hidden">
             <div className="max-w-7xl mx-auto px-6 lg:px-12">
-                <div className="grid lg:grid-cols-2 gap-16 items-center">
+                <div className="grid lg:grid-cols-2 gap-16 items-start">
                     {/* Left: Content */}
                     <FadeUp>
                         <div className="inline-flex items-center gap-2 rounded-full bg-[#111111] px-4 py-1.5 mb-6">
                             <span className="h-1.5 w-1.5 rounded-full bg-brand-yellow animate-pulse" />
-                            <span className="text-[11px] font-bold uppercase tracking-[0.22em] text-brand-yellow">About EDP</span>
+                            <span className="text-[11px] font-bold uppercase tracking-[0.22em] text-brand-yellow">Economic Empowerment Programme</span>
                         </div>
 
-                        <h2 className="text-4xl md:text-5xl font-extrabold text-[#111111] leading-[1.1] mb-6">
-                            Entrepreneurship{" "}
+                        <h2 className="text-3xl md:text-4xl font-extrabold text-[#111111] leading-[1.15] mb-8">
+                            Our Entrepreneurship and Livelihood Programmes for{" "}
                             <span className="relative inline-block">
-                                Development
+                                Women and Youth
                                 <span className="absolute -bottom-1 left-0 right-0 h-1 bg-brand-yellow rounded-full" />
-                            </span>{" "}
-                            Programme
+                            </span>
                         </h2>
 
-                        <p className="text-[16px] text-[#111111]/65 leading-relaxed mb-4">
-                            Launched in <span className="font-bold text-[#111111]">2019</span>, the Entrepreneurship Development
-                            Programme (EDP) supports aspiring young entrepreneurs from underserved communities to start and
-                            manage micro-enterprises to combat unemployment.
-                        </p>
-                        <p className="text-[16px] text-[#111111]/65 leading-relaxed mb-4">
-                            We build youth's leadership, knowledge, skill, social, and development capital to start and run
-                            micro and nano-enterprises successfully.
-                        </p>
+                        <div className="space-y-8 mb-8">
+                            <div>
+                                <h3 className="text-xl font-extrabold text-[#111111] mb-3">Entrepreneurship Development Programme</h3>
+                                <p className="text-[16px] text-[#111111]/65 leading-relaxed mb-3">
+                                    Launched in <span className="font-bold text-[#111111]">2019</span>, Magic Bus’s Entrepreneurship Development
+                                    Programme (EDP) enables aspiring entrepreneurs from underserved communities—particularly youth and
+                                    women—to establish, strengthen and sustain micro and nano-enterprises as pathways to economic independence.
+                                </p>
+                                <p className="text-[16px] text-[#111111]/65 leading-relaxed mb-3">
+                                    The programme builds rural women’s capabilities, confidence and agency required to run a business
+                                    successfully, including entrepreneurship skills, financial and digital literacy, business planning,
+                                    market understanding, leadership, access to finance, and linkages with government schemes, mentors and markets.
+                                </p>
+                                <p className="text-[16px] text-[#111111]/65 leading-relaxed">
+                                    EDP participants have gone on to establish and grow enterprises across sectors such as retail,
+                                    services, manufacturing, food processing and other local value chains, creating sustainable
+                                    livelihoods for themselves while also contributing to employment generation and stronger local economies.
+                                </p>
+                            </div>
+
+                            <div>
+                                <h3 className="text-xl font-extrabold text-[#111111] mb-3">Livelihood Resource Centre Model</h3>
+                                <p className="text-[16px] text-[#111111]/65 leading-relaxed mb-3">
+                                    Magic Bus’s Livelihood Resource Centres (LRCs) serve as community-based hubs that connect rural and
+                                    peri-urban youth and women from underserved communities to sustainable livelihood opportunities. The
+                                    centres provide access to life skills and employability training, digital literacy, job placement
+                                    support, entrepreneurship development, self-employment incubation, and linkages to government
+                                    livelihood schemes, local employers, MSMEs and producer networks.
+                                </p>
+                                <p className="text-[16px] text-[#111111]/65 leading-relaxed">
+                                    By bringing livelihood services closer to communities, LRCs help participants move beyond training
+                                    towards actual economic opportunities through wage employment, self-employment and enterprise
+                                    development. The model strengthens local livelihood ecosystems by combining community outreach,
+                                    employer engagement, market-linked opportunities, government convergence and continued handholding,
+                                    with a particular focus on women and marginalised communities.
+                                </p>
+                            </div>
+
+                            <div>
+                                <h3 className="text-xl font-extrabold text-[#111111] mb-3">
+                                    Udyam-Setu Hub for urban professionalization and formalization
+                                </h3>
+                                <p className="text-[16px] text-[#111111]/65 leading-relaxed">
+                                    Udyam-Setu Hub is Magic Bus’s urban livelihood platform for professionalizing self-employment and
+                                    formalizing informal entrepreneurship and gig work. It helps workers and micro-entrepreneurs
+                                    strengthen business practices, digital and financial capabilities, customer reach and high rating,
+                                    registrations, market access and linkages to finance and government schemes—enabling more stable
+                                    incomes, greater credibility and pathways for growth.
+                                </p>
+                            </div>
+                        </div>
+
                         <p className="text-[16px] text-[#111111]/65 leading-relaxed mb-6">
-                            Our programme graduates have successfully launched nano and micro-enterprises in sectors like
-                            manufacturing, retail, and the service sector — becoming job creators in their communities.
                             We received the{" "}
                             <span className="font-bold text-[#111111]">Millennium Alliance Award launched by FICCI</span>{" "}
                             to implement EDP in 3 states — Maharashtra, Karnataka and Rajasthan.
@@ -207,7 +254,7 @@ function AboutSection() {
 
                     {/* Right: Image with overlaid stats */}
                     <FadeIn delay={0.12}>
-                        <div className="relative h-[520px]">
+                        <div className="relative h-[520px] lg:sticky lg:top-28">
                             <motion.div
                                 className="absolute inset-0 rounded-3xl overflow-hidden shadow-2xl"
                                 whileHover={{ scale: 1.01 }}
@@ -264,15 +311,15 @@ function AboutSection() {
 const features = [
     {
         icon: BookOpen,
-        title: "1 Year Duration",
-        desc: "A comprehensive year-long programme giving entrepreneurs the time to build real skills and launch successful ventures.",
+        title: "3 months to 1 year duration",
+        desc: "A programme lasting 3 months to 1 year, giving entrepreneurs the time to build real skills and launch successful ventures.",
         bg: "bg-[#1A3A2A]",
         iconBg: "bg-brand-yellow",
         iconColor: "text-[#111111]",
     },
     {
         icon: Users,
-        title: "Classroom Sessions",
+        title: "Classroom business training sessions",
         desc: "Interactive in-person sessions that build community, enable peer learning, and create lasting entrepreneurial networks.",
         bg: "bg-[#111111]",
         iconBg: "bg-brand-red",
@@ -288,7 +335,7 @@ const features = [
     },
     {
         icon: Zap,
-        title: "Training & Capacity Building",
+        title: "Entrepreneurship training and capacity building",
         desc: "End-to-end skilling: market study, business planning, validation, mentoring, and a Business Growth Plan Competition.",
         bg: "bg-[#1A3A2A]",
         iconBg: "bg-white",
@@ -309,8 +356,8 @@ function FeaturesSection() {
                         <span className="text-[11px] font-bold uppercase tracking-[0.22em] text-brand-yellow">Programme Features</span>
                     </div>
                     <h2 className="text-4xl md:text-5xl font-extrabold text-white leading-tight">
-                        Key Features of{" "}
-                        <span className="text-brand-yellow">this Programme</span>
+                        Key Features of the{" "}
+                        <span className="text-brand-yellow">Entrepreneurship Development Programme</span>
                     </h2>
                 </FadeUp>
 
@@ -344,13 +391,14 @@ function FeaturesSection() {
 ══════════════════════════════════════════════════════════════ */
 const steps = [
     { num: "01", label: "Mobilisation", desc: "Community outreach and identification of aspiring entrepreneurs", color: "bg-brand-red", light: "bg-brand-red/8", border: "border-brand-red/20", text: "text-brand-red" },
-    { num: "02", label: "Entrepreneurship Awareness Programme (EAP)", desc: "Building awareness about entrepreneurship as a viable livelihood pathway", color: "bg-[#F59E0B]", light: "bg-[#F59E0B]/8", border: "border-[#F59E0B]/20", text: "text-[#D97706]" },
-    { num: "03", label: "Market Study & Training", desc: "Understanding market needs, competition, and sector-specific demand", color: "bg-[#10B981]", light: "bg-[#10B981]/8", border: "border-[#10B981]/20", text: "text-[#10B981]" },
+    { num: "02", label: "Livelihood Awareness Programme (LAP)", desc: "Building awareness about entrepreneurship as a viable livelihood pathway", color: "bg-[#F59E0B]", light: "bg-[#F59E0B]/8", border: "border-[#F59E0B]/20", text: "text-[#D97706]" },
+    { num: "03", label: "Market Study and Training", desc: "Understanding market needs, competition, and sector-specific demand", color: "bg-[#10B981]", light: "bg-[#10B981]/8", border: "border-[#10B981]/20", text: "text-[#10B981]" },
     { num: "04", label: "Business Planning", desc: "Developing a viable business plan with financial projections and milestones", color: "bg-[#6366F1]", light: "bg-[#6366F1]/8", border: "border-[#6366F1]/20", text: "text-[#6366F1]" },
-    { num: "05", label: "Business Plan & Validation Support", desc: "Expert review and validation of business models before launch", color: "bg-brand-red", light: "bg-brand-red/8", border: "border-brand-red/20", text: "text-brand-red" },
-    { num: "06", label: "Mentoring & Business Setup", desc: "Hands-on guidance from Udhyam Sahayaks to set up the enterprise", color: "bg-[#F59E0B]", light: "bg-[#F59E0B]/8", border: "border-[#F59E0B]/20", text: "text-[#D97706]" },
-    { num: "07", label: "Business Growth Plan Competition", desc: "Pitching growth plans, peer learning, and celebrating entrepreneurial excellence", color: "bg-[#10B981]", light: "bg-[#10B981]/8", border: "border-[#10B981]/20", text: "text-[#10B981]" },
-    { num: "08", label: "Programme Evaluation", desc: "Measuring impact, reviewing outcomes, and planning for scale and sustainability", color: "bg-[#6366F1]", light: "bg-[#6366F1]/8", border: "border-[#6366F1]/20", text: "text-[#6366F1]" },
+    { num: "05", label: "Business Plan and Validation Support", desc: "Expert review and validation of business models before launch", color: "bg-brand-red", light: "bg-brand-red/8", border: "border-brand-red/20", text: "text-brand-red" },
+    { num: "06", label: "Mentoring and Business Setup", desc: "Hands-on guidance from Udhyam Sahayaks to set up the enterprise/initiate self-employment", color: "bg-[#F59E0B]", light: "bg-[#F59E0B]/8", border: "border-[#F59E0B]/20", text: "text-[#D97706]" },
+    { num: "07", label: "Enterprise Formalization", desc: "", color: "bg-[#10B981]", light: "bg-[#10B981]/8", border: "border-[#10B981]/20", text: "text-[#10B981]" },
+    { num: "08", label: "Business Growth Plan Competition", desc: "Pitching growth plans, peer learning, and celebrating entrepreneurial excellence", color: "bg-[#6366F1]", light: "bg-[#6366F1]/8", border: "border-[#6366F1]/20", text: "text-[#6366F1]" },
+    { num: "09", label: "Programme Evaluation", desc: "Measuring impact, reviewing outcomes, and planning for scale and sustainability", color: "bg-brand-red", light: "bg-brand-red/8", border: "border-brand-red/20", text: "text-brand-red" },
 ];
 
 function StructureSection() {
@@ -363,17 +411,17 @@ function StructureSection() {
                         <span className="text-[11px] font-bold uppercase tracking-[0.22em] text-[#111111]/50">Programme Structure</span>
                     </div>
                     <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
-                        <h2 className="text-4xl md:text-5xl font-extrabold text-[#111111] leading-tight max-w-lg">
-                            Structure and <span className="text-brand-red">Steps</span>
+                        <h2 className="text-4xl md:text-5xl font-extrabold text-[#111111] leading-tight max-w-2xl">
+                            Structure and Steps of the <span className="text-brand-red">Entrepreneurship Development Programme</span>
                         </h2>
                         <p className="text-[#111111]/45 max-w-xs text-sm leading-relaxed">
-                            An 8-step journey from awareness to a thriving, sustainable enterprise.
+                            A 9-step journey from awareness to a thriving, sustainable enterprise.
                         </p>
                     </div>
                 </FadeUp>
 
-                {/* 8-step grid: 4 per row */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                {/* 9-step grid: 3 per row */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                     {steps.map((step, i) => (
                         <FadeUp key={step.num} delay={0.05 * i}>
                             <motion.div
@@ -390,9 +438,9 @@ function StructureSection() {
                                     {step.num}
                                 </div>
                                 <h3 className={`font-extrabold text-[#111111] text-[15px] leading-snug mb-2`}>{step.label}</h3>
-                                <p className="text-xs text-[#111111]/50 leading-relaxed">{step.desc}</p>
+                                {step.desc && <p className="text-xs text-[#111111]/50 leading-relaxed">{step.desc}</p>}
                                 {/* Connector arrow (hidden on last items of each row) */}
-                                {(i + 1) % 4 !== 0 && i < 7 && (
+                                {(i + 1) % 3 !== 0 && i < 8 && (
                                     <ChevronRight className={`hidden lg:block absolute -right-2 top-1/2 -translate-y-1/2 z-10 w-4 h-4 ${step.text}`} />
                                 )}
                             </motion.div>
@@ -402,8 +450,8 @@ function StructureSection() {
 
                 {/* Row connector line */}
                 <FadeUp delay={0.3} className="hidden lg:block mt-0 -mt-2 mb-4">
-                    <div className="grid grid-cols-4 gap-4 px-0">
-                        {[0,1,2,3].map((i) => (
+                    <div className="grid grid-cols-3 gap-4 px-0">
+                        {[0,1,2].map((i) => (
                             <div key={i} className={`h-0.5 ${steps[i].color} opacity-30 rounded-full`} />
                         ))}
                     </div>
@@ -437,6 +485,17 @@ function ComponentsSection() {
                             className="w-full object-contain"
                         />
                     </div>
+
+                    <h2 className="mt-16 text-4xl md:text-5xl font-extrabold text-[#111111] leading-tight mb-10">
+                        Components of <span className="text-brand-red">LRC (Livelihood Resource Centre)</span>
+                    </h2>
+                    <div className="rounded-3xl overflow-hidden border border-gray-100 bg-white shadow-sm">
+                        <img
+                            src="/edp-lrc-components.png"
+                            alt="Components of the Livelihood Resource Centre (LRC) model: skilling and job placement, self-employment and nano-enterprise development"
+                            className="w-full object-contain"
+                        />
+                    </div>
                 </FadeUp>
 
                 {/* Mentorship section */}
@@ -450,13 +509,14 @@ function ComponentsSection() {
                                 <span className="text-[11px] font-bold uppercase tracking-[0.22em] text-brand-yellow">Peer Support</span>
                             </div>
                             <h2 className="text-3xl md:text-4xl font-extrabold text-white leading-tight mb-5">
-                                Mentorship &amp; Handholding Support
+                                Udhyam Sahayaks - Mentorship &amp; Handholding Support for Women Entrepreneurs
                             </h2>
                             <p className="text-white/60 leading-relaxed mb-6">
-                                The programme involves youth entrepreneurs as agents of change in the community. These{" "}
-                                <span className="text-brand-yellow font-bold">Udhyam Sahayaks</span> are our programme graduates
-                                who provide mentoring and handholding support to local youth — helping them navigate legal
-                                compliance, product marketing, and problem solving.
+                                The Entrepreneurship Development Programme involves youth/women entrepreneurs as agents of change in
+                                the community to support other aspiring youth/women entrepreneurs. These{" "}
+                                <span className="text-brand-yellow font-bold">Udhyam Sahayaks</span> are our EDP programme graduates
+                                who provide mentoring and handholding support to local youth/women entrepreneurs to deal with personal
+                                and professional challenges like legal compliance, product marketing, and problem-solving.
                             </p>
                             <div className="flex items-center gap-3">
                                 <div className="w-10 h-10 rounded-xl bg-brand-yellow flex items-center justify-center">
@@ -502,9 +562,9 @@ function ComponentsSection() {
 ══════════════════════════════════════════════════════════════ */
 const eligibility = [
     { icon: Users, color: "bg-brand-red", textColor: "text-white", accentBg: "bg-brand-red/6", accentBorder: "border-brand-red/20", accentText: "text-brand-red", label: "Age Range", value: "18 – 45 years", note: "Open to a wider age bracket to include diverse entrepreneurs" },
-    { icon: GraduationCap, color: "bg-[#F59E0B]", textColor: "text-white", accentBg: "bg-[#F59E0B]/8", accentBorder: "border-[#F59E0B]/25", accentText: "text-[#D97706]", label: "Education", value: "Minimum 8th Standard Pass", note: "Accessible to those with basic foundational education" },
+    { icon: GraduationCap, color: "bg-[#F59E0B]", textColor: "text-white", accentBg: "bg-[#F59E0B]/8", accentBorder: "border-[#F59E0B]/25", accentText: "text-[#D97706]", label: "Education", value: "Minimum 8th standard pass", note: "Accessible to those with basic foundational education" },
     { icon: Wallet, color: "bg-[#10B981]", textColor: "text-white", accentBg: "bg-[#10B981]/6", accentBorder: "border-[#10B981]/20", accentText: "text-[#10B981]", label: "Family Income", value: "₹3 Lakh or Less per Annum", note: "Targeted at economically underserved households" },
-    { icon: Sprout, color: "bg-[#6366F1]", textColor: "text-white", accentBg: "bg-[#6366F1]/6", accentBorder: "border-[#6366F1]/20", accentText: "text-[#6366F1]", label: "Intent", value: "Desire to Start or Upgrade Enterprise", note: "Whether launching new or growing an existing micro-business" },
+    { icon: Sprout, color: "bg-[#6366F1]", textColor: "text-white", accentBg: "bg-[#6366F1]/6", accentBorder: "border-[#6366F1]/20", accentText: "text-[#6366F1]", label: "Intent", value: "Desire to start own enterprise or small business, upgrade existing or start self-employment", note: "Whether launching new or growing an existing micro-business" },
 ];
 
 function EligibilitySection() {
@@ -562,9 +622,21 @@ function EligibilitySection() {
    Design: Full dark bento with oversized numbers + image
 ══════════════════════════════════════════════════════════════ */
 const impactStats = [
-    { num: "1,310", label: "Entrepreneurs Reached", sub: "Micro-enterprise owners supported to date", icon: Users },
-    { num: "7", label: "States Covered", sub: "MH, GJ, RJ, MP, KA, OD & TN", icon: Target },
-    { num: "1,500+", label: "Entrepreneurs in the Making", sub: "Currently enrolled and in progress", icon: Sprout },
+    { num: "2,500", label: "Women and youth entrepreneurs reached", sub: "", icon: Users },
+    { num: "7", label: "States covered", sub: "MH, GJ, RJ, MP, KA, OD & TN", icon: Target },
+    { num: "18", label: "Total districts", sub: "", icon: Target },
+    { num: "286", label: "Total villages covered by the rural entrepreneurship programme", sub: "", icon: Sprout },
+    { num: "6", label: "Women Enterprise Collectives", sub: "", icon: Users },
+];
+
+const stateReach = [
+    { state: "Rajasthan", count: 945 },
+    { state: "Madhya Pradesh", count: 597 },
+    { state: "Maharashtra", count: 514 },
+    { state: "Karnataka", count: 219 },
+    { state: "Gujarat", count: 133 },
+    { state: "Tamil Nadu", count: 51 },
+    { state: "Odisha", count: 26 },
 ];
 
 function OutreachImpactSection() {
@@ -579,35 +651,55 @@ function OutreachImpactSection() {
                         <span className="text-[11px] font-bold uppercase tracking-[0.22em] text-white/50">Our Reach</span>
                     </div>
                     <h2 className="text-4xl md:text-5xl font-extrabold text-white leading-tight">
-                        Outreach and{" "}
-                        <span className="text-brand-yellow">Impact</span>
+                        Outreach and Impact of our{" "}
+                        <span className="text-brand-yellow">Entrepreneurship Development Programme</span>
                     </h2>
                 </FadeUp>
 
                 {/* Stat cards */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-10">
+                <div className="grid grid-cols-2 lg:grid-cols-5 gap-4 mb-10">
                     {impactStats.map((stat, i) => (
                         <FadeUp key={stat.label} delay={0.08 * i}>
                             <motion.div
-                                className="group rounded-2xl border border-white/8 bg-white/5 p-8 relative overflow-hidden cursor-default"
+                                className="group h-full rounded-2xl border border-white/8 bg-white/5 p-5 relative overflow-hidden cursor-default"
                                 whileHover={{ borderColor: "rgba(255,255,255,0.18)", y: -4 }}
                                 transition={{ type: "spring", stiffness: 280, damping: 22 }}
                             >
                                 <div className="absolute inset-0 bg-gradient-to-br from-brand-yellow/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-                                <div className="relative flex items-start gap-4">
+                                <div className="relative flex flex-col gap-3">
                                     <div className="w-10 h-10 rounded-xl bg-brand-yellow/15 flex items-center justify-center shrink-0">
                                         <stat.icon className="w-5 h-5 text-brand-yellow" />
                                     </div>
                                     <div>
-                                        <div className="text-4xl font-black text-brand-yellow mb-1">{stat.num}</div>
+                                        <div className="text-3xl md:text-4xl font-black text-brand-yellow mb-1">{stat.num}</div>
                                         <div className="text-sm font-bold text-white mb-1">{stat.label}</div>
-                                        <div className="text-xs text-white/40 leading-relaxed">{stat.sub}</div>
+                                        {stat.sub && <div className="text-xs text-white/40 leading-relaxed">{stat.sub}</div>}
                                     </div>
                                 </div>
                             </motion.div>
                         </FadeUp>
                     ))}
                 </div>
+
+                {/* State-wise outreach */}
+                <FadeUp delay={0.1} className="mb-10">
+                    <div className="rounded-2xl border border-white/10 bg-white/5 p-7">
+                        <p className="mb-5 text-xs font-bold uppercase tracking-widest text-white/50">State-wise outreach</p>
+                        <div className="grid sm:grid-cols-2 gap-x-10 gap-y-4">
+                            {stateReach.map(({ state, count }) => (
+                                <div key={state}>
+                                    <div className="flex items-center justify-between text-sm">
+                                        <span className="font-semibold text-white/80">{state}</span>
+                                        <span className="font-bold text-brand-yellow">{count}</span>
+                                    </div>
+                                    <div className="mt-1.5 h-1.5 rounded-full bg-white/10">
+                                        <div className="h-full rounded-full bg-brand-yellow" style={{ width: `${(count / 945) * 100}%` }} />
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </FadeUp>
 
                 {/* Wide image banner */}
                 <FadeIn delay={0.2}>
@@ -648,11 +740,11 @@ const stories = [
         accentBg: "bg-brand-red/8",
         gradientFrom: "from-brand-red/80",
         tag: "Fashion & Beauty",
-        quote: "Sakshi is deeply committed to community welfare, advocating for better infrastructure and safety for villagers.",
+        quote: "As a woman entrepreneur, Sakshi is also deeply committed to community welfare, advocating for better infrastructure and safety for villagers.",
         paragraphs: [
-            "Sakshi's entrepreneurial journey began with a passion for fashion. She started by designing outfits for her friends and family.",
-            "Through our programme, she honed her skills in communication, problem solving, and technical design — expanding her customer base and delivering personalised looks.",
-            "Her boutique business has grown into makeup and styling consultations, becoming a one-stop shop for clients wanting to revamp their look.",
+            "Sakshi’s entrepreneurial journey began with a passion for fashion. She started her small business by designing outfits for her friends and family.",
+            "Through our Entrepreneurship Development Programme, Sakshi honed her skills in communication, problem solving, and the technical aspects of design making, helping her expand her customer base and deliver personalised looks.",
+            "Her boutique business has expanded into makeup and styling consultations, becoming a one-stop shop for clients wanting to revamp their look for special occasions.",
         ],
     },
     {
@@ -666,10 +758,10 @@ const stories = [
         accentBg: "bg-[#F59E0B]/8",
         gradientFrom: "from-[#D97706]/80",
         tag: "Retail & Commerce",
-        quote: "Today, she contributes significantly to her community's well-being and economic growth, growing into an impactful leader.",
+        quote: "Today, she contributes significantly to her community’s well-being and economic growth, growing into an impactful leader and role model for rural women entrepreneurs.",
         paragraphs: [
-            "Rupaliben hails from the Scheduled Castes community. Living in a remote village with limited opportunities, she faced many challenges including socio-economic barriers and inadequate infrastructure.",
-            "After joining our programme, she acquired life skills and practical knowledge through leadership training — launching her own stationery shop and achieving financial stability.",
+            "Rupaliben hails from the Scheduled Castes community. Living in a remote village with limited livelihood opportunities, she faced many challenges, including socio-economic barriers and inadequate infrastructure.",
+            "After joining our Entrepreneurship Development Programme, Rupaliben acquired life skills and practical knowledge through leadership training. She launched and developed her own stationery shop as a nano-enterprise, establishing a reliable source of income and achieving financial stability for her family.",
         ],
     },
 ];
@@ -685,8 +777,8 @@ function SuccessStoriesSection() {
                         <span className="text-[11px] font-bold uppercase tracking-[0.22em] text-[#111111]/50">Real Impact</span>
                     </div>
                     <h2 className="text-4xl md:text-5xl font-extrabold text-[#111111] leading-tight">
-                        Success Stories of{" "}
-                        <span className="text-brand-red">Transformation</span>
+                        Success Stories of Transformation:{" "}
+                        <span className="text-brand-red">Women Entrepreneurs</span>
                     </h2>
                 </FadeUp>
 
@@ -771,41 +863,56 @@ function ContactSection() {
                         <span className="text-[11px] font-bold uppercase tracking-[0.22em] text-[#111111]/50">Contact Details</span>
                     </div>
                     <h2 className="text-4xl md:text-5xl font-extrabold text-[#111111] leading-tight">
-                        Get in <span className="text-brand-red">Touch</span>
+                        Get in Touch with the <span className="text-brand-red">EDP and LRC Programme Teams</span>
                     </h2>
                     <p className="mt-4 text-[#111111]/50 max-w-md mx-auto leading-relaxed">
-                        Reach out to learn more about joining or partnering with the EDP programme.
+                        Reach out to learn more about joining or partnering with the EDP and LRC programmes.
                     </p>
                 </FadeUp>
 
                 <FadeUp delay={0.1}>
-                    <motion.a
-                        href="tel:9821422910"
-                        className="group flex flex-col sm:flex-row items-start sm:items-center gap-6 bg-[#111111] rounded-3xl p-8 md:p-10 shadow-2xl max-w-2xl mx-auto relative overflow-hidden"
-                        whileHover={{ scale: 1.02 }}
-                        transition={{ type: "spring", stiffness: 250, damping: 22 }}
-                    >
-                        <div className="pointer-events-none absolute -top-20 -right-20 w-64 h-64 rounded-full bg-brand-yellow/8 blur-2xl" />
-
-                        <div className="relative shrink-0 w-16 h-16 rounded-2xl bg-brand-yellow flex items-center justify-center group-hover:shadow-lg transition-shadow">
-                            <Phone className="w-7 h-7 text-[#111111]" />
-                        </div>
-
-                        <div className="flex-1 relative">
-                            <p className="text-[10px] font-bold uppercase tracking-widest text-white/30 mb-1">Programme Contact</p>
-                            <p className="text-xl font-extrabold text-white group-hover:text-brand-yellow transition-colors">
-                                Pravina Kukade
-                            </p>
-                            <div className="mt-3 inline-flex items-center gap-2 text-brand-yellow font-bold text-base">
-                                <Phone className="w-4 h-4" />
-                                +91 98214 22910
+                    <div className="grid gap-5 md:grid-cols-2">
+                        <motion.a
+                            href="mailto:pravina@magicbusindia.org"
+                            className="group flex items-start gap-5 bg-[#111111] rounded-3xl p-8 shadow-2xl relative overflow-hidden"
+                            whileHover={{ scale: 1.02 }}
+                            transition={{ type: "spring", stiffness: 250, damping: 22 }}
+                        >
+                            <div className="pointer-events-none absolute -top-20 -right-20 w-64 h-64 rounded-full bg-brand-yellow/8 blur-2xl" />
+                            <div className="relative shrink-0 w-14 h-14 rounded-2xl bg-brand-yellow flex items-center justify-center">
+                                <Mail className="w-6 h-6 text-[#111111]" />
                             </div>
-                        </div>
+                            <div className="relative">
+                                <p className="text-[10px] font-bold uppercase tracking-widest text-white/30 mb-1">EDP Programme</p>
+                                <p className="text-xl font-extrabold text-white group-hover:text-brand-yellow transition-colors">Pravina Kukade</p>
+                                <p className="mt-3 inline-flex items-center gap-2 text-brand-yellow font-bold text-sm break-all">
+                                    <Mail className="w-4 h-4 shrink-0" />
+                                    pravina@magicbusindia.org
+                                </p>
+                                <p className="mt-2 text-xs text-white/40">+91 98214 22910</p>
+                            </div>
+                        </motion.a>
 
-                        <div className="shrink-0 relative opacity-0 group-hover:opacity-100 transition-opacity">
-                            <ArrowRight className="w-5 h-5 text-brand-yellow" />
-                        </div>
-                    </motion.a>
+                        <motion.a
+                            href="mailto:mohini.maurya@magicbusindia.org"
+                            className="group flex items-start gap-5 bg-[#111111] rounded-3xl p-8 shadow-2xl relative overflow-hidden"
+                            whileHover={{ scale: 1.02 }}
+                            transition={{ type: "spring", stiffness: 250, damping: 22 }}
+                        >
+                            <div className="pointer-events-none absolute -top-20 -right-20 w-64 h-64 rounded-full bg-brand-yellow/8 blur-2xl" />
+                            <div className="relative shrink-0 w-14 h-14 rounded-2xl bg-brand-yellow flex items-center justify-center">
+                                <Mail className="w-6 h-6 text-[#111111]" />
+                            </div>
+                            <div className="relative">
+                                <p className="text-[10px] font-bold uppercase tracking-widest text-white/30 mb-1">LRC Programme</p>
+                                <p className="text-xl font-extrabold text-white group-hover:text-brand-yellow transition-colors">Livelihood Resource Centre</p>
+                                <p className="mt-3 inline-flex items-center gap-2 text-brand-yellow font-bold text-sm break-all">
+                                    <Mail className="w-4 h-4 shrink-0" />
+                                    mohini.maurya@magicbusindia.org
+                                </p>
+                            </div>
+                        </motion.a>
+                    </div>
                 </FadeUp>
             </div>
         </section>
@@ -816,6 +923,12 @@ function ContactSection() {
    PAGE EXPORT
 ══════════════════════════════════════════════════════════════ */
 export default function EntrepreneurshipDevelopmentProgramme() {
+    usePageMeta({
+        title: "Entrepreneurship Development Programme for Women | Magic Bus",
+        description:
+            "Magic Bus Economic Empowerment Programme: EDP and Livelihood Resource Centres help rural women and youth start nano-enterprises and self-employment.",
+    });
+
     return (
         <Layout>
             <FaqSchema faqs={edpFAQ} />
@@ -823,10 +936,10 @@ export default function EntrepreneurshipDevelopmentProgramme() {
             <HeroBanner
                 badgeText="Magic Bus India Foundation"
                 image="/edp-banner.jpg"
-                title="Entrepreneurship Development Programme"
-                subtitle="Creating lasting change in communities"
+                title="Economic Empowerment Programme"
+                subtitle="Creating lasting change in communities through women entrepreneurship and economic empowerment"
                 titleGradient={false}
-                description="Empowering aspiring entrepreneurs from underserved communities to launch and sustain micro-enterprises — building financial independence and creating jobs."
+                description="Empowering youth and women from underserved communities with entrepreneurship skills and pathways to transition into wage employment, self-employment and nano-enterprises—strengthening agency and advancing sustainable economic empowerment."
                 ctas={[
                     { href: "#edp-structure", label: "View Programme Structure", variant: "primary", showArrow: true },
                     { href: "#contact-edp", label: "Get in Touch" },
@@ -834,9 +947,8 @@ export default function EntrepreneurshipDevelopmentProgramme() {
                 showStats
                 statsVariant="inline"
                 stats={[
-                    { num: "2019", label: "Year Launched" },
-                    { num: "1,310+", label: "Entrepreneurs Reached" },
-                    { num: "7 States", label: "Active Across India" },
+                    { num: "2,500+", label: "entrepreneurs reached" },
+                    { num: "6", label: "Women Enterprise Collectives" },
                 ]}
             />
 

@@ -6,6 +6,7 @@ import {
     Mail,
     MonitorSmartphone,
     Store,
+    Truck,
     WalletCards,
     Users,
     Target,
@@ -22,6 +23,10 @@ import {
 import Layout from "../components/Layout";
 import HeroBanner from "../components/HeroBanner";
 import FAQSection from "../components/Home/FAQSectiom";
+import FaqSchema from "../components/seo/FaqSchema";
+import usePageMeta from "../hooks/usePageMeta";
+import FrameworkWheel from "../components/programmes/FrameworkWheel";
+import { YOUTH_FRAMEWORK } from "../components/programmes/frameworkWheelData";
 
 /* ─────────────────────────── animation helpers ─────────────────────────── */
 const EASE = [0.16, 1, 0.3, 1];
@@ -79,13 +84,25 @@ const yspFaq = [
         question: "How does the Youth Skilling Programme prepare youth for jobs?",
         category: "Training",
         answer:
-            "The Youth Skilling Programme trains youth through experiential learning activities, role plays, and case studies, preparing them to join the workforce.",
+            "The Youth Skilling Programme builds job readiness through experiential learning, role plays, simulations and case studies that strengthen communication, problem-solving, teamwork, confidence and workplace skills.",
     },
     {
         question: "Does the programme ensure job retention among participants?",
         category: "Retention",
         answer:
-            "The programme offers mentorship and post-placement support to make sure youth retain their jobs and achieve sustainable livelihoods.",
+            "Yes. The programme provides post-placement support and mentoring to help young people adapt to the workplace, address early employment challenges, retain their jobs and progress towards sustainable livelihoods.",
+    },
+    {
+        question: "What are the key employability skills and competencies taught under the Youth Skilling Programme?",
+        category: "Skills",
+        answer:
+            "Key skills and competencies include communication and Communicative English, problem-solving, teamwork and collaboration, critical thinking, adaptability, self-confidence, workplace behaviour, digital readiness including foundational AI, financial literacy, interview preparedness, career navigation and overall job readiness.",
+    },
+    {
+        question: "Do participants get a certificate after completing the Youth Skilling Programme?",
+        category: "Certification",
+        answer:
+            "Yes. Participants can opt for an NCVET-approved, QP code-based certification that can earn up to 11 academic credits under NEP 2020.",
     },
 ];
 
@@ -99,21 +116,25 @@ function AboutSection() {
                 <div className="grid lg:grid-cols-2 gap-14 lg:gap-20 items-center">
                     {/* Left: content */}
                     <FadeUp>
-                        <SectionTag>About Youth Skilling Programme</SectionTag>
+                        <SectionTag>About the Programme</SectionTag>
                         <h2 className="text-4xl md:text-5xl font-extrabold text-[#1A1A1A] leading-tight mt-2">
-                            About Youth Skilling{" "}
+                            About Skilling for Undergraduates{" "}
                             <span className="text-brand-red">Programme</span>
                         </h2>
                         <p className="mt-5 text-base text-[#1A1A1A]/65 leading-relaxed">
-                            The Magic Bus Youth Livelihood Skilling programme offers undergraduate youth training in 21st century life
-                            and employability skills that prepare them to enter the formal workforce. Through various hands-on group
-                            and individual activities, we foster peer to peer learning, encourage collaboration, improve communication
-                            and elevate confidence.
+                            Magic Bus India Foundation’s Youth Skilling Programme equips undergraduate youth from underserved
+                            communities with 21st-century life and employability skills through a structured two-month job-oriented
+                            programme. Practical, application-based experiential learning builds job-ready skills and strengthens
+                            communication, confidence, teamwork, problem-solving, English communication, AI foundations, interview
+                            readiness, and career navigation. These employability skills enhance the competencies of youth and equip
+                            them to enter into suitable entry-level formal jobs. Participants can also opt for NCVET-approved QP
+                            code-based certification, enabling them to earn up to 11 academic credits that may be used toward higher
+                            education under the credit framework envisaged in NEP 2020.
                         </p>
                         <p className="mt-4 text-base text-[#1A1A1A]/65 leading-relaxed">
-                            We impart core skills like Communicative English and mentor youth in order to prepare them to tackle job
-                            interviews and navigate the job market with ease. Post completing the 2 months skilling programme, we
-                            connect youth to entry-level grey-collar jobs.
+                            The Youth Skilling Programme helps young people build the confidence, skills and workplace readiness needed
+                            to transition successfully into formal employment. Post-placement support further helps youth adapt to the
+                            workplace, retain employment and progress towards sustainable livelihoods.
                         </p>
 
                         {/* Quick stat strip */}
@@ -121,11 +142,12 @@ function AboutSection() {
                             {[
                                 { num: "8 Weeks", label: "Intensive Programme" },
                                 { num: "2 Months", label: "Skilling Duration" },
-                                { num: "Grey-Collar", label: "Jobs Connected" },
+                                { num: "Grey-Collar Jobs", label: "Transitioning to" },
+                                { num: "11 academic credit", label: "Optional NCVET Certification" },
                             ].map((s) => (
                                 <div key={s.label}>
                                     <p className="text-2xl font-extrabold text-brand-red">{s.num}</p>
-                                    <p className="text-xs text-[#1A1A1A]/50 leading-tight mt-0.5 max-w-[90px]">
+                                    <p className="text-xs text-[#1A1A1A]/50 leading-tight mt-0.5 max-w-[130px]">
                                         {s.label}
                                     </p>
                                 </div>
@@ -176,17 +198,17 @@ const programmeDetails = [
         unit: "Weeks",
         accentColor: "text-brand-yellow",
         barColor: "bg-brand-yellow",
-        title: "Intensive Course",
-        desc: "A focused, time-bound curriculum that creates quick, effective pathways to employment for urban youth.",
+        title: "Intensive course",
+        desc: "A focused, time-bound, job-oriented curriculum that creates quick and effective pathways to employment for urban youth.",
     },
     {
         icon: Globe,
-        stat: "2",
+        stat: "3",
         unit: "Modes",
         accentColor: "text-brand-blue",
         barColor: "bg-brand-blue",
-        title: "Online & Offline Sessions",
-        desc: "Hybrid delivery combining digital flexibility with in-person community engagement for maximum reach.",
+        title: "Online, offline and self-learning sessions",
+        desc: "A blended online and offline delivery model that combines the flexibility and accessibility of digital learning with the depth of in-person engagement to maximise reach, participation and learning outcomes.",
     },
     {
         icon: Zap,
@@ -194,8 +216,17 @@ const programmeDetails = [
         unit: "Century",
         accentColor: "text-brand-red",
         barColor: "bg-brand-red",
-        title: "Life & Employability Skills",
-        desc: "Skills employers actually need — communication, problem solving, and full workplace readiness.",
+        title: "Life and Employability Skills",
+        desc: "Building the employability skills today’s employers value most — communication, problem-solving, teamwork, adaptability, confidence and workplace readiness — to help young people enter, succeed and progress in the world of work.",
+    },
+    {
+        icon: Award,
+        stat: "QP",
+        unit: "Certification",
+        accentColor: "text-brand-green",
+        barColor: "bg-brand-green",
+        title: "NCVET-approved QP based certification (optional)",
+        desc: "Participants can opt for an NCVET-approved, QP-based certification that formally recognises their skills and enables them to earn up to 11 academic credits, supporting higher education and future learning pathways.",
     },
 ];
 
@@ -207,10 +238,10 @@ function ProgrammeDetailsSection() {
                     <SectionTag>Programme Details</SectionTag>
                     <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
                         <h2 className="text-4xl md:text-5xl font-extrabold text-[#1A1A1A] leading-tight">
-                            Programme <span className="text-brand-red">Highlights</span>
+                            Youth Skilling Programme <span className="text-brand-red">highlights</span>
                         </h2>
                         <p className="text-[#1A1A1A]/50 max-w-xs text-sm leading-relaxed">
-                            Three defining features that shape the programme's reach and effectiveness.
+                            Four defining features that shape the programme's reach and effectiveness.
                         </p>
                     </div>
                 </FadeUp>
@@ -271,35 +302,35 @@ function ProgrammeDetailsSection() {
 const structureSteps = [
     {
         label: "Mobilisation",
-        desc: "Community outreach to identify and engage eligible youth",
+        desc: "Community outreach to identify and engage eligible youth for the Youth Skilling Programme along with alumni referrals",
         color: "bg-brand-red",
         numColor: "bg-brand-red",
         textColor: "text-white",
     },
     {
         label: "Counselling",
-        desc: "Understanding aspirations and providing career guidance",
+        desc: "Understanding aspirations and providing career counselling and career guidance for both youth and parents",
         color: "bg-brand-yellow",
         numColor: "bg-brand-yellow",
         textColor: "text-brand-black",
     },
     {
         label: "Enrolment",
-        desc: "Registration, documentation and baseline assessment",
+        desc: "Soft Launch, Registration, documentation",
         color: "bg-brand-blue",
         numColor: "bg-brand-blue",
         textColor: "text-white",
     },
     {
         label: "Training",
-        desc: "8-week intensive life & employability skills programme",
+        desc: "8-week NCVET approved intensive 21st Century Life & Employability skills programme",
         color: "bg-brand-green",
         numColor: "bg-brand-green",
         textColor: "text-white",
     },
     {
         label: "Placement",
-        desc: "Job interviews and connecting to employer partners",
+        desc: "Job interviews, job placement and connecting to employer partners",
         color: "bg-brand-magenta",
         numColor: "bg-brand-magenta",
         textColor: "text-white",
@@ -391,18 +422,12 @@ function CoreComponentsSection() {
                 <FadeUp className="mb-14">
                     <SectionTag>Core Components</SectionTag>
                     <h2 className="text-4xl md:text-5xl font-extrabold text-[#1A1A1A] leading-tight">
-                        Programme <span className="text-brand-red">Components</span>
+                        Programme Framework: <span className="text-brand-red">21st Century Life and Employability Skills</span>
                     </h2>
                 </FadeUp>
 
                 <FadeUp delay={0.08}>
-                    <div className="rounded-3xl overflow-hidden border border-gray-200 bg-white min-h-[75vh]">
-                        <img
-                            src="/youth-circle.jpg"
-                            alt="Youth Skilling Programme components"
-                            className="w-full h-[75vh] object-contain object-center"
-                        />
-                    </div>
+                    <FrameworkWheel data={YOUTH_FRAMEWORK} />
                 </FadeUp>
             </div>
         </section>
@@ -419,23 +444,34 @@ const sectors = [
         icon: MonitorSmartphone,
         color: "bg-brand-blue",
         textColor: "text-white",
-        desc: "Information Technology enabled Services — a fast-growing sector with strong demand for trained youth.",
     },
     {
         sector: "BFSI",
-        roles: "Sales Associate, Loan Processing Officer",
+        roles: "Sales Associate, Relationship Executive, Business Development Executive, Loan Processing Officer, Phone Banking Officer",
         icon: WalletCards,
         color: "bg-brand-green",
         textColor: "text-white",
-        desc: "Banking, Financial Services and Insurance — entry-level roles with clear career progression pathways.",
     },
     {
         sector: "Retail & E-Commerce",
-        roles: "Sales Associate, Customer Service",
+        roles: "Sales Associate, Customer Service Executive, Relationship officer",
         icon: Store,
         color: "bg-brand-magenta",
         textColor: "text-white",
-        desc: "India's booming retail and digital commerce sector offering youth an accessible first job opportunity.",
+    },
+    {
+        sector: "Logistics",
+        roles: "Inventory Executive, Documentation Executive, Data Entry / MIS Executive",
+        icon: Truck,
+        color: "bg-brand-red",
+        textColor: "text-white",
+    },
+    {
+        sector: "Tourism and Hospitality",
+        roles: "Sales Executive, Relationship Executive",
+        icon: Users,
+        color: "bg-brand-yellow",
+        textColor: "text-brand-black",
     },
 ];
 
@@ -447,18 +483,18 @@ function SectorsSection() {
                     <SectionTag>Sectors and Roles</SectionTag>
                     <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
                         <h2 className="text-4xl md:text-5xl font-extrabold text-[#1A1A1A] leading-tight">
-                            Opportunities <span className="text-brand-red">for Youth</span>
+                            Opportunities for Youth: <span className="text-brand-red">Entry-Level Jobs and Sectors</span>
                         </h2>
                         <p className="text-[#1A1A1A]/50 max-w-xs text-sm leading-relaxed">
-                            Trained youth are connected to employers across three key formal-sector industries.
+                            Trained youth are connected to employers across five key formal-sector industries.
                         </p>
                     </div>
                 </FadeUp>
 
                 {/* Table header */}
                 <FadeUp delay={0.05}>
-                    <div className="hidden md:grid grid-cols-3 gap-1 mb-2 px-2">
-                        {["Sector", "Roles Available", "About the Sector"].map((col) => (
+                    <div className="hidden md:grid grid-cols-2 gap-1 mb-2 px-2">
+                        {["Sector", "Roles Available"].map((col) => (
                             <p
                                 key={col}
                                 className="text-[11px] font-bold uppercase tracking-[0.18em] text-[#1A1A1A]/35"
@@ -474,7 +510,7 @@ function SectorsSection() {
                     {sectors.map((item, i) => (
                         <FadeUp key={item.sector} delay={0.08 * i}>
                             <_MOTION.div
-                                className="group grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-0 items-stretch cursor-default overflow-hidden"
+                                className="group grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-0 items-stretch cursor-default overflow-hidden"
                                 whileHover={{ backgroundColor: "rgba(0,0,0,0.015)" }}
                             >
                                 {/* Col 1: sector name + icon */}
@@ -499,10 +535,6 @@ function SectorsSection() {
                                         </p>
                                     </div>
                                 </div>
-                                {/* Col 3: description */}
-                                <div className="flex items-center py-6 md:px-6 md:border-l border-gray-200">
-                                    <p className="text-sm text-[#1A1A1A]/50 leading-relaxed">{item.desc}</p>
-                                </div>
                             </_MOTION.div>
                         </FadeUp>
                     ))}
@@ -515,7 +547,7 @@ function SectorsSection() {
                             <span className="text-brand-red font-bold">
                                 Youth are placed in entry-level grey-collar roles
                             </span>{" "}
-                            across ITeS, BFSI, and Retail — sectors with high absorption and growth potential.
+                            across ITeS, BFSI, and Retail, Logistics, and Tourism &amp; Hospitality — sectors with high absorption and growth potential.
                         </p>
                     </div>
                 </FadeUp>
@@ -554,7 +586,7 @@ const eligibility = [
         color: "bg-brand-yellow",
         textColor: "text-brand-black",
         title: "Income",
-        value: "Annual family income of 1.2 lakh or less",
+        value: "Annual family income of 3.5 lakhs or less",
     },
 ];
 
@@ -566,7 +598,7 @@ function EligibilitySection() {
                     <SectionTag>Eligibility</SectionTag>
                     <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
                         <h2 className="text-4xl md:text-5xl font-extrabold text-[#1A1A1A] leading-tight">
-                            Eligibility <span className="text-brand-red">Criteria</span>
+                            Eligibility Criteria for the <span className="text-brand-red">Youth Skilling Programme</span>
                         </h2>
                         <p className="text-[#1A1A1A]/50 max-w-xs text-sm leading-relaxed">
                             Designed for youth from underserved backgrounds seeking their first formal employment.
@@ -676,16 +708,16 @@ function ContactSection() {
                 <FadeUp className="text-center mb-12">
                     <SectionTag dark>Contact Details</SectionTag>
                     <h2 className="text-4xl md:text-5xl font-extrabold text-white leading-tight">
-                        Let's <span className="text-brand-yellow">Connect</span>
+                        Let's Connect About the <span className="text-brand-yellow">Youth Skilling Programme</span>
                     </h2>
                     <p className="mt-4 text-white/50 max-w-md mx-auto leading-relaxed">
-                        Interested in partnering, enrolling youth, or learning more about the programme? Reach out directly.
+                        Interested in partnering, enrolling, or learning more about the programme? Reach out directly.
                     </p>
                 </FadeUp>
 
                 <FadeUp delay={0.08}>
                     <_MOTION.a
-                        href="mailto:leena.rao@magicbusindia.org"
+                        href="mailto:pdlivelihood@magicbusindia.org"
                         className="flex flex-col sm:flex-row items-start sm:items-center gap-5 rounded-2xl border border-white/10 bg-white/5 p-7 hover:bg-white/10 hover:border-brand-yellow/40 transition-all duration-300 group max-w-2xl mx-auto"
                         whileHover={{ y: -3 }}
                     >
@@ -697,14 +729,11 @@ function ContactSection() {
                                 Programme Point of Contact
                             </p>
                             <p className="font-extrabold text-xl text-white group-hover:text-brand-yellow transition-colors">
-                                Leena Rao
-                            </p>
-                            <p className="text-sm text-white/50 mt-0.5">
-                                Head, Programme Design &amp; Development
+                                Director: Programme Design &amp; Development
                             </p>
                             <div className="mt-3 inline-flex items-center gap-2 text-brand-yellow font-bold text-base">
                                 <Mail className="w-4 h-4" />
-                                leena.rao@magicbusindia.org
+                                pdlivelihood@magicbusindia.org
                             </div>
                         </div>
                         <div className="shrink-0 opacity-0 group-hover:opacity-100 transition-opacity pr-2 self-center">
@@ -718,18 +747,119 @@ function ContactSection() {
 }
 
 /* ══════════════════════════════════════════════════════════════
+   OUTREACH AND IMPACT
+══════════════════════════════════════════════════════════════ */
+function ImpactSection() {
+    const stats = [
+        { num: "2,30,124", label: "Youth enrolled in Standard Skilling" },
+        { num: "1,44,982", label: "Female participants" },
+        { num: "63%", label: "Female participation" },
+    ];
+    return (
+        <section className="py-20 bg-[#F7F7F5]">
+            <div className="max-w-7xl mx-auto px-6 lg:px-12">
+                <FadeUp className="mb-12">
+                    <SectionTag>Outreach and Impact</SectionTag>
+                    <h2 className="text-4xl md:text-5xl font-extrabold text-[#1A1A1A] leading-tight">
+                        Outreach and <span className="text-brand-red">Impact</span>
+                    </h2>
+                    <p className="mt-3 text-sm text-[#1A1A1A]/50">Cumulative enrolment as on August 2026</p>
+                </FadeUp>
+                <div className="grid sm:grid-cols-3 gap-4">
+                    {stats.map((st, i) => (
+                        <FadeUp key={st.label} delay={0.06 * i}>
+                            <div className="rounded-2xl border border-gray-200 bg-white p-7 h-full">
+                                <p className="text-4xl md:text-5xl font-black text-brand-red">{st.num}</p>
+                                <p className="mt-2 text-sm font-semibold text-[#1A1A1A]/65">{st.label}</p>
+                            </div>
+                        </FadeUp>
+                    ))}
+                </div>
+            </div>
+        </section>
+    );
+}
+
+/* ══════════════════════════════════════════════════════════════
+   SUCCESS STORIES
+══════════════════════════════════════════════════════════════ */
+const successStories = [
+    {
+        "name": "Bangaru Priyanka",
+        "city": "Bangalore",
+        "story": "Bangaru Priyanka, a 25-year-old from a financially struggling family in Bangalore, faced pressure to discontinue her education and focus on household responsibilities. After joining the Magic Bus Livelihood Programme at Siddapura, Whitefield, she built confidence, communication skills, workplace readiness and interview preparation skills. Priyanka secured a position as Technician at Pred Labs, Ramagondanahalli, earning INR 23,000 per month. She used her first salary to continue her college education, turning employment into a pathway for learning and independence. Today, she contributes to her family while inspiring other young women to pursue education and careers."
+    },
+    {
+        "name": "Diksha Gangawane",
+        "city": "Mumbai",
+        "story": "Diksha Gangawane comes from a humble family of five, where her father works as a daily wage labourer and her mother manages the household. Although she had completed her education, limited confidence, communication skills and professional exposure led to repeated interview rejections. Through the Magic Bus youth skilling training programme, she gradually transformed from a shy and hesitant individual into a confident young professional by participating in sessions on Tally, Advanced Excel, GST, interview preparation, workplace readiness, mock interviews and group discussions. Magic Bus facilitated an interview with agility, where Diksha secured the position of Apprentice Trainee with a monthly salary package of INR 15,000 CTC. For Diksha, Magic Bus became the turning point that helped her begin her career and realise her dream of supporting her family."
+    },
+    {
+        "name": "Dhakshayani SS",
+        "city": "Bangalore",
+        "story": "Dhakshayani SS paused her higher education when her father fell ill and lost his job, while her mother continued working in the garment sector to support the family. With limited English communication and interview exposure, she found it difficult to secure employment. At the Magic Bus Livelihood Programme at Bhavani Centre, she strengthened her communication, teamwork, problem-solving and leadership skills. She secured a Data Entry Operator role at Iron Mountain with a monthly CTC of INR 23,000. The job helped her support her mother financially, contribute to her father’s medical expenses and rebuild her confidence as a self-reliant young professional."
+    },
+    {
+        "name": "Shaikh Asif",
+        "city": "Bangalore",
+        "story": "Shaikh Asif, a 23-year-old from Bangalore, grew up in a financially constrained household where his father, a carpenter, was the sole earner. Through the Magic Bus Livelihood Programme at Siddapura, Whitefield, he developed communication skills, workplace readiness and confidence. He secured a Technician role at Pred Labs, Ramagondanahalli, with a salary of INR 23,000 per month. One of his proudest moments was using his first salary to take admission in college and continue his education alongside work, showing how livelihood support can reopen educational aspirations as well as income pathways."
+    },
+    {
+        "name": "Mantasha Zeenat",
+        "city": "Kolkata",
+        "story": "Mantasha Zeenat, a 22-year-old from Kolkata, faced financial hardship and uncertainty after completing Higher Secondary education. With limited career guidance and growing family responsibilities, she joined the Magic Bus Livelihood Programme at the DHL Kolkata Centre after learning about it through a youth peer. During the 45-day job skills training, she developed skills in communication, customer service, computer basics, teamwork and interview preparation. She secured a Customer Support Executive role at Tatwa Technologies Ltd with a salary of INR 13,000 per month. Her journey reflects how guidance, family engagement and skill development can help young women move from uncertainty to confidence and financial contribution."
+    }
+];
+
+function SuccessStoriesSection() {
+    return (
+        <section className="py-20 bg-white">
+            <div className="max-w-7xl mx-auto px-6 lg:px-12">
+                <FadeUp className="mb-12">
+                    <SectionTag>Success Stories</SectionTag>
+                    <h2 className="text-4xl md:text-5xl font-extrabold text-[#1A1A1A] leading-tight">
+                        Success <span className="text-brand-red">Stories</span>
+                    </h2>
+                </FadeUp>
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+                    {successStories.map((item, i) => (
+                        <FadeUp key={item.name} delay={0.05 * i}>
+                            <article className="h-full rounded-2xl border border-gray-200 bg-[#F7F7F5] p-6 flex flex-col">
+                                <div className="flex items-center justify-between gap-3">
+                                    <h3 className="text-xl font-extrabold text-[#1A1A1A]">{item.name}</h3>
+                                    <span className="shrink-0 rounded-full bg-brand-yellow px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-brand-black">
+                                        {item.city}
+                                    </span>
+                                </div>
+                                <p className="mt-4 text-sm leading-relaxed text-[#1A1A1A]/70">{item.story}</p>
+                            </article>
+                        </FadeUp>
+                    ))}
+                </div>
+            </div>
+        </section>
+    );
+}
+
+/* ══════════════════════════════════════════════════════════════
    PAGE EXPORT
 ══════════════════════════════════════════════════════════════ */
 export default function YouthSkillingProgramme() {
+    usePageMeta({
+        title: "Youth Skilling Programme: Job Course After 12th | Magic Bus",
+        description:
+            "Magic Bus Youth Skilling Programme: an 8-week employability skills course after 12th, with NCVET certification, up to 11 credits and job placement.",
+    });
+
     return (
         <Layout>
+            <FaqSchema faqs={yspFaq} />
             {/* Banner */}
             <HeroBanner
                 badgeText="Magic Bus India Foundation"
                 image="/youth-skilling.jpg"
-                title="Youth Skilling Programme"
-                subtitle="Connecting youth to opportunities"
-                description="A focused pathway that equips youth with life and employability skills and connects them to formal entry-level jobs."
+                title="Skilling for Undergraduates Programme"
+                subtitle="Connecting youth to livelihood opportunities through a job-oriented skilling course after 12th"
                 ctas={[
                     {
                         href: "#programme-structure",
@@ -766,10 +896,16 @@ export default function YouthSkillingProgramme() {
             <FAQSection
                 items={yspFaq}
                 title="Frequently Asked Questions"
-                subtitle="Quick answers about programme readiness and job retention support."
+                subtitle="Quick answers about job readiness, job retention, skills taught and certification."
             />
 
-            {/* 9. Contact */}
+            {/* 9. Outreach and impact */}
+            <ImpactSection />
+
+            {/* 10. Success stories */}
+            <SuccessStoriesSection />
+
+            {/* 11. Contact */}
             <ContactSection />
         </Layout>
     );

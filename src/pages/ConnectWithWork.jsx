@@ -12,6 +12,7 @@ import {
     MonitorSmartphone,
     ShoppingBag,
     Store,
+    Truck,
     Users,
     WalletCards,
     Zap,
@@ -22,6 +23,9 @@ import HeroBanner from "../components/HeroBanner";
 import FAQSection from "../components/Home/FAQSectiom";
 import { cwwFAQ } from "../components/Home/faqItems";
 import FaqSchema from "../components/seo/FaqSchema";
+import usePageMeta from "../hooks/usePageMeta";
+import FrameworkWheel from "../components/programmes/FrameworkWheel";
+import { CWW_FRAMEWORK } from "../components/programmes/frameworkWheelData";
 
 /* ─────────────────────────────── helpers ─────────────────────────────── */
 const EASE = [0.16, 1, 0.3, 1];
@@ -84,26 +88,23 @@ function AboutSection() {
                     <FadeUp>
                         <SectionTag>About the Programme</SectionTag>
                         <h2 className="text-4xl md:text-5xl font-extrabold text-[#1A1A1A] leading-tight mt-2">
-                            About the{" "}
+                            About the Connect With Work{" "}
                             <span className="text-brand-red">Programme</span>
                         </h2>
                         <p className="mt-5 text-base text-[#1A1A1A]/65 leading-relaxed">
-                            The Magic Bus Connect With Work programme is a rapid college-based programme
-                            in core 21st century employability skills for graduate youth from underserved
-                            households. After undergoing basic skilling, we link programme participants
-                            to grey collar, entry level job opportunities and provide them with
-                            post-placement support to ensure job continuity.
-                        </p>
-                        <p className="mt-4 text-base text-[#1A1A1A]/65 leading-relaxed">
-                            The programme is conducted in tier II and III colleges, bringing
-                            employability skills training directly to underserved graduate communities
-                            across India.
+                            Magic Bus India Foundation’s Connect With Work (CWW) programme equips graduated youth from
+                            underserved households with essential 21st-century life and employability skills through a
+                            free, college-based intervention using a job readiness bootcamp model. Delivered primarily in
+                            Tier II and Tier III colleges, the Connect With Work skilling programme enhances youth agency
+                            and prepares them for entry-level grey-collar job roles, connects them with suitable employers
+                            through free job placement support, and provides post-placement support to strengthen job
+                            continuity and early career progression.
                         </p>
 
                         {/* Quick stat strip */}
                         <div className="mt-8 flex flex-wrap gap-8 border-t border-gray-100 pt-6">
                             {[
-                                { num: "7–10", label: "Days Course" },
+                                { num: "7–8", label: "Days Course" },
                                 { num: "Tier II/III", label: "Colleges" },
                                 { num: "Grey Collar", label: "Jobs Connected" },
                             ].map((s) => (
@@ -166,10 +167,10 @@ const features = [
         icon: Zap,
         accentColor: "text-brand-yellow",
         barColor: "bg-brand-yellow",
-        stat: "7–10",
+        stat: "7–8",
         unit: "Days",
-        title: "Short, Intensive Course",
-        desc: "A focused 7 to 10 day boot camp format designed to deliver maximum impact in minimum time.",
+        title: "7 to 8 days job readiness course",
+        desc: "A focused 7 to 8 day boot camp format designed to deliver maximum impact in minimum time.",
     },
     {
         icon: Users,
@@ -177,7 +178,7 @@ const features = [
         barColor: "bg-brand-blue",
         stat: "Live",
         unit: "Offline",
-        title: "Offline Sessions",
+        title: "Offline classroom sessions",
         desc: "In-person, interactive sessions held on campus for hands-on learning and peer collaboration.",
     },
     {
@@ -199,7 +200,7 @@ function FeaturesSection() {
                     <SectionTag>Programme Features</SectionTag>
                     <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
                         <h2 className="text-4xl md:text-5xl font-extrabold text-[#1A1A1A] leading-tight">
-                            Programme <span className="text-brand-red">Features</span>
+                            Connect With Work Programme <span className="text-brand-red">Features</span>
                         </h2>
                         <p className="text-[#1A1A1A]/50 max-w-xs text-sm leading-relaxed">
                             Four defining pillars that make CWW accessible, effective, and impactful.
@@ -262,42 +263,42 @@ function FeaturesSection() {
 const structureSteps = [
     {
         label: "College Collaboration",
-        desc: "Partnering with tier II and III colleges to facilitate the programme on campus",
+        desc: "Identify the right colleges that fit the eligibility criteria: Tier 2/3 colleges in urban and peri-urban areas for the Connect With Work skilling programme. Connect with management stakeholders and sign MoUs to confirm college collaboration for the job readiness programme.",
         color: "bg-brand-red",
         numColor: "bg-brand-red",
         textColor: "text-white",
     },
     {
-        label: "Mobilisation & Enrolment",
-        desc: "Outreach to eligible graduating students and enrolment into the programme",
+        label: "Mobilisation and Enrolment",
+        desc: "Outreach to eligible graduated youths through college placement cells and alumni networks for enrolling into the free employability programme.",
         color: "bg-brand-yellow",
         numColor: "bg-brand-yellow",
         textColor: "text-brand-black",
     },
     {
         label: "Boot Camp Training",
-        desc: "7–10 day intensive offline sessions covering 21st century employability skills",
+        desc: "7–8 days intensive offline sessions covering 21st century life and employability skills.",
         color: "bg-brand-blue",
         numColor: "bg-brand-blue",
         textColor: "text-white",
     },
     {
         label: "Job Fair",
-        desc: "Direct connections with employer partners through structured job fair events",
+        desc: "Identify interests and strengths of youths after the employability skills training. Identify potential employers and hiring partners after thorough Know Your Employer (KYE) checks. Conduct job fairs for freshers basis the skill sets of completed batches. Recruiters provide on the spot job offer letters to high-potential candidates.",
         color: "bg-brand-green",
         numColor: "bg-brand-green",
         textColor: "text-white",
     },
     {
         label: "Placement",
-        desc: "Matching trained graduates to grey-collar, entry-level job opportunities",
+        desc: "Confirm alignment between terms of the initial job offer letter and final offer letter. Youths get placed in entry-level jobs aligned to their interests and strengths.",
         color: "bg-brand-magenta",
         numColor: "bg-brand-magenta",
         textColor: "text-white",
     },
     {
         label: "Post-Placement Support",
-        desc: "Ongoing support and mentoring to ensure job retention and continuity",
+        desc: "Ongoing post-placement support and handholding to ensure job retention and continuity.",
         color: "bg-brand-red",
         numColor: "bg-brand-red",
         textColor: "text-white",
@@ -315,7 +316,7 @@ function StructureSection() {
                     <SectionTag dark>Programme Structure</SectionTag>
                     <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
                         <h2 className="text-4xl md:text-5xl font-extrabold text-white leading-tight">
-                            Programme{" "}
+                            Connect With Work Programme{" "}
                             <span className="text-brand-yellow">Structure</span>
                         </h2>
                         <p className="text-white/45 max-w-sm text-sm leading-relaxed">
@@ -383,7 +384,7 @@ function CoreComponentsSection() {
                     <SectionTag>Core Components</SectionTag>
                     <h2 className="text-4xl md:text-5xl font-extrabold text-[#1A1A1A] leading-tight">
                         Components of{" "}
-                        <span className="text-brand-red">CWW Programme</span>
+                        <span className="text-brand-red">CWW Programme: Life and Employability Skills for Graduates</span>
                     </h2>
                     <p className="mt-4 text-base text-[#1A1A1A]/60 leading-relaxed max-w-2xl">
                         The CWW programme is built around interconnected components that together
@@ -392,13 +393,7 @@ function CoreComponentsSection() {
                 </FadeUp>
 
                 <FadeUp delay={0.08}>
-                    <div className="rounded-3xl overflow-hidden border border-gray-200 bg-white shadow-sm">
-                        <img
-                            src="/cww-components.png"
-                            alt="Components of the Connect With Work Programme"
-                            className="w-full object-contain object-center"
-                        />
-                    </div>
+                    <FrameworkWheel data={CWW_FRAMEWORK} />
                 </FadeUp>
             </div>
         </section>
@@ -415,15 +410,13 @@ const sectors = [
         icon: MonitorSmartphone,
         color: "bg-brand-blue",
         textColor: "text-white",
-        desc: "Information Technology enabled Services — fast-growing sector with strong demand for trained graduates.",
     },
     {
         sector: "BFSI",
-        roles: "Sales Associate, Loan Processing Officer",
+        roles: "Sales Associate, Loan Processing Officer, Business Development Executive, Relationship officer",
         icon: WalletCards,
         color: "bg-brand-green",
         textColor: "text-white",
-        desc: "Banking, Financial Services and Insurance — entry-level roles with structured career progression pathways.",
     },
     {
         sector: "Retail & E-Commerce",
@@ -431,7 +424,13 @@ const sectors = [
         icon: ShoppingBag,
         color: "bg-brand-magenta",
         textColor: "text-white",
-        desc: "India's booming retail sector offering accessible first job opportunities with high absorption rates.",
+    },
+    {
+        sector: "Logistics",
+        roles: "Inventory Executive, Documentation Executive, Data Entry / MIS Executive",
+        icon: Truck,
+        color: "bg-brand-yellow",
+        textColor: "text-brand-black",
     },
     {
         sector: "QSR",
@@ -439,7 +438,6 @@ const sectors = [
         icon: UtensilsCrossed,
         color: "bg-brand-red",
         textColor: "text-white",
-        desc: "Quick Service Restaurant sector — high-growth industry with strong entry-level employment demand.",
     },
 ];
 
@@ -451,18 +449,18 @@ function SectorsSection() {
                     <SectionTag>Sectors and Roles</SectionTag>
                     <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
                         <h2 className="text-4xl md:text-5xl font-extrabold text-[#1A1A1A] leading-tight">
-                            Sectors <span className="text-brand-red">and Roles</span>
+                            Sectors and Roles: <span className="text-brand-red">Entry-Level Jobs for Graduates</span>
                         </h2>
                         <p className="text-[#1A1A1A]/50 max-w-xs text-sm leading-relaxed">
-                            Trained graduates are connected across four key industries with entry-level roles.
+                            Trained graduates are connected across five key industries with entry-level roles.
                         </p>
                     </div>
                 </FadeUp>
 
                 {/* Table header */}
                 <FadeUp delay={0.05}>
-                    <div className="hidden md:grid grid-cols-3 gap-1 mb-2 px-2">
-                        {["Sector", "Roles Available", "About the Sector"].map((col) => (
+                    <div className="hidden md:grid grid-cols-2 gap-1 mb-2 px-2">
+                        {["Sector", "Roles Available"].map((col) => (
                             <p
                                 key={col}
                                 className="text-[11px] font-bold uppercase tracking-[0.18em] text-[#1A1A1A]/35"
@@ -478,7 +476,7 @@ function SectorsSection() {
                     {sectors.map((item, i) => (
                         <FadeUp key={item.sector} delay={0.08 * i}>
                             <motion.div
-                                className="group grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-0 items-stretch cursor-default overflow-hidden"
+                                className="group grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-0 items-stretch cursor-default overflow-hidden"
                                 whileHover={{ backgroundColor: "rgba(0,0,0,0.015)" }}
                             >
                                 {/* Col 1: sector name + icon */}
@@ -503,10 +501,6 @@ function SectorsSection() {
                                         </p>
                                     </div>
                                 </div>
-                                {/* Col 3: description */}
-                                <div className="flex items-center py-6 md:px-6 md:border-l border-gray-200">
-                                    <p className="text-sm text-[#1A1A1A]/50 leading-relaxed">{item.desc}</p>
-                                </div>
                             </motion.div>
                         </FadeUp>
                     ))}
@@ -519,7 +513,7 @@ function SectorsSection() {
                             <span className="text-brand-red font-bold">
                                 Graduates are placed in entry-level grey-collar roles
                             </span>{" "}
-                            across ITeS, BFSI, Retail & E-Commerce, and QSR — sectors with high absorption and growth potential.
+                            across ITeS, BFSI, Retail & E-Commerce, Logistics, and QSR — sectors with high absorption and growth potential.
                         </p>
                     </div>
                 </FadeUp>
@@ -537,7 +531,7 @@ const eligibility = [
         color: "bg-brand-red",
         textColor: "text-white",
         title: "Age",
-        value: "21 to 25 years",
+        value: "20 to 25 years",
     },
     {
         icon: GraduationCap,
@@ -551,7 +545,7 @@ const eligibility = [
         color: "bg-brand-green",
         textColor: "text-white",
         title: "Status",
-        value: "Not in education, employment or training (NEET)",
+        value: "Not in education, employment or training",
     },
 ];
 
@@ -565,7 +559,7 @@ function EligibilitySection() {
             accentBorder: "border-brand-red/20",
             accentText: "text-brand-red",
             label: "Age Range",
-            value: "21 – 25 years",
+            value: "20 – 25 years",
             note: "Open to graduates within this age group",
         },
         {
@@ -587,8 +581,8 @@ function EligibilitySection() {
             accentBorder: "border-brand-yellow/30",
             accentText: "text-[#1A1A1A]",
             label: "Status",
-            value: "NEET",
-            note: "Not in Education, Employment or Training",
+            value: "Not in education, employment or training",
+            note: "",
         },
     ];
 
@@ -600,7 +594,7 @@ function EligibilitySection() {
                     <SectionTag>Eligibility</SectionTag>
                     <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
                         <h2 className="text-4xl md:text-5xl font-extrabold text-[#1A1A1A] leading-tight">
-                            Eligibility <span className="text-brand-red">Criteria</span>
+                            Eligibility Criteria for <span className="text-brand-red">Connect With Work</span>
                         </h2>
                         <p className="text-[#1A1A1A]/50 max-w-xs text-sm leading-relaxed">
                             Designed for graduate youth from underserved households seeking their first formal employment.
@@ -638,9 +632,11 @@ function EligibilitySection() {
                                 </h3>
 
                                 {/* Note */}
-                                <p className="text-sm text-[#1A1A1A]/55 leading-relaxed">
-                                    {item.note}
-                                </p>
+                                {item.note && (
+                                    <p className="text-sm text-[#1A1A1A]/55 leading-relaxed">
+                                        {item.note}
+                                    </p>
+                                )}
 
                                 {/* Check badge */}
                                 <div className="mt-6 inline-flex items-center gap-1.5">
@@ -691,8 +687,8 @@ function ContactSection() {
                 <FadeUp className="text-center mb-12">
                     <SectionTag dark>Contact Details</SectionTag>
                     <h2 className="text-4xl md:text-5xl font-extrabold text-white leading-tight">
-                        Get in Touch{" "}
-                        <span className="text-brand-yellow">with Us</span>
+                        Get in Touch with Us About{" "}
+                        <span className="text-brand-yellow">Connect With Work</span>
                     </h2>
                     <p className="mt-4 text-white/50 max-w-md mx-auto leading-relaxed">
                         Interested in partnering, enrolling graduates, or learning more about the CWW programme? Reach out directly.
@@ -701,7 +697,7 @@ function ContactSection() {
 
                 <FadeUp delay={0.08}>
                     <motion.a
-                        href="mailto:leena.rao@magicbusindia.org"
+                        href="mailto:pdlivelihood@magicbusindia.org"
                         className="flex flex-col sm:flex-row items-start sm:items-center gap-5 rounded-2xl border border-white/10 bg-white/5 p-7 hover:bg-white/10 hover:border-brand-yellow/40 transition-all duration-300 group max-w-2xl mx-auto"
                         whileHover={{ y: -3 }}
                     >
@@ -713,14 +709,11 @@ function ContactSection() {
                                 Programme Point of Contact
                             </p>
                             <p className="font-extrabold text-xl text-white group-hover:text-brand-yellow transition-colors">
-                                Leena Rao
-                            </p>
-                            <p className="text-sm text-white/50 mt-0.5">
-                                Head, Programme Design &amp; Development
+                                Director: Programme Design &amp; Development
                             </p>
                             <div className="mt-3 inline-flex items-center gap-2 text-brand-yellow font-bold text-base">
                                 <Mail className="w-4 h-4" />
-                                leena.rao@magicbusindia.org
+                                pdlivelihood@magicbusindia.org
                             </div>
                         </div>
                         <div className="shrink-0 opacity-0 group-hover:opacity-100 transition-opacity pr-2 self-center">
@@ -734,9 +727,49 @@ function ContactSection() {
 }
 
 /* ══════════════════════════════════════════════════════════════
+   OUTREACH AND IMPACT
+══════════════════════════════════════════════════════════════ */
+function ImpactSection() {
+    const stats = [
+        { num: "3,012", label: "Colleges" },
+        { num: "6,05,143", label: "Youth enrolled in Connect With Work" },
+        { num: "3,43,933", label: "Female participation (57%)" },
+    ];
+    return (
+        <section className="py-20 bg-[#F7F7F5]">
+            <div className="max-w-7xl mx-auto px-6 lg:px-12">
+                <FadeUp className="mb-12">
+                    <SectionTag>Outreach and Impact</SectionTag>
+                    <h2 className="text-4xl md:text-5xl font-extrabold text-[#1A1A1A] leading-tight">
+                        Outreach and <span className="text-brand-red">Impact</span>
+                    </h2>
+                    <p className="mt-3 text-sm text-[#1A1A1A]/50">Cumulative enrolment as on August 2026</p>
+                </FadeUp>
+                <div className="grid sm:grid-cols-3 gap-4">
+                    {stats.map((st, i) => (
+                        <FadeUp key={st.label} delay={0.06 * i}>
+                            <div className="rounded-2xl border border-gray-200 bg-white p-7 h-full">
+                                <p className="text-4xl md:text-5xl font-black text-brand-red">{st.num}</p>
+                                <p className="mt-2 text-sm font-semibold text-[#1A1A1A]/65">{st.label}</p>
+                            </div>
+                        </FadeUp>
+                    ))}
+                </div>
+            </div>
+        </section>
+    );
+}
+
+/* ══════════════════════════════════════════════════════════════
    PAGE EXPORT
 ══════════════════════════════════════════════════════════════ */
 export default function ConnectWithWork() {
+    usePageMeta({
+        title: "Connect With Work: Free Job Training for Graduates",
+        description:
+            "Magic Bus Connect With Work: a free 7 to 8 day employability skills programme for graduates aged 20 to 25, with job fairs and free placement support.",
+    });
+
     return (
         <Layout>
             <FaqSchema faqs={cwwFAQ} />
@@ -745,8 +778,7 @@ export default function ConnectWithWork() {
                 badgeText="Magic Bus India Foundation"
                 image="/cww-banner.jpg"
                 title="Connect With Work"
-                subtitle="Skilling programme for graduates"
-                description="A rapid college-based employability skilling programme for graduate youth from underserved households — linking them to grey-collar, entry-level jobs with ongoing post-placement support."
+                subtitle="Skilling programme for Graduates: Free Employability Skills Training and Job Placement"
                 ctas={[
                     {
                         href: "#programme-structure",
@@ -776,14 +808,17 @@ export default function ConnectWithWork() {
             {/* 6. Eligibility */}
             <EligibilitySection />
 
-            {/* 7. FAQs */}
+            {/* 7. Outreach and impact */}
+            <ImpactSection />
+
+            {/* 8. FAQs */}
             <FAQSection
                 items={cwwFAQ}
                 title="Frequently Asked Questions"
                 subtitle="Quick answers about the Connect With Work programme, eligibility, and placement support."
             />
 
-            {/* 8. Contact */}
+            {/* 9. Contact */}
             <ContactSection />
         </Layout>
     );

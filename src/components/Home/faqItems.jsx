@@ -1210,22 +1210,28 @@ export const whoWeAreFAQ = [
 /* -------------------------------------------------------------------------- */
 export const cwwFAQ = [
   {
-    question: "Does this programme cover AI skills?",
+    question: "Does the Connect With Work programme cover AI skills?",
     category: "Curriculum",
     answer:
-      "Magic Bus has launched the AI-CWW Programme that embeds AI literacy, digital fluency, and future ready skills into employability training for underserved youth.",
+      "No. Magic Bus has launched another AI-linked Connect with Work (AI-CWW) program as part of its digital skilling program which embeds AI literacy, digital fluency, and future ready skills into employability training for underserved youth.",
   },
   {
     question: "How does the programme support first-time job seekers?",
     category: "Support",
     answer:
-      "The CWW Programme equips graduates with skills for diverse job roles, addressing challenges faced by first-time job seekers and linking them with local job opportunities.",
+      "The CWW Programme equips graduates with skills for diverse job roles, addressing challenges faced by first-time job seekers and linking them with local job opportunities and entry-level jobs for freshers.",
   },
   {
-    question: "Does the programme give jobs to youth?",
+    question: "Does the Connect With Work programme give jobs to youth?",
     category: "Placement",
     answer:
-      "No, the programme does not give them jobs. The programme gives them job placement support through training in relevant employability skills for building sustainable livelihoods.",
+      "No. The programme facilitates youth to get into jobs by giving them training in relevant employability skills for building sustainable livelihoods. Regular job drives and job fairs for graduates are also conducted to encourage them to attend interviews and secure job offer letters.",
+  },
+  {
+    question: "Is the Connect With Work programme free?",
+    category: "Cost",
+    answer:
+      "Yes. Connect With Work is a free skill development programme for graduates. There are no fees or hidden charges, and the programme includes free job placement support.",
   },
 ];
 
@@ -1234,16 +1240,22 @@ export const cwwFAQ = [
 /* -------------------------------------------------------------------------- */
 export const digitalSkillingFAQ = [
   {
-    question: "Is this programme only for STEM graduates?",
+    question: "Are the Digital Programmes only for STEM graduates?",
     category: "Eligibility",
     answer:
-      "Both STEM and non-STEM are supported through the Foundational Technology Skilling Programme, equipping students with skills in cloud computing, AI, cyber security, and IT fundamentals, alongside 21st century life and employability skills.",
+      "Both STEM and non-STEM graduates are supported through the Foundational Technology Skilling Programme, equipping students with skills in cloud computing, AI, cyber security, and IT fundamentals, alongside 21st century life and employability skills. STEM AI-CWW and AI-Data Analytics courses are specifically for STEM students.",
   },
   {
-    question: "What happens after students complete the programme?",
+    question: "What happens after students complete the AI or digital programme?",
     category: "Placement",
     answer:
-      "After completing the programme, students are connected to a wide range of entry-level roles with leading employers.",
+      "After completing the programme, students are connected to a wide range of entry-level IT, AI and data roles with leading employers.",
+  },
+  {
+    question: "Do the Digital Programmes include job placement support?",
+    category: "Placement",
+    answer:
+      "Yes. Every Magic Bus digital programme includes free job placement support, connecting youth to entry-level tech jobs after they complete the course.",
   },
 ];
 
@@ -1252,7 +1264,7 @@ export const digitalSkillingFAQ = [
 /* -------------------------------------------------------------------------- */
 export const edpFAQ = [
   {
-    question: "Does this programme support rural communities?",
+    question: "Does the Entrepreneurship Development Programme support rural communities and rural women?",
     category: "Reach",
     answer:
       "Under EDP, Magic Bus runs the Peri-Urban and Rural Livelihood Programme, equipping women with life skills, leadership training, and entrepreneurial skills to start and sustain enterprises for achieving financial independence.",
@@ -1261,10 +1273,10 @@ export const edpFAQ = [
     question: "In which parts of India is the EDP initiative active?",
     category: "Reach",
     answer:
-      "This programme is currently active in Maharashtra, Gujarat, Rajasthan, Madhya Pradesh, Karnataka, Odisha, and Tamil Nadu.",
+      "The Entrepreneurship Development Programme is currently active in Maharashtra, Gujarat, Rajasthan, Madhya Pradesh, Karnataka, Odisha, and Tamil Nadu.",
   },
   {
-    question: "How does the programme promote social empowerment?",
+    question: "How does the programme promote social empowerment and women’s economic empowerment?",
     category: "Impact",
     answer:
       "The programme combines training, financial support, and collective strength through Self Help Groups (SHGs), creating a ripple effect of social empowerment and economic growth.",
@@ -1273,13 +1285,47 @@ export const edpFAQ = [
     question: "How does the programme support women from underserved communities?",
     category: "Women",
     answer:
-      "Women from underserved communities are equipped with skills, resources, and opportunities to enhance their agency and drive positive change.",
+      "Women from underserved communities are equipped with entrepreneurship skills, financial literacy, resources, and opportunities to enhance their agency and drive positive change.",
   },
   {
-    question: "What kind of businesses are supported by EDP?",
+    question: "What kind of small businesses and nano-enterprises are supported by EDP?",
     category: "Businesses",
     answer:
-      "This programme supports businesses like garment business, sewai business, medicine products, and dehydrated food through business collectives.",
+      "EDP supports women-led small businesses like garment business, sewai business, medicine products, and dehydrated food through business collectives.",
+  },
+  {
+    question: "What kind of livelihood programmes are available in LRC (Livelihood Resource Centre)?",
+    category: "LRC",
+    answer: (
+      <div className="space-y-3">
+        <p>The Livelihood Resource Centre (LRC) offers three integrated livelihood pathways for rural youth and women:</p>
+        <ul className="list-disc pl-5 space-y-1">
+          <li>
+            <span className="font-medium">Skilling and Job Placement:</span> Life and employability skills, digital/AI
+            readiness, career preparation, employer linkages, job placement and post-placement support.
+          </li>
+          <li>
+            <span className="font-medium">Self-Employment:</span> Entrepreneurship and management skills, digital and
+            financial literacy, support to start service-based livelihoods, and continued mentoring and market linkages.
+          </li>
+          <li>
+            <span className="font-medium">Nano-Enterprise Development:</span> Business planning, enterprise set-up,
+            advanced entrepreneurship support, access to finance, government schemes, markets and longer-term
+            handholding for micro and nano-enterprises.
+          </li>
+        </ul>
+        <p>
+          Across all three pathways, LRCs also function as local livelihood hubs, linking participants with employers,
+          MSMEs, producer groups, government livelihood and skilling schemes, finance and local market opportunities.
+        </p>
+      </div>
+    ),
+  },
+  {
+    question: "Who can join the Magic Bus Entrepreneurship Development Programme?",
+    category: "Eligibility",
+    answer:
+      "Youth and women aged 18 to 45 with a minimum 8th standard pass, an annual family income of 3 lakh or less, and a desire to start own enterprise, upgrade existing or start self-employment can apply.",
   },
 ];
 

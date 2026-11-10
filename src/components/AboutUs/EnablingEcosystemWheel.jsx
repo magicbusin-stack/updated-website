@@ -223,7 +223,6 @@ export default function EnablingEcosystemWheel() {
   const activeId = hovered || pinned;
   const info = DATA[activeId];
   const meta = META[activeId];
-  const isPreview = hovered && hovered !== pinned;
   const props = (id) => ({
     role: "button",
     tabIndex: 0,
@@ -365,10 +364,6 @@ export default function EnablingEcosystemWheel() {
                       {info.category}
                     </span>
                     <span className="text-xs md:text-sm font-semibold text-slate-600">{info.layer}</span>
-                    <span className="inline-flex items-center gap-1.5 rounded-full bg-white/80 px-2.5 py-1 text-xs md:text-sm font-semibold text-slate-700 shadow-sm">
-                      <span className={`h-2 w-2 rounded-full ${isPreview ? "bg-emerald-500 animate-pulse" : "bg-slate-400"}`} />
-                      {isPreview ? "Hovered live" : "Pinned"}
-                    </span>
                   </div>
                   <h3 className="text-3xl md:text-4xl font-bold leading-tight tracking-tight text-slate-900">{info.title}</h3>
                 </div>

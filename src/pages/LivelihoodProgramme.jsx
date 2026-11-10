@@ -15,6 +15,8 @@ import {
 import Layout from "../components/Layout";
 import HeroBanner from "../components/HeroBanner";
 import FAQSection from "../components/Home/FAQSectiom";
+import FaqSchema from "../components/seo/FaqSchema";
+import usePageMeta from "../hooks/usePageMeta";
 
 const _MOTION = motion;
 const EASE = [0.16, 1, 0.3, 1];
@@ -54,19 +56,37 @@ const livelihoodFaq = [
         question: "In which areas is the Livelihood Programme operational?",
         category: "Coverage",
         answer:
-            "This programme is operational in urban, peri-urban, and rural areas, helping underserved youth build sustainable careers and micro-enterprises.",
+            "The Magic Bus Livelihood Programme is operational in urban, peri-urban, and rural areas, helping underserved youth build sustainable careers and micro-enterprises.",
+    },
+    {
+        question: "Who is eligible for the Magic Bus Livelihood Programme?",
+        category: "Eligibility",
+        answer:
+            "Youth between 18-25 years from underserved communities, with a per annum income of INR 3.5 Lacs, can enrol for life skills, employability skills and job placement support.",
+    },
+    {
+        question: "How can companies support the Livelihood Programme through CSR?",
+        category: "CSR",
+        answer:
+            "Companies can partner with Magic Bus India Foundation through CSR funding to skill underserved youth and place them in sustainable jobs. To discuss a CSR partnership for youth skilling, write to the Head of Programme and Partnerships at the contact below.",
     },
 ];
 
 export default function LivelihoodProgramme() {
+    usePageMeta({
+        title: "Livelihood Programme for Youth Skills and Jobs | Magic Bus",
+        description:
+            "Magic Bus Livelihood Programme equips underserved youth with life, employability and digital skills, with job placement in ITeS, BFSI and retail.",
+    });
+
     return (
         <Layout>
+            <FaqSchema faqs={livelihoodFaq} />
             <HeroBanner
                 badgeText="Magic Bus India Foundation"
                 image="/ngo-images/10.jpg"
                 title="Livelihood Programme"
-                subtitle="Preparing youth for success"
-                description="A livelihood skilling programme that equips underserved youth and women with employability, life, and entrepreneurial skills for sustainable careers."
+                subtitle="Building youth agency and empowerment through skills, jobs and sustainable livelihoods"
                 ctas={[
                     { href: "#job-placement", label: "Explore Job Placement Sectors", variant: "primary", showArrow: true },
                     { href: "#contact-livelihood", label: "For CSR Support" },
@@ -76,15 +96,19 @@ export default function LivelihoodProgramme() {
             <section className="py-20 bg-white">
                 <div className="max-w-7xl mx-auto px-6 lg:px-12">
                     <FadeUp className="max-w-4xl">
-                        <SectionTag>Need for Youth Interventions</SectionTag>
-                        <h2 className="text-3xl md:text-4xl font-extrabold text-[#1A1A1A]">Need for Youth Interventions</h2>
+                        <SectionTag>Need for Livelihood Interventions</SectionTag>
+                        <h2 className="text-3xl md:text-4xl font-extrabold text-[#1A1A1A]">Need for Livelihood Interventions for Youth in India</h2>
                         <p className="mt-4 text-[#1A1A1A]/75 leading-relaxed">
-                            Nearly 65% of India’s population is under the age of 35. However, unemployment remains high,
-                            particularly among youth from underserved communities. The lack of basic employability skills among
-                            educated youth remains a major challenge.
+                            India’s large youth population represents a powerful opportunity for economic growth, yet many young
+                            people—especially those from underserved communities—struggle to transition from education to meaningful
+                            employment. Gaps in communication, digital readiness, problem-solving, workplace behaviour and career
+                            navigation often limit their employability. There is an urgent need to equip youth with future-ready
+                            skills, confidence and access to employment pathways so they can enter, adapt and progress in a rapidly
+                            changing world of work.
                         </p>
                         <p className="mt-4 text-[#1A1A1A]/75 leading-relaxed">
-                            We must equip youth with skills that enhance employability and enable them to adapt to an ever-evolving job market.
+                            For rural youth and women, we equip their entrepreneurial ability through EDP programmes
+                            (Entrepreneurship Development Programme) so they can set up nano-enterprises or start self-employment.
                         </p>
                     </FadeUp>
                 </div>
@@ -110,12 +134,15 @@ export default function LivelihoodProgramme() {
                                             Employability + Entrepreneurship
                                         </span>
                                     </div>
-                                    <h2 className="mt-5 text-3xl md:text-4xl font-extrabold text-[#15161A] leading-tight">Livelihood Programme</h2>
-                                    <p className="mt-4 text-base md:text-lg leading-relaxed text-[#1A1A1A]/80">
-                                        The Livelihood Programme of Magic Bus equips youth and women from underserved communities with life skills,
-                                        employability skills, and entrepreneurial skills, enabling them to make informed career decisions, support
-                                        their families, and contribute to the economy.
-                                    </p>
+                                    <h2 className="mt-5 text-3xl md:text-4xl font-extrabold text-[#15161A] leading-tight">Magic Bus Livelihood Programme</h2>
+                                    <h3 className="mt-4 text-base md:text-lg font-normal leading-relaxed text-[#1A1A1A]/80">
+                                        Magic Bus India Foundation’s Livelihood Programmes equip underserved youth and women with 21st
+                                        century life &amp; employability skills, along with digital and entrepreneurial skills to access
+                                        sustainable livelihood opportunities. This enables them to make informed career decisions, secure
+                                        sustainable jobs, support their families, and contribute to the economy. For rural youth and women,
+                                        we help them to set up their nano-enterprises or self-employment at their own villages through EDP
+                                        (Entrepreneurship Development Programme) and enhancing their business professionalism.
+                                    </h3>
                                 </div>
                             </FadeUp>
 
@@ -125,9 +152,8 @@ export default function LivelihoodProgramme() {
                                         World of Work
                                     </div>
                                     <p className="mt-8 text-base md:text-lg leading-relaxed text-white/95">
-                                        The Livelihood Programme goes beyond technical skilling to build resilience, digital readiness, and agency of
-                                        underserved youth. It addresses skill mismatch, limited access to opportunities, and systemic barriers to help
-                                        youth increase household incomes and break out of poverty.
+                                        The Livelihood Programme addresses the challenges of skill mismatch, limited access to job opportunities,
+                                        and systemic barriers, helping youth increase their household incomes and break out of the cycle of poverty.
                                     </p>
                                 </div>
                             </FadeUp>
@@ -160,13 +186,16 @@ export default function LivelihoodProgramme() {
                 <div className="max-w-7xl mx-auto px-6 lg:px-12">
                     <FadeUp className="max-w-4xl">
                         <SectionTag>What We Do</SectionTag>
-                        <h2 className="text-3xl md:text-4xl font-extrabold text-[#1A1A1A]">Helping Youth Move from Struggles to Success</h2>
+                        <h2 className="text-3xl md:text-4xl font-extrabold text-[#1A1A1A]">Skilling youth for the world of work: skill development and employability training</h2>
                         <p className="mt-4 text-[#1A1A1A]/75 leading-relaxed">
-                            Magic Bus trains underserved youth to step into the modern workforce with new-age skills and build careers with confidence.
-                            Participants are equipped with transferable skills, such as digital skills, future-ready skills, life skills, and decision-making abilities.
+                            The Livelihood Programme builds confidence, resilience, digital readiness, and agency of underserved youth.
+                            It addresses the challenges of skill mismatch, limited access to job opportunities, and systemic barriers,
+                            helping youth increase their household incomes and break out of the cycle of poverty.
                         </p>
                         <p className="mt-4 text-[#1A1A1A]/75 leading-relaxed">
-                            Magic Bus also supports entrepreneurial aspirations through mentorship to launch and run stable enterprises, enabling financial independence.
+                            Magic Bus also supports entrepreneurial aspirations of underserved youth by providing mentorship to launch
+                            and run stable enterprises. Through mentorship, guidance and access to opportunities, young entrepreneurs
+                            running small businesses are empowered to achieve financial independence and support their families.
                         </p>
                     </FadeUp>
                 </div>
@@ -176,17 +205,17 @@ export default function LivelihoodProgramme() {
                 <div className="max-w-7xl mx-auto px-6 lg:px-12">
                     <FadeUp>
                         <SectionTag>Programme Structure</SectionTag>
-                        <h2 className="text-3xl md:text-4xl font-extrabold text-[#1A1A1A]">Structure, Components, Eligibility for Programme</h2>
+                        <h2 className="text-3xl md:text-4xl font-extrabold text-[#1A1A1A]">Structure, Components, Eligibility for the Livelihood Programme</h2>
                     </FadeUp>
                     <div className="mt-8 grid md:grid-cols-4 gap-4 relative">
                         {[
                             {
                                 title: "Who do we support?",
-                                points: ["Youth between 21 to 25 years", "Per annum family income less than INR 2,50,000", "NEET (Not in Education, Employment or Training)"],
+                                points: ["Youth between 18-25", "Per annum income INR 3.5 Lacs"],
                             },
                             {
-                                title: "What do we provide?",
-                                points: ["Life Skills", "Employability Skills"],
+                                title: "What do we provide in the Livelihood Programme?",
+                                points: ["Life Skills", "Employability Skills", "Digital Skills", "Financial Literacy", "Entrepreneurial Skills"],
                             },
                             {
                                 title: "What is our objective?",
@@ -194,7 +223,7 @@ export default function LivelihoodProgramme() {
                             },
                             {
                                 title: "Where do we place youth?",
-                                points: ["Retail & E-Commerce", "IT & ITeS", "QSR", "BFSI", "Logistics"],
+                                points: ["ITeS", "BFSI", "Retail", "Logistics", "Hospitality", "E-commerce"],
                             },
                         ].map((card, i) => (
                             <FadeUp key={card.title} delay={0.05 * i}>
@@ -219,10 +248,11 @@ export default function LivelihoodProgramme() {
                 <div className="max-w-7xl mx-auto px-6 lg:px-12">
                     <FadeUp className="max-w-4xl">
                         <SectionTag>Job Placement and Sectors</SectionTag>
-                        <h2 className="text-3xl md:text-4xl font-extrabold text-[#1A1A1A]">Job Placement Support for Sectors</h2>
+                        <h2 className="text-3xl md:text-4xl font-extrabold text-[#1A1A1A]">Job Placement Support for Sectors: ITeS, BFSI, Retail and More</h2>
                         <p className="mt-4 text-[#1A1A1A]/75 leading-relaxed">
-                            Through the Livelihood Programme, Magic Bus provides job placement support for careers across ITeS, Retail,
-                            Logistics, and E-commerce, cultivating pathways to sustainable careers.
+                            Through the Livelihood Programme, Magic Bus provides job placement support for building careers across
+                            sectors, such as ITeS, BFSI, Retail, Logistics, Hospitality, and E-commerce, thereby cultivating pathways
+                            to sustainable careers.
                         </p>
                     </FadeUp>
 
@@ -255,7 +285,7 @@ export default function LivelihoodProgramme() {
                 <div className="max-w-7xl mx-auto px-6 lg:px-12">
                     <FadeUp className="text-center">
                         <SectionTag>Strategic Partnerships</SectionTag>
-                        <h2 className="text-3xl md:text-4xl font-extrabold text-[#1A1A1A]">Our Employment Partners</h2>
+                        <h2 className="text-3xl md:text-4xl font-extrabold text-[#1A1A1A]">Our Employment Partners for Youth Jobs</h2>
                     </FadeUp>
                     <div className="mt-8 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
                         {["/partners/1 (7).jpg", "/partners/1 (8).jpg", "/partners/1 (9).jpg", "/partners/1 (10).jpg", "/partners/1 (11).jpg", "/partners/1 (12).jpg"].map((logo, i) => (
@@ -277,10 +307,10 @@ export default function LivelihoodProgramme() {
                     </FadeUp>
                     <div className="mt-8 grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
                         {[
-                            "4.55 Lac youth placed in jobs from 2015 till March 2025",
-                            "1.58 Lac youth placed in jobs from Apr 2024 to Mar 2025",
+                            "7.63 Lac youth placed in jobs from 2015 till Aug 2026",
+                            "2.33 Lac youth placed in jobs from Apr 2025 to Mar 2026",
                             "60% of young people in the Magic Bus Livelihood programme are women",
-                            "80% of young people are placed in sustainable jobs with an aspirational salary for entry level job roles ₹15,261",
+                            "83% of young people enrolled for placement linked programme are placed in sustainable jobs with an aspirational salary for entry level job roles ₹16,219",
                             "99% of young people graduate from Magic Bus Livelihood programme",
                             "65% of young people continue with employment for at least 3 months",
                         ].map((metric, i) => (
@@ -297,7 +327,7 @@ export default function LivelihoodProgramme() {
             <FAQSection
                 items={livelihoodFaq}
                 title="Frequently Asked Questions"
-                subtitle="Quick answers about SDG alignment and programme coverage."
+                subtitle="Quick answers about SDG alignment, programme coverage, eligibility and CSR support."
             />
 
             <section id="contact-livelihood" className="py-20 bg-white">
@@ -305,7 +335,7 @@ export default function LivelihoodProgramme() {
                     <FadeUp>
                         <div className="rounded-3xl border border-gray-200 bg-[#F7F7F5] p-7 h-full">
                             <SectionTag>For CSR Support</SectionTag>
-                            <h2 className="text-2xl md:text-3xl font-extrabold text-[#1A1A1A]">For CSR Support, Contact Us</h2>
+                            <h2 className="text-2xl md:text-3xl font-extrabold text-[#1A1A1A]">For CSR Support for Youth Livelihood, Contact Us</h2>
                             <p className="mt-4 text-[#1A1A1A]/75">Leena Rao: Head – Programme and Partnerships</p>
                             <a href="mailto:leena.rao@magicbusindia.org" className="mt-5 inline-flex items-center gap-2 text-sm font-bold text-brand-red hover:text-[#a01018]">
                                 <Mail className="w-4 h-4" />
@@ -317,7 +347,7 @@ export default function LivelihoodProgramme() {
                     <FadeUp delay={0.06}>
                         <div className="rounded-3xl border border-gray-200 bg-white p-7 h-full">
                             <SectionTag>Get in Touch</SectionTag>
-                            <h2 className="text-2xl md:text-3xl font-extrabold text-[#1A1A1A]">Get in Touch</h2>
+                            <h2 className="text-2xl md:text-3xl font-extrabold text-[#1A1A1A]">Get in Touch About the Livelihood Programme</h2>
                             <p className="mt-4 text-[#1A1A1A]/75">For other enquiries related to this programme.</p>
                             <a href="mailto:info@magicbusindia.org" className="mt-5 inline-flex items-center gap-2 text-sm font-bold text-brand-red hover:text-[#a01018]">
                                 <Mail className="w-4 h-4" />

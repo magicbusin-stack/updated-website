@@ -2,6 +2,7 @@ import React, { useRef, useState } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import {
     ArrowRight,
+    BarChart3,
     Bot,
     Briefcase,
     CheckCircle2,
@@ -23,6 +24,7 @@ import HeroBanner from "../components/HeroBanner";
 import FAQSection from "../components/Home/FAQSectiom";
 import { digitalSkillingFAQ } from "../components/Home/faqItems";
 import FaqSchema from "../components/seo/FaqSchema";
+import usePageMeta from "../hooks/usePageMeta";
 
 /* ─────────────────────────── animation helpers ─────────────────────────── */
 const EASE = [0.16, 1, 0.3, 1];
@@ -74,12 +76,12 @@ function AboutSection() {
                         <div className="inline-flex items-center gap-2 rounded-full bg-[#0F0F23] px-4 py-1.5 mb-6">
                             <span className="h-1.5 w-1.5 rounded-full bg-brand-yellow animate-pulse" />
                             <span className="text-[11px] font-bold uppercase tracking-[0.22em] text-brand-yellow">
-                                About Digital Programmes
+                                About Magic Bus Digital Programmes
                             </span>
                         </div>
 
                         <h2 className="text-4xl md:text-5xl font-extrabold text-[#0F0F23] leading-[1.1] mb-6">
-                            About{" "}
+                            About Magic Bus{" "}
                             <span className="relative inline-block">
                                 Digital
                                 <span className="absolute -bottom-1 left-0 right-0 h-1 bg-brand-yellow rounded-full" />
@@ -88,13 +90,18 @@ function AboutSection() {
                         </h2>
 
                         <p className="text-[17px] text-[#1A1A1A]/65 leading-relaxed mb-5">
-                            To secure and sustain rewarding employment in today's job scenario, youth must be equipped
-                            with the right 21st century job skills and digital skills.
+                            To secure and sustain rewarding employment in today's AI-driven job scenario, youth must be equipped
+                            with the right 21st century job skills, digital skills and AI literacy. Magic Bus digital programmes
+                            provide youth from underserved communities with technical skilling in AI, data and web design and the
+                            opportunity to secure white collar jobs.
+                        </p>
+                        <p className="text-[17px] text-[#1A1A1A]/65 leading-relaxed mb-5">
+                            We place them on the pathway towards tech career growth through free job placement support, and ensure
+                            they retain in the jobs through life skills and employability training.
                         </p>
                         <p className="text-[17px] text-[#1A1A1A]/65 leading-relaxed mb-8">
-                            Our digital programmes provide youth from underserved communities with technical skilling
-                            and the opportunity to secure white collar jobs. We place them on the pathway towards
-                            career growth and ensure they retain their jobs through life skills and employability training.
+                            Key programmes are AI-Connect with Work (AI-CWW), STEM AI-CWW, Data Annotation, AI-Powered Data
+                            Analytics and Web Design.
                         </p>
 
                         {/* 3 inline pills */}
@@ -182,7 +189,7 @@ function AboutSection() {
 const features = [
     {
         icon: GraduationCap,
-        title: "Graduates Are Eligible",
+        title: "Graduates are eligible",
         desc: "Open to graduates from any stream — STEM or non-STEM — from underserved communities seeking digital careers.",
         accent: "bg-brand-yellow",
         iconColor: "text-[#0F0F23]",
@@ -190,7 +197,7 @@ const features = [
     },
     {
         icon: Briefcase,
-        title: "Free Job Placement Support",
+        title: "Free job placement support",
         desc: "End-to-end placement assistance — from interview preparation to employer connections — completely free of cost.",
         accent: "bg-brand-red",
         iconColor: "text-white",
@@ -198,7 +205,7 @@ const features = [
     },
     {
         icon: Bot,
-        title: "Technology & AI Fundamentals",
+        title: "Technology and AI fundamentals",
         desc: "Hands-on learning in AI tools, cloud computing, cyber security, and web design — the skills shaping tomorrow's workforce.",
         accent: "bg-[#0F0F23]",
         iconColor: "text-brand-yellow",
@@ -223,7 +230,7 @@ function FeaturesSection() {
                         </span>
                     </div>
                     <h2 className="text-4xl md:text-5xl font-extrabold text-white leading-tight">
-                        Programme{" "}
+                        Digital Programme{" "}
                         <span className="text-brand-yellow">Features</span>
                     </h2>
                 </FadeUp>
@@ -268,20 +275,20 @@ function FeaturesSection() {
 ══════════════════════════════════════════════════════════════ */
 const programmes = [
     {
-        name: "Fundamentals of AI Tools",
+        name: "Fundamentals of AI tools + STEM AI-CWW",
         icon: Bot,
         accentColor: "text-brand-yellow",
         accentBg: "bg-brand-yellow",
         borderColor: "border-brand-yellow",
         duration: "60 hours",
         mode: "Face to face",
-        age: "18–25 years",
-        workforce: "Grey Collar",
+        age: "20–25 years",
+        workforce: "Grey collar",
         skills: ["AI Tool Basics", "Prompt Engineering", "Workflow Automation", "Digital Literacy"],
         highlight: "Shortest pathway to AI-ready employment",
     },
     {
-        name: "Web Design",
+        name: "Web design",
         icon: Code2,
         accentColor: "text-brand-red",
         accentBg: "bg-brand-red",
@@ -289,23 +296,21 @@ const programmes = [
         duration: "265 hours",
         mode: "Face to face",
         age: "18–25 years",
-        workforce: "Grey Collar",
+        workforce: "White collar",
         skills: ["HTML & CSS", "UI/UX Principles", "Responsive Design", "Portfolio Building"],
         highlight: "Most comprehensive digital design track",
         featured: true,
     },
     {
-        name: "Fundamentals of Cyber Security",
-        icon: Shield,
+        name: "AI-Data Analytics/Data Annotation",
+        icon: BarChart3,
         accentColor: "text-[#34D399]",
         accentBg: "bg-[#34D399]",
         borderColor: "border-[#34D399]",
-        duration: "160 hours",
+        duration: "240 hours",
         mode: "Face to face",
-        age: "18–25 years",
-        workforce: "Grey Collar",
-        skills: ["Network Security", "Threat Analysis", "Data Protection", "Security Protocols"],
-        highlight: "High-demand sector with strong career prospects",
+        age: "20–25 years",
+        workforce: "White collar",
     },
 ];
 
@@ -333,7 +338,7 @@ function ProgrammeDetailsSection() {
                     <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-5">
                         <h2 className="text-4xl md:text-5xl font-extrabold text-[#0F0F23] leading-tight max-w-lg">
                             Our Digital Programmes{" "}
-                            <span className="text-brand-red">at a Glance</span>
+                            <span className="text-brand-red">at a Glance: AI, Data Analytics and Web Design Courses</span>
                         </h2>
                         <p className="text-[#0F0F23]/50 text-sm leading-relaxed max-w-xs">
                             Three distinct tracks — each designed to unlock white collar career pathways.
@@ -379,7 +384,11 @@ function ProgrammeDetailsSection() {
                                         <prog.icon className="w-6 h-6 text-white" />
                                     </div>
                                     <h3 className="text-xl font-extrabold text-[#0F0F23] leading-snug mb-1">{prog.name}</h3>
-                                    <p className={`text-xs font-semibold ${prog.accentColor} mb-6`}>{prog.highlight}</p>
+                                    {prog.highlight ? (
+                                        <p className={`text-xs font-semibold ${prog.accentColor} mb-6`}>{prog.highlight}</p>
+                                    ) : (
+                                        <div className="mb-6" />
+                                    )}
 
                                     {/* Specs */}
                                     <div className="space-y-3 mb-7 border-t border-gray-100 pt-5">
@@ -395,19 +404,21 @@ function ProgrammeDetailsSection() {
                                     </div>
 
                                     {/* Skills */}
-                                    <div>
-                                        <p className="text-[10px] font-bold uppercase tracking-widest text-[#0F0F23]/30 mb-3">Skills Covered</p>
-                                        <div className="flex flex-wrap gap-2">
-                                            {prog.skills.map((s) => (
-                                                <span
-                                                    key={s}
-                                                    className="rounded-full bg-[#F5F5F0] border border-gray-200 px-3 py-1 text-[11px] font-semibold text-[#0F0F23]/65"
-                                                >
-                                                    {s}
-                                                </span>
-                                            ))}
+                                    {prog.skills && (
+                                        <div>
+                                            <p className="text-[10px] font-bold uppercase tracking-widest text-[#0F0F23]/30 mb-3">Skills Covered</p>
+                                            <div className="flex flex-wrap gap-2">
+                                                {prog.skills.map((s) => (
+                                                    <span
+                                                        key={s}
+                                                        className="rounded-full bg-[#F5F5F0] border border-gray-200 px-3 py-1 text-[11px] font-semibold text-[#0F0F23]/65"
+                                                    >
+                                                        {s}
+                                                    </span>
+                                                ))}
+                                            </div>
                                         </div>
-                                    </div>
+                                    )}
                                 </div>
                             </motion.div>
                         </FadeUp>
@@ -433,7 +444,9 @@ function ProgrammeDetailsSection() {
                                             <prog.icon className="w-6 h-6 text-white" />
                                         </div>
                                         <h3 className="text-xl font-extrabold text-[#0F0F23] mb-1">{prog.name}</h3>
-                                        <p className={`text-xs font-semibold ${prog.accentColor} mb-6`}>{prog.highlight}</p>
+                                        {prog.highlight && (
+                                            <p className={`text-xs font-semibold ${prog.accentColor} mb-6`}>{prog.highlight}</p>
+                                        )}
                                         <div className="space-y-3 border-t border-gray-100 pt-5 mb-6">
                                             {rows.map(({ label, key, icon: Icon }) => (
                                                 <div key={key} className="flex items-center justify-between">
@@ -445,13 +458,15 @@ function ProgrammeDetailsSection() {
                                                 </div>
                                             ))}
                                         </div>
-                                        <div className="flex flex-wrap gap-2">
-                                            {prog.skills.map((s) => (
-                                                <span key={s} className="rounded-full bg-[#F5F5F0] px-3 py-1 text-[11px] font-semibold text-[#0F0F23]/65">
-                                                    {s}
-                                                </span>
-                                            ))}
-                                        </div>
+                                        {prog.skills && (
+                                            <div className="flex flex-wrap gap-2">
+                                                {prog.skills.map((s) => (
+                                                    <span key={s} className="rounded-full bg-[#F5F5F0] px-3 py-1 text-[11px] font-semibold text-[#0F0F23]/65">
+                                                        {s}
+                                                    </span>
+                                                ))}
+                                            </div>
+                                        )}
                                     </div>
                                 );
                             })()}
@@ -464,7 +479,7 @@ function ProgrammeDetailsSection() {
                   <div className="overflow-x-auto">
                     <div className="min-w-[640px] rounded-2xl overflow-hidden border border-gray-200 bg-white shadow-sm">
                         <div className="grid grid-cols-4 bg-[#0F0F23]">
-                            <div className="p-4 text-[10px] font-bold uppercase tracking-widest text-white/30">Framework</div>
+                            <div className="p-4 text-[10px] font-bold uppercase tracking-widest text-white/30">Programme Framework</div>
                             {programmes.map((p) => (
                                 <div key={p.name} className="p-4 flex items-center gap-2">
                                     <div className={`w-2 h-2 rounded-full ${p.accentBg}`} />
@@ -501,9 +516,9 @@ function ProgrammeDetailsSection() {
    Design: Bold bento-style stat grid on dark background
 ══════════════════════════════════════════════════════════════ */
 const impactStats = [
-    { num: "3", label: "Digital Programmes", sub: "AI, Web Design, Cyber Security" },
-    { num: "485", label: "Total Hours", sub: "Combined curriculum duration" },
-    { num: "18–25", label: "Age Group", sub: "Youth from underserved communities" },
+    { num: "2,11,143", label: "Cumulative Enrolment in Digital Programmes", sub: "Young people enrolled as on August 2026" },
+    { num: "1,22,271", label: "Female participation in Digital Programmes", sub: "58% of young people enrolled" },
+    { num: "3", label: "Digital Programmes", sub: "AI, Data Analytics, Web Design" },
     { num: "White Collar", label: "Job Pathway", sub: "Technical sector opportunities" },
 ];
 
@@ -524,7 +539,7 @@ function OutreachImpactSection() {
                     </div>
                     <h2 className="text-4xl md:text-5xl font-extrabold text-white leading-tight">
                         Outreach and{" "}
-                        <span className="text-brand-yellow">Impact</span>
+                        <span className="text-brand-yellow">Impact of Digital Programmes</span>
                     </h2>
                 </FadeUp>
 
@@ -597,16 +612,16 @@ function ContactSection() {
                         </span>
                     </div>
                     <h2 className="text-4xl md:text-5xl font-extrabold text-[#0F0F23] leading-tight">
-                        Let's <span className="text-brand-red">Connect</span>
+                        Let's Connect About <span className="text-brand-red">Digital Programmes</span>
                     </h2>
                     <p className="mt-4 text-[#0F0F23]/50 max-w-md mx-auto leading-relaxed">
-                        Interested in the Digital Skilling Programme? Reach out to our Senior Director directly.
+                        Interested in the Digital Programmes? Reach out to our Director, Programme Design & Development directly.
                     </p>
                 </FadeUp>
 
                 <FadeUp delay={0.1}>
                     <motion.a
-                        href="mailto:harish.hariharan@magicbusindia.org"
+                        href="mailto:pdlivelihood@magicbusindia.org"
                         className="group flex flex-col sm:flex-row items-start sm:items-center gap-6 bg-[#0F0F23] rounded-3xl p-8 md:p-10 shadow-2xl max-w-2xl mx-auto relative overflow-hidden"
                         whileHover={{ scale: 1.02 }}
                         transition={{ type: "spring", stiffness: 250, damping: 22 }}
@@ -621,16 +636,13 @@ function ContactSection() {
 
                         {/* Details */}
                         <div className="flex-1 relative">
-                            <p className="text-[10px] font-bold uppercase tracking-widest text-white/30 mb-1">Senior Director</p>
+                            <p className="text-[10px] font-bold uppercase tracking-widest text-white/30 mb-1">Director</p>
                             <p className="text-xl font-extrabold text-white group-hover:text-brand-yellow transition-colors">
-                                Harish Hariharan
+                                Programme Design &amp; Development
                             </p>
-                            <p className="text-sm text-white/50 mt-0.5 mb-4">
-                                Digital Skilling and Livelihoods
-                            </p>
-                            <div className="inline-flex items-center gap-2 text-brand-yellow font-bold text-sm">
+                            <div className="mt-4 inline-flex items-center gap-2 text-brand-yellow font-bold text-sm">
                                 <Mail className="w-4 h-4" />
-                                harish.hariharan@magicbusindia.org
+                                pdlivelihood@magicbusindia.org
                             </div>
                         </div>
 
@@ -649,6 +661,12 @@ function ContactSection() {
    PAGE EXPORT
 ══════════════════════════════════════════════════════════════ */
 export default function DigitalSkilling() {
+    usePageMeta({
+        title: "Digital Programmes: AI Skills for Youth | Magic Bus",
+        description:
+            "Magic Bus Digital Programmes: AI-CWW, data annotation, AI data analytics and web design courses for underserved youth, with free job placement support.",
+    });
+
     return (
         <Layout>
             <FaqSchema faqs={digitalSkillingFAQ} />
@@ -656,10 +674,10 @@ export default function DigitalSkilling() {
             <HeroBanner
                 badgeText="Magic Bus India Foundation"
                 image="/digital-banner.jpg"
-                title="Digital Programmes"
-                subtitle="Shaping Future-Ready Youth"
+                title="Digital Programmes: AI and Digital Skilling for Youth"
+                subtitle="Shaping Future-Ready Youth with AI and Digital Skills Training"
                 titleGradient={false}
-                description="Equipping youth from underserved communities with AI, web design, and cyber security skills — opening pathways to white collar careers and a digital future."
+                description="Equipping youth from underserved communities with foundational AI skills, data annotation training, and AI-linked data analytics — opening pathways to white-collar tech careers and a digital future."
                 ctas={[
                     {
                         href: "#programmes",
@@ -673,7 +691,7 @@ export default function DigitalSkilling() {
                 statsVariant="inline"
                 stats={[
                     { num: "3", label: "Digital Tracks" },
-                    { num: "485hrs", label: "Combined Content" },
+                    { num: "Nano & short-term courses", label: "60 hours AI-CWW / 240 Hours AI Data Analytics" },
                     { num: "White Collar", label: "Job Pathway" },
                 ]}
             />
