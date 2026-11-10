@@ -109,6 +109,13 @@ const yspFaq = [
 /* ══════════════════════════════════════════════════════════════
    SECTION 1 — ABOUT PROGRAMME
 ══════════════════════════════════════════════════════════════ */
+const aboutStats = [
+    { num: "8", unit: "Weeks", label: "Intensive Programme", accent: "text-brand-yellow", bar: "bg-brand-yellow" },
+    { num: "2", unit: "Months", label: "Skilling Duration", accent: "text-brand-blue", bar: "bg-brand-blue" },
+    { num: "Grey-Collar", unit: "Jobs", label: "Transitioning to", accent: "text-brand-red", bar: "bg-brand-red" },
+    { num: "11", unit: "Academic credit", label: "Optional NCVET Certification", accent: "text-brand-green", bar: "bg-brand-green" },
+];
+
 function AboutSection() {
     return (
         <section className="py-20 bg-white overflow-hidden">
@@ -137,19 +144,22 @@ function AboutSection() {
                             workplace, retain employment and progress towards sustainable livelihoods.
                         </p>
 
-                        {/* Quick stat strip */}
-                        <div className="mt-8 flex flex-wrap gap-8 border-t border-gray-100 pt-6">
-                            {[
-                                { num: "8 Weeks", label: "Intensive Programme" },
-                                { num: "2 Months", label: "Skilling Duration" },
-                                { num: "Grey-Collar Jobs", label: "Transitioning to" },
-                                { num: "11 academic credit", label: "Optional NCVET Certification" },
-                            ].map((s) => (
-                                <div key={s.label}>
-                                    <p className="text-2xl font-extrabold text-brand-red">{s.num}</p>
-                                    <p className="text-xs text-[#1A1A1A]/50 leading-tight mt-0.5 max-w-[130px]">
-                                        {s.label}
-                                    </p>
+                        {/* Stats: same style as the Programme highlights below */}
+                        <div className="mt-8 grid grid-cols-2 gap-x-6 gap-y-6 border-t border-gray-100 pt-6">
+                            {aboutStats.map((st) => (
+                                <div key={st.unit} className="flex items-stretch gap-3">
+                                    <div className={`w-1.5 shrink-0 self-stretch rounded-full ${st.bar}`} />
+                                    <div>
+                                        <div
+                                            className={`font-black leading-none select-none ${st.accent} ${
+                                                st.num.length > 4 ? "text-3xl md:text-4xl" : "text-5xl md:text-6xl"
+                                            }`}
+                                        >
+                                            {st.num}
+                                        </div>
+                                        <div className="mt-1.5 text-xs font-bold uppercase tracking-[0.2em] text-[#1A1A1A]/35">{st.unit}</div>
+                                        <div className="mt-1 text-xs leading-snug text-[#1A1A1A]/55">{st.label}</div>
+                                    </div>
                                 </div>
                             ))}
                         </div>
@@ -251,7 +261,7 @@ function ProgrammeDetailsSection() {
                     {programmeDetails.map((item, i) => (
                         <FadeUp key={item.title} delay={0.08 * i}>
                             <_MOTION.div
-                                className="group grid grid-cols-1 md:grid-cols-[200px_1fr_1fr] gap-0 items-stretch cursor-default overflow-hidden"
+                                className="group grid grid-cols-1 md:grid-cols-[200px_minmax(0,0.9fr)_minmax(0,1.5fr)] gap-0 items-stretch cursor-default overflow-hidden"
                                 whileHover={{ backgroundColor: "rgba(255,255,255,0.7)" }}
                                 transition={{ duration: 0.2 }}
                             >
@@ -285,7 +295,9 @@ function ProgrammeDetailsSection() {
 
                                 {/* Description */}
                                 <div className="flex items-center py-8 md:px-8 md:border-l border-gray-200">
-                                    <p className="text-sm text-[#1A1A1A]/55 leading-relaxed">{item.desc}</p>
+                                    <p className="border-l-4 border-transparent pl-4 text-base md:text-[17px] leading-7 text-[#1A1A1A]/80 transition-all duration-300 group-hover:translate-x-1 group-hover:text-[#1A1A1A] group-hover:border-brand-yellow">
+                                        {item.desc}
+                                    </p>
                                 </div>
                             </_MOTION.div>
                         </FadeUp>
