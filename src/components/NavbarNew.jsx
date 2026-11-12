@@ -57,6 +57,7 @@ const NAVIGATION_ITEMS = [
         items: [
           { label: "School-to-Work Transition Framework", path: "/school-to-work" },
           { label: "Government Partnership Programme", path: "/government-partnership-programme" },
+          { label: "Government Partnerships", path: "/government-partnerships" },
           { label: "Learning & Development", path: "/learning-development" },
           { label: "Youth for Change Fellowship Programme", path: "/youth-for-change-fellowship-programme" },
         ],
