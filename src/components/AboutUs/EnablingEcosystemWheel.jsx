@@ -427,7 +427,7 @@ export default function EnablingEcosystemWheel() {
   .eew-pop{animation-duration:.01ms!important}
 }`}</style>
 
-      <div className="grid grid-cols-1 md:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)] gap-6 lg:gap-8 items-start">
+      <div className="grid grid-cols-1 md:grid-cols-[minmax(0,1.12fr)_minmax(0,1fr)] gap-6 lg:gap-8 items-start">
         <div className="relative overflow-hidden rounded-3xl bg-white border shadow-sm p-2 md:p-4">
           {/* soft glow behind the wheel that follows the colour of the active piece */}
           <div
@@ -443,10 +443,8 @@ export default function EnablingEcosystemWheel() {
                 <stop offset="100%" stopColor="#D2E5F6" />
               </radialGradient>
               <path id="eew-title-arc" d={topArc(362)} />
-              <path id="eew-prog-arc" d={topArc(241)} />
               <path id="eew-cross-title-arc" d={topArc(152)} />
               <path id="eew-cross-words-arc" d={topArc(133)} />
-              <path id="eew-life-arc" d={topArc(107)} />
             </defs>
 
             {LOW.map((sh) => (
@@ -515,53 +513,64 @@ export default function EnablingEcosystemWheel() {
 
             {/* headline texts */}
             <ArcLabel id="eew-title-arc" text="ENABLING ECOSYSTEM" size={21} spacing={3} fill="#17365F" />
-            <ArcLabel id="eew-prog-arc" text="Programme Interventions" size={15} spacing={0.6} fill="#0B2545" />
+            {/* tags sit on top of the dividing line, so the words are never cut in two */}
+            <g pointerEvents="none">
+              <rect x={CX - 92} y={166} width={184} height={28} rx={14} fill="#fff" fillOpacity={0.94} />
+              <text x={CX} y={180} textAnchor="middle" dominantBaseline="central" fontSize={14} fontWeight={700} fill="#0B2545">
+                Programme Interventions
+              </text>
+            </g>
             <ArcLabel id="eew-cross-title-arc" text="CROSS-CUTTING PRINCIPLES" size={11.5} spacing={1.1} fill="#1E5A2A" />
-            <ArcLabel id="eew-life-arc" text="LIFESKILLS" size={10.5} spacing={3} opacity={0.9} />
+            <g pointerEvents="none">
+              <rect x={CX - 36} y={288} width={72} height={17} rx={8.5} fill="#fff" fillOpacity={0.94} />
+              <text x={CX} y={296.5} textAnchor="middle" dominantBaseline="central" fontSize={10} fontWeight={700} letterSpacing={1.6} fill="#16365F">
+                LIFESKILLS
+              </text>
+            </g>
             <ArcLabel id="eew-cross-words-arc" text="Gender Transformative  ·  Inclusive  ·  Equitable  ·  Safe" size={10.5} weight={600} fill="#1E5A2A" />
           </svg>
         </div>
 
-        <div className="md:sticky md:top-32 space-y-5">
+        <div className="md:sticky md:top-24 space-y-3">
           <div
-            className="relative overflow-hidden rounded-3xl border p-6 md:p-8 shadow-md transition-colors"
+            className="relative overflow-hidden rounded-2xl border p-3 md:p-4 shadow-md transition-colors"
             style={{ background: `linear-gradient(135deg, ${info.color}26 0%, #ffffff 65%)`, borderColor: `${info.color}55` }}
           >
             <div className="absolute inset-x-0 top-0 h-2 transition-colors" style={{ background: info.color }} />
-            <div className="flex items-start justify-between gap-4 pt-1">
+            <div className="flex items-center justify-between gap-3 pt-1">
               <div className="space-y-3">
-              <h3 className="text-3xl md:text-4xl font-bold leading-tight tracking-tight text-slate-900">{info.title}</h3>
+              <h3 className="text-xl md:text-2xl font-bold leading-tight tracking-tight text-slate-900">{info.title}</h3>
               </div>
-              <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl shadow-md" style={{ background: info.color, color: "#fff" }}>
-                <Icon className="h-7 w-7" />
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl shadow-md" style={{ background: info.color, color: "#fff" }}>
+                <Icon className="h-5 w-5" />
               </div>
             </div>
-            <p className="mt-5 text-lg md:text-xl leading-8 text-slate-700">{info.desc}</p>
+            <p className="mt-3 text-sm leading-5 text-slate-700">{info.desc}</p>
           </div>
 
-          <div className="space-y-4 rounded-3xl border p-5 md:p-6 shadow-sm transition-colors" style={{ background: `${info.color}0F`, borderColor: `${info.color}33` }}>
+          <div className="space-y-3 rounded-2xl border p-3 md:p-4 shadow-sm transition-colors" style={{ background: `${info.color}0F`, borderColor: `${info.color}33` }}>
             <div className="flex items-center justify-between gap-3">
-              <h4 className="flex items-center gap-2 text-xl md:text-2xl font-bold text-slate-900">
-                <ListChecks className="h-6 w-6" style={{ color: info.color }} />
+              <h4 className="flex items-center gap-2 text-base md:text-lg font-bold text-slate-900">
+                <ListChecks className="h-5 w-5" style={{ color: info.color }} />
                 Core Competencies &amp; Modules
               </h4>
-              <span className="shrink-0 rounded-full px-3 py-1 text-xs md:text-sm font-bold" style={{ background: info.color, color: "#fff" }}>
+              <span className="shrink-0 rounded-full px-2.5 py-0.5 text-xs font-bold" style={{ background: info.color, color: "#fff" }}>
                 {info.modules.length} Components
               </span>
             </div>
-            <ol className="flex flex-col gap-3">
+            <ol className="flex flex-col gap-2">
               {info.modules.map(([name, text], i) => (
                 <li
                   key={name}
-                  className="flex items-start gap-4 rounded-2xl bg-white p-4 md:p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
-                  style={{ borderLeft: `6px solid ${info.color}` }}
+                  className="flex items-start gap-3 rounded-xl bg-white p-2 md:p-2.5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
+                  style={{ borderLeft: `4px solid ${info.color}` }}
                 >
-                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-base font-bold" style={{ background: info.color, color: "#fff" }}>
+                  <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-sm font-bold" style={{ background: info.color, color: "#fff" }}>
                     {i + 1}
                   </span>
                   <div>
-                    <p className="text-lg md:text-xl font-bold leading-snug text-slate-900">{name}</p>
-                    <p className="mt-1 text-base md:text-lg leading-relaxed text-slate-600">{text}</p>
+                    <p className="text-sm md:text-base font-bold leading-snug text-slate-900">{name}</p>
+                    <p className="mt-0.5 text-xs md:text-[13px] leading-snug text-slate-600">{text}</p>
                   </div>
                 </li>
               ))}
