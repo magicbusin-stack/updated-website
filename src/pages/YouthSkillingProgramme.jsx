@@ -438,9 +438,7 @@ function CoreComponentsSection() {
                     </h2>
                 </FadeUp>
 
-                <FadeUp delay={0.08}>
-                    <FrameworkWheel data={YOUTH_FRAMEWORK} />
-                </FadeUp>
+                <FrameworkWheel data={YOUTH_FRAMEWORK} />
             </div>
         </section>
     );

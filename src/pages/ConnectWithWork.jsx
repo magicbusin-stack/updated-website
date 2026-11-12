@@ -392,9 +392,7 @@ function CoreComponentsSection() {
                     </p>
                 </FadeUp>
 
-                <FadeUp delay={0.08}>
-                    <FrameworkWheel data={CWW_FRAMEWORK} />
-                </FadeUp>
+                <FrameworkWheel data={CWW_FRAMEWORK} />
             </div>
         </section>
     );

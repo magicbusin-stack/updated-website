@@ -236,10 +236,10 @@ function LifeSkillsFrameworkSection() {
         <FadeUp>
           <SectionTag>Life Skills Framework of Magic Bus</SectionTag>
           <h2 className="mt-5 text-3xl font-black text-[#0F172A] md:text-4xl">Life Skills Framework of Magic Bus</h2>
-          <div className="mt-8">
-            <EnablingEcosystemWheel />
-          </div>
         </FadeUp>
+        <div className="mt-8">
+          <EnablingEcosystemWheel />
+        </div>
       </div>
     </section>
   );
