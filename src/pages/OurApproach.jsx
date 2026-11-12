@@ -12,7 +12,6 @@ import {
 } from "lucide-react";
 import Layout from "../components/Layout";
 import StrategicFramework from "../components/AboutUs/StrategicFramework";
-import EnablingEcosystemWheel from "../components/AboutUs/EnablingEcosystemWheel";
 import AnimatedGradientBorder from "../components/ui/animated-gradient-border";
 import { Link } from "react-router-dom";
 
@@ -440,9 +439,6 @@ export default function OurApproach() {
             </div>
           </div>
         </section>
-
-        {/* ===== ENABLING ECOSYSTEM WHEEL ===== */}
-        <EnablingEcosystemWheel />
 
         {/* ===== PROGRAMME AREAS (TWO-COLUMN) ===== */}
         <section id="programmes" className="py-12 bg-gray-50">

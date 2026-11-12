@@ -6,6 +6,7 @@ import HeroBanner from "../components/HeroBanner";
 import FAQSection from "../components/Home/FAQSectiom";
 import { adolescentFAQ } from "../components/Home/faqItems";
 import FaqSchema from "../components/seo/FaqSchema";
+import EnablingEcosystemWheel from "../components/AboutUs/EnablingEcosystemWheel";
 
 const _MOTION = motion;
 const EASE = [0.16, 1, 0.3, 1];
@@ -223,6 +224,22 @@ function WhatWeDo() {
             </FadeUp>
           ))}
         </div>
+      </div>
+    </section>
+  );
+}
+
+function LifeSkillsFrameworkSection() {
+  return (
+    <section className="bg-white py-16 sm:py-20">
+      <div className="mx-auto max-w-[1500px] px-4 lg:px-8">
+        <FadeUp>
+          <SectionTag>Life Skills Framework of Magic Bus</SectionTag>
+          <h2 className="mt-5 text-3xl font-black text-[#0F172A] md:text-4xl">Life Skills Framework of Magic Bus</h2>
+          <div className="mt-8">
+            <EnablingEcosystemWheel />
+          </div>
+        </FadeUp>
       </div>
     </section>
   );
@@ -539,11 +556,7 @@ export default function AdolescentProgramme() {
         imagePath="/implementation model.png"
       />
       <HowWeWork />
-      <DiagramSection
-        label="Life Skills Framework of Magic Bus"
-        title="Life Skills Framework of Magic Bus"
-        imagePath="/life skills framework.png"
-      />
+      <LifeSkillsFrameworkSection />
       <OutreachImpactSection />
       <OutreachMapSection />
       <PartnersSection />

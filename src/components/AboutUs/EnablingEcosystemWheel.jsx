@@ -1,115 +1,118 @@
 import React, { useState } from "react";
 import { Landmark, Users, School, Handshake, Brain, Smile, Rocket, BookOpen, Trophy, ShieldPlus, Heart, ListChecks } from "lucide-react";
 
-// DRAFT COPY: descriptions come from a Stitch design mock-up and must be confirmed
-// by the programme team before publishing. Statistics were deliberately left out.
+// Built from the "Enabling Ecosystem" diagram.
+// DRAFT COPY: the one-line descriptions are working wording and must be confirmed by the
+// programme team before publishing. The names and numbered items come from the diagram.
 const DATA = {
-  cognitive: {
-    title: "Cognitive Competencies",
-    category: "Core Life Skills",
-    layer: "Inner Ring",
-    color: "#2563EB",
-    desc: "Foundational thinking skills that help adolescents process information, assess situations critically and steer their own choices.",
-    modules: [
-      ["Problem Solving", "Recognising bottlenecks, reasoning to root causes, and forming practical step-by-step action plans."],
-      ["Decision Making", "Weighing alternatives and consequences, and resisting risky impulsive behaviour under pressure."],
-      ["Creative Thinking", "Thinking laterally and designing new solutions to everyday challenges in the community."],
-      ["Self-Management", "Goal setting, time management, discipline, focus and personal responsibility."],
-    ],
-  },
-  social: {
-    title: "Social Competencies",
-    category: "Core Life Skills",
-    layer: "Inner Ring",
-    color: "#F59E0B",
-    text: "#1f2937",
-    desc: "Interpersonal skills that help young people build healthy relationships, resolve differences constructively and speak up for their future.",
-    modules: [
-      ["Empathy", "Recognising emotions in peers, taking other perspectives and supporting others."],
-      ["Negotiation", "Constructive dialogue skills, such as speaking with parents about continuing education."],
-      ["Communication", "Expressing ideas clearly, active listening and respectful discussion."],
-      ["Assertiveness", "Saying no to peer pressure and speaking up safely for personal rights."],
-      ["Collaboration", "Teamwork on the field and in group work, with shared accountability."],
-    ],
-  },
-  emotional: {
-    title: "Emotional Competencies",
-    category: "Core Life Skills",
-    layer: "Inner Ring",
-    color: "#84CC16",
-    text: "#1f2937",
-    desc: "Self-awareness tools that help young people understand stress, manage reactions and build inner strength.",
-    modules: [
-      ["Self-Awareness", "Understanding personal strengths, identity, triggers and self-worth."],
-      ["Adaptability & Resilience", "Coping with disruption and hardship, and bouncing back from setbacks."],
-    ],
-  },
-  future: {
-    title: "Future Skills Domain",
-    category: "Application Domain",
-    layer: "Outer Ring - Top",
-    color: "#0D9488",
-    desc: "Forward-looking skills that prepare adolescents for the modern economy, digital workplaces and green livelihoods.",
-    modules: [
-      ["Digital Literacy & AI Basics", "Using digital tools, staying safe online, basic spreadsheets and research."],
-      ["Entrepreneurial Mindset", "Creating value, spotting local micro-enterprise needs and understanding customers."],
-      ["Career Exploration", "Matching interests to career paths, and preparing a resume."],
-      ["Green Skills", "Environmental awareness, resource efficiency and local sustainability action."],
-      ["Financial Literacy", "Banking basics, budgeting, and safe digital transactions."],
-    ],
-  },
-  academic: {
-    title: "Academic Domain",
-    category: "Application Domain",
-    layer: "Outer Ring - Right",
-    color: "#EA580C",
-    desc: "Learning support that strengthens foundations, helps prevent dropout at key transitions and builds confidence in STEM.",
-    modules: [
-      ["Academic Support & Remediation", "Tutoring, bridging for learning gaps and peer study groups."],
-      ["Academic Retention & STEM", "Supporting students through grade transitions, with confidence in maths and science."],
-    ],
-  },
-  sports: {
-    title: "Sports Domain (S4E)",
-    category: "Application Domain",
-    layer: "Outer Ring - Bottom",
-    color: "#DC2626",
-    desc: "Learning through play: the playground becomes a space for teamwork, confidence and breaking down gender barriers.",
-    modules: [
-      ["S4E (Sports for Empowerment)", "Games designed to reflect real-life situations and gender equality."],
-      ["Sports for Employability", "Building discipline, fitness, punctuality and team accountability."],
-      ["Fellowship & Tournaments", "Matches between communities that build friendship, inclusion and pride."],
-    ],
-  },
-  wellbeing: {
-    title: "Well-being & Safety Domain",
-    category: "Application Domain",
-    layer: "Outer Ring - Left",
-    color: "#059669",
-    desc: "Health and safety awareness so that adolescents grow up secure, dignified and well nourished.",
-    modules: [
-      ["Protection & Hygiene", "Menstrual health, WASH awareness, sanitation and child protection."],
-      ["SRHR (Health & Rights)", "Age-appropriate reproductive health, bodily autonomy and consent."],
-      ["Nutrition Management", "Nutrition awareness, tackling anaemia and balanced eating habits."],
-    ],
-  },
   hub: {
-    title: "Well-being, Empowerment & Gender Equity",
-    category: "Core Anchor",
+    title: "Wellbeing, Empowerment & Gender Equity",
+    category: "Core",
     layer: "Centre of the wheel",
     color: "#E12228",
-    desc: "The heart of the framework. Every life skill and every partnership is anchored here, so that every child has equal opportunity.",
+    desc: "The heart of the framework. Every life skill and every intervention is built around the wellbeing and empowerment of young people, with gender equity at the centre.",
     modules: [
       ["Gender Transformative Practice", "Equal leadership opportunities and challenging gender stereotypes."],
       ["Child Agency & Voice", "Helping children express their aspirations and take part in decisions about their future."],
       ["Holistic Mental Well-being", "Safe spaces, first-aid for stress and supportive peers."],
     ],
   },
+  cognitive: {
+    title: "Cognitive",
+    category: "Lifeskills",
+    layer: "Inner ring",
+    color: "#334155",
+    desc: "Thinking skills that help adolescents process information, assess situations and steer their own choices.",
+    modules: [
+      ["Problem Solving", "Recognising bottlenecks, reasoning to root causes, and forming practical step-by-step action plans."],
+      ["Decision Making", "Weighing alternatives and consequences, and resisting risky impulsive behaviour under pressure."],
+      ["Critical Thinking", "Questioning information and weighing evidence before forming a view."],
+      ["Self-Management", "Goal setting, time management, discipline, focus and personal responsibility."],
+    ],
+  },
+  emotional: {
+    title: "Emotional",
+    category: "Lifeskills",
+    layer: "Inner ring",
+    color: "#475569",
+    desc: "Self-awareness tools that help young people understand stress, manage reactions and build inner strength.",
+    modules: [
+      ["Self-Awareness", "Understanding personal strengths, identity, triggers and self-worth."],
+      ["Adaptability", "Coping with change and hardship, and bouncing back from setbacks."],
+    ],
+  },
+  social: {
+    title: "Social",
+    category: "Lifeskills",
+    layer: "Inner ring",
+    color: "#1E293B",
+    desc: "Interpersonal skills that help young people build healthy relationships, resolve differences constructively and speak up for their future.",
+    modules: [
+      ["Empathy", "Recognising emotions in peers, taking other perspectives and supporting others."],
+      ["Assertiveness", "Saying no to peer pressure and speaking up safely for personal rights."],
+      ["Negotiation", "Constructive dialogue skills, such as speaking with parents about continuing education."],
+      ["Communication", "Expressing ideas clearly and listening well, in person and at work."],
+      ["Collaboration", "Teamwork on the field and in group work, with shared accountability."],
+    ],
+  },
+  sports: {
+    title: "Sports Ecosystem",
+    category: "Interventions",
+    layer: "Outer ring",
+    color: "#E8782A",
+    desc: "Learning through play: the playground becomes a space for teamwork, confidence and breaking down gender barriers.",
+    modules: [
+      ["Sports for Development", "Play-based sessions that build life skills, teamwork and confidence."],
+      ["Sports for Excellence", "Coaching and pathways for young people who want to compete and grow in sport."],
+      ["Sports for Employability", "Building discipline, fitness, punctuality and team accountability for work."],
+      ["S4D fellowship", "A fellowship that supports young people to grow as leaders through sport."],
+    ],
+  },
+  academic: {
+    title: "Academic",
+    category: "Interventions",
+    layer: "Outer ring",
+    color: "#3E9B4F",
+    desc: "Learning support that strengthens foundations, helps prevent dropout at key transitions and builds confidence in STEAM.",
+    modules: [
+      ["Academic Support", "Tutoring and study support that helps young people stay on track in school."],
+      ["Remedial learning (FLN)", "Catch-up support to build foundational literacy and numeracy (FLN)."],
+      ["STEAM", "Hands-on learning in science, technology, engineering, arts and maths."],
+    ],
+  },
+  future: {
+    title: "Future Readiness and Employability",
+    category: "Interventions",
+    layer: "Outer ring",
+    color: "#E3A02C",
+    text: "#1f2937",
+    desc: "Forward-looking skills that prepare adolescents for the modern economy, digital workplaces and green livelihoods.",
+    modules: [
+      ["Digital & AI", "Using digital tools, staying safe online, and understanding the basics of AI."],
+      ["Green Skills", "Environmental awareness, resource efficiency and local sustainability action."],
+      ["Career Exploration", "Matching interests to career paths, and preparing a resume."],
+      ["Financial Literacy", "Banking basics, budgeting, and safe digital transactions."],
+      ["Entrepreneurial Mindset", "Creating value, spotting local micro-enterprise needs and understanding customers."],
+    ],
+  },
+  cross: {
+    title: "Cross Cutting Principles",
+    category: "Principles",
+    layer: "Run through every intervention",
+    color: "#1E3A5F",
+    desc: "Gender transformation, inclusion, equity and safety: four principles that run through every part of the wheel.",
+    modules: [
+      ["Gender transformation", "Challenging stereotypes so girls and boys have equal opportunities."],
+      ["Inclusion", "Making sure every young person can take part, including those at the margins."],
+      ["Equity", "Fair access to opportunities, support and resources."],
+      ["Safety", "Keeping young people safe in every programme space."],
+    ],
+  },
   govt: {
     title: "Government System",
     category: "Enabling Ecosystem",
-    layer: "Orbit - Top Left",
-    color: "#1E293B",
+    layer: "Orbit",
+    color: "#1E3A8A",
     desc: "Working with state education departments and public systems so that the programme lasts.",
     modules: [
       ["Curricular Policy Integration", "Aligning life skills with national and state education guidelines."],
@@ -117,23 +120,11 @@ const DATA = {
       ["Public System Institutionalisation", "Building government ownership so the work can scale over time."],
     ],
   },
-  school: {
-    title: "School Leadership & Teachers",
-    category: "Enabling Ecosystem",
-    layer: "Orbit - Bottom Left",
-    color: "#EA580C",
-    desc: "Principals and teachers who create the daily environment where life skills are practised and reinforced.",
-    modules: [
-      ["Teacher Capacity Building", "Positive, non-punitive classroom management strategies."],
-      ["Pedagogic Co-delivery", "Teachers and Magic Bus youth leaders running sessions together."],
-      ["Attendance & Dropout Tracking", "Early warning follow-up for students at risk of missing school."],
-    ],
-  },
   community: {
     title: "Community System",
     category: "Enabling Ecosystem",
-    layer: "Orbit - Top Right",
-    color: "#15803D",
+    layer: "Orbit",
+    color: "#4C9A3F",
     desc: "The people around a young person outside school: parents, school management committees and village youth champions.",
     modules: [
       ["Parental Engagement", "Workshops on the value of keeping girls in education."],
@@ -141,12 +132,24 @@ const DATA = {
       ["Community Youth Leaders", "Local youth who act as mentors and role models."],
     ],
   },
-  partners: {
-    title: "Partner Organisations",
+  school: {
+    title: "School Leadership & Teachers",
     category: "Enabling Ecosystem",
-    layer: "Orbit - Bottom Right",
-    color: "#4338CA",
-    desc: "CSR partners, foundations, researchers and employers who help the programme reach and support more young people.",
+    layer: "Orbit",
+    color: "#D9651A",
+    desc: "Principals and teachers who create the daily environment where life skills are practised and reinforced.",
+    modules: [
+      ["Teacher Capacity Building", "Positive, non-punitive classroom management strategies."],
+      ["Pedagogic Co-delivery", "Teachers and Magic Bus youth leaders running sessions together."],
+      ["Attendance & Dropout Tracking", "Early warning follow-up for students at risk of missing school."],
+    ],
+  },
+  collaboratives: {
+    title: "Collaboratives",
+    category: "Enabling Ecosystem",
+    layer: "Orbit",
+    color: "#6D4FA8",
+    desc: "Partners, funders, researchers and employers who work with Magic Bus to help the programme reach and support more young people.",
     modules: [
       ["CSR Governance & Funding", "Audited partnerships that deliver measured impact."],
       ["Independent Impact Evaluation", "Third-party assessment of outcomes."],
@@ -155,34 +158,33 @@ const DATA = {
   },
 };
 
-// Icon and readable dark text colour for each item (used in the info panel).
-// To show Stitch-style stat cards, add  stats: [["Label", "Value", "Description"], ...]  to an item
-// in DATA above, using ONLY figures the programme team has confirmed.
-const META = {
-  cognitive: { Icon: Brain, ink: "#1D4ED8", chip: "Cognitive" },
-  social: { Icon: Users, ink: "#B45309", chip: "Social" },
-  emotional: { Icon: Smile, ink: "#4D7C0F", chip: "Emotional" },
-  future: { Icon: Rocket, ink: "#0F766E", chip: "Future Skills" },
-  academic: { Icon: BookOpen, ink: "#C2410C", chip: "Academics" },
-  sports: { Icon: Trophy, ink: "#B91C1C", chip: "Sports (S4E)" },
-  wellbeing: { Icon: ShieldPlus, ink: "#047857", chip: "Well-being" },
-  hub: { Icon: Heart, ink: "#B91C1C", chip: "Centre Core" },
-  govt: { Icon: Landmark, ink: "#1E293B" },
-  school: { Icon: School, ink: "#C2410C" },
-  community: { Icon: Users, ink: "#166534" },
-  partners: { Icon: Handshake, ink: "#4338CA" },
+const ICONS = {
+  hub: Heart,
+  cognitive: Brain,
+  emotional: Smile,
+  social: Users,
+  sports: Trophy,
+  academic: BookOpen,
+  future: Rocket,
+  cross: ShieldPlus,
+  govt: Landmark,
+  school: School,
+  community: Users,
+  collaboratives: Handshake,
 };
 
 const STAGES = [
-  { id: "explorer", name: "Explorer", grades: "Grades 5 - 6", desc: "Sparking curiosity through guided playground activities, peer discovery and emotional expression.", mantra: "Play - Ask - Discover" },
-  { id: "learner", name: "Learner", grades: "Grades 7 - 8", desc: "Deepening active listening, classroom habits, resilience and personal accountability.", mantra: "Listen - Learn - Explore" },
-  { id: "thinker", name: "Thinker", grades: "Grades 9 - 10", desc: "Analytical problem-solving, self-awareness and resisting pressures to drop out.", mantra: "Think - Create - Apply" },
-  { id: "collaborator", name: "Collaborator", grades: "Grades 10 - 12", desc: "Negotiation, group work, career stream selection, digital literacy and community action.", mantra: "Debate - Adapt - Connect" },
+  { id: "explorer", name: "Explorer", grades: "Grade 3 - 5", desc: "Sparking curiosity through guided playground activities, peer discovery and emotional expression.", mantra: "Play · Ask · Discover" },
+  { id: "learner", name: "Learner", grades: "Grade 6 - 8", desc: "Deepening active listening, classroom habits, resilience and personal accountability.", mantra: "Listen · Learn · Explore" },
+  { id: "thinker", name: "Thinker", grades: "Grade 9 - 10", desc: "Analytical problem-solving, self-awareness and resisting pressures to drop out.", mantra: "Think · Create · Apply" },
+  { id: "collaborator", name: "Collaborator", grades: "Grade 11 - 12", desc: "Negotiation, group work, career stream selection, digital literacy and community action.", mantra: "Ideate · Adapt · Connect" },
 ];
 
 const CX = 370;
 const CY = 370;
 const NODE_R = 318;
+const BAND_IN = 256;
+const BAND_OUT = 278;
 
 const canHover = () =>
   typeof window !== "undefined" && window.matchMedia && window.matchMedia("(hover: hover) and (pointer: fine)").matches;
@@ -204,6 +206,11 @@ const sector = (r1, r2, a0, a1) => {
   return `M${x1} ${y1} A${r2} ${r2} 0 ${large} 1 ${x2} ${y2} L${x3} ${y3} A${r1} ${r1} 0 ${large} 0 ${x4} ${y4} Z`;
 };
 
+const fullRing = (r1, r2) =>
+  `M${CX - r2} ${CY} A${r2} ${r2} 0 1 1 ${CX + r2} ${CY} A${r2} ${r2} 0 1 1 ${CX - r2} ${CY} Z M${CX - r1} ${CY} A${r1} ${r1} 0 1 0 ${CX + r1} ${CY} A${r1} ${r1} 0 1 0 ${CX - r1} ${CY} Z`;
+
+const topArc = (r) => `M${CX - r} ${CY} A${r} ${r} 0 0 1 ${CX + r} ${CY}`;
+
 function Lines({ x, y, lines, size = 16, color = "#fff", weight = 700 }) {
   const start = y - ((lines.length - 1) * size * 1.15) / 2;
   return (
@@ -217,12 +224,23 @@ function Lines({ x, y, lines, size = 16, color = "#fff", weight = 700 }) {
   );
 }
 
+function ArcLabel({ id, r, text, size, spacing, opacity = 1 }) {
+  return (
+    <text fontSize={size} fontWeight={700} letterSpacing={spacing} fill="#fff" opacity={opacity} textAnchor="middle" pointerEvents="none">
+      <textPath href={`#${id}`} startOffset="50%">
+        {text}
+      </textPath>
+    </text>
+  );
+}
+
 export default function EnablingEcosystemWheel() {
   const [pinned, setPinned] = useState("cognitive");
   const [hovered, setHovered] = useState(null);
   const activeId = hovered || pinned;
   const info = DATA[activeId];
-  const meta = META[activeId];
+  const Icon = ICONS[activeId];
+
   const props = (id) => ({
     role: "button",
     tabIndex: 0,
@@ -243,21 +261,21 @@ export default function EnablingEcosystemWheel() {
 
   const [govtX, govtY] = pt(NODE_R, -45);
   const [commX, commY] = pt(NODE_R, 45);
-  const [partX, partY] = pt(NODE_R, 135);
+  const [collX, collY] = pt(NODE_R, 135);
   const [schoolX, schoolY] = pt(NODE_R, -135);
 
   const SHAPES = [
-    { id: "social", kind: "ring", r1: 70, r2: 170, a0: 0, a1: 120, lines: ["Social"], size: 20 },
-    { id: "emotional", kind: "ring", r1: 70, r2: 170, a0: 120, a1: 240, lines: ["Emotional"], size: 20 },
-    { id: "cognitive", kind: "ring", r1: 70, r2: 170, a0: 240, a1: 360, lines: ["Cognitive"], size: 20 },
-    { id: "future", kind: "ring", r1: 178, r2: 272, a0: -45, a1: 45, lines: ["Future", "Skills"], size: 22 },
-    { id: "academic", kind: "ring", r1: 178, r2: 272, a0: 45, a1: 135, lines: ["Academic", "Domain"], size: 19 },
-    { id: "sports", kind: "ring", r1: 178, r2: 272, a0: 135, a1: 225, lines: ["Sports", "Domain"], size: 22 },
-    { id: "wellbeing", kind: "ring", r1: 178, r2: 272, a0: 225, a1: 315, lines: ["Well-being", "& Safety"], size: 16 },
+    { id: "emotional", kind: "ring", r1: 72, r2: 160, a0: 0, a1: 120, lines: ["Emotional"], size: 17.5 },
+    { id: "social", kind: "ring", r1: 72, r2: 160, a0: 120, a1: 240, lines: ["Social"], size: 18 },
+    { id: "cognitive", kind: "ring", r1: 72, r2: 160, a0: 240, a1: 360, lines: ["Cognitive"], size: 17.5 },
+    { id: "academic", kind: "ring", r1: 168, r2: 250, a0: 0, a1: 120, lines: ["Academic"], size: 16 },
+    { id: "future", kind: "ring", r1: 168, r2: 250, a0: 120, a1: 240, lines: ["Future Readiness", "and", "Employability"], size: 15 },
+    { id: "sports", kind: "ring", r1: 168, r2: 250, a0: 240, a1: 360, lines: ["Sports", "Ecosystem"], size: 16 },
+    { id: "cross", kind: "band" },
     { id: "hub", kind: "hub" },
     { id: "govt", kind: "node", x: govtX, y: govtY, Icon: Landmark, lines: ["Government", "System"], above: true },
     { id: "community", kind: "node", x: commX, y: commY, Icon: Users, lines: ["Community", "System"], above: true },
-    { id: "partners", kind: "node", x: partX, y: partY, Icon: Handshake, lines: ["Partner", "Organisations"], above: false },
+    { id: "collaboratives", kind: "node", x: collX, y: collY, Icon: Handshake, lines: ["Collaboratives"], above: false },
     { id: "school", kind: "node", x: schoolX, y: schoolY, Icon: School, lines: ["School Leadership", "& Teachers"], above: false },
   ];
 
@@ -277,19 +295,27 @@ export default function EnablingEcosystemWheel() {
         </>
       );
     }
+    if (sh.kind === "band") {
+      return (
+        <>
+          <path d={fullRing(BAND_IN, BAND_OUT)} fillRule="evenodd" fill={DATA.cross.color} stroke="#fff" strokeWidth={2} />
+          <ArcLabel id="eew-cross-arc" text="CROSS CUTTING PRINCIPLES · GENDER TRANSFORMATION · INCLUSION · EQUITY · SAFETY" size={11.5} spacing={1.4} />
+        </>
+      );
+    }
     if (sh.kind === "hub") {
       return (
         <>
-          <circle cx={CX} cy={CY} r={66} fill="#fff" stroke="#e2e8f0" strokeWidth={3} />
-          <Lines x={CX} y={CY} lines={["Well-being,", "Empowerment", "& Gender", "Equity"]} size={14} color="#334155" />
+          <circle cx={CX} cy={CY} r={64} fill="#fff" stroke="#e2e8f0" strokeWidth={3} />
+          <Lines x={CX} y={CY} lines={["Wellbeing,", "Empowerment", "& Gender", "Equity"]} size={12.5} color="#334155" />
         </>
       );
     }
     return (
       <>
-        <circle cx={sh.x} cy={sh.y} r={38} fill={DATA[sh.id].color} stroke="#fff" strokeWidth={3} />
-        <sh.Icon x={sh.x - 18} y={sh.y - 18} width={36} height={36} color="#fff" strokeWidth={1.8} />
-        {withLabels && <Lines x={sh.x} y={sh.above ? sh.y - 66 : sh.y + 66} lines={sh.lines} size={18} color="#1f2937" />}
+        <circle cx={sh.x} cy={sh.y} r={36} fill={DATA[sh.id].color} stroke="#fff" strokeWidth={3} />
+        <sh.Icon x={sh.x - 17} y={sh.y - 17} width={34} height={34} color="#fff" strokeWidth={1.8} />
+        {withLabels && <Lines x={sh.x} y={sh.above ? sh.y - 64 : sh.y + 64} lines={sh.lines} size={17} color="#1f2937" />}
       </>
     );
   };
@@ -299,7 +325,7 @@ export default function EnablingEcosystemWheel() {
     const sh = SHAPES.find((x) => x.id === id);
     const [ox, oy] = originOf(sh);
     const isPinned = pinned === id;
-    const scale = hovered === id ? (sh.kind === "node" ? 1.14 : 1.07) : 1.04;
+    const scale = hovered === id ? (sh.kind === "node" ? 1.14 : sh.kind === "band" ? 1.02 : 1.07) : sh.kind === "band" ? 1.01 : 1.04;
     return (
       <g
         key={`ov-${id}-${isPinned ? "p" : "h"}`}
@@ -321,136 +347,105 @@ export default function EnablingEcosystemWheel() {
   const overlayIds = [...new Set([pinned, hovered].filter(Boolean))];
 
   return (
-    <section id="ecosystem" className="py-14 bg-slate-50">
+    <div>
       <style>{"@keyframes eewPop{from{transform:scale(1)}to{transform:scale(var(--s))}}"}</style>
-      <div className="max-w-[1500px] mx-auto px-4 lg:px-8">
-        <div className="text-center mb-10">
-          <p className="text-xs font-bold uppercase tracking-widest text-brand-red">Childhood to Livelihood - Holistic Pedagogy</p>
-          <h2 className="mt-2 text-2xl md:text-4xl font-extrabold text-brand-black">The Enabling Ecosystem &amp; Life Skills Wheel</h2>
-          <p className="mt-3 text-gray-600 max-w-2xl mx-auto">
-            Hover over any part of the wheel to preview it, and click to keep it open. On a phone, just tap.
-          </p>
-        </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)] gap-6 lg:gap-8 items-start">
-          <div className="rounded-3xl bg-white border shadow-sm p-2 md:p-4">
-            <svg
-              viewBox="0 0 740 740"
-              className="w-full h-auto"
-              role="group"
-              aria-label="Enabling Ecosystem wheel"
-              onMouseLeave={() => setHovered(null)}
-            >
-              <circle cx={CX} cy={CY} r={NODE_R} fill="none" stroke="#94a3b8" strokeWidth={2} strokeDasharray="6 8" />
-              {SHAPES.map((sh) => (
-                <g key={sh.id} {...props(sh.id)}>
-                  {body(sh)}
-                </g>
-              ))}
-              {overlayIds.map(overlay)}
-            </svg>
-          </div>
-
-          <div className="md:sticky md:top-32 space-y-5">
-            <div
-              className="relative overflow-hidden rounded-3xl border p-6 md:p-8 shadow-md transition-colors"
-              style={{ background: `linear-gradient(135deg, ${info.color}26 0%, #ffffff 65%)`, borderColor: `${info.color}55` }}
-            >
-              <div className="absolute inset-x-0 top-0 h-2 transition-colors" style={{ background: info.color }} />
-              <div className="flex items-start justify-between gap-4 pt-1">
-                <div className="space-y-3">
-                  <div className="flex flex-wrap items-center gap-2">
-                    <span className="rounded-full px-3 py-1 text-xs md:text-sm font-bold" style={{ background: info.color, color: info.text || "#fff" }}>
-                      {info.category}
-                    </span>
-                    <span className="text-xs md:text-sm font-semibold text-slate-600">{info.layer}</span>
-                  </div>
-                  <h3 className="text-3xl md:text-4xl font-bold leading-tight tracking-tight text-slate-900">{info.title}</h3>
-                </div>
-                <div
-                  className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl shadow-md"
-                  style={{ background: info.color, color: info.text || "#fff" }}
-                >
-                  <meta.Icon className="h-7 w-7" />
-                </div>
-              </div>
-              <p className="mt-5 text-lg md:text-xl leading-8 text-slate-700">{info.desc}</p>
-            </div>
-
-            <div
-              className="space-y-4 rounded-3xl border p-5 md:p-6 shadow-sm transition-colors"
-              style={{ background: `${info.color}0F`, borderColor: `${info.color}33` }}
-            >
-              <div className="flex items-center justify-between gap-3">
-                <h4 className="flex items-center gap-2 text-xl md:text-2xl font-bold text-slate-900">
-                  <ListChecks className="h-6 w-6" style={{ color: info.color }} />
-                  Core Competencies &amp; Modules
-                </h4>
-                <span className="shrink-0 rounded-full px-3 py-1 text-xs md:text-sm font-bold" style={{ background: info.color, color: info.text || "#fff" }}>
-                  {info.modules.length} Components
-                </span>
-              </div>
-              <ol className="flex flex-col gap-3">
-                {info.modules.map(([name, text], i) => (
-                  <li
-                    key={name}
-                    className="flex items-start gap-4 rounded-2xl bg-white p-4 md:p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
-                    style={{ borderLeft: `6px solid ${info.color}` }}
-                  >
-                    <span
-                      className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-base font-bold"
-                      style={{ background: info.color, color: info.text || "#fff" }}
-                    >
-                      {i + 1}
-                    </span>
-                    <div>
-                      <p className="text-lg md:text-xl font-bold leading-snug text-slate-900">{name}</p>
-                      <p className="mt-1 text-base md:text-lg leading-relaxed text-slate-600">{text}</p>
-                    </div>
-                  </li>
-                ))}
-              </ol>
-            </div>
-
-            {info.stats && (
-              <div className="grid grid-cols-2 gap-3">
-                {info.stats.map(([label, value, text]) => (
-                  <div key={label} className="rounded-xl border border-slate-200/70 bg-white p-4 shadow-sm">
-                    <p className="text-[10px] font-bold uppercase tracking-wider text-slate-500">{label}</p>
-                    <p className="mt-1 text-2xl font-bold text-brand-red">{value}</p>
-                    <p className="mt-1 text-xs leading-snug text-slate-600">{text}</p>
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
-        </div>
-
-        <div className="mt-14">
-          <p className="text-xs font-bold uppercase tracking-widest text-brand-red">Continuous growth arc</p>
-          <h3 className="mt-1 text-xl md:text-2xl font-bold text-gray-900">Learner progression: from play to sustained livelihoods</h3>
-          <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
-            {STAGES.map((s, i) => (
-              <div key={s.id} className="rounded-2xl bg-white border shadow-sm p-5 flex flex-col">
-                <div className="flex items-center justify-between text-xs text-gray-400 font-semibold">
-                  <span>Stage {i + 1}</span>
-                  <span className="rounded-full bg-orange-50 text-orange-700 px-2 py-0.5">{s.grades}</span>
-                </div>
-                <h4 className="mt-3 text-lg font-bold text-gray-900">{s.name}</h4>
-                <p className="mt-2 text-sm text-gray-600 leading-snug flex-1">{s.desc}</p>
-                <p className="mt-4 pt-3 border-t text-xs font-bold text-brand-red">{s.mantra}</p>
-              </div>
+      <div className="grid grid-cols-1 md:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)] gap-6 lg:gap-8 items-start">
+        <div className="rounded-3xl bg-white border shadow-sm p-2 md:p-4">
+          <svg viewBox="0 0 740 740" className="w-full h-auto" role="group" aria-label="Enabling Ecosystem wheel" onMouseLeave={() => setHovered(null)}>
+            <defs>
+              <path id="eew-cross-arc" d={topArc((BAND_IN + BAND_OUT) / 2)} />
+              <path id="eew-life-arc" d={topArc(146)} />
+              <path id="eew-int-arc" d={topArc(236)} />
+            </defs>
+            <circle cx={CX} cy={CY} r={NODE_R} fill="none" stroke="#94a3b8" strokeWidth={2} strokeDasharray="6 8" />
+            {SHAPES.map((sh) => (
+              <g key={sh.id} {...props(sh.id)}>
+                {body(sh)}
+              </g>
             ))}
-            <div className="rounded-2xl bg-black text-white p-5 flex flex-col">
-              <span className="text-xs text-gray-400 font-semibold">Outcome</span>
-              <h4 className="mt-3 text-lg font-bold">Work-Ready Citizens</h4>
-              <p className="mt-2 text-sm text-gray-300 leading-snug flex-1">
-                Young adults who move into jobs or higher education with confidence and life skills.
-              </p>
+            {overlayIds.map(overlay)}
+            <ArcLabel id="eew-life-arc" text="LIFESKILLS" size={11} spacing={3} opacity={0.85} />
+            <ArcLabel id="eew-int-arc" text="INTERVENTIONS" size={11} spacing={3} opacity={0.9} />
+          </svg>
+        </div>
+
+        <div className="md:sticky md:top-32 space-y-5">
+          <div
+            className="relative overflow-hidden rounded-3xl border p-6 md:p-8 shadow-md transition-colors"
+            style={{ background: `linear-gradient(135deg, ${info.color}26 0%, #ffffff 65%)`, borderColor: `${info.color}55` }}
+          >
+            <div className="absolute inset-x-0 top-0 h-2 transition-colors" style={{ background: info.color }} />
+            <div className="flex items-start justify-between gap-4 pt-1">
+              <div className="space-y-3">
+                <div className="flex flex-wrap items-center gap-2">
+                  <span className="rounded-full px-3 py-1 text-xs md:text-sm font-bold" style={{ background: info.color, color: info.text || "#fff" }}>
+                    {info.category}
+                  </span>
+                  <span className="text-xs md:text-sm font-semibold text-slate-600">{info.layer}</span>
+                </div>
+                <h3 className="text-3xl md:text-4xl font-bold leading-tight tracking-tight text-slate-900">{info.title}</h3>
+              </div>
+              <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl shadow-md" style={{ background: info.color, color: info.text || "#fff" }}>
+                <Icon className="h-7 w-7" />
+              </div>
             </div>
+            <p className="mt-5 text-lg md:text-xl leading-8 text-slate-700">{info.desc}</p>
+          </div>
+
+          <div className="space-y-4 rounded-3xl border p-5 md:p-6 shadow-sm transition-colors" style={{ background: `${info.color}0F`, borderColor: `${info.color}33` }}>
+            <div className="flex items-center justify-between gap-3">
+              <h4 className="flex items-center gap-2 text-xl md:text-2xl font-bold text-slate-900">
+                <ListChecks className="h-6 w-6" style={{ color: info.color }} />
+                Core Competencies &amp; Modules
+              </h4>
+              <span className="shrink-0 rounded-full px-3 py-1 text-xs md:text-sm font-bold" style={{ background: info.color, color: info.text || "#fff" }}>
+                {info.modules.length} Components
+              </span>
+            </div>
+            <ol className="flex flex-col gap-3">
+              {info.modules.map(([name, text], i) => (
+                <li
+                  key={name}
+                  className="flex items-start gap-4 rounded-2xl bg-white p-4 md:p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
+                  style={{ borderLeft: `6px solid ${info.color}` }}
+                >
+                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-base font-bold" style={{ background: info.color, color: info.text || "#fff" }}>
+                    {i + 1}
+                  </span>
+                  <div>
+                    <p className="text-lg md:text-xl font-bold leading-snug text-slate-900">{name}</p>
+                    <p className="mt-1 text-base md:text-lg leading-relaxed text-slate-600">{text}</p>
+                  </div>
+                </li>
+              ))}
+            </ol>
           </div>
         </div>
       </div>
-    </section>
+
+      <div className="mt-14">
+        <p className="text-xs font-bold uppercase tracking-widest text-brand-red">Continuous growth arc</p>
+        <h3 className="mt-1 text-xl md:text-2xl font-bold text-gray-900">Learner progression: from play to future ready citizens</h3>
+        <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+          {STAGES.map((s, i) => (
+            <div key={s.id} className="rounded-2xl bg-white border shadow-sm p-5 flex flex-col">
+              <div className="flex items-center justify-between text-xs text-gray-400 font-semibold">
+                <span>Stage {i + 1}</span>
+                <span className="rounded-full bg-orange-50 text-orange-700 px-2 py-0.5">{s.grades}</span>
+              </div>
+              <h4 className="mt-3 text-lg font-bold text-gray-900">{s.name}</h4>
+              <p className="mt-2 text-sm text-gray-600 leading-snug flex-1">{s.desc}</p>
+              <p className="mt-4 pt-3 border-t text-xs font-bold text-brand-red">{s.mantra}</p>
+            </div>
+          ))}
+          <div className="rounded-2xl bg-black text-white p-5 flex flex-col">
+            <span className="text-xs text-gray-400 font-semibold">Outcome</span>
+            <h4 className="mt-3 text-lg font-bold">Future Ready Citizens</h4>
+            <p className="mt-2 text-sm text-gray-300 leading-snug flex-1">Young adults who move into jobs or higher education with confidence and life skills.</p>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }
