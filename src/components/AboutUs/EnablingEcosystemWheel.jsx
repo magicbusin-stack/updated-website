@@ -1,26 +1,41 @@
 import React, { useState } from "react";
-import { Landmark, Users, School, Handshake, Brain, Smile, Rocket, BookOpen, Trophy, ShieldPlus, Heart, ListChecks } from "lucide-react";
+import {
+  Landmark, Users, School, Handshake, Brain, Smile, Sprout, BookOpen, Trophy, ShieldPlus, ListChecks,
+  Sparkles, Globe2, Rocket, Bike, ArrowRight, PersonStanding,
+} from "lucide-react";
 
-// Built from the "Enabling Ecosystem" diagram.
+// Built from the updated "Enabling Ecosystem" diagram.
 // DRAFT COPY: the one-line descriptions are working wording and must be confirmed by the
-// programme team before publishing. The names and numbered items come from the diagram.
+// programme team before publishing. Names, numbered items and the headline texts come from the diagram.
 const DATA = {
   hub: {
-    title: "Wellbeing, Empowerment & Gender Equity",
+    title: "Holistic Development",
     category: "Core",
     layer: "Centre of the wheel",
-    color: "#E12228",
-    desc: "The heart of the framework. Every life skill and every intervention is built around the wellbeing and empowerment of young people, with gender equity at the centre.",
+    color: "#A16207",
+    desc: "The heart of the framework. Every life skill and every intervention is built around the holistic development of young people: wellbeing, agency and empowerment, and gender equity.",
     modules: [
-      ["Gender Transformative Practice", "Equal leadership opportunities and challenging gender stereotypes."],
-      ["Child Agency & Voice", "Helping children express their aspirations and take part in decisions about their future."],
-      ["Holistic Mental Well-being", "Safe spaces, first-aid for stress and supportive peers."],
+      ["Wellbeing", "Safe spaces, first-aid for stress and supportive peers."],
+      ["Agency & Empowerment", "Helping children express their aspirations and take part in decisions about their future."],
+      ["Gender Equity", "Equal leadership opportunities and challenging gender stereotypes."],
+    ],
+  },
+  lifeskills: {
+    title: "Life Skills Framework",
+    category: "Lifeskills",
+    layer: "Inner circle",
+    color: "#16365F",
+    desc: "The skills every adolescent builds, in three groups: Cognitive, Social and Emotional. Select one of them on the wheel to see its skills.",
+    modules: [
+      ["Cognitive", "Problem solving, decision making, critical thinking and self-management."],
+      ["Social", "Empathy, assertiveness, negotiation, communication and collaboration."],
+      ["Emotional", "Self-awareness and adaptability."],
     ],
   },
   cognitive: {
     title: "Cognitive",
     category: "Lifeskills",
-    layer: "Inner ring",
+    layer: "Life Skills Framework",
     color: "#4F46E5",
     desc: "Thinking skills that help adolescents process information, assess situations and steer their own choices.",
     modules: [
@@ -33,7 +48,7 @@ const DATA = {
   emotional: {
     title: "Emotional",
     category: "Lifeskills",
-    layer: "Inner ring",
+    layer: "Life Skills Framework",
     color: "#047857",
     desc: "Self-awareness tools that help young people understand stress, manage reactions and build inner strength.",
     modules: [
@@ -44,7 +59,7 @@ const DATA = {
   social: {
     title: "Social",
     category: "Lifeskills",
-    layer: "Inner ring",
+    layer: "Life Skills Framework",
     color: "#E11D48",
     desc: "Interpersonal skills that help young people build healthy relationships, resolve differences constructively and speak up for their future.",
     modules: [
@@ -57,35 +72,35 @@ const DATA = {
   },
   sports: {
     title: "Sports Ecosystem",
-    category: "Interventions",
+    category: "Programme Interventions",
     layer: "Outer ring",
-    color: "#2563EB",
+    color: "#E0670C",
     desc: "Learning through play: the playground becomes a space for teamwork, confidence and breaking down gender barriers.",
     modules: [
       ["Sports for Development", "Play-based sessions that build life skills, teamwork and confidence."],
       ["Sports for Excellence", "Coaching and pathways for young people who want to compete and grow in sport."],
       ["Sports for Employability", "Building discipline, fitness, punctuality and team accountability for work."],
-      ["S4D fellowship", "A fellowship that supports young people to grow as leaders through sport."],
+      ["S4D Fellowship", "A fellowship that supports young people to grow as leaders through sport."],
     ],
   },
   academic: {
     title: "Academic",
-    category: "Interventions",
+    category: "Programme Interventions",
     layer: "Outer ring",
-    color: "#7E22CE",
+    color: "#3F8F2B",
     desc: "Learning support that strengthens foundations, helps prevent dropout at key transitions and builds confidence in STEAM.",
     modules: [
+      ["FLN / CLC", "Support to build foundational literacy and numeracy (FLN)."],
       ["Academic Support", "Tutoring and study support that helps young people stay on track in school."],
-      ["Remedial learning (FLN)", "Catch-up support to build foundational literacy and numeracy (FLN)."],
+      ["Remedial Learning", "Catch-up support for young people who have fallen behind."],
       ["STEAM", "Hands-on learning in science, technology, engineering, arts and maths."],
     ],
   },
   future: {
     title: "Future Readiness and Employability",
-    category: "Interventions",
+    category: "Programme Interventions",
     layer: "Outer ring",
-    color: "#F59E0B",
-    text: "#1f2937",
+    color: "#0F7F96",
     desc: "Forward-looking skills that prepare adolescents for the modern economy, digital workplaces and green livelihoods.",
     modules: [
       ["Digital & AI", "Using digital tools, staying safe online, and understanding the basics of AI."],
@@ -96,23 +111,36 @@ const DATA = {
     ],
   },
   cross: {
-    title: "Cross Cutting Principles",
+    title: "Cross-Cutting Principles",
     category: "Principles",
     layer: "Run through every intervention",
-    color: "#1E293B",
-    desc: "Gender transformation, inclusion, equity and safety: four principles that run through every part of the wheel.",
+    color: "#2F7D32",
+    desc: "Four principles that run through every part of the wheel: gender transformative, inclusive, equitable and safe.",
     modules: [
-      ["Gender transformation", "Challenging stereotypes so girls and boys have equal opportunities."],
-      ["Inclusion", "Making sure every young person can take part, including those at the margins."],
-      ["Equity", "Fair access to opportunities, support and resources."],
-      ["Safety", "Keeping young people safe in every programme space."],
+      ["Gender Transformative", "Challenging stereotypes so girls and boys have equal opportunities."],
+      ["Inclusive", "Making sure every young person can take part, including those at the margins."],
+      ["Equitable", "Fair access to opportunities, support and resources."],
+      ["Safe", "Keeping young people safe in every programme space."],
+    ],
+  },
+  ecosystem: {
+    title: "Enabling Ecosystem",
+    category: "Enabling Ecosystem",
+    layer: "Outer circle",
+    color: "#2A6DB0",
+    desc: "Enabling equitable access, participation, agency and supportive environments: the systems and people around a young person that make the programme work.",
+    modules: [
+      ["Government Systems", "Working with state education departments and public systems so that the programme lasts."],
+      ["Community Systems", "Parents, school management committees and village youth champions."],
+      ["School Leadership & Teachers", "Principals and teachers who create the daily environment where life skills are practised."],
+      ["Collaborators", "Partners, funders, researchers and employers who help the programme reach more young people."],
     ],
   },
   govt: {
-    title: "Government System",
+    title: "Government Systems",
     category: "Enabling Ecosystem",
-    layer: "Orbit",
-    color: "#1E3A8A",
+    layer: "Outer circle",
+    color: "#1F4E8C",
     desc: "Working with state education departments and public systems so that the programme lasts.",
     modules: [
       ["Curricular Policy Integration", "Aligning life skills with national and state education guidelines."],
@@ -121,10 +149,10 @@ const DATA = {
     ],
   },
   community: {
-    title: "Community System",
+    title: "Community Systems",
     category: "Enabling Ecosystem",
-    layer: "Orbit",
-    color: "#4D7C0F",
+    layer: "Outer circle",
+    color: "#3F9142",
     desc: "The people around a young person outside school: parents, school management committees and village youth champions.",
     modules: [
       ["Parental Engagement", "Workshops on the value of keeping girls in education."],
@@ -135,8 +163,8 @@ const DATA = {
   school: {
     title: "School Leadership & Teachers",
     category: "Enabling Ecosystem",
-    layer: "Orbit",
-    color: "#C2410C",
+    layer: "Outer circle",
+    color: "#D9700B",
     desc: "Principals and teachers who create the daily environment where life skills are practised and reinforced.",
     modules: [
       ["Teacher Capacity Building", "Positive, non-punitive classroom management strategies."],
@@ -145,10 +173,10 @@ const DATA = {
     ],
   },
   collaboratives: {
-    title: "Collaboratives",
+    title: "Collaborators",
     category: "Enabling Ecosystem",
-    layer: "Orbit",
-    color: "#0E7490",
+    layer: "Outer circle",
+    color: "#7B52B8",
     desc: "Partners, funders, researchers and employers who work with Magic Bus to help the programme reach and support more young people.",
     modules: [
       ["CSR Governance & Funding", "Audited partnerships that deliver measured impact."],
@@ -159,7 +187,8 @@ const DATA = {
 };
 
 const ICONS = {
-  hub: Heart,
+  hub: Sprout,
+  lifeskills: Sparkles,
   cognitive: Brain,
   emotional: Smile,
   social: Users,
@@ -167,6 +196,7 @@ const ICONS = {
   academic: BookOpen,
   future: Rocket,
   cross: ShieldPlus,
+  ecosystem: Globe2,
   govt: Landmark,
   school: School,
   community: Users,
@@ -174,37 +204,49 @@ const ICONS = {
 };
 
 const STAGES = [
-  { id: "explorer", name: "Explorer", grades: "Grade 3 - 5", desc: "Sparking curiosity through guided playground activities, peer discovery and emotional expression.", mantra: "Play · Ask · Discover" },
-  { id: "learner", name: "Learner", grades: "Grade 6 - 8", desc: "Deepening active listening, classroom habits, resilience and personal accountability.", mantra: "Listen · Learn · Explore" },
-  { id: "thinker", name: "Thinker", grades: "Grade 9 - 10", desc: "Analytical problem-solving, self-awareness and resisting pressures to drop out.", mantra: "Think · Create · Apply" },
-  { id: "collaborator", name: "Collaborator", grades: "Grade 11 - 12", desc: "Negotiation, group work, career stream selection, digital literacy and community action.", mantra: "Ideate · Adapt · Connect" },
+  { id: "explorer", name: "Explorer", grades: "Grade 3–5", desc: "Sparking curiosity through guided playground activities, peer discovery and emotional expression.", mantra: "Play · Ask · Discover", Icon: Bike, c: "#E8830F", bg: "#FFF3E3", border: "#F5C48A" },
+  { id: "learner", name: "Learner", grades: "Grade 6–8", desc: "Deepening active listening, classroom habits, resilience and personal accountability.", mantra: "Listen · Learn · Explore", Icon: BookOpen, c: "#C98F08", bg: "#FFF8E0", border: "#F1D77F" },
+  { id: "thinker", name: "Thinker", grades: "Grade 9–10", desc: "Analytical problem-solving, self-awareness and resisting pressures to drop out.", mantra: "Think · Create · Apply", Icon: Brain, c: "#3E9A47", bg: "#EAF6EA", border: "#A9D6AC" },
+  { id: "collaborator", name: "Collaborator", grades: "Grade 11–12", desc: "Negotiation, group work, career stream selection, digital literacy and community action.", mantra: "Ideate · Adapt · Connect", Icon: Users, c: "#2E7FC1", bg: "#E8F2FB", border: "#A8CBE8" },
 ];
 
-// Filter pills (same idea as the filter pills in the reference design): focus one part of the wheel.
+// Filter pills: focus one part of the wheel.
 const GROUPS = {
   all: { label: "Complete Wheel", ids: null, first: "hub" },
-  core: { label: "Lifeskills", ids: ["cognitive", "emotional", "social"], first: "cognitive" },
+  core: { label: "Life Skills", ids: ["lifeskills", "cognitive", "emotional", "social"], first: "lifeskills" },
   interventions: { label: "Interventions", ids: ["sports", "academic", "future"], first: "sports" },
-  systems: { label: "Enabling Ecosystem", ids: ["govt", "community", "school", "collaboratives"], first: "govt" },
+  systems: { label: "Enabling Ecosystem", ids: ["ecosystem", "govt", "community", "school", "collaboratives"], first: "ecosystem" },
 };
 const FILTER_KEYS = Object.keys(GROUPS);
 const CENTRE_IDS = ["hub", "cross"]; // always shown at full strength
 const QUICK_GROUPS = { centre: CENTRE_IDS, core: GROUPS.core.ids, interventions: GROUPS.interventions.ids, systems: GROUPS.systems.ids };
 const groupOf = (id) => Object.keys(QUICK_GROUPS).find((k) => QUICK_GROUPS[k].includes(id));
 const SHORT = {
-  hub: "Wellbeing & Equity",
-  cross: "Cross Cutting",
+  hub: "Holistic Development",
+  cross: "Cross-Cutting",
+  lifeskills: "Life Skills Framework",
   future: "Future Readiness",
   govt: "Government",
   community: "Community",
   school: "School & Teachers",
+  collaboratives: "Collaborators",
 };
+const GLOW = { cross: "#4C9A2A", lifeskills: "#3B82F6", hub: "#D4A017" };
+const OUTLINE = { ecosystem: "#2A6DB0", lifeskills: "#60A5FA" };
 
-const CX = 370;
-const CY = 370;
-const NODE_R = 324;
-const BAND_IN = 256;
-const BAND_OUT = 278;
+// ---- geometry (viewBox 800 x 800) ----
+const CX = 400;
+const CY = 400;
+const R_OUT = 395; // pale blue Enabling Ecosystem circle
+const R_INT = 262; // outer edge of the programme sectors
+const R_SEC_IN = 164; // inner edge of the sectors
+const R_CROSS_IN = 120; // cross-cutting ring (inner edge)
+const R_NAVY = 120; // life skills circle
+const HUB_X = 400;
+const HUB_Y = 436;
+const HUB_R = 62;
+const NODE_R = 330;
+const NODE_SIZE = 40;
 
 const canHover = () =>
   typeof window !== "undefined" && window.matchMedia && window.matchMedia("(hover: hover) and (pointer: fine)").matches;
@@ -231,6 +273,12 @@ const fullRing = (r1, r2) =>
 
 const topArc = (r) => `M${CX - r} ${CY} A${r} ${r} 0 0 1 ${CX + r} ${CY}`;
 
+const arcBetween = (r, a0, a1) => {
+  const [x1, y1] = pt(r, a0);
+  const [x2, y2] = pt(r, a1);
+  return `M${x1} ${y1} A${r} ${r} 0 0 1 ${x2} ${y2}`;
+};
+
 function Lines({ x, y, lines, size = 16, color = "#fff", weight = 700 }) {
   const start = y - ((lines.length - 1) * size * 1.15) / 2;
   return (
@@ -244,9 +292,9 @@ function Lines({ x, y, lines, size = 16, color = "#fff", weight = 700 }) {
   );
 }
 
-function ArcLabel({ id, r, text, size, spacing, opacity = 1 }) {
+function ArcLabel({ id, text, size, spacing = 0, fill = "#fff", weight = 700, opacity = 1 }) {
   return (
-    <text fontSize={size} fontWeight={700} letterSpacing={spacing} fill="#fff" opacity={opacity} textAnchor="middle" pointerEvents="none">
+    <text fontSize={size} fontWeight={weight} letterSpacing={spacing} fill={fill} opacity={opacity} textAnchor="middle" pointerEvents="none">
       <textPath href={`#${id}`} startOffset="50%">
         {text}
       </textPath>
@@ -254,14 +302,23 @@ function ArcLabel({ id, r, text, size, spacing, opacity = 1 }) {
   );
 }
 
+const PILLS = [
+  { id: "cognitive", label: "Cognitive", w: 68 },
+  { id: "social", label: "Social", w: 50 },
+  { id: "emotional", label: "Emotional", w: 68 },
+];
+const PILL_GAP = 6;
+const PILL_Y = 358;
+const PILL_H = 20;
+
 export default function EnablingEcosystemWheel() {
-  const [pinned, setPinned] = useState("cognitive");
+  const [pinned, setPinned] = useState("lifeskills");
   const [hovered, setHovered] = useState(null);
   const [filter, setFilter] = useState("all");
   const activeId = hovered || pinned;
   const info = DATA[activeId];
   const Icon = ICONS[activeId];
-  const glowOf = (id) => (id === "cross" ? "#3B82F6" : DATA[id].color);
+  const glowOf = (id) => GLOW[id] || DATA[id].color;
 
   const isDimmed = (id) => filter !== "all" && !CENTRE_IDS.includes(id) && !GROUPS[filter].ids.includes(id);
 
@@ -285,8 +342,9 @@ export default function EnablingEcosystemWheel() {
     "aria-pressed": pinned === id,
     onClick: () => pin(id),
     onMouseEnter: () => canHover() && setHovered(id),
+    onMouseLeave: () => setHovered((h) => (h === id ? null : h)),
     onFocus: () => setHovered(id),
-    onBlur: () => setHovered(null),
+    onBlur: () => setHovered((h) => (h === id ? null : h)),
     onKeyDown: (e) => {
       if (e.key === "Enter" || e.key === " ") {
         e.preventDefault();
@@ -296,72 +354,108 @@ export default function EnablingEcosystemWheel() {
     style: { cursor: "pointer", outline: "none", opacity: isDimmed(id) ? 0.38 : 1, transition: "opacity .3s ease" },
   });
 
-  const [govtX, govtY] = pt(NODE_R, -45);
-  const [commX, commY] = pt(NODE_R, 45);
-  const [collX, collY] = pt(NODE_R, 135);
-  const [schoolX, schoolY] = pt(NODE_R, -135);
+  const nodePos = (deg) => pt(NODE_R, deg);
+  const [govtX, govtY] = nodePos(296);
+  const [commX, commY] = nodePos(64);
+  const [collX, collY] = nodePos(116);
+  const [schoolX, schoolY] = nodePos(244);
 
-  const SHAPES = [
-    { id: "emotional", kind: "ring", r1: 72, r2: 160, a0: 0, a1: 120, lines: ["Emotional"], size: 16.5, dr: -3 },
-    { id: "social", kind: "ring", r1: 72, r2: 160, a0: 120, a1: 240, lines: ["Social"], size: 18 },
-    { id: "cognitive", kind: "ring", r1: 72, r2: 160, a0: 240, a1: 360, lines: ["Cognitive"], size: 16.5 },
-    { id: "academic", kind: "ring", r1: 168, r2: 250, a0: 0, a1: 120, lines: ["Academic"], size: 15 },
-    { id: "future", kind: "ring", r1: 168, r2: 250, a0: 120, a1: 240, lines: ["Future Readiness", "and", "Employability"], size: 15 },
-    { id: "sports", kind: "ring", r1: 168, r2: 250, a0: 240, a1: 360, lines: ["Sports", "Ecosystem"], size: 14, dr: 0 },
+  const LOW = [
+    { id: "ecosystem", kind: "disc", r: R_OUT },
+    { id: "academic", kind: "ring", r1: R_SEC_IN, r2: R_INT, a0: 0, a1: 125, lines: ["Academic"], size: 16 },
+    { id: "future", kind: "ring", r1: R_SEC_IN, r2: R_INT, a0: 125, a1: 235, lines: ["Future Readiness", "and", "Employability"], size: 15 },
+    { id: "sports", kind: "ring", r1: R_SEC_IN, r2: R_INT, a0: 235, a1: 360, lines: ["Sports", "Ecosystem"], size: 15 },
     { id: "cross", kind: "band" },
-    { id: "hub", kind: "hub" },
-    { id: "govt", kind: "node", x: govtX, y: govtY, Icon: Landmark, lines: ["Government", "System"], above: true },
-    { id: "community", kind: "node", x: commX, y: commY, Icon: Users, lines: ["Community", "System"], above: true },
-    { id: "collaboratives", kind: "node", x: collX, y: collY, Icon: Handshake, lines: ["Collaboratives"], above: false },
-    { id: "school", kind: "node", x: schoolX, y: schoolY, Icon: School, lines: ["School Leadership", "& Teachers"], above: false },
+    { id: "lifeskills", kind: "disc", r: R_NAVY },
   ];
+  const HIGH = [
+    { id: "hub", kind: "hub" },
+    { id: "govt", kind: "node", x: govtX, y: govtY, Icon: Landmark, lines: ["Government", "Systems"], lx: -8 },
+    { id: "community", kind: "node", x: commX, y: commY, Icon: Users, lines: ["Community", "Systems"], lx: 8 },
+    { id: "collaboratives", kind: "node", x: collX, y: collY, Icon: Handshake, lines: ["Collaborators"], lx: -22 },
+    { id: "school", kind: "node", x: schoolX, y: schoolY, Icon: School, lines: ["School Leadership", "& Teachers"], lx: 36 },
+  ];
+  const ALL = [...LOW, ...HIGH];
 
   const originOf = (sh) => {
     if (sh.kind === "ring") return pt((sh.r1 + sh.r2) / 2 + (sh.dr || 0), (sh.a0 + sh.a1) / 2);
     if (sh.kind === "node") return [sh.x, sh.y];
+    if (sh.kind === "hub") return [HUB_X, HUB_Y];
     return [CX, CY];
   };
 
-  const body = (sh, withLabels = true) => {
+  const body = (sh) => {
+    if (sh.kind === "disc" && sh.id === "ecosystem") {
+      return <circle cx={CX} cy={CY} r={sh.r} fill="url(#eew-sky)" stroke="#B9D4EE" strokeWidth={2} />;
+    }
+    if (sh.kind === "disc") {
+      return (
+        <>
+          <circle cx={CX} cy={CY} r={sh.r} fill="#16365F" stroke="#fff" strokeWidth={3} />
+          <Lines x={CX} y={318} lines={["Life Skills", "Framework"]} size={16} />
+        </>
+      );
+    }
     if (sh.kind === "ring") {
       const [lx, ly] = originOf(sh);
       return (
         <>
           <path d={sector(sh.r1, sh.r2, sh.a0, sh.a1)} fill={DATA[sh.id].color} stroke="#fff" strokeWidth={3} />
-          <Lines x={lx} y={ly} lines={sh.lines} size={sh.size} color={DATA[sh.id].text || "#fff"} />
+          <Lines x={lx} y={ly} lines={sh.lines} size={sh.size} />
         </>
       );
     }
     if (sh.kind === "band") {
-      return (
-        <>
-          <path d={fullRing(BAND_IN, BAND_OUT)} fillRule="evenodd" fill={DATA.cross.color} stroke="#fff" strokeWidth={2} />
-          <ArcLabel id="eew-cross-arc" text="CROSS CUTTING PRINCIPLES · GENDER TRANSFORMATION · INCLUSION · EQUITY · SAFETY" size={11.5} spacing={1.4} />
-        </>
-      );
+      return <path d={fullRing(R_CROSS_IN, R_SEC_IN)} fillRule="evenodd" fill="#CDE9BE" stroke="#fff" strokeWidth={2} />;
     }
     if (sh.kind === "hub") {
       return (
         <>
-          <circle cx={CX} cy={CY} r={64} fill="#fff" stroke="#e2e8f0" strokeWidth={3} />
-          <Lines x={CX} y={CY} lines={["Wellbeing,", "Empowerment", "& Gender", "Equity"]} size={12.5} color="#334155" />
+          <circle cx={HUB_X} cy={HUB_Y} r={HUB_R} fill="#FDF3D8" stroke="#E9D9A6" strokeWidth={3} />
+          <Sprout x={HUB_X - 12} y={HUB_Y - 40} width={24} height={24} color="#3E9A47" strokeWidth={2} />
+          <Lines x={HUB_X} y={HUB_Y + 10} lines={["Holistic", "Development"]} size={14} color="#16365F" />
         </>
       );
     }
+    // node
+    const h = sh.lines.length * 17 * 1.15;
     return (
       <>
-        <circle cx={sh.x} cy={sh.y} r={36} fill={DATA[sh.id].color} stroke="#fff" strokeWidth={3} />
+        <circle cx={sh.x} cy={sh.y} r={NODE_SIZE} fill={DATA[sh.id].color} stroke="#fff" strokeWidth={3} />
         <sh.Icon x={sh.x - 17} y={sh.y - 17} width={34} height={34} color="#fff" strokeWidth={1.8} />
-        {withLabels && <Lines x={sh.x} y={sh.above ? sh.y - (58 + (sh.lines.length * 17 * 1.15) / 2) : sh.y + (58 + (sh.lines.length * 17 * 1.15) / 2)} lines={sh.lines} size={17} color="#1f2937" />}
       </>
     );
   };
 
+  const nodeLabel = (sh) => {
+    const size = 14.5;
+    const h = sh.lines.length * size * 1.15;
+    return <Lines key={`lab-${sh.id}`} x={sh.x + (sh.lx || 0)} y={sh.y + NODE_SIZE + 10 + h / 2} lines={sh.lines} size={size} color="#12305A" />;
+  };
+
   // Enlarged copy drawn on top so a hovered piece can grow without being hidden by its neighbours.
   const overlay = (id) => {
-    const sh = SHAPES.find((x) => x.id === id);
-    const [ox, oy] = originOf(sh);
+    const sh = ALL.find((x) => x.id === id);
     const isPinned = pinned === id;
+    const glow = isPinned && hovered !== id ? `drop-shadow(0 0 7px ${glowOf(id)}aa)` : `drop-shadow(0 0 11px ${glowOf(id)})`;
+    if (sh.kind === "disc") {
+      // big circles only get a glowing outline, so they never cover what sits on top of them
+      return (
+        <circle
+          key={`ov-${id}`}
+          aria-hidden="true"
+          pointerEvents="none"
+          cx={CX}
+          cy={CY}
+          r={sh.r - 2}
+          fill="none"
+          stroke={OUTLINE[id]}
+          strokeWidth={4}
+          style={{ filter: glow }}
+        />
+      );
+    }
+    const [ox, oy] = originOf(sh);
     const scale = hovered === id ? (sh.kind === "node" ? 1.14 : sh.kind === "band" ? 1.02 : 1.07) : sh.kind === "band" ? 1.01 : 1.04;
     return (
       <g
@@ -374,23 +468,32 @@ export default function EnablingEcosystemWheel() {
           transformOrigin: `${ox}px ${oy}px`,
           transformBox: "view-box",
           animation: "eewPop .18s ease-out forwards",
-          filter: isPinned && hovered !== id ? `drop-shadow(0 0 7px ${glowOf(id)}aa)` : `drop-shadow(0 0 11px ${glowOf(id)})`,
+          filter: glow,
         }}
       >
-        {body(sh, false)}
+        {body(sh)}
       </g>
     );
   };
 
-  const overlayIds = [...new Set([pinned, hovered].filter(Boolean))];
+  const overlayIds = [...new Set([pinned, hovered].filter(Boolean))].filter((id) => !PILLS.some((p) => p.id === id));
+
+  const pillTotal = PILLS.reduce((s, p) => s + p.w, 0) + PILL_GAP * (PILLS.length - 1);
+  let px = CX - pillTotal / 2;
+  const pillsLaidOut = PILLS.map((p) => {
+    const x = px;
+    px += p.w + PILL_GAP;
+    return { ...p, x };
+  });
 
   return (
     <div>
       <style>{`
 @keyframes eewPop{from{transform:scale(1)}to{transform:scale(var(--s))}}
 @keyframes eewSpin{to{transform:rotate(360deg)}}
-@keyframes eewPulse{0%{transform:scale(1);opacity:.7}100%{transform:scale(1.13);opacity:0}}
+@keyframes eewPulse{0%{transform:scale(1);opacity:.7}100%{transform:scale(1.1);opacity:0}}
 @keyframes eewHalo{0%,100%{opacity:.35}50%{opacity:.85}}
+@keyframes eewFlow{to{stroke-dashoffset:-28}}
 @media (prefers-reduced-motion: reduce){
   .eew-anim{animation:none!important}
   .eew-pop{animation-duration:.01ms!important}
@@ -402,7 +505,7 @@ export default function EnablingEcosystemWheel() {
           <div
             aria-hidden="true"
             className="pointer-events-none absolute left-1/2 top-[56%] aspect-square w-[72%] -translate-x-1/2 -translate-y-1/2 rounded-full"
-            style={{ background: glowOf(activeId), filter: "blur(70px)", opacity: hovered ? 0.3 : 0.2, transition: "background .5s ease, opacity .4s ease" }}
+            style={{ background: glowOf(activeId), filter: "blur(70px)", opacity: hovered ? 0.26 : 0.16, transition: "background .5s ease, opacity .4s ease" }}
           />
 
           <div className="relative z-10 mb-2 flex flex-wrap gap-2 px-1 pt-1" role="group" aria-label="Focus the wheel">
@@ -421,44 +524,69 @@ export default function EnablingEcosystemWheel() {
             ))}
           </div>
 
-          <svg viewBox="0 0 740 740" className="relative z-10 w-full h-auto" role="group" aria-label="Enabling Ecosystem wheel" onMouseLeave={() => setHovered(null)}>
+          <svg viewBox="0 0 800 800" className="relative z-10 w-full h-auto" role="group" aria-label="Enabling Ecosystem wheel" onMouseLeave={() => setHovered(null)}>
             <defs>
-              <path id="eew-cross-arc" d={topArc((BAND_IN + BAND_OUT) / 2)} />
-              <path id="eew-life-arc" d={topArc(146)} />
-              <path id="eew-int-arc" d={topArc(236)} />
+              <radialGradient id="eew-sky" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stopColor="#EAF4FC" />
+                <stop offset="100%" stopColor="#D2E5F6" />
+              </radialGradient>
+              <path id="eew-title-arc" d={topArc(362)} />
+              <path id="eew-sub-arc" d={topArc(343)} />
+              <path id="eew-list-arc" d={topArc(322)} />
+              <path id="eew-prog-arc" d={topArc(241)} />
+              <path id="eew-cross-title-arc" d={topArc(148)} />
+              <path id="eew-cross-words-arc" d={topArc(129)} />
             </defs>
-            {/* slowly turning orbit ring */}
-            <circle
-              className="eew-anim"
-              cx={CX}
-              cy={CY}
-              r={NODE_R}
-              fill="none"
-              stroke="#94a3b8"
-              strokeWidth={2}
-              strokeDasharray="6 8"
-              style={{ transformOrigin: `${CX}px ${CY}px`, transformBox: "view-box", animation: "eewSpin 120s linear infinite" }}
-            />
+
+            {LOW.map((sh) => (
+              <g key={sh.id} {...props(sh.id)}>
+                {body(sh)}
+              </g>
+            ))}
+
+            {/* decorative arcs of the orbit, with a slow flow of dots along them */}
+            {[
+              [254, 279],
+              [81, 106],
+              [148, 172],
+              [188, 212],
+            ].map(([a0, a1]) => (
+              <g key={a0} pointerEvents="none">
+                <path d={arcBetween(NODE_R, a0, a1)} fill="none" stroke="#6AA4D8" strokeWidth={7} strokeLinecap="round" opacity={0.75} />
+                <path
+                  className="eew-anim"
+                  d={arcBetween(NODE_R, a0, a1)}
+                  fill="none"
+                  stroke="#fff"
+                  strokeWidth={2}
+                  strokeLinecap="round"
+                  strokeDasharray="2 12"
+                  style={{ animation: "eewFlow 2.4s linear infinite" }}
+                />
+              </g>
+            ))}
+
             {/* soft pulse around the centre, in the colour of the active piece */}
             <circle
               className="eew-anim"
-              cx={CX}
-              cy={CY}
-              r={64}
+              cx={HUB_X}
+              cy={HUB_Y}
+              r={HUB_R}
               fill="none"
               stroke={glowOf(activeId)}
               strokeWidth={3}
               pointerEvents="none"
               style={{ transformOrigin: "center", transformBox: "fill-box", animation: "eewPulse 2.8s ease-out infinite", transition: "stroke .5s ease" }}
             />
-            {SHAPES.map((sh) => (
+
+            {HIGH.map((sh) => (
               <g key={sh.id} {...props(sh.id)}>
                 {sh.kind === "node" && (
                   <circle
                     className="eew-anim"
                     cx={sh.x}
                     cy={sh.y}
-                    r={42}
+                    r={NODE_SIZE + 6}
                     fill="none"
                     stroke={DATA[sh.id].color}
                     strokeWidth={1.8}
@@ -468,11 +596,46 @@ export default function EnablingEcosystemWheel() {
                   />
                 )}
                 {body(sh)}
+                {sh.kind === "node" && nodeLabel(sh)}
               </g>
             ))}
+
+            {/* Cognitive / Social / Emotional sit inside the Life Skills circle and can be selected one by one */}
+            {pillsLaidOut.map((p) => {
+              const on = pinned === p.id || hovered === p.id;
+              return (
+                <g key={p.id} {...props(p.id)}>
+                  <rect
+                    x={p.x}
+                    y={PILL_Y - PILL_H / 2}
+                    width={p.w}
+                    height={PILL_H}
+                    rx={PILL_H / 2}
+                    fill={on ? "#fff" : "rgba(255,255,255,0.14)"}
+                    stroke={on ? "#fff" : "rgba(255,255,255,0.5)"}
+                    strokeWidth={1}
+                    style={{ transition: "fill .2s ease" }}
+                  />
+                  <text x={p.x + p.w / 2} y={PILL_Y} textAnchor="middle" dominantBaseline="central" fontSize={10.5} fontWeight={700} fill={on ? "#16365F" : "#fff"} pointerEvents="none">
+                    {p.label}
+                  </text>
+                </g>
+              );
+            })}
+
             {overlayIds.map(overlay)}
-            <ArcLabel id="eew-life-arc" text="LIFESKILLS" size={11} spacing={3} opacity={0.85} />
-            <ArcLabel id="eew-int-arc" text="INTERVENTIONS" size={11} spacing={3} opacity={0.9} />
+
+            {/* headline texts */}
+            <g style={{ opacity: isDimmed("ecosystem") ? 0.38 : 1, transition: "opacity .3s ease" }}>
+              <ArcLabel id="eew-title-arc" text="ENABLING ECOSYSTEM" size={21} spacing={3} fill="#17365F" />
+              <ArcLabel id="eew-sub-arc" text="Enabling equitable access, participation, agency and supportive environments." size={11} weight={600} fill="#2F5580" />
+              <ArcLabel id="eew-list-arc" text="Government Systems  ·  Community Systems  ·  Schools & Teachers  ·  Collaborators" size={11} weight={600} fill="#2F5580" />
+            </g>
+            <g style={{ opacity: GROUPS[filter].ids && !GROUPS[filter].ids.includes("sports") ? 0.38 : 1, transition: "opacity .3s ease" }}>
+              <ArcLabel id="eew-prog-arc" text="Programme Interventions" size={15} spacing={0.6} fill="#0B2545" />
+            </g>
+            <ArcLabel id="eew-cross-title-arc" text="CROSS-CUTTING PRINCIPLES" size={11.5} spacing={1.1} fill="#1E5A2A" />
+            <ArcLabel id="eew-cross-words-arc" text="Gender Transformative  ·  Inclusive  ·  Equitable  ·  Safe" size={10.5} weight={600} fill="#1E5A2A" />
           </svg>
         </div>
 
@@ -494,6 +657,7 @@ export default function EnablingEcosystemWheel() {
               </button>
             ))}
           </div>
+
           <div
             className="relative overflow-hidden rounded-3xl border p-6 md:p-8 shadow-md transition-colors"
             style={{ background: `linear-gradient(135deg, ${info.color}26 0%, #ffffff 65%)`, borderColor: `${info.color}55` }}
@@ -502,14 +666,14 @@ export default function EnablingEcosystemWheel() {
             <div className="flex items-start justify-between gap-4 pt-1">
               <div className="space-y-3">
                 <div className="flex flex-wrap items-center gap-2">
-                  <span className="rounded-full px-3 py-1 text-xs md:text-sm font-bold" style={{ background: info.color, color: info.text || "#fff" }}>
+                  <span className="rounded-full px-3 py-1 text-xs md:text-sm font-bold" style={{ background: info.color, color: "#fff" }}>
                     {info.category}
                   </span>
                   <span className="text-xs md:text-sm font-semibold text-slate-600">{info.layer}</span>
                 </div>
                 <h3 className="text-3xl md:text-4xl font-bold leading-tight tracking-tight text-slate-900">{info.title}</h3>
               </div>
-              <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl shadow-md" style={{ background: info.color, color: info.text || "#fff" }}>
+              <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl shadow-md" style={{ background: info.color, color: "#fff" }}>
                 <Icon className="h-7 w-7" />
               </div>
             </div>
@@ -522,7 +686,7 @@ export default function EnablingEcosystemWheel() {
                 <ListChecks className="h-6 w-6" style={{ color: info.color }} />
                 Core Competencies &amp; Modules
               </h4>
-              <span className="shrink-0 rounded-full px-3 py-1 text-xs md:text-sm font-bold" style={{ background: info.color, color: info.text || "#fff" }}>
+              <span className="shrink-0 rounded-full px-3 py-1 text-xs md:text-sm font-bold" style={{ background: info.color, color: "#fff" }}>
                 {info.modules.length} Components
               </span>
             </div>
@@ -533,7 +697,7 @@ export default function EnablingEcosystemWheel() {
                   className="flex items-start gap-4 rounded-2xl bg-white p-4 md:p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
                   style={{ borderLeft: `6px solid ${info.color}` }}
                 >
-                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-base font-bold" style={{ background: info.color, color: info.text || "#fff" }}>
+                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-base font-bold" style={{ background: info.color, color: "#fff" }}>
                     {i + 1}
                   </span>
                   <div>
@@ -550,23 +714,35 @@ export default function EnablingEcosystemWheel() {
       <div className="mt-14">
         <p className="text-xs font-bold uppercase tracking-widest text-brand-red">Continuous growth arc</p>
         <h3 className="mt-1 text-xl md:text-2xl font-bold text-gray-900">Learner progression: from play to future ready citizens</h3>
-        <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
-          {STAGES.map((s, i) => (
-            <div key={s.id} className="rounded-2xl bg-white border shadow-sm p-5 flex flex-col">
-              <div className="flex items-center justify-between text-xs text-gray-400 font-semibold">
-                <span>Stage {i + 1}</span>
-                <span className="rounded-full bg-orange-50 text-orange-700 px-2 py-0.5">{s.grades}</span>
+        <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:flex lg:items-stretch lg:gap-0">
+          {STAGES.map((s) => (
+            <React.Fragment key={s.id}>
+              <div className="flex flex-col items-center rounded-2xl border-2 p-5 text-center shadow-sm lg:flex-1" style={{ background: s.bg, borderColor: s.border }}>
+                <span className="flex h-12 w-12 items-center justify-center rounded-full text-white shadow" style={{ background: s.c }}>
+                  <s.Icon className="h-6 w-6" />
+                </span>
+                <h4 className="mt-3 text-xl font-bold text-slate-900">{s.name}</h4>
+                <span className="mt-2 rounded-full px-3 py-0.5 text-sm font-bold text-white" style={{ background: s.c }}>
+                  {s.grades}
+                </span>
+                <p className="mt-3 flex-1 text-sm leading-snug text-slate-600">{s.desc}</p>
+                <p className="mt-3 text-sm font-semibold text-slate-800">{s.mantra}</p>
               </div>
-              <h4 className="mt-3 text-lg font-bold text-gray-900">{s.name}</h4>
-              <p className="mt-2 text-sm text-gray-600 leading-snug flex-1">{s.desc}</p>
-              <p className="mt-4 pt-3 border-t text-xs font-bold text-brand-red">{s.mantra}</p>
-            </div>
+              <div className="hidden items-center px-2 lg:flex" aria-hidden="true">
+                <ArrowRight className="h-6 w-6" style={{ color: s.c }} />
+              </div>
+            </React.Fragment>
           ))}
-          <div className="rounded-2xl bg-black text-white p-5 flex flex-col">
-            <span className="text-xs text-gray-400 font-semibold">Outcome</span>
-            <h4 className="mt-3 text-lg font-bold">Future Ready Citizens</h4>
-            <p className="mt-2 text-sm text-gray-300 leading-snug flex-1">Young adults who move into jobs or higher education with confidence and life skills.</p>
+          <div className="flex flex-col items-center rounded-2xl border-2 p-5 text-center shadow-sm sm:col-span-2 lg:flex-1" style={{ background: "#F1EBFA", borderColor: "#C9B5E8" }}>
+            <span className="flex h-12 w-12 items-center justify-center rounded-full text-white shadow" style={{ background: "#7B52B8" }}>
+              <PersonStanding className="h-6 w-6" />
+            </span>
+            <h4 className="mt-3 text-xl font-bold text-slate-900">Future Ready Citizens</h4>
+            <p className="mt-3 text-sm leading-snug text-slate-600">Young adults who move into jobs or higher education with confidence and life skills.</p>
           </div>
+        </div>
+        <div className="mt-5 rounded-full bg-gradient-to-r from-[#2B6CA8] to-[#1F4E8C] px-6 py-3 text-center text-sm font-semibold text-white shadow md:text-base">
+          Equitable opportunities &nbsp;·&nbsp; Lifelong learning &nbsp;·&nbsp; Stronger communities &nbsp;·&nbsp; A more inclusive future
         </div>
       </div>
     </div>
