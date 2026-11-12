@@ -55,6 +55,7 @@ const NAVIGATION_ITEMS = [
         title: "Adolescent Programme",
         path: "/adolescent-programme",
         items: [
+          { label: "School-to-Work Transition Framework", path: "/school-to-work" },
           { label: "Government Partnership Programme", path: "/government-partnership-programme" },
           { label: "Learning & Development", path: "/learning-development" },
           { label: "Youth for Change Fellowship Programme", path: "/youth-for-change-fellowship-programme" },

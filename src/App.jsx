@@ -11,6 +11,7 @@ const OurCulture = lazy(() => import('./pages/OurCulture'))
 const BoardOfDirectors = lazy(() => import('./pages/BoardOfDirectors'))
 const LearningDevelopment = lazy(() => import('./pages/LearningDevelopment'))
 const AdolescentProgramme = lazy(() => import('./pages/AdolescentProgramme'))
+const SchoolToWork = lazy(() => import('./pages/SchoolToWork'))
 const GovernmentPartnershipProgramme = lazy(() => import('./pages/GovernmentPartnershipProgramme'))
 const YouthForChangeFellowshipProgramme = lazy(() => import('./pages/YouthForChangeFellowshipProgramme'))
 const EmployeeVolunteeringProgramme = lazy(() => import('./pages/EmployeeVolunteeringProgramme'))
@@ -71,6 +72,7 @@ function App() {
           <Route path="/board-of-directors" element={<BoardOfDirectors />} />
           <Route path="/learning-development" element={<LearningDevelopment />} />
           <Route path="/adolescent-programme" element={<AdolescentProgramme />} />
+          <Route path="/school-to-work" element={<SchoolToWork />} />
           <Route path="/government-partnership-programme" element={<GovernmentPartnershipProgramme />} />
           <Route path="/youth-for-change-fellowship-programme" element={<YouthForChangeFellowshipProgramme />} />
           <Route path="/employee-volunteering" element={<EmployeeVolunteeringProgramme />} />
