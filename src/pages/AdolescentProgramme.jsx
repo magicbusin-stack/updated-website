@@ -1,4 +1,4 @@
-﻿import React, { useMemo, useRef, useState } from "react";
+﻿import React, { useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import { ArrowUpRight, Mail } from "lucide-react";
 import Layout from "../components/Layout";
@@ -7,28 +7,10 @@ import FAQSection from "../components/Home/FAQSectiom";
 import { adolescentFAQ } from "../components/Home/faqItems";
 import FaqSchema from "../components/seo/FaqSchema";
 import EnablingEcosystemWheel from "../components/AboutUs/EnablingEcosystemWheel";
+import { CHANGE, PRINCIPLES, LIFE_SKILLS, INTERVENTIONS, ECOSYSTEM, IMPLEMENTATION } from "../components/AboutUs/adolescentFrameworkContent";
 
 const _MOTION = motion;
 const EASE = [0.16, 1, 0.3, 1];
-
-const outreachMagicBusLed = [
-  ["Adolescents Outreach", "3,58,219"],
-  ["Schools", "2,332"],
-  ["Community Learning Centres", "343"],
-  ["% Girls Participants", "52%"],
-  ["States & UTs", "22"],
-  ["Districts", "72"]
-];
-
-const outreachGovt = [
-  ["Adolescents Outreach", "29,56,366"],
-  ["Schools", "27,737"],
-  ["Master Trainers Trained", "1,474"],
-  ["Teachers Trained", "37,389"],
-  ["% Girls Participants", "52%"],
-  ["Government Partnerships", "11"],
-  ["Aspirational Blocks", "141"]
-];
 
 const partnerLogos = [
   "/partners/1 (1).jpg",
@@ -127,50 +109,136 @@ function SectionTag({ children, dark = false }) {
   );
 }
 
-function NeedSection() {
+const ACCENTS = ["#E12228", "#2563EB", "#3F8F2B", "#D97706", "#7B52B8"];
+
+function InfoBoxes({ items, cols = "md:grid-cols-3", numbered = true }) {
   return (
-    <section className="bg-[#F6F8FB] py-16 sm:py-20">
-      <div className="mx-auto max-w-7xl px-6 lg:px-12">
-        <FadeUp className="rounded-3xl border border-black/10 bg-white p-6 shadow-sm sm:p-10">
-          <SectionTag>Why It Matters</SectionTag>
-          <h2 className="mt-5 text-3xl font-black text-[#0F172A] md:text-4xl">Breaking Barriers, Building Opportunities</h2>
-          <p className="mt-5 text-lg leading-relaxed text-slate-700">
-            India has 253 million adolescents below the age of 18. The dropout rate in India is highest at the
-            secondary level (9-10) at 11.5%, followed by upper primary (6-8) at 3.5% and primary (1-5) at 0.3%.
-          </p>
-          <p className="mt-4 text-lg leading-relaxed text-slate-700">
-            According to the National Family Health Survey 2019-21, about 23% of women were married before turning
-            18 in India. These challenges point towards the need for timely intervention in adolescents’ lives through
-            life skills education.
-          </p>
-          <p className="mt-4 text-lg leading-relaxed text-slate-700">
-            Developing life skills among young people is important for achieving Sustainable Development Goals (SDGs)
-            and enabling young people to overcome the cycle of poverty.
-          </p>
+    <div className={`mt-8 grid gap-5 sm:grid-cols-2 ${cols}`}>
+      {items.map(([title, text], i) => (
+        <FadeUp key={title} delay={i * 0.05} className="h-full">
+          <div className="h-full overflow-hidden rounded-2xl border border-black/10 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-md">
+            <div className="h-1.5" style={{ background: ACCENTS[i % ACCENTS.length] }} />
+            <div className="p-6">
+              {numbered && (
+                <span
+                  className="mb-3 flex h-9 w-9 items-center justify-center rounded-full text-sm font-bold text-white"
+                  style={{ background: ACCENTS[i % ACCENTS.length] }}
+                >
+                  {i + 1}
+                </span>
+              )}
+              <p className="text-xl font-bold text-[#0F172A]">{title}</p>
+              <p className="mt-3 leading-relaxed text-slate-600">{text}</p>
+            </div>
+          </div>
         </FadeUp>
+      ))}
+    </div>
+  );
+}
+
+function ContentSection({ tag, title, intro, items, cols, bg = "bg-white", numbered }) {
+  return (
+    <section className={`${bg} py-16 sm:py-20`}>
+      <div className="mx-auto max-w-7xl px-6 lg:px-12">
+        <FadeUp className="max-w-4xl">
+          <SectionTag>{tag}</SectionTag>
+          <h2 className="mt-5 text-3xl font-black text-[#0F172A] md:text-4xl">{title}</h2>
+          <p className="mt-5 text-lg leading-relaxed text-slate-700">{intro}</p>
+        </FadeUp>
+        <InfoBoxes items={items} cols={cols} numbered={numbered} />
       </div>
     </section>
   );
 }
 
-function AboutProgramme() {
+function SourceLink({ href, children }) {
+  return (
+    <a href={href} target="_blank" rel="noreferrer" className="font-semibold text-brand-blue underline-offset-2 hover:underline">
+      {children}
+    </a>
+  );
+}
+
+function ChallengeSection() {
+  return (
+    <section className="bg-[#F6F8FB] py-16 sm:py-20">
+      <div className="mx-auto max-w-7xl px-6 lg:px-12">
+        <FadeUp className="max-w-4xl">
+          <SectionTag>Why It Matters</SectionTag>
+          <h2 className="mt-5 text-3xl font-black text-[#0F172A] md:text-4xl">The Challenge</h2>
+          <p className="mt-5 text-lg leading-relaxed text-slate-700">
+            India is home to 253 million adolescents—the largest youth population in the world (
+            <SourceLink href="https://www.unicef.org/india/adolescent-development-and-participation">UNICEF India, 2023</SourceLink>
+            ). Yet barriers such as school dropout and early marriage can limit young people’s education and opportunities:
+          </p>
+        </FadeUp>
+
+        <div className="mt-8 grid gap-5 lg:grid-cols-2">
+          <FadeUp className="h-full">
+            <div className="h-full rounded-3xl border border-black/10 bg-white p-6 shadow-sm sm:p-8">
+              <p className="text-sm font-bold uppercase tracking-[0.14em] text-brand-red">School dropout</p>
+              <p className="mt-3 text-5xl font-black text-[#0F172A]">11.5%</p>
+              <p className="mt-2 leading-relaxed text-slate-700">
+                Dropout rates rise to 11.5% at the secondary level (Grades 9–10), compared with 3.5% in upper primary and 0.3% in
+                primary school.
+              </p>
+              <div className="mt-5 grid grid-cols-3 gap-3 text-center">
+                {[
+                  ["0.3%", "Primary"],
+                  ["3.5%", "Upper primary"],
+                  ["11.5%", "Secondary (9–10)"],
+                ].map(([v, l]) => (
+                  <div key={l} className="rounded-xl bg-[#F8FAFC] p-3">
+                    <p className="text-xl font-black text-[#0F172A]">{v}</p>
+                    <p className="mt-1 text-xs text-slate-600">{l}</p>
+                  </div>
+                ))}
+              </div>
+              <p className="mt-4 text-sm text-slate-500">
+                Source: <SourceLink href="https://www.pib.gov.in/PressReleasePage.aspx?PRID=2161543&reg=48&lang=2">Ministry of Education, 2024</SourceLink>
+              </p>
+            </div>
+          </FadeUp>
+          <FadeUp delay={0.08} className="h-full">
+            <div className="h-full rounded-3xl border border-black/10 bg-white p-6 shadow-sm sm:p-8">
+              <p className="text-sm font-bold uppercase tracking-[0.14em] text-brand-blue">Early marriage</p>
+              <p className="mt-3 text-5xl font-black text-[#0F172A]">23.3%</p>
+              <p className="mt-2 leading-relaxed text-slate-700">
+                23.3% of young women aged 20–24 were married before turning 18.
+              </p>
+              <p className="mt-6 text-sm text-slate-500">
+                Source: <SourceLink href="https://www.nfhsiips.in/nfhsuser/nfhs5.php">NFHS-5, 2021</SourceLink>
+              </p>
+            </div>
+          </FadeUp>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function ApproachSection() {
   return (
     <section className="bg-white py-16 sm:py-20">
-      <div className="mx-auto grid max-w-7xl gap-8 px-6 lg:grid-cols-[1.05fr_0.95fr] lg:px-12">
+      <div className="mx-auto grid max-w-7xl gap-8 px-6 lg:grid-cols-[1.15fr_0.85fr] lg:px-12">
         <FadeUp>
-          <SectionTag>What Is Magic Bus&apos;s Adolescent Programme?</SectionTag>
-          <h2 className="mt-5 text-3xl font-black text-[#0F172A] md:text-4xl">Adolescent Programme of Magic Bus</h2>
-          <p className="mt-5 leading-relaxed text-slate-700">
-            The Adolescent Programme of Magic Bus equips underserved adolescents aged 12-18 with life skills,
-            foundation literacy and numeracy (FLN), and employability education, to pursue education, lead fulfilling
-            lives, and add value to their communities.
-          </p>
-          <p className="mt-4 leading-relaxed text-slate-700">
-            With the 11 life skills framework, Magic Bus imparts 21st century skills like assertiveness,
-            collaboration, and negotiation through an activity-based school curriculum and community engagement. The
-            Childhood to Livelihood model helps us nurture well-rounded individuals, ensuring a smooth transition of
-            adolescents into adulthood.
-          </p>
+          <SectionTag>Our Approach</SectionTag>
+          <h2 className="mt-5 text-3xl font-black text-[#0F172A] md:text-4xl">Our Approach</h2>
+          <div className="mt-5 rounded-2xl border-l-4 border-brand-yellow bg-[#FFFBEB] p-6">
+            <p className="text-lg leading-relaxed text-slate-800">
+              At Magic Bus, we place life skills at the heart of adolescent development, integrating experiential learning with
+              academic support, sports and future readiness interventions. Through our competency based Life Skills Framework, we
+              strengthen adolescents&apos; cognitive, social and emotional capabilities, enabling them to make informed decisions,
+              build resilience, develop positive relationships and navigate challenges.
+            </p>
+            <p className="mt-4 text-lg leading-relaxed text-slate-800">
+              Our approach is inclusive and gender-transformative, recognising that meaningful change requires not only building
+              individual capabilities but also strengthening the environments in which adolescents learn and grow. By engaging
+              schools, families, communities and government systems, we create supportive pathways for adolescents to remain
+              engaged in education, explore opportunities and transition towards productive and fulfilling futures.
+            </p>
+          </div>
         </FadeUp>
         <FadeUp delay={0.08} className="overflow-hidden rounded-3xl border border-black/10">
           <img src="/ngo-images/11.jpg" alt="Adolescents in learning activity" className="h-full w-full object-cover" />
@@ -182,11 +250,15 @@ function AboutProgramme() {
 
 function LifeSkillsFrameworkSection() {
   return (
-    <section className="bg-white py-16 sm:py-20">
+    <section className="bg-[#F6F8FB] py-16 sm:py-20">
       <div className="mx-auto max-w-[1500px] px-4 lg:px-8">
-        <FadeUp>
-          <SectionTag>Life Skills Framework of Magic Bus</SectionTag>
-          <h2 className="mt-5 text-3xl font-black text-[#0F172A] md:text-4xl">Life Skills Framework of Magic Bus</h2>
+        <FadeUp className="max-w-4xl">
+          <SectionTag>Life Skills Framework</SectionTag>
+          <h2 className="mt-5 text-3xl font-black text-[#0F172A] md:text-4xl">Our Life Skills Framework</h2>
+          <p className="mt-5 text-lg leading-relaxed text-slate-700">
+            Our competency-based framework brings together 11 foundational life skills across cognitive, social and emotional
+            dimensions. These capabilities cut across every intervention rather than forming a standalone programme.
+          </p>
         </FadeUp>
         <div className="mt-8">
           <EnablingEcosystemWheel />
@@ -196,32 +268,123 @@ function LifeSkillsFrameworkSection() {
   );
 }
 
-function DiagramSection({ title, label, imagePath }) {
-  const [zoom, setZoom] = useState(false);
+function InterventionBlock({ data, color, cols }) {
   return (
-    <section className="bg-white py-16 sm:py-20">
-      <div className="mx-auto max-w-7xl px-6 lg:px-12">
-        <FadeUp>
-          <SectionTag>{label}</SectionTag>
-          <h2 className="mt-5 text-3xl font-black text-[#0F172A] md:text-4xl">{title}</h2>
-          <button
-            onClick={() => setZoom(true)}
-            className="mt-6 mx-auto block w-full max-w-6xl overflow-hidden rounded-3xl border border-black/10 bg-gradient-to-b from-[#F8FAFC] to-white p-3 sm:p-4"
-            aria-label={`Open ${title} diagram`}
-          >
-            <div className="overflow-hidden rounded-2xl border border-black/10 bg-white">
-              <img src={imagePath} alt={title} className="mx-auto w-full max-h-[520px] object-contain" />
+    <FadeUp className="mt-10">
+      <div className="overflow-hidden rounded-3xl border border-black/10 bg-white shadow-sm">
+        <div className="p-6 text-white sm:p-8" style={{ background: color }}>
+          <h3 className="text-2xl font-black md:text-3xl">{data.title}</h3>
+          <p className="mt-3 max-w-4xl text-base leading-relaxed text-white/95 md:text-lg">{data.intro}</p>
+        </div>
+        <div className={`grid gap-4 p-5 sm:grid-cols-2 sm:p-6 ${cols}`}>
+          {data.items.map(([name, text], i) => (
+            <div key={name} className="rounded-2xl border border-black/10 bg-[#F8FAFC] p-5" style={{ borderTop: `4px solid ${color}` }}>
+              <div className="flex items-center gap-3">
+                <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-sm font-bold text-white" style={{ background: color }}>
+                  {i + 1}
+                </span>
+                <p className="font-bold leading-snug text-[#0F172A]">{name}</p>
+              </div>
+              <p className="mt-3 text-sm leading-relaxed text-slate-600 md:text-[15px]">{text}</p>
             </div>
-          </button>
+          ))}
+        </div>
+      </div>
+    </FadeUp>
+  );
+}
+
+function InterventionsSection() {
+  return (
+    <section className="bg-[#F6F8FB] py-16 sm:py-20">
+      <div className="mx-auto max-w-7xl px-6 lg:px-12">
+        <FadeUp className="max-w-4xl">
+          <SectionTag>What We Do</SectionTag>
+          <h2 className="mt-5 text-3xl font-black text-[#0F172A] md:text-4xl">Programme Interventions</h2>
+          <p className="mt-5 text-lg leading-relaxed text-slate-700">{INTERVENTIONS.intro}</p>
         </FadeUp>
+        <InterventionBlock data={INTERVENTIONS.sports} color="#E0670C" cols="lg:grid-cols-4" />
+        <InterventionBlock data={INTERVENTIONS.academic} color="#3F8F2B" cols="lg:grid-cols-3" />
+        <InterventionBlock data={INTERVENTIONS.future} color="#0F7F96" cols="lg:grid-cols-3" />
+      </div>
+    </section>
+  );
+}
+
+function ImplementationSection() {
+  const [zoom, setZoom] = useState(false);
+  const [active, setActive] = useState(null); // 0 = direct, 1 = systems partnership
+  const cardColors = ["#E11D48", "#2563EB"];
+  return (
+    <section className="bg-[#F6F8FB] py-16 sm:py-20">
+      <div className="mx-auto max-w-7xl px-6 lg:px-12">
+        <FadeUp className="max-w-4xl">
+          <SectionTag>Adolescent Programme Implementation Model</SectionTag>
+          <h2 className="mt-5 text-3xl font-black text-[#0F172A] md:text-4xl">Implementation Model</h2>
+          <p className="mt-5 text-lg leading-relaxed text-slate-700">{IMPLEMENTATION.intro}</p>
+        </FadeUp>
+
+        <div className="mt-8 grid items-start gap-8 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1fr)]">
+          <FadeUp>
+            <div className="relative mx-auto max-w-xl overflow-hidden rounded-3xl border border-black/10 bg-white p-3 shadow-sm">
+              <img src="/implementation model.png" alt="Adolescent Programme Implementation Model" className="w-full rounded-2xl" />
+              {/* hover or tap the left half (direct model) or the right half (systems partnership) of the diagram */}
+              {IMPLEMENTATION.items.map(([name], i) => (
+                <button
+                  key={name}
+                  type="button"
+                  aria-label={name}
+                  onMouseEnter={() => setActive(i)}
+                  onMouseLeave={() => setActive(null)}
+                  onFocus={() => setActive(i)}
+                  onBlur={() => setActive(null)}
+                  onClick={() => setActive(i)}
+                  className="absolute bottom-3 top-3 w-[calc(50%-0.75rem)] rounded-2xl border-2 border-transparent outline-none transition"
+                  style={{
+                    [i === 0 ? "left" : "right"]: "0.75rem",
+                    background: active === i ? `${cardColors[i]}14` : "transparent",
+                    borderColor: active === i ? cardColors[i] : "transparent",
+                  }}
+                />
+              ))}
+            </div>
+            <button
+              type="button"
+              onClick={() => setZoom(true)}
+              className="mx-auto mt-3 block rounded-full border border-black/15 px-4 py-1.5 text-sm font-semibold text-slate-700 hover:bg-slate-50"
+            >
+              View diagram full size
+            </button>
+          </FadeUp>
+
+          <div className="space-y-5">
+            {IMPLEMENTATION.items.map(([name, text], i) => (
+              <FadeUp key={name} delay={i * 0.08}>
+                <div
+                  onMouseEnter={() => setActive(i)}
+                  onMouseLeave={() => setActive(null)}
+                  className="rounded-3xl border bg-white p-6 shadow-sm transition sm:p-8"
+                  style={{
+                    borderColor: active === i ? cardColors[i] : "rgba(0,0,0,0.1)",
+                    boxShadow: active === i ? `0 10px 30px ${cardColors[i]}26` : undefined,
+                    borderLeft: `6px solid ${cardColors[i]}`,
+                  }}
+                >
+                  <p className="text-2xl font-black text-[#0F172A]">{name}</p>
+                  <p className="mt-3 text-lg leading-relaxed text-slate-700">{text}</p>
+                </div>
+              </FadeUp>
+            ))}
+          </div>
+        </div>
       </div>
       {zoom && (
         <button
           className="fixed inset-0 z-50 grid place-items-center bg-black/80 p-5"
           onClick={() => setZoom(false)}
-          aria-label={`Close ${title} diagram preview`}
+          aria-label="Close Implementation Model diagram preview"
         >
-          <img src={imagePath} alt={`${title} enlarged`} className="max-h-[90vh] max-w-[90vw] rounded-xl bg-white p-2" />
+          <img src="/implementation model.png" alt="Implementation Model enlarged" className="max-h-[90vh] max-w-[90vw] rounded-xl bg-white p-2" />
         </button>
       )}
     </section>
@@ -230,7 +393,7 @@ function DiagramSection({ title, label, imagePath }) {
 
 function HowWeWork() {
   return (
-    <section className="bg-[#F6F8FB] py-16 sm:py-20">
+    <section className="bg-white py-16 sm:py-20">
       <div className="mx-auto max-w-7xl px-6 lg:px-12">
         <FadeUp>
           <SectionTag>How We Work</SectionTag>
@@ -265,80 +428,155 @@ function HowWeWork() {
   );
 }
 
-function OutreachImpactSection() {
-  const [active, setActive] = useState("magic");
-  const rows = useMemo(() => (active === "magic" ? outreachMagicBusLed : outreachGovt), [active]);
+const outcomes = [
+  {
+    title: "School regularity of adolescents*",
+    sub: "More adolescents are attending school regularly.",
+    from: ["61%", "Baseline"],
+    to: ["84%", "End line"],
+    delta: "+23",
+    up: true,
+    note: "School regularity increased by 23 percentage points, indicating more consistent school attendance among adolescents."
+  },
+  {
+    title: "School regularity of girls*",
+    sub: "More girls are attending school regularly.",
+    from: ["64%", "Baseline"],
+    to: ["87%", "End line"],
+    delta: "+23",
+    up: true,
+    note: "School regularity among girls increased by 23 percentage points, showing improved consistency in school attendance."
+  },
+  {
+    title: "Dropout rate**",
+    sub: "Fewer students are dropping out of school.",
+    from: ["7%", "UDISE"],
+    to: ["1%", "Magic Bus"],
+    delta: "-6",
+    up: false,
+    note: "The reported dropout rate was 6 percentage points lower in the Magic Bus programme than the UDISE reference."
+  },
+  {
+    title: "Transition rate (Grade 8 to 9)**",
+    sub: "More students are continuing to higher grades.",
+    from: ["88%", "UDISE"],
+    to: ["99%", "Magic Bus"],
+    delta: "+11",
+    up: true,
+    note: "Transition from Grade 8 to Grade 9 was 11 percentage points higher in the Magic Bus programme."
+  },
+  {
+    title: "Transition rate (Grade 10 to 11)**",
+    sub: "More students are continuing to higher grades.",
+    from: ["88%", "UDISE"],
+    to: ["99%", "Magic Bus"],
+    delta: "+11",
+    up: true,
+    note: "Transition from Grade 10 to Grade 11 was 11 percentage points higher in the Magic Bus programme."
+  }
+];
 
+const outreachRows = [
+  ["No. of States", "22"],
+  ["No. of Districts", "72"],
+  ["No. of Aspirational Districts", "12"],
+  ["No. of Aspirational Blocks", "18"],
+  ["No. of Tribal Dominant States", "9"],
+  ["No. of CLC", "356"],
+  ["No. of Schools", "2,191"],
+  ["Adolescents Outreach", "3,23,963"]
+];
+
+function ReachOutcomesSection() {
+  return (
+    <section className="bg-[#F6F8FB] py-16 sm:py-20">
+      <div className="mx-auto max-w-7xl px-6 lg:px-12">
+        <FadeUp className="max-w-4xl">
+          <SectionTag>Reach and Outcomes</SectionTag>
+          <h2 className="mt-5 text-3xl font-black text-[#0F172A] md:text-4xl">School Outcomes of Magic Bus Programme</h2>
+        </FadeUp>
+
+        <div className="mt-8 space-y-4">
+          {outcomes.map((o, i) => (
+            <FadeUp key={o.title} delay={i * 0.04}>
+              <div className="grid items-center gap-4 rounded-2xl border border-black/10 bg-[#F8FAFC] p-5 shadow-sm md:grid-cols-[1.1fr_1fr_0.7fr_1.3fr] md:gap-6">
+                <div>
+                  <p className="text-lg font-bold text-[#0F172A]">{o.title}</p>
+                  <p className="mt-1 text-sm text-slate-600">{o.sub}</p>
+                </div>
+                <div className="flex items-center justify-center gap-3 text-center">
+                  <div>
+                    <p className="text-3xl font-black text-slate-500">{o.from[0]}</p>
+                    <p className="text-xs font-semibold text-slate-500">{o.from[1]}</p>
+                  </div>
+                  <span className="text-2xl text-slate-400" aria-hidden="true">
+                    →
+                  </span>
+                  <div>
+                    <p className="text-3xl font-black text-[#0F172A]">{o.to[0]}</p>
+                    <p className="text-xs font-semibold text-slate-600">{o.to[1]}</p>
+                  </div>
+                </div>
+                <div className={`rounded-xl px-3 py-2 text-center ${o.up ? "bg-emerald-100 text-emerald-800" : "bg-rose-100 text-rose-800"}`}>
+                  <p className="text-2xl font-black">
+                    {o.up ? "↑" : "↓"} {o.delta}
+                  </p>
+                  <p className="text-xs font-semibold">percentage points</p>
+                </div>
+                <p className="text-sm leading-relaxed text-slate-700">{o.note}</p>
+              </div>
+            </FadeUp>
+          ))}
+        </div>
+
+        <FadeUp delay={0.1}>
+          <div className="mt-5 flex flex-col items-center gap-4 rounded-2xl border border-amber-200 bg-amber-50 p-5 text-center sm:flex-row sm:text-left">
+            <p className="text-5xl font-black text-brand-red">99%</p>
+            <p className="text-lg font-semibold text-slate-800">
+              In MB programmes, the transition rate for adolescents of grade 9<sup>th</sup> to 10<sup>th</sup> is 99%.
+            </p>
+          </div>
+          <div className="mt-5 space-y-2 text-xs leading-relaxed text-slate-500 sm:text-sm">
+            <p>*On the basis of evaluation conducted during the period 2025-2026, reaching 323963 adolescents.</p>
+            <p>
+              **On the basis of UDISE (Unified District Information System for Education) data available for 2025-26 and internal MIS
+              data (8<sup>th</sup> to 9<sup>th</sup> = 59148 adolescents, 9<sup>th</sup> to 10<sup>th</sup> = 36049 adolescents, 10
+              <sup>th</sup> to 11<sup>th</sup> = 4451 adolescents, 12<sup>th</sup> / Higher secondary school completion = 3213
+              adolescents) of MB programme. The UDISE transition data of 9<sup>th</sup> to 10<sup>th</sup> and higher secondary school
+              completion is not available.
+            </p>
+          </div>
+        </FadeUp>
+      </div>
+    </section>
+  );
+}
+
+function OutreachSection() {
   return (
     <section className="bg-white py-16 sm:py-20">
       <div className="mx-auto max-w-7xl px-6 lg:px-12">
         <FadeUp className="max-w-4xl">
-          <SectionTag>Outreach and Impact 2024-25</SectionTag>
+          <SectionTag>Outreach</SectionTag>
           <h2 className="mt-5 text-3xl font-black text-[#0F172A] md:text-4xl">Our Outreach</h2>
-          <p className="mt-4 text-sm text-slate-600">Source: magicbus.org/outreach.php</p>
         </FadeUp>
-
-        <FadeUp delay={0.08} className="mt-6 rounded-3xl border border-black/10 bg-[#F8FAFC] p-5 sm:p-6">
-          <div className="mb-4 flex flex-wrap gap-2">
-            <button
-              onClick={() => setActive("magic")}
-              className={`rounded-full px-4 py-2 text-sm font-semibold transition ${
-                active === "magic" ? "bg-[#0F172A] text-white" : "bg-white text-slate-700"
-              }`}
-            >
-              Magic Bus-led Model
-            </button>
-            <button
-              onClick={() => setActive("govt")}
-              className={`rounded-full px-4 py-2 text-sm font-semibold transition ${
-                active === "govt" ? "bg-[#0F172A] text-white" : "bg-white text-slate-700"
-              }`}
-            >
-              Government Partnership Model
-            </button>
-          </div>
-
-          <div className="overflow-hidden rounded-2xl border border-black/10 bg-white">
-            <table className="w-full text-left">
-              <thead>
-                <tr className="bg-slate-50">
-                  <th className="px-4 py-3 text-xs uppercase tracking-[0.12em] text-slate-500">Metric</th>
-                  <th className="px-4 py-3 text-xs uppercase tracking-[0.12em] text-slate-500">Value</th>
+        <FadeUp delay={0.08} className="mt-6 max-w-3xl overflow-hidden rounded-2xl border border-black/10 bg-white shadow-sm">
+          <table className="w-full text-left">
+            <thead>
+              <tr className="bg-brand-red text-white">
+                <th className="px-5 py-3 text-sm font-bold">Indicators</th>
+                <th className="px-5 py-3 text-sm font-bold">Overall Count</th>
+              </tr>
+            </thead>
+            <tbody>
+              {outreachRows.map(([metric, value]) => (
+                <tr key={metric} className="border-t border-black/5">
+                  <td className="px-5 py-3 font-medium text-slate-800">{metric}</td>
+                  <td className="px-5 py-3 text-lg font-bold text-slate-950">{value}</td>
                 </tr>
-              </thead>
-              <tbody>
-                {rows.map(([metric, value]) => (
-                  <tr key={metric} className="border-t border-black/5">
-                    <td className="px-4 py-3 font-medium text-slate-800">{metric}</td>
-                    <td className="px-4 py-3 font-bold text-slate-950">{value}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </FadeUp>
-
-        <FadeUp className="mt-10">
-          <h2 className="text-3xl font-black text-[#0F172A] md:text-4xl">Our Impact</h2>
-          <p className="mt-4 text-sm text-slate-600">Source: Annual report 2024-25</p>
-          <div className="mt-6 grid items-stretch gap-4 sm:grid-cols-2 xl:grid-cols-4">
-            <div className="h-full rounded-2xl border border-black/10 bg-[#F8FAFC] p-5 shadow-sm">
-              <p className="text-4xl font-black text-brand-red">27%</p>
-              <p className="mt-2 leading-relaxed text-slate-700">Increase in attendance and school regularity</p>
-            </div>
-            <div className="h-full rounded-2xl border border-black/10 bg-[#F8FAFC] p-5 shadow-sm">
-              <p className="text-4xl font-black text-brand-blue">46%</p>
-              <p className="mt-2 leading-relaxed text-slate-700">Improvement in perceived ability to withstand and recover from difficulties</p>
-            </div>
-            <div className="h-full rounded-2xl border border-black/10 bg-[#F8FAFC] p-5 shadow-sm">
-              <p className="text-4xl font-black text-brand-green">20%</p>
-              <p className="mt-2 leading-relaxed text-slate-700">Increase in perceived ability to act as required to achieve goals</p>
-            </div>
-            <div className="h-full rounded-2xl border border-black/10 bg-[#F8FAFC] p-5 shadow-sm">
-              <p className="text-4xl font-black text-brand-magenta">6%</p>
-              <p className="mt-2 leading-relaxed text-slate-700">Improvement in adolescents&apos; gender attitude</p>
-            </div>
-          </div>
+              ))}
+            </tbody>
+          </table>
         </FadeUp>
       </div>
     </section>
@@ -358,6 +596,82 @@ function OutreachMapSection() {
             </div>
           </div>
         </FadeUp>
+      </div>
+    </section>
+  );
+}
+
+function InnovativeSection() {
+  return (
+    <section className="bg-white py-16 sm:py-20">
+      <div className="mx-auto max-w-7xl px-6 lg:px-12">
+        <FadeUp className="max-w-4xl">
+          <SectionTag>Innovative Programmes</SectionTag>
+          <h2 className="mt-5 text-3xl font-black text-[#0F172A] md:text-4xl">Innovative Programmes</h2>
+          <p className="mt-5 text-lg font-semibold leading-relaxed text-slate-800">
+            We adapt our life skills approach to different needs and settings, combining accessible learning with partnerships that
+            support participation.
+          </p>
+          <p className="mt-4 text-lg leading-relaxed text-slate-700">
+            Our innovative programmes bring together life skills education, learning support, future readiness, and sport to respond
+            to diverse needs and contexts. Working with government, schools, communities, and partners, we adapt our approaches to
+            make learning inclusive, accessible, and relevant—helping participants build confidence, strengthen skills, and prepare
+            for the future.
+          </p>
+        </FadeUp>
+
+        <div className="mt-8 grid gap-5 lg:grid-cols-3">
+          <FadeUp className="h-full">
+            <div className="h-full rounded-3xl border border-black/10 bg-[#F8FAFC] p-6 shadow-sm sm:p-8" style={{ borderTop: "6px solid #E12228" }}>
+              <h3 className="text-2xl font-black text-[#0F172A]">Tarang</h3>
+              <p className="mt-4 leading-relaxed text-slate-700">
+                In partnership with the Department of Women and Child Development, Government of NCT of Delhi, Magic Bus India
+                Foundation is implementing Project Tarang across 20 government-run Child Care Institutions to support the holistic
+                development of adolescents in institutional care.
+              </p>
+              <p className="mt-4 leading-relaxed text-slate-700">
+                Through football and structured, play-based life skills education, Tarang helps adolescents build confidence,
+                resilience, leadership, teamwork, and emotional wellbeing, while preparing them for successful reintegration into
+                society.
+              </p>
+            </div>
+          </FadeUp>
+          <FadeUp delay={0.06} className="h-full">
+            <div className="h-full rounded-3xl border border-black/10 bg-[#F8FAFC] p-6 shadow-sm sm:p-8" style={{ borderTop: "6px solid #2563EB" }}>
+              <h3 className="text-2xl font-black text-[#0F172A]">TN Rights</h3>
+              <p className="mt-4 leading-relaxed text-slate-700">
+                Under the World Bank-supported TN-RIGHTS Project, led by the Commissionerate for the Welfare of Differently Abled
+                Persons, Government of Tamil Nadu, Magic Bus India Foundation is collaborating with Fernandez Direct Consulting LLP
+                as the Knowledge Partner for the assignment to design a life skills education curriculum for persons with
+                disabilities and support its implementation in Tamil Nadu.
+              </p>
+              <p className="mt-4 leading-relaxed text-slate-700">
+                The initiative focuses on an inclusive, accessible, and locally relevant curriculum for all 21 categories of
+                disabilities. It is being piloted in five districts of Tamil Nadu: Chennai, Cuddalore, Dharmapuri, Tenkasi, and
+                Tiruchirappalli.
+              </p>
+              <p className="mt-4 leading-relaxed text-slate-700">
+                Alongside curriculum development and piloting, a participatory Training of Trainers (ToT) approach seeks to
+                strengthen the capacities of parents, caregivers, teachers, and other stakeholders to support learning.
+              </p>
+            </div>
+          </FadeUp>
+          <FadeUp delay={0.12} className="h-full">
+            <div className="flex h-full flex-col rounded-3xl border border-black/10 bg-[#F8FAFC] p-6 shadow-sm sm:p-8" style={{ borderTop: "6px solid #3F8F2B" }}>
+              <h3 className="text-2xl font-black text-[#0F172A]">ACAMH</h3>
+              <div className="flex-1" />
+              <a
+                href="https://x.com/acamh/status/2118424138415058960"
+                target="_blank"
+                rel="noreferrer"
+                className="mt-6 inline-flex w-fit items-center gap-2 rounded-full bg-[#0F172A] px-5 py-2.5 text-sm font-semibold text-white transition hover:opacity-90"
+              >
+                View the post
+                <ArrowUpRight className="h-4 w-4" />
+              </a>
+            </div>
+          </FadeUp>
+        </div>
       </div>
     </section>
   );
@@ -498,17 +812,45 @@ export default function AdolescentProgramme() {
           { label: "States & UTs Reached", value: "22" }
         ]}
       />
-      <NeedSection />
-      <AboutProgramme />
-      <DiagramSection
-        label="Adolescent Programme Implementation Model"
-        title="Adolescent Programme Implementation Model"
-        imagePath="/implementation model.png"
-      />
-      <HowWeWork />
+      <ChallengeSection />
+      <ApproachSection />
       <LifeSkillsFrameworkSection />
-      <OutreachImpactSection />
+      <ContentSection
+        tag="The Change We Seek"
+        title="The Change We Seek"
+        intro={CHANGE.intro}
+        items={CHANGE.items}
+        cols="lg:grid-cols-3"
+      />
+      <ContentSection
+        bg="bg-[#F6F8FB]"
+        tag="Core Principles"
+        title="Principles That Guide Our Work"
+        intro={PRINCIPLES.intro}
+        items={PRINCIPLES.items}
+        cols="lg:grid-cols-4"
+      />
+      <ContentSection
+        tag="Life Skills"
+        title="Core Life Skills"
+        intro={LIFE_SKILLS.intro}
+        items={LIFE_SKILLS.items}
+        cols="lg:grid-cols-3"
+      />
+      <InterventionsSection />
+      <ContentSection
+        tag="Enabling Ecosystem"
+        title="Enabling Ecosystem"
+        intro={ECOSYSTEM.intro}
+        items={ECOSYSTEM.items}
+        cols="lg:grid-cols-4"
+      />
+      <ImplementationSection />
+      <HowWeWork />
+      <ReachOutcomesSection />
+      <OutreachSection />
       <OutreachMapSection />
+      <InnovativeSection />
       <PartnersSection />
       <SuccessStoriesSection />
       <FAQSection items={adolescentFAQ} />

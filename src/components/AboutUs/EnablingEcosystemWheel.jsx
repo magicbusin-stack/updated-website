@@ -1,161 +1,41 @@
 import React, { useState } from "react";
 import {
   Landmark, Users, School, Handshake, Brain, Smile, Heart, BookOpen, Trophy, ShieldPlus, ListChecks,
-  Globe2, Rocket, Bike, ArrowRight, PersonStanding,
+  Globe2, Rocket, Bike, ArrowRight, PersonStanding, ChevronDown,
 } from "lucide-react";
 
-// Built from the updated "Enabling Ecosystem" diagram.
-// DRAFT COPY: the one-line descriptions are working wording and must be confirmed by the
-// programme team before publishing. Names, numbered items and the headline texts come from the diagram.
+import { CHANGE, PRINCIPLES, LIFE_SKILLS, INTERVENTIONS, ECOSYSTEM } from "./adolescentFrameworkContent";
+
+// All wording comes from the approved programme-team content (see adolescentFrameworkContent.js).
+const cap = (t) => t.charAt(0).toUpperCase() + t.slice(1);
+const skillsOf = (name) =>
+  LIFE_SKILLS.items
+    .find(([n]) => n === name)[1]
+    .replace(/\.$/, "")
+    .split(/,\s*|\s+and\s+/)
+    .map((t) => [cap(t), ""]);
+const SKILLS_NOTE = "Part of our 11 core life skills, which span three interconnected dimensions: cognitive, social and emotional.";
+
 const DATA = {
   hub: {
     title: "Wellbeing, Empowerment & Gender Equity",
-    category: "Core",
-    layer: "Centre of the wheel",
+    listTitle: "The Change We Seek",
     color: "#E12228",
-    desc: "The heart of the framework. Every life skill and every intervention is built around the wellbeing and empowerment of young people, with gender equity at the centre.",
-    modules: [
-      ["Gender Transformative Practice", "Equal leadership opportunities and challenging gender stereotypes."],
-      ["Child Agency & Voice", "Helping children express their aspirations and take part in decisions about their future."],
-      ["Holistic Mental Well-being", "Safe spaces, first-aid for stress and supportive peers."],
-    ],
+    desc: CHANGE.intro,
+    modules: CHANGE.items,
   },
-  cognitive: {
-    title: "Cognitive",
-    category: "Lifeskills",
-    layer: "Inner ring",
-    color: "#4F46E5",
-    desc: "Thinking skills that help adolescents process information, assess situations and steer their own choices.",
-    modules: [
-      ["Problem Solving", "Recognising bottlenecks, reasoning to root causes, and forming practical step-by-step action plans."],
-      ["Decision Making", "Weighing alternatives and consequences, and resisting risky impulsive behaviour under pressure."],
-      ["Critical Thinking", "Questioning information and weighing evidence before forming a view."],
-      ["Self-Management", "Goal setting, time management, discipline, focus and personal responsibility."],
-    ],
-  },
-  emotional: {
-    title: "Emotional",
-    category: "Lifeskills",
-    layer: "Inner ring",
-    color: "#047857",
-    desc: "Self-awareness tools that help young people understand stress, manage reactions and build inner strength.",
-    modules: [
-      ["Self-Awareness", "Understanding personal strengths, identity, triggers and self-worth."],
-      ["Adaptability", "Coping with change and hardship, and bouncing back from setbacks."],
-    ],
-  },
-  social: {
-    title: "Social",
-    category: "Lifeskills",
-    layer: "Inner ring",
-    color: "#E11D48",
-    desc: "Interpersonal skills that help young people build healthy relationships, resolve differences constructively and speak up for their future.",
-    modules: [
-      ["Empathy", "Recognising emotions in peers, taking other perspectives and supporting others."],
-      ["Assertiveness", "Saying no to peer pressure and speaking up safely for personal rights."],
-      ["Negotiation", "Constructive dialogue skills, such as speaking with parents about continuing education."],
-      ["Communication", "Expressing ideas clearly and listening well, in person and at work."],
-      ["Collaboration", "Teamwork on the field and in group work, with shared accountability."],
-    ],
-  },
-  sports: {
-    title: "Sports Ecosystem",
-    category: "Programme Interventions",
-    layer: "Outer ring",
-    color: "#E0670C",
-    desc: "Learning through play: the playground becomes a space for teamwork, confidence and breaking down gender barriers.",
-    modules: [
-      ["Sports for Development", "Play-based sessions that build life skills, teamwork and confidence."],
-      ["Sports for Excellence", "Coaching and pathways for young people who want to compete and grow in sport."],
-      ["Sports for Employability", "Building discipline, fitness, punctuality and team accountability for work."],
-      ["S4D Fellowship", "A fellowship that supports young people to grow as leaders through sport."],
-    ],
-  },
-  academic: {
-    title: "Academic",
-    category: "Programme Interventions",
-    layer: "Outer ring",
-    color: "#3F8F2B",
-    desc: "Learning support that strengthens foundations, helps prevent dropout at key transitions and builds confidence in STEAM.",
-    modules: [
-      ["FLN / CLC", "Support to build foundational literacy and numeracy (FLN)."],
-      ["Academic Support", "Tutoring and study support that helps young people stay on track in school."],
-      ["Remedial Learning", "Catch-up support for young people who have fallen behind."],
-      ["STEAM", "Hands-on learning in science, technology, engineering, arts and maths."],
-    ],
-  },
-  future: {
-    title: "Future Readiness and Employability",
-    category: "Programme Interventions",
-    layer: "Outer ring",
-    color: "#0F7F96",
-    desc: "Forward-looking skills that prepare adolescents for the modern economy, digital workplaces and green livelihoods.",
-    modules: [
-      ["Digital & AI", "Using digital tools, staying safe online, and understanding the basics of AI."],
-      ["Green Skills", "Environmental awareness, resource efficiency and local sustainability action."],
-      ["Career Exploration", "Matching interests to career paths, and preparing a resume."],
-      ["Financial Literacy", "Banking basics, budgeting, and safe digital transactions."],
-      ["Entrepreneurial Mindset", "Creating value, spotting local micro-enterprise needs and understanding customers."],
-    ],
-  },
-  cross: {
-    title: "Cross-Cutting Principles",
-    category: "Principles",
-    layer: "Run through every intervention",
-    color: "#2F7D32",
-    desc: "Four principles that run through every part of the wheel: gender transformative, inclusive, equitable and safe.",
-    modules: [
-      ["Gender Transformative", "Challenging stereotypes so girls and boys have equal opportunities."],
-      ["Inclusive", "Making sure every young person can take part, including those at the margins."],
-      ["Equitable", "Fair access to opportunities, support and resources."],
-      ["Safe", "Keeping young people safe in every programme space."],
-    ],
-  },
-  ecosystem: {
-    title: "Enabling Ecosystem",
-    category: "Enabling Ecosystem",
-    layer: "Outer circle",
-    color: "#2A6DB0",
-    desc: "Enabling equitable access, participation, agency and supportive environments.",
-    modules: [
-      ["Government System", "Engagement with government bodies aligns the framework with national and state education and adolescent development policies, creating pathways to embed learning within public systems."],
-      ["School Leadership and Teachers", "By building the capacity and ownership of school heads, teachers and School Management Committees, we help make life skills, academic learning and wellbeing part of everyday school practice."],
-      ["Community System", "Parents, community leaders and local institutions reinforce learning beyond the classroom. We mobilise their support to address barriers and keep adolescents engaged."],
-      ["Collaboratives and Partners", "Working alongside NGOs, corporates, technical experts and coalitions, we co-design interventions and mobilise the resources and expertise needed to strengthen delivery at scale."],
-    ],
-  },
-  govt: {
-    title: "Government System",
-    category: "Enabling Ecosystem",
-    layer: "Outer circle",
-    color: "#1F4E8C",
-    desc: "Engagement with government bodies aligns the framework with national and state education and adolescent development policies, creating pathways to embed learning within public systems.",
-    modules: [],
-  },
-  community: {
-    title: "Community System",
-    category: "Enabling Ecosystem",
-    layer: "Outer circle",
-    color: "#3F9142",
-    desc: "Parents, community leaders and local institutions reinforce learning beyond the classroom. We mobilise their support to address barriers and keep adolescents engaged.",
-    modules: [],
-  },
-  school: {
-    title: "School Leadership and Teachers",
-    category: "Enabling Ecosystem",
-    layer: "Outer circle",
-    color: "#D9700B",
-    desc: "By building the capacity and ownership of school heads, teachers and School Management Committees, we help make life skills, academic learning and wellbeing part of everyday school practice.",
-    modules: [],
-  },
-  collaboratives: {
-    title: "Collaboratives and Partners",
-    category: "Enabling Ecosystem",
-    layer: "Outer circle",
-    color: "#7B52B8",
-    desc: "Working alongside NGOs, corporates, technical experts and coalitions, we co-design interventions and mobilise the resources and expertise needed to strengthen delivery at scale.",
-    modules: [],
-  },
+  cognitive: { title: "Cognitive", listTitle: "Core Life Skills", color: "#4F46E5", desc: SKILLS_NOTE, modules: skillsOf("Cognitive") },
+  emotional: { title: "Emotional", listTitle: "Core Life Skills", color: "#047857", desc: SKILLS_NOTE, modules: skillsOf("Emotional") },
+  social: { title: "Social", listTitle: "Core Life Skills", color: "#E11D48", desc: SKILLS_NOTE, modules: skillsOf("Social") },
+  sports: { title: INTERVENTIONS.sports.title, listTitle: "Four Pillars", color: "#E0670C", desc: INTERVENTIONS.sports.intro, modules: INTERVENTIONS.sports.items },
+  academic: { title: INTERVENTIONS.academic.title, listTitle: "Focus Areas", color: "#3F8F2B", desc: INTERVENTIONS.academic.intro, modules: INTERVENTIONS.academic.items },
+  future: { title: INTERVENTIONS.future.title, listTitle: "Five Connected Areas", color: "#0F7F96", desc: INTERVENTIONS.future.intro, modules: INTERVENTIONS.future.items },
+  cross: { title: "Cross-Cutting Principles", listTitle: "Principles That Guide Our Work", color: "#2F7D32", desc: PRINCIPLES.intro, modules: PRINCIPLES.items },
+  ecosystem: { title: "Enabling Ecosystem", listTitle: "Enabling Systems", color: "#2A6DB0", desc: ECOSYSTEM.intro, modules: ECOSYSTEM.items },
+  govt: { title: ECOSYSTEM.items[0][0], color: "#1F4E8C", desc: ECOSYSTEM.items[0][1], modules: [] },
+  school: { title: ECOSYSTEM.items[1][0], color: "#D9700B", desc: ECOSYSTEM.items[1][1], modules: [] },
+  community: { title: ECOSYSTEM.items[2][0], color: "#3F9142", desc: ECOSYSTEM.items[2][1], modules: [] },
+  collaboratives: { title: ECOSYSTEM.items[3][0], color: "#7B52B8", desc: ECOSYSTEM.items[3][1], modules: [] },
 };
 
 const ICONS = {
@@ -255,8 +135,10 @@ function ArcLabel({ id, text, size, spacing = 0, fill = "#fff", weight = 700, op
 export default function EnablingEcosystemWheel() {
   const [pinned, setPinned] = useState("cognitive");
   const [hovered, setHovered] = useState(null);
+  const [open, setOpen] = useState({ id: null, i: 0 }); // which module text is expanded in the panel
   const activeId = hovered || pinned;
   const info = DATA[activeId];
+  const openIdx = open.id === activeId ? open.i : 0;
   const Icon = ICONS[activeId];
   const glowOf = (id) => GLOW[id] || DATA[id].color;
 
@@ -511,7 +393,7 @@ export default function EnablingEcosystemWheel() {
                 LIFESKILLS
               </text>
             </g>
-            <ArcLabel id="eew-cross-words-arc" text="Gender Transformative  ·  Inclusive  ·  Equitable  ·  Safe" size={10.5} weight={600} fill="#1E5A2A" />
+            <ArcLabel id="eew-cross-words-arc" text="Gender Transformation  ·  Inclusion  ·  Equity  ·  Safety" size={10.5} weight={600} fill="#1E5A2A" />
           </svg>
         </div>
 
@@ -533,31 +415,40 @@ export default function EnablingEcosystemWheel() {
           </div>
 
           {info.modules.length > 0 && (
-          <div className="space-y-3 rounded-2xl border p-3 md:p-4 shadow-sm transition-colors" style={{ background: `${info.color}0F`, borderColor: `${info.color}33` }}>
-            <div className="flex items-center justify-between gap-3">
+            <div className="space-y-3 rounded-2xl border p-3 md:p-4 shadow-sm transition-colors" style={{ background: `${info.color}0F`, borderColor: `${info.color}33` }}>
               <h4 className="flex items-center gap-2 text-base md:text-lg font-bold text-slate-900">
                 <ListChecks className="h-5 w-5" style={{ color: info.color }} />
-                {activeId === "ecosystem" ? "Enabling Systems" : "Core Competencies & Modules"}
+                {info.listTitle}
               </h4>
+              <ol className="flex flex-col gap-2">
+                {info.modules.map(([name, text], i) => {
+                  const expandable = Boolean(text);
+                  const isOpen = expandable && openIdx === i;
+                  return (
+                    <li
+                      key={name}
+                      className="rounded-xl bg-white shadow-sm transition hover:shadow-md"
+                      style={{ borderLeft: `4px solid ${info.color}` }}
+                    >
+                      <button
+                        type="button"
+                        disabled={!expandable}
+                        aria-expanded={expandable ? isOpen : undefined}
+                        onClick={() => setOpen({ id: activeId, i: isOpen ? -1 : i })}
+                        className={`flex w-full items-center gap-3 p-2 md:p-2.5 text-left ${expandable ? "cursor-pointer" : "cursor-default"}`}
+                      >
+                        <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-sm font-bold" style={{ background: info.color, color: "#fff" }}>
+                          {i + 1}
+                        </span>
+                        <span className="flex-1 text-sm md:text-base font-bold leading-snug text-slate-900">{name}</span>
+                        {expandable && <ChevronDown className={`h-4 w-4 shrink-0 text-slate-500 transition-transform ${isOpen ? "rotate-180" : ""}`} />}
+                      </button>
+                      {isOpen && <p className="px-3 pb-3 pl-[3.25rem] text-xs md:text-[13px] leading-snug text-slate-600">{text}</p>}
+                    </li>
+                  );
+                })}
+              </ol>
             </div>
-            <ol className="flex flex-col gap-2">
-              {info.modules.map(([name, text], i) => (
-                <li
-                  key={name}
-                  className="flex items-start gap-3 rounded-xl bg-white p-2 md:p-2.5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
-                  style={{ borderLeft: `4px solid ${info.color}` }}
-                >
-                  <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-sm font-bold" style={{ background: info.color, color: "#fff" }}>
-                    {i + 1}
-                  </span>
-                  <div>
-                    <p className="text-sm md:text-base font-bold leading-snug text-slate-900">{name}</p>
-                    <p className="mt-0.5 text-xs md:text-[13px] leading-snug text-slate-600">{text}</p>
-                  </div>
-                </li>
-              ))}
-            </ol>
-          </div>
           )}
         </div>
       </div>
