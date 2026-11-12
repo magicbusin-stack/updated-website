@@ -7,6 +7,7 @@ import FAQSection from "../components/Home/FAQSectiom";
 import { adolescentFAQ } from "../components/Home/faqItems";
 import FaqSchema from "../components/seo/FaqSchema";
 import EnablingEcosystemWheel from "../components/AboutUs/EnablingEcosystemWheel";
+import ImplementationModelChart from "../components/AboutUs/ImplementationModelChart";
 import { CHANGE, PRINCIPLES, LIFE_SKILLS, INTERVENTIONS, ECOSYSTEM, IMPLEMENTATION } from "../components/AboutUs/adolescentFrameworkContent";
 
 const _MOTION = motion;
@@ -312,8 +313,7 @@ function InterventionsSection() {
 }
 
 function ImplementationSection() {
-  const [zoom, setZoom] = useState(false);
-  const [active, setActive] = useState(null); // 0 = direct, 1 = systems partnership
+  const [active, setActive] = useState(null); // 0 = direct, 1 = systems partnership (set by hovering the chart)
   const cardColors = ["#E11D48", "#2563EB"];
   return (
     <section className="bg-[#F6F8FB] py-16 sm:py-20">
@@ -324,69 +324,31 @@ function ImplementationSection() {
           <p className="mt-5 text-lg leading-relaxed text-slate-700">{IMPLEMENTATION.intro}</p>
         </FadeUp>
 
-        <div className="mt-8 grid items-start gap-8 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1fr)]">
-          <FadeUp>
-            <div className="relative mx-auto max-w-xl overflow-hidden rounded-3xl border border-black/10 bg-white p-3 shadow-sm">
-              <img src="/implementation model.png" alt="Adolescent Programme Implementation Model" className="w-full rounded-2xl" />
-              {/* hover or tap the left half (direct model) or the right half (systems partnership) of the diagram */}
-              {IMPLEMENTATION.items.map(([name], i) => (
-                <button
-                  key={name}
-                  type="button"
-                  aria-label={name}
-                  onMouseEnter={() => setActive(i)}
-                  onMouseLeave={() => setActive(null)}
-                  onFocus={() => setActive(i)}
-                  onBlur={() => setActive(null)}
-                  onClick={() => setActive(i)}
-                  className="absolute bottom-3 top-3 w-[calc(50%-0.75rem)] rounded-2xl border-2 border-transparent outline-none transition"
-                  style={{
-                    [i === 0 ? "left" : "right"]: "0.75rem",
-                    background: active === i ? `${cardColors[i]}14` : "transparent",
-                    borderColor: active === i ? cardColors[i] : "transparent",
-                  }}
-                />
-              ))}
-            </div>
-            <button
-              type="button"
-              onClick={() => setZoom(true)}
-              className="mx-auto mt-3 block rounded-full border border-black/15 px-4 py-1.5 text-sm font-semibold text-slate-700 hover:bg-slate-50"
-            >
-              View diagram full size
-            </button>
-          </FadeUp>
+        <div className="mt-8 grid gap-5 md:grid-cols-2">
+          {IMPLEMENTATION.items.map(([name, text], i) => (
+            <FadeUp key={name} delay={i * 0.08} className="h-full">
+              <div
+                onMouseEnter={() => setActive(i)}
+                onMouseLeave={() => setActive(null)}
+                className="h-full rounded-3xl border bg-white p-6 shadow-sm transition sm:p-8"
+                style={{
+                  borderColor: active === i ? cardColors[i] : "rgba(0,0,0,0.1)",
+                  boxShadow: active === i ? `0 10px 30px ${cardColors[i]}26` : undefined,
+                  borderLeft: `6px solid ${cardColors[i]}`,
+                }}
+              >
+                <p className="text-2xl font-black text-[#0F172A]">{name}</p>
+                <p className="mt-3 text-lg leading-relaxed text-slate-700">{text}</p>
+              </div>
+            </FadeUp>
+          ))}
+        </div>
 
-          <div className="space-y-5">
-            {IMPLEMENTATION.items.map(([name, text], i) => (
-              <FadeUp key={name} delay={i * 0.08}>
-                <div
-                  onMouseEnter={() => setActive(i)}
-                  onMouseLeave={() => setActive(null)}
-                  className="rounded-3xl border bg-white p-6 shadow-sm transition sm:p-8"
-                  style={{
-                    borderColor: active === i ? cardColors[i] : "rgba(0,0,0,0.1)",
-                    boxShadow: active === i ? `0 10px 30px ${cardColors[i]}26` : undefined,
-                    borderLeft: `6px solid ${cardColors[i]}`,
-                  }}
-                >
-                  <p className="text-2xl font-black text-[#0F172A]">{name}</p>
-                  <p className="mt-3 text-lg leading-relaxed text-slate-700">{text}</p>
-                </div>
-              </FadeUp>
-            ))}
-          </div>
+        <div className="mt-10">
+          <p className="mb-2 text-center text-xs font-semibold text-slate-500 md:hidden">Swipe sideways to see the whole chart</p>
+          <ImplementationModelChart onActive={setActive} />
         </div>
       </div>
-      {zoom && (
-        <button
-          className="fixed inset-0 z-50 grid place-items-center bg-black/80 p-5"
-          onClick={() => setZoom(false)}
-          aria-label="Close Implementation Model diagram preview"
-        >
-          <img src="/implementation model.png" alt="Implementation Model enlarged" className="max-h-[90vh] max-w-[90vw] rounded-xl bg-white p-2" />
-        </button>
-      )}
     </section>
   );
 }
