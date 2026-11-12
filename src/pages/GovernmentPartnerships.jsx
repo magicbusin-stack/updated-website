@@ -1,9 +1,10 @@
 import React, { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import { Landmark, Mail, ArrowRight, ArrowUpRight, Play, Quote, MapPin } from "lucide-react";
+import { Landmark, Mail, ArrowRight, ArrowUpRight, Play, Quote } from "lucide-react";
 import Layout from "../components/Layout";
 import HeroBanner from "../components/HeroBanner";
 import usePageMeta from "../hooks/usePageMeta";
+import GovernmentFootprintMap from "../components/programmes/GovernmentFootprintMap";
 
 const EASE = [0.16, 1, 0.3, 1];
 const CORAL = "#F26B6B";
@@ -163,29 +164,6 @@ function ModelSection() {
 }
 
 /* ---------- 3. footprint ---------- */
-const FOOTPRINT = [
-  ["29 Lakh", "Adolescents"],
-  ["28,976", "Schools"],
-  ["37,429", "Teachers"],
-  ["1,474", "Master Trainers"],
-  ["12", "Government Partnerships"],
-  ["141", "Aspirational Blocks"],
-];
-const STATES = [
-  "Himachal Pradesh",
-  "Haryana",
-  "Delhi",
-  "Rajasthan",
-  "Madhya Pradesh",
-  "Chhattisgarh",
-  "Odisha",
-  "Assam",
-  "Meghalaya",
-  "Mizoram",
-  "Andhra Pradesh",
-  "Tamil Nadu",
-];
-
 function FootprintSection() {
   return (
     <section className="bg-white py-16 sm:py-20">
@@ -198,39 +176,8 @@ function FootprintSection() {
           </p>
         </FadeUp>
 
-        <div className="mt-10 grid items-center gap-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
-          <FadeUp>
-            <div className="mx-auto max-w-md">
-              <img
-                src="/government-partnerships-map.webp"
-                alt="Map of India showing the states where Magic Bus works with state governments: Himachal Pradesh, Haryana, Delhi, Rajasthan, Madhya Pradesh, Chhattisgarh, Odisha, Assam, Meghalaya, Mizoram, Andhra Pradesh and Tamil Nadu"
-                className="h-auto w-full"
-                loading="lazy"
-              />
-            </div>
-          </FadeUp>
-
-          <FadeUp delay={0.08}>
-            <p className="text-sm font-bold uppercase tracking-[0.16em] text-brand-red">Nationwide reach in education and skilling</p>
-            <h3 className="mt-1 text-2xl font-black text-[#0F172A]">Government Partnership: System Strengthening Model</h3>
-            <div className="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-3">
-              {FOOTPRINT.map(([value, label]) => (
-                <div key={label} className="rounded-2xl border border-black/10 bg-[#F8FAFC] p-5 text-center shadow-sm">
-                  <p className="text-3xl font-black text-[#1F4457]">{value}</p>
-                  <p className="mt-1 text-sm font-semibold leading-snug text-slate-600">{label}</p>
-                </div>
-              ))}
-            </div>
-            <p className="mt-3 text-xs text-slate-500">Source: Data as of March 2025</p>
-            <div className="mt-6 flex flex-wrap gap-2">
-              {STATES.map((s) => (
-                <span key={s} className="inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-sm font-semibold" style={{ borderColor: TEAL, color: NAVY, background: "#ECFAFA" }}>
-                  <MapPin className="h-3.5 w-3.5" style={{ color: CORAL }} />
-                  {s}
-                </span>
-              ))}
-            </div>
-          </FadeUp>
+        <div className="mt-10">
+          <GovernmentFootprintMap />
         </div>
       </div>
     </section>
