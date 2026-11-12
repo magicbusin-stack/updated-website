@@ -116,61 +116,45 @@ const DATA = {
     category: "Enabling Ecosystem",
     layer: "Outer circle",
     color: "#2A6DB0",
-    desc: "Enabling equitable access, participation, agency and supportive environments: the systems and people around a young person that make the programme work.",
+    desc: "Enabling equitable access, participation, agency and supportive environments.",
     modules: [
-      ["Government Systems", "Working with state education departments and public systems so that the programme lasts."],
-      ["Community Systems", "Parents, school management committees and village youth champions."],
-      ["School Leadership & Teachers", "Principals and teachers who create the daily environment where life skills are practised."],
-      ["Collaborators", "Partners, funders, researchers and employers who help the programme reach more young people."],
+      ["Government System", "Engagement with government bodies aligns the framework with national and state education and adolescent development policies, creating pathways to embed learning within public systems."],
+      ["School Leadership and Teachers", "By building the capacity and ownership of school heads, teachers and School Management Committees, we help make life skills, academic learning and wellbeing part of everyday school practice."],
+      ["Community System", "Parents, community leaders and local institutions reinforce learning beyond the classroom. We mobilise their support to address barriers and keep adolescents engaged."],
+      ["Collaboratives and Partners", "Working alongside NGOs, corporates, technical experts and coalitions, we co-design interventions and mobilise the resources and expertise needed to strengthen delivery at scale."],
     ],
   },
   govt: {
-    title: "Government Systems",
+    title: "Government System",
     category: "Enabling Ecosystem",
     layer: "Outer circle",
     color: "#1F4E8C",
-    desc: "Working with state education departments and public systems so that the programme lasts.",
-    modules: [
-      ["Curricular Policy Integration", "Aligning life skills with national and state education guidelines."],
-      ["State Teacher Training", "Training government school teachers through master-trainer modules."],
-      ["Public System Institutionalisation", "Building government ownership so the work can scale over time."],
-    ],
+    desc: "Engagement with government bodies aligns the framework with national and state education and adolescent development policies, creating pathways to embed learning within public systems.",
+    modules: [],
   },
   community: {
-    title: "Community Systems",
+    title: "Community System",
     category: "Enabling Ecosystem",
     layer: "Outer circle",
     color: "#3F9142",
-    desc: "The people around a young person outside school: parents, school management committees and village youth champions.",
-    modules: [
-      ["Parental Engagement", "Workshops on the value of keeping girls in education."],
-      ["School Management Committees", "Mobilising local oversight for school safety, sanitation and quality."],
-      ["Community Youth Leaders", "Local youth who act as mentors and role models."],
-    ],
+    desc: "Parents, community leaders and local institutions reinforce learning beyond the classroom. We mobilise their support to address barriers and keep adolescents engaged.",
+    modules: [],
   },
   school: {
-    title: "School Leadership & Teachers",
+    title: "School Leadership and Teachers",
     category: "Enabling Ecosystem",
     layer: "Outer circle",
     color: "#D9700B",
-    desc: "Principals and teachers who create the daily environment where life skills are practised and reinforced.",
-    modules: [
-      ["Teacher Capacity Building", "Positive, non-punitive classroom management strategies."],
-      ["Pedagogic Co-delivery", "Teachers and Magic Bus youth leaders running sessions together."],
-      ["Attendance & Dropout Tracking", "Early warning follow-up for students at risk of missing school."],
-    ],
+    desc: "By building the capacity and ownership of school heads, teachers and School Management Committees, we help make life skills, academic learning and wellbeing part of everyday school practice.",
+    modules: [],
   },
   collaboratives: {
-    title: "Collaborators",
+    title: "Collaboratives and Partners",
     category: "Enabling Ecosystem",
     layer: "Outer circle",
     color: "#7B52B8",
-    desc: "Partners, funders, researchers and employers who work with Magic Bus to help the programme reach and support more young people.",
-    modules: [
-      ["CSR Governance & Funding", "Audited partnerships that deliver measured impact."],
-      ["Independent Impact Evaluation", "Third-party assessment of outcomes."],
-      ["Employer Placement Consortia", "Links to employers offering first jobs for graduating youth."],
-    ],
+    desc: "Working alongside NGOs, corporates, technical experts and coalitions, we co-design interventions and mobilise the resources and expertise needed to strengthen delivery at scale.",
+    modules: [],
   },
 };
 
@@ -315,10 +299,10 @@ export default function EnablingEcosystemWheel() {
   ];
   const HIGH = [
     { id: "hub", kind: "hub" },
-    { id: "govt", kind: "node", x: govtX, y: govtY, Icon: Landmark, lines: ["Government", "Systems"], lx: -8 },
-    { id: "community", kind: "node", x: commX, y: commY, Icon: Users, lines: ["Community", "Systems"], lx: 8 },
-    { id: "collaboratives", kind: "node", x: collX, y: collY, Icon: Handshake, lines: ["Collaborators"], lx: -22 },
-    { id: "school", kind: "node", x: schoolX, y: schoolY, Icon: School, lines: ["School Leadership", "& Teachers"], lx: 36 },
+    { id: "govt", kind: "node", x: govtX, y: govtY, Icon: Landmark, lines: ["Government", "System"], lx: -8 },
+    { id: "community", kind: "node", x: commX, y: commY, Icon: Users, lines: ["Community", "System"], lx: 8 },
+    { id: "collaboratives", kind: "node", x: collX, y: collY, Icon: Handshake, lines: ["Collaboratives", "and Partners"], lx: -28 },
+    { id: "school", kind: "node", x: schoolX, y: schoolY, Icon: School, lines: ["School Leadership", "and Teachers"], lx: 36 },
   ];
   const ALL = [...LOW, ...HIGH];
 
@@ -548,15 +532,13 @@ export default function EnablingEcosystemWheel() {
             <p className="mt-3 text-sm leading-5 text-slate-700">{info.desc}</p>
           </div>
 
+          {info.modules.length > 0 && (
           <div className="space-y-3 rounded-2xl border p-3 md:p-4 shadow-sm transition-colors" style={{ background: `${info.color}0F`, borderColor: `${info.color}33` }}>
             <div className="flex items-center justify-between gap-3">
               <h4 className="flex items-center gap-2 text-base md:text-lg font-bold text-slate-900">
                 <ListChecks className="h-5 w-5" style={{ color: info.color }} />
-                Core Competencies &amp; Modules
+                {activeId === "ecosystem" ? "Enabling Systems" : "Core Competencies & Modules"}
               </h4>
-              <span className="shrink-0 rounded-full px-2.5 py-0.5 text-xs font-bold" style={{ background: info.color, color: "#fff" }}>
-                {info.modules.length} Components
-              </span>
             </div>
             <ol className="flex flex-col gap-2">
               {info.modules.map(([name, text], i) => (
@@ -576,6 +558,7 @@ export default function EnablingEcosystemWheel() {
               ))}
             </ol>
           </div>
+          )}
         </div>
       </div>
 

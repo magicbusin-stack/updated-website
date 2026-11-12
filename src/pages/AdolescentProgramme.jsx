@@ -180,55 +180,6 @@ function AboutProgramme() {
   );
 }
 
-function WhatWeDo() {
-  const cards = [
-    {
-      title: "Play and Sports Curriculum",
-      text: "A structured play and sports curriculum fosters teamwork, leadership, gender equity and agency among adolescents."
-    },
-    {
-      title: "Community Learning Centres",
-      text: "CLCs combine personalised learning support and socio-emotional development to improve foundational learning outcomes."
-    },
-    {
-      title: "Government Partnerships",
-      text: "Teachers are trained to integrate life skills in classrooms and playgrounds for confident school-to-work transitions."
-    },
-    {
-      title: "System Strengthening",
-      text: "State education bodies co-create curriculum, training frameworks and monitoring systems for durable impact."
-    }
-  ];
-
-  return (
-    <section className="bg-[#0F172A] py-16 text-white sm:py-20">
-      <div className="mx-auto max-w-7xl px-6 lg:px-12">
-        <FadeUp className="max-w-4xl">
-          <SectionTag dark>What We Do</SectionTag>
-          <h2 className="mt-5 text-3xl font-black md:text-4xl">Role of Magic Bus in Empowering Adolescents</h2>
-          <p className="mt-5 leading-relaxed text-white/85">
-            Magic Bus works with underserved adolescents for their holistic development, helping them thrive in their
-            journey to adulthood.
-          </p>
-        </FadeUp>
-        <div className="mt-8 grid gap-4 md:grid-cols-2">
-          {cards.map((item, idx) => (
-            <FadeUp key={item.title} delay={idx * 0.05}>
-              <_MOTION.div
-                whileHover={{ y: -4, scale: 1.01 }}
-                className="h-full rounded-2xl border border-white/15 bg-white/10 p-6 backdrop-blur"
-              >
-                <p className="text-xl font-bold">{item.title}</p>
-                <p className="mt-3 leading-relaxed text-white/80">{item.text}</p>
-              </_MOTION.div>
-            </FadeUp>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
 function LifeSkillsFrameworkSection() {
   return (
     <section className="bg-white py-16 sm:py-20">
@@ -549,7 +500,6 @@ export default function AdolescentProgramme() {
       />
       <NeedSection />
       <AboutProgramme />
-      <WhatWeDo />
       <DiagramSection
         label="Adolescent Programme Implementation Model"
         title="Adolescent Programme Implementation Model"
