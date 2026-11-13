@@ -482,7 +482,7 @@ function MediaSection() {
                       key={v.title}
                       type="button"
                       onClick={() => setPlaying(v)}
-                      className="group overflow-hidden rounded-xl border border-black/10 bg-white text-left shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
+                      className="group flex flex-col overflow-hidden rounded-xl border border-black/10 bg-white text-left shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
                       aria-label={`Play video: ${v.title}`}
                     >
                       <span className="relative block aspect-video overflow-hidden bg-black">
@@ -493,7 +493,7 @@ function MediaSection() {
                           </span>
                         </span>
                       </span>
-                      <span className="block bg-brand-yellow px-3 py-2.5 text-center text-sm font-semibold text-[#0F172A]">{v.title}</span>
+                      <span className="flex flex-1 items-center justify-center bg-brand-yellow px-3 py-3.5 text-center text-base font-extrabold leading-snug tracking-tight text-[#0F172A] sm:text-lg">{v.title}</span>
                     </button>
                   );
                 })}
@@ -636,6 +636,7 @@ export default function GovernmentPartnerships() {
         title="Government Partnerships"
         subtitle="Life skills education at scale, with state governments and national bodies"
         image="/ngo-images/6.jpeg"
+        imagePosition="50% 18%"
       />
       <IntroSection />
       <ModelSection />

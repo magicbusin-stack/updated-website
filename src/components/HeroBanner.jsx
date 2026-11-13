@@ -12,6 +12,7 @@ function HeroBanner({
     subtitle,
     description,
     image = "/ngo-images/3.JPG",
+    imagePosition = "center",
     ctas = [],
     showStats = false,
     stats = [],
@@ -28,7 +29,8 @@ function HeroBanner({
                 <img
                     src={image}
                     alt={title}
-                    className="h-full w-full object-cover object-center opacity-45"
+                    className="h-full w-full object-cover opacity-45"
+                    style={{ objectPosition: imagePosition }}
                 />
                 <div className="absolute inset-0 bg-gradient-to-b from-[#1A1A1A]/30 via-[#1A1A1A]/50 to-[#1A1A1A]/95" />
                 <div className="absolute inset-0 bg-gradient-to-r from-[#1A1A1A]/70 via-transparent to-transparent" />
