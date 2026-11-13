@@ -8,6 +8,7 @@ import { adolescentFAQ } from "../components/Home/faqItems";
 import FaqSchema from "../components/seo/FaqSchema";
 import EnablingEcosystemWheel from "../components/AboutUs/EnablingEcosystemWheel";
 import ImplementationModelChart from "../components/AboutUs/ImplementationModelChart";
+import ImplementationModelMobile from "../components/AboutUs/ImplementationModelMobile";
 import { CHANGE, PRINCIPLES, LIFE_SKILLS, INTERVENTIONS, ECOSYSTEM, IMPLEMENTATION } from "../components/AboutUs/adolescentFrameworkContent";
 
 const _MOTION = motion;
@@ -345,8 +346,12 @@ function ImplementationSection() {
         </div>
 
         <div className="mt-10">
-          <p className="mb-2 text-center text-xs font-semibold text-slate-500 md:hidden">Swipe sideways to see the whole chart</p>
-          <ImplementationModelChart onActive={setActive} />
+          <div className="hidden lg:block">
+            <ImplementationModelChart onActive={setActive} />
+          </div>
+          <div className="lg:hidden">
+            <ImplementationModelMobile onActive={setActive} />
+          </div>
         </div>
       </div>
     </section>
@@ -461,8 +466,8 @@ function ReachOutcomesSection() {
         <div className="mt-8 space-y-4">
           {outcomes.map((o, i) => (
             <FadeUp key={o.title} delay={i * 0.04}>
-              <div className="grid items-center gap-4 rounded-2xl border border-black/10 bg-[#F8FAFC] p-5 shadow-sm md:grid-cols-[1.1fr_1fr_0.7fr_1.3fr] md:gap-6">
-                <div>
+              <div className="grid grid-cols-2 items-center gap-x-3 gap-y-3 rounded-2xl border border-black/10 bg-[#F8FAFC] p-4 shadow-sm sm:p-5 md:grid-cols-[1.1fr_1fr_0.7fr_1.3fr] md:gap-6">
+                <div className="col-span-2 md:col-span-1">
                   <p className="text-lg font-bold text-[#0F172A]">{o.title}</p>
                   <p className="mt-1 text-sm text-slate-600">{o.sub}</p>
                 </div>
@@ -485,7 +490,7 @@ function ReachOutcomesSection() {
                   </p>
                   <p className="text-xs font-semibold">percentage points</p>
                 </div>
-                <p className="text-sm leading-relaxed text-slate-700">{o.note}</p>
+                <p className="col-span-2 text-sm leading-relaxed text-slate-700 md:col-span-1">{o.note}</p>
               </div>
             </FadeUp>
           ))}
@@ -733,7 +738,7 @@ function ContactSection() {
             <p className="mt-5 text-lg font-semibold">Sandhya Krishnan: Director - Adolescent Programme Operations</p>
             <a
               href="mailto:sandhya.krishnan@magicbusindia.org"
-              className="mt-4 inline-flex items-center gap-2 font-semibold text-brand-yellow hover:underline"
+              className="mt-4 inline-flex max-w-full items-center gap-2 break-all font-semibold text-brand-yellow hover:underline"
             >
               <Mail className="h-4 w-4" />
               sandhya.krishnan@magicbusindia.org
@@ -745,7 +750,7 @@ function ContactSection() {
             <p className="mt-5 text-slate-700">For other inquiries related to Magic Bus&apos;s Adolescent Life Skills Education Programme</p>
             <a
               href="mailto:info@magicbusindia.org"
-              className="mt-4 inline-flex items-center gap-2 font-semibold text-brand-red hover:underline"
+              className="mt-4 inline-flex max-w-full items-center gap-2 break-all font-semibold text-brand-red hover:underline"
             >
               <Mail className="h-4 w-4" />
               info@magicbusindia.org

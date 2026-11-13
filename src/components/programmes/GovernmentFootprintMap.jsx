@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Landmark } from "lucide-react";
 import { INDIA_MAP } from "./indiaMapData";
 
@@ -126,6 +126,15 @@ const canHover = () =>
   typeof window !== "undefined" && window.matchMedia && window.matchMedia("(hover: hover) and (pointer: fine)").matches;
 
 export default function GovernmentFootprintMap() {
+  // on phones the state names are hidden, so the buses can be drawn bigger and easier to tap
+  const [phone, setPhone] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 639px)");
+    const set = () => setPhone(mq.matches);
+    set();
+    mq.addEventListener("change", set);
+    return () => mq.removeEventListener("change", set);
+  }, []);
   const [pinned, setPinned] = useState("Madhya Pradesh");
   const [hovered, setHovered] = useState(null);
   const active = hovered || pinned;
@@ -153,13 +162,13 @@ export default function GovernmentFootprintMap() {
     <div>
       <div className="grid items-start gap-8 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,0.8fr)]">
         {/* map */}
-        <div className="rounded-3xl border border-black/10 bg-white p-4 shadow-sm sm:p-6">
+        <div className="-mx-3 rounded-3xl border border-black/10 bg-white p-3 shadow-sm sm:mx-0 sm:p-6">
           <div className="mb-2 flex items-center justify-between gap-3">
             <span className="flex items-center gap-2 text-sm font-semibold text-slate-600">
               <span className="h-2.5 w-2.5 animate-pulse rounded-full" style={{ background: CORAL }} />
               12 System-Strengthening States
             </span>
-            <span className="rounded bg-slate-100 px-2 py-1 text-[11px] font-bold uppercase tracking-wider text-slate-500">Interactive map</span>
+            <span className="hidden rounded bg-slate-100 px-2 py-1 text-[11px] font-bold uppercase tracking-wider text-slate-500 sm:inline">Interactive map</span>
           </div>
           <svg viewBox={`0 0 ${vw} ${vh}`} className="mx-auto h-auto w-full max-w-[680px]" role="group" aria-label="Map of India showing the 12 partner states">
             <defs>
@@ -211,7 +220,7 @@ export default function GovernmentFootprintMap() {
                   )}
                   <g
                     style={{
-                      transform: `translate(${m.x}px, ${m.y}px) scale(${on ? 1.12 : 1})`,
+                      transform: `translate(${m.x}px, ${m.y}px) scale(${(on ? 1.12 : 1) * (phone ? 1.45 : 1)})`,
                       transition: "transform .18s ease",
                       filter: on ? "drop-shadow(0 2px 4px rgba(0,0,0,0.35))" : "drop-shadow(0 1px 2px rgba(0,0,0,0.25))",
                     }}
@@ -240,12 +249,12 @@ export default function GovernmentFootprintMap() {
         </div>
 
         {/* right column */}
-        <div className="space-y-4 lg:sticky lg:top-28">
+        <div className="flex flex-col gap-4 lg:sticky lg:top-28">
           {/* headline numbers (Data as of March 2025) */}
           <div>
             <div className="mb-2 inline-flex items-center gap-2 rounded-full border border-[#ffe4e6] bg-[#fff1f2] px-3 py-1">
               <span className="h-2 w-2 rounded-full bg-[#e11d48]" />
-              <span className="text-[10px] font-extrabold uppercase tracking-[0.08em] text-[#e11d48]">Nationwide Reach in Education and Skilling</span>
+              <span className="text-[11px] font-extrabold uppercase tracking-[0.06em] text-[#e11d48] lg:text-[10px]">Nationwide Reach in Education and Skilling</span>
             </div>
             <h3 className="text-xl font-extrabold leading-tight tracking-tight text-[#0f2644] sm:text-2xl">Government Partnership: System Strengthening Model</h3>
           </div>
@@ -253,27 +262,27 @@ export default function GovernmentFootprintMap() {
             {STATS.map((c) => (
               <div
                 key={c.label}
-                className="flex flex-col justify-between rounded-2xl border p-3 transition duration-200 hover:-translate-y-0.5 hover:shadow-[0_10px_20px_-6px_rgba(15,23,42,0.1)]"
+                className="flex flex-col justify-between rounded-2xl border p-4 transition duration-200 hover:-translate-y-0.5 hover:shadow-[0_10px_20px_-6px_rgba(15,23,42,0.1)] lg:p-3"
                 style={{ background: c.bg, borderColor: c.border }}
               >
                 <div className="mb-2 flex items-center justify-between gap-1">
-                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-white shadow-[0_3px_8px_rgba(0,0,0,0.1)]" style={{ background: c.iconBg }}>
+                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg text-white shadow-[0_3px_8px_rgba(0,0,0,0.1)] lg:h-8 lg:w-8" style={{ background: c.iconBg }}>
                     <Icon d={c.d} />
                   </span>
-                  <span className="rounded-full bg-white/70 px-1.5 py-[2px] text-[9px] font-bold uppercase tracking-[0.05em]" style={{ color: c.tagColor }}>
+                  <span className="rounded-full bg-white/70 px-2 py-[3px] text-[10px] font-bold uppercase tracking-[0.05em] lg:px-1.5 lg:py-[2px] lg:text-[9px]" style={{ color: c.tagColor }}>
                     {c.tag}
                   </span>
                 </div>
                 <div>
-                  <p className="whitespace-nowrap text-2xl font-extrabold leading-[1.1] tracking-tight text-[#0f2644]">{c.value}</p>
-                  <p className="mt-0.5 text-xs font-semibold leading-snug text-slate-600">{c.label}</p>
+                  <p className="whitespace-nowrap text-3xl font-extrabold leading-[1.1] tracking-tight text-[#0f2644] lg:text-2xl">{c.value}</p>
+                  <p className="mt-0.5 text-sm font-semibold leading-snug text-slate-600 lg:text-xs">{c.label}</p>
                 </div>
               </div>
             ))}
           </div>
-          <p className="text-xs font-medium text-slate-400">Source: Data as of March 2025</p>
+          <p className="text-xs font-medium text-slate-500">Source: Data as of March 2025</p>
 
-          <div className="rounded-2xl border bg-white p-5 shadow-sm transition-colors" style={{ borderColor: `${TEAL}88`, background: "linear-gradient(135deg,#ECFAFA 0%,#fff 60%)" }}>
+          <div className="order-first rounded-2xl border bg-white p-5 shadow-sm transition-colors lg:order-none" style={{ borderColor: `${TEAL}88`, background: "linear-gradient(135deg,#ECFAFA 0%,#fff 60%)" }}>
             <div className="flex items-center gap-3 border-b border-black/10 pb-3">
               <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl text-white" style={{ background: TEAL_DARK }}>
                 <Landmark className="h-5 w-5" />

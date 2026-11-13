@@ -82,7 +82,7 @@ export default function LearnerSupportRings() {
                 {...handlers(r.id)}
               >
                 <path d={ringPath(r.r1, r.r2)} fillRule="evenodd" fill={r.color} fillOpacity={on ? 1 : 0.88} stroke="#fff" strokeWidth={4} style={{ transition: "fill-opacity .25s ease" }} />
-                <text fontSize={r.id === "equip" ? 13.5 : 15} fontWeight={700} fill="#fff" textAnchor="middle" pointerEvents="none">
+                <text fontSize={r.id === "equip" ? 16 : r.id === "engage" ? 16.5 : 18} fontWeight={700} fill="#fff" textAnchor="middle" pointerEvents="none">
                   <textPath href={`#lsr-${r.id}`} startOffset="50%">
                     {r.title}
                   </textPath>

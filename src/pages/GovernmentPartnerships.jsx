@@ -130,7 +130,7 @@ function ModelSection() {
           </p>
         </FadeUp>
 
-        <div className="relative mt-10">
+        <div className="relative mt-10 flex flex-col">
           <div className="grid gap-5 lg:grid-cols-2 lg:gap-x-72 lg:gap-y-20">
             {MODEL.map((m, i) => (
               <FadeUp key={m.n} delay={i * 0.06} className="h-full">
@@ -154,7 +154,7 @@ function ModelSection() {
           </div>
           {/* centre of the model (sits between the four cards on wider screens) */}
           <div
-            className="mx-auto mt-6 flex h-64 w-64 items-center justify-center rounded-full p-6 text-center lg:absolute lg:left-1/2 lg:top-1/2 lg:mt-0 lg:-translate-x-1/2 lg:-translate-y-1/2"
+            className="order-first mx-auto mb-8 flex h-60 w-60 items-center justify-center rounded-full p-5 text-center lg:absolute lg:left-1/2 lg:top-1/2 lg:order-none lg:mb-0 lg:h-64 lg:w-64 lg:-translate-x-1/2 lg:-translate-y-1/2 lg:p-6"
             style={{ background: CORAL, boxShadow: `0 0 0 14px ${TEAL}, 0 0 0 18px #fff, 0 16px 40px rgba(0,0,0,0.12)` }}
           >
             <p className="text-lg font-extrabold leading-snug text-white">

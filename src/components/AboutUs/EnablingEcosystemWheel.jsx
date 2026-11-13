@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   Landmark, Users, School, Handshake, Brain, Smile, Heart, BookOpen, Trophy, ShieldPlus, ListChecks,
   Globe2, Rocket, Bike, ArrowRight, PersonStanding, ChevronDown,
@@ -53,6 +53,23 @@ const ICONS = {
   community: Users,
   collaboratives: Handshake,
 };
+
+// Quick-select strip shown on phones, where the labels inside the wheel are too small to read.
+const MOBILE_CHIPS = [
+  ["hub", "Wellbeing & Equity"],
+  ["cognitive", "Cognitive"],
+  ["social", "Social"],
+  ["emotional", "Emotional"],
+  ["cross", "Cross-Cutting"],
+  ["sports", "Sports"],
+  ["academic", "Academic"],
+  ["future", "Future Readiness"],
+  ["ecosystem", "Enabling Ecosystem"],
+  ["govt", "Government"],
+  ["school", "School & Teachers"],
+  ["community", "Community"],
+  ["collaboratives", "Collaboratives"],
+];
 
 const STAGES = [
   { id: "explorer", name: "Explorer", grades: "Grade 3–5", desc: "Sparking curiosity through guided playground activities, peer discovery and emotional expression.", mantra: "Play · Ask · Discover", Icon: Bike, c: "#E8830F", bg: "#FFF3E3", border: "#F5C48A" },
@@ -135,8 +152,14 @@ function ArcLabel({ id, text, size, spacing = 0, fill = "#fff", weight = 700, op
 export default function EnablingEcosystemWheel() {
   const [pinned, setPinned] = useState("cognitive");
   const [hovered, setHovered] = useState(null);
+  const chipRefs = useRef({});
   const [open, setOpen] = useState({ id: null, i: 0 }); // which module text is expanded in the panel
   const activeId = hovered || pinned;
+  // keep the selected chip in view when a part of the wheel is tapped (phones)
+  useEffect(() => {
+    const el = chipRefs.current[pinned];
+    if (el && el.offsetParent) el.scrollIntoView({ inline: "center", block: "nearest", behavior: "smooth" });
+  }, [pinned]);
   const info = DATA[activeId];
   const openIdx = open.id === activeId ? open.i : 0;
   const Icon = ICONS[activeId];
@@ -294,13 +317,36 @@ export default function EnablingEcosystemWheel() {
 }`}</style>
 
       <div className="grid grid-cols-1 md:grid-cols-[minmax(0,1.12fr)_minmax(0,1fr)] gap-6 lg:gap-8 items-start">
-        <div className="relative overflow-hidden rounded-3xl bg-white border shadow-sm p-2 md:p-4">
+        <div className="relative overflow-hidden rounded-3xl bg-white border shadow-sm p-1.5 md:p-4">
           {/* soft glow behind the wheel that follows the colour of the active piece */}
           <div
             aria-hidden="true"
             className="pointer-events-none absolute left-1/2 top-1/2 aspect-square w-[72%] -translate-x-1/2 -translate-y-1/2 rounded-full"
             style={{ background: glowOf(activeId), filter: "blur(70px)", opacity: hovered ? 0.26 : 0.16, transition: "background .5s ease, opacity .4s ease" }}
           />
+
+          <div className="relative z-10 mb-1 flex snap-x gap-2 overflow-x-auto px-1 pb-2 pt-1 md:hidden" role="group" aria-label="Choose a part of the wheel">
+            {MOBILE_CHIPS.map(([id, label]) => (
+              <button
+                key={id}
+                ref={(el) => {
+                  chipRefs.current[id] = el;
+                }}
+                type="button"
+                aria-pressed={pinned === id}
+                onClick={() => pin(id)}
+                className="flex shrink-0 snap-start items-center gap-2 rounded-full border px-3.5 py-2 text-sm font-semibold transition-colors"
+                style={
+                  pinned === id
+                    ? { background: DATA[id].color, borderColor: DATA[id].color, color: "#fff" }
+                    : { background: "#fff", borderColor: "#e2e8f0", color: "#334155" }
+                }
+              >
+                <span className="h-2.5 w-2.5 rounded-full" style={{ background: pinned === id ? "#fff" : DATA[id].color }} />
+                {label}
+              </button>
+            ))}
+          </div>
 
           <svg viewBox="0 0 800 800" className="relative z-10 w-full h-auto" role="group" aria-label="Enabling Ecosystem wheel" onMouseLeave={() => setHovered(null)}>
             <defs>
