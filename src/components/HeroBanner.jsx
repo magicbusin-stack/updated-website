@@ -23,7 +23,7 @@ function HeroBanner({
 }) {
     const navigate = useNavigate();
     return (
-        <section className="relative min-h-[75vh] w-full flex items-end overflow-hidden bg-[#1A1A1A]">
+        <section className="relative min-h-[70vh] w-full flex items-end overflow-hidden bg-[#1A1A1A]" style={{ marginTop: "var(--header-h, 93px)" }}>
             <div className="absolute inset-0">
                 <img
                     src={image}
@@ -45,7 +45,7 @@ function HeroBanner({
                 transition={{ duration: 11, repeat: Infinity, ease: "easeInOut", delay: 1.5 }}
             />
 
-            <div className="relative z-10 w-full pb-16 pt-32 md:pt-40 md:pb-24">
+            <div className="relative z-10 w-full pb-16 pt-24 md:pt-32 md:pb-24">
                 <div className="max-w-7xl mx-auto px-6 lg:px-12">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
