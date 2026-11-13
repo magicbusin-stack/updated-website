@@ -192,6 +192,7 @@ export default function Footer() {
           <div className="flex gap-4">
             <a href="#" className="underline hover:text-brand-yellow transition-colors">Privacy Policy</a>
             <a href="#" className="underline hover:text-brand-yellow transition-colors">Terms & Conditions</a>
+            <Link to="/refund-policy" className="underline hover:text-brand-yellow transition-colors">Refund Policy</Link>
             <Link to="/posh-policy" className="underline hover:text-brand-yellow transition-colors">POSH Policy</Link>
             <Link to="/child-protection-policy" className="underline hover:text-brand-yellow transition-colors">Child Protection Policy</Link>
           </div>

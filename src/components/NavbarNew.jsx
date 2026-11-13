@@ -126,6 +126,7 @@ const NAVIGATION_ITEMS = [
         items: [
           { label: "Privacy", path: "#" },
           { label: "Terms & Conditions", path: "#" },
+          { label: "Refund & Cancellation Policy", path: "/refund-policy" },
           { label: "POSH Policy", path: "/posh-policy" },
           { label: "Child Protection Policy", path: "/child-protection-policy" },
         ],
