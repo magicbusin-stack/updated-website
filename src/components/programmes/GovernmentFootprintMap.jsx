@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Landmark, MapPin } from "lucide-react";
+import { Landmark } from "lucide-react";
 import { INDIA_MAP } from "./indiaMapData";
 
 // Interactive "Our footprint" map: real state borders, one bus per partner state (no overlaps),
@@ -291,31 +291,6 @@ export default function GovernmentFootprintMap() {
               ))}
             </ul>
           </div>
-        </div>
-      </div>
-
-      {/* state pills */}
-      <div className="mt-8">
-        <p className="text-lg font-black text-[#0F172A]">Partner States and Union Territories (12)</p>
-        <p className="text-sm text-slate-500">Select a state to focus:</p>
-        <div className="mt-3 flex flex-wrap gap-2">
-          {PARTNER_STATES.map((s) => (
-            <button
-              key={s}
-              type="button"
-              aria-pressed={pinned === s}
-              onClick={() => setPinned(s)}
-              onMouseEnter={() => canHover() && setHovered(s)}
-              onMouseLeave={() => setHovered((h) => (h === s ? null : h))}
-              className={`inline-flex items-center gap-1.5 rounded-full border px-3.5 py-1.5 text-sm font-semibold transition ${
-                active === s ? "bg-white font-bold text-red-600 shadow-sm" : "bg-slate-50 text-slate-600 hover:bg-red-50"
-              }`}
-              style={{ borderColor: active === s ? "#F26B6B88" : "#e2e8f0" }}
-            >
-              <MapPin className="h-3.5 w-3.5" style={{ color: CORAL }} />
-              {s}
-            </button>
-          ))}
         </div>
       </div>
     </div>
