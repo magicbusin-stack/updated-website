@@ -272,7 +272,7 @@ function FeaturedStories({ items }) {
               onMouseEnter={() => setIsAutoPlaying(false)}
               onMouseLeave={() => setIsAutoPlaying(true)}
             >
-              <div className="relative rounded-3xl overflow-hidden shadow-2xl">
+              <a href={`/blog/${items[activeIndex]?.id}`} className="relative block rounded-3xl overflow-hidden shadow-2xl">
                 <img
                   src={items[activeIndex]?.image}
                   alt={items[activeIndex]?.title}
@@ -281,11 +281,19 @@ function FeaturedStories({ items }) {
                 <span className="absolute top-5 left-5 inline-block bg-brand-yellow text-brand-black px-3 py-1 rounded-full text-sm font-semibold shadow">
                   {items[activeIndex]?.category}
                 </span>
-              </div>
+              </a>
 
-              <h3 className="mt-5 text-2xl md:text-3xl font-bold leading-tight text-ink">
-                {items[activeIndex]?.title}
-              </h3>
+              <a
+                href={`/blog/${items[activeIndex]?.id}`}
+                className="group/title mt-5 flex items-center justify-between gap-4 rounded-2xl bg-white px-5 py-4 shadow-md transition hover:shadow-lg"
+              >
+                <h3 className="text-xl md:text-2xl font-bold leading-snug text-ink underline decoration-brand-red/40 decoration-2 underline-offset-4 transition-colors group-hover/title:text-brand-red group-hover/title:decoration-brand-red">
+                  {items[activeIndex]?.title}
+                </h3>
+                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-brand-red text-white transition-transform group-hover/title:translate-x-1">
+                  <ArrowRight className="h-5 w-5" />
+                </span>
+              </a>
             </motion.article>
           </AnimatePresence>
         </motion.div>
@@ -425,14 +433,13 @@ function BlogCard({ post, index }) {
           className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-700"
         />
 
-        <div className="absolute top-4 left-4">
-          <span className="px-3 py-1 rounded-full text-xs font-semibold shadow" style={{ background: c.bg, color: c.fg }}>
-            {post.category}
-          </span>
-        </div>
       </div>
 
       <div className="p-6">
+        <span className="inline-block mb-3 px-3 py-1 rounded-full text-xs font-semibold" style={{ background: c.bg, color: c.fg }}>
+          {post.category}
+        </span>
+
         <h3 className="text-xl font-bold text-ink mb-3 line-clamp-2 group-hover:text-brand-red transition-colors">
           {post.title}
         </h3>
