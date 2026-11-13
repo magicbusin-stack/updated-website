@@ -245,7 +245,6 @@ export default function GovernmentFootprintMap() {
               );
             })}
           </svg>
-          <p className="mt-1 text-center text-sm italic text-slate-500">Hover or tap a state or bus to see what we have done there.</p>
         </div>
 
         {/* right column */}
