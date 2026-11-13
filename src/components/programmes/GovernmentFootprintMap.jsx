@@ -12,7 +12,7 @@ const CORAL = "#F26B6B";
 
 // Six headline numbers (Data as of March 2025). Colours and icons follow the supplied "metric boxes" design.
 const Icon = ({ d }) => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-[22px] w-[22px]" aria-hidden="true">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-[18px] w-[18px]" aria-hidden="true">
     {d.map((p) => (
       <path key={p} d={p} />
     ))}
@@ -151,38 +151,6 @@ export default function GovernmentFootprintMap() {
 
   return (
     <div>
-      {/* headline numbers */}
-      <div className="mb-10 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm sm:p-10">
-        <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-[#ffe4e6] bg-[#fff1f2] px-3.5 py-1.5">
-          <span className="h-2 w-2 rounded-full bg-[#e11d48]" />
-          <span className="text-[11px] font-extrabold uppercase tracking-[0.08em] text-[#e11d48]">Nationwide Reach in Education and Skilling</span>
-        </div>
-        <h3 className="mb-8 text-2xl font-extrabold leading-tight tracking-tight text-[#0f2644] sm:text-3xl">Government Partnership: System Strengthening Model</h3>
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {STATS.map((c) => (
-            <div
-              key={c.label}
-              className="flex min-h-[160px] flex-col justify-between rounded-[18px] border p-6 transition duration-200 hover:-translate-y-1 hover:shadow-[0_12px_24px_-6px_rgba(15,23,42,0.08)]"
-              style={{ background: c.bg, borderColor: c.border }}
-            >
-              <div className="mb-4 flex items-center justify-between">
-                <span className="flex h-11 w-11 items-center justify-center rounded-xl text-white shadow-[0_4px_10px_rgba(0,0,0,0.1)]" style={{ background: c.iconBg }}>
-                  <Icon d={c.d} />
-                </span>
-                <span className="rounded-full bg-white/70 px-2 py-[3px] text-[10px] font-bold uppercase tracking-[0.06em] backdrop-blur-sm" style={{ color: c.tagColor }}>
-                  {c.tag}
-                </span>
-              </div>
-              <div>
-                <p className="mb-1 text-[34px] font-extrabold leading-[1.1] tracking-tight text-[#0f2644]">{c.value}</p>
-                <p className="text-[13.5px] font-semibold text-slate-600">{c.label}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-        <p className="mt-8 border-t border-slate-100 pt-5 text-xs font-medium text-slate-400">Source: Data as of March 2025</p>
-      </div>
-
       <div className="grid items-start gap-8 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,0.8fr)]">
         {/* map */}
         <div className="rounded-3xl border border-black/10 bg-white p-4 shadow-sm sm:p-6">
@@ -272,7 +240,39 @@ export default function GovernmentFootprintMap() {
         </div>
 
         {/* right column */}
-        <div className="space-y-5 lg:sticky lg:top-28">
+        <div className="space-y-4 lg:sticky lg:top-28">
+          {/* headline numbers (Data as of March 2025) */}
+          <div>
+            <div className="mb-2 inline-flex items-center gap-2 rounded-full border border-[#ffe4e6] bg-[#fff1f2] px-3 py-1">
+              <span className="h-2 w-2 rounded-full bg-[#e11d48]" />
+              <span className="text-[10px] font-extrabold uppercase tracking-[0.08em] text-[#e11d48]">Nationwide Reach in Education and Skilling</span>
+            </div>
+            <h3 className="text-xl font-extrabold leading-tight tracking-tight text-[#0f2644] sm:text-2xl">Government Partnership: System Strengthening Model</h3>
+          </div>
+          <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
+            {STATS.map((c) => (
+              <div
+                key={c.label}
+                className="flex flex-col justify-between rounded-2xl border p-3 transition duration-200 hover:-translate-y-0.5 hover:shadow-[0_10px_20px_-6px_rgba(15,23,42,0.1)]"
+                style={{ background: c.bg, borderColor: c.border }}
+              >
+                <div className="mb-2 flex items-center justify-between gap-1">
+                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-white shadow-[0_3px_8px_rgba(0,0,0,0.1)]" style={{ background: c.iconBg }}>
+                    <Icon d={c.d} />
+                  </span>
+                  <span className="rounded-full bg-white/70 px-1.5 py-[2px] text-[9px] font-bold uppercase tracking-[0.05em]" style={{ color: c.tagColor }}>
+                    {c.tag}
+                  </span>
+                </div>
+                <div>
+                  <p className="whitespace-nowrap text-2xl font-extrabold leading-[1.1] tracking-tight text-[#0f2644]">{c.value}</p>
+                  <p className="mt-0.5 text-xs font-semibold leading-snug text-slate-600">{c.label}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+          <p className="text-xs font-medium text-slate-400">Source: Data as of March 2025</p>
+
           <div className="rounded-2xl border bg-white p-5 shadow-sm transition-colors" style={{ borderColor: `${TEAL}88`, background: "linear-gradient(135deg,#ECFAFA 0%,#fff 60%)" }}>
             <div className="flex items-center gap-3 border-b border-black/10 pb-3">
               <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl text-white" style={{ background: TEAL_DARK }}>
