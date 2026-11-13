@@ -213,19 +213,7 @@ const SOCIAL_LINKS = [
 export default function NavbarWireframe() {
   const navigate = useNavigate();
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
   const navRef = useRef(null);
-
-  // Plain state + CSS transition classes, not framer-motion's `animate` prop —
-  // animate() silently fails to apply on this nav (confirmed earlier: its
-  // inline styles never land), so a scroll-driven shrink needs a mechanism
-  // that actually works.
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 60);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
 
   // The header reserves real space for itself (via --header-h, read by the
   // hero section's margin-top) so the video can never overlap or get cropped
@@ -253,13 +241,10 @@ export default function NavbarWireframe() {
     // while keeping a soft, modern edge.
     <nav
       ref={navRef}
-      className="fixed top-0 inset-x-0 z-50 max-w-[1400px] mx-auto rounded-b-2xl bg-white/95 backdrop-blur-sm border-b border-gray-200/70 overflow-visible"
+      className="fixed top-0 inset-x-0 z-50 w-full bg-white border-b border-gray-200 shadow-[0_2px_12px_rgba(15,23,42,0.08)] overflow-visible"
     >
         <div
-          className={cn(
-            "relative flex items-center justify-between px-4 md:px-8 transition-[padding] duration-300 ease-out",
-            scrolled ? "py-1" : "py-2"
-          )}
+          className="relative mx-auto flex max-w-[1500px] items-center justify-between px-4 py-2 md:px-8"
         >
 
           {/* Left: Logo */}
@@ -267,20 +252,20 @@ export default function NavbarWireframe() {
             <img
               src="/Magic Bus Logo - Usage As Per Background-01.png"
               alt="Magic Bus Logo"
-              className="h-[70px] md:h-[135px] w-auto object-contain"
+              className="h-[48px] md:h-[76px] w-auto object-contain"
             />
           </Link>
 
           {/* Right: Content */}
-          <div className="flex flex-col items-end justify-between gap-2 md:gap-3 h-full">
+          <div className="flex flex-col items-end justify-between gap-2 md:gap-3 h-full lg:flex-row-reverse lg:items-center lg:justify-end lg:gap-4 xl:gap-6">
 
             {/* Top Row: Social icons + Donate + mobile toggle, grouped together */}
             <div className="flex items-center gap-3 md:gap-4">
-              <div className="hidden lg:block">
+              <div className="hidden min-[1400px]:block">
                 <SocialMedia items={SOCIAL_LINKS} />
               </div>
 
-              <div className="hidden lg:block h-8 w-px bg-gray-200" />
+              <div className="hidden min-[1400px]:block h-8 w-px bg-gray-200" />
 
               <div className="shrink-0">
                 <FlipCoinButton onFlipComplete={() => navigate("/donate")}>Donate</FlipCoinButton>
@@ -296,7 +281,7 @@ export default function NavbarWireframe() {
             </div>
 
             {/* Bottom Row: Navigation Links */}
-            <div className="hidden lg:flex items-center justify-end pr-2 mt-1">
+            <div className="hidden lg:flex items-center justify-end">
               <MotionNavigationMenu
                 viewport
                 viewportClassName="bg-white border border-slate-200 shadow-lg rounded-xl"
@@ -306,7 +291,7 @@ export default function NavbarWireframe() {
                 <MotionNavigationMenuList highlightClassName="bg-brand-yellow/20 rounded-lg">
                   {NAVIGATION_ITEMS.map((item) => (
                     <MotionNavigationMenuItem key={item.key} value={item.key}>
-                      <MotionNavigationMenuTrigger className="text-[17px] font-medium text-slate-700 hover:text-brand-red data-[state=open]:text-brand-red">
+                      <MotionNavigationMenuTrigger className="text-[15px] xl:text-[17px] font-medium text-slate-700 hover:text-brand-red data-[state=open]:text-brand-red">
                         {item.label}
                       </MotionNavigationMenuTrigger>
                       <MotionNavigationMenuContent highlightClassName="bg-brand-yellow/15 rounded-lg">
