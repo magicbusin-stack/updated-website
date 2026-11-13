@@ -278,43 +278,14 @@ function FeaturedStories({ items }) {
                   alt={items[activeIndex]?.title}
                   className="w-full h-[400px] object-cover group-hover:scale-105 transition-transform duration-700"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
-
-                <div className="absolute bottom-0 left-0 right-0 p-8 text-white">
-                  <span className="inline-block bg-brand-yellow text-brand-black px-3 py-1 rounded-full text-sm font-semibold mb-4">
-                    {items[activeIndex]?.category}
-                  </span>
-
-                  <h3 className="text-2xl md:text-3xl font-bold mb-4 leading-tight">
-                    {items[activeIndex]?.title}
-                  </h3>
-
-                  <p className="text-white/90 mb-6 line-clamp-3">
-                    {items[activeIndex]?.excerpt}
-                  </p>
-
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-4 text-sm">
-                      <span className="flex items-center gap-1">
-                        <Calendar className="w-4 h-4" />
-                        {dateToPretty(items[activeIndex]?.date)}
-                      </span>
-                      <span className="flex items-center gap-1">
-                        <Clock className="w-4 h-4" />
-                        {items[activeIndex]?.readingTime} min read
-                      </span>
-                    </div>
-
-                    <motion.div
-                      className="flex items-center gap-2 text-brand-yellow font-semibold"
-                      whileHover={{ x: 5 }}
-                    >
-                      Read Story
-                      <ArrowRight className="w-4 h-4" />
-                    </motion.div>
-                  </div>
-                </div>
+                <span className="absolute top-5 left-5 inline-block bg-brand-yellow text-brand-black px-3 py-1 rounded-full text-sm font-semibold shadow">
+                  {items[activeIndex]?.category}
+                </span>
               </div>
+
+              <h3 className="mt-5 text-2xl md:text-3xl font-bold leading-tight text-ink">
+                {items[activeIndex]?.title}
+              </h3>
             </motion.article>
           </AnimatePresence>
         </motion.div>
