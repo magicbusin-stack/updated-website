@@ -10,13 +10,76 @@ const TEAL_DARK = "#1E9EA2";
 const NAVY = "#1F4457";
 const CORAL = "#F26B6B";
 
-const FOOTPRINT = [
-  ["29 Lakh", "Adolescents"],
-  ["28,976", "Schools"],
-  ["37,429", "Teachers"],
-  ["1,474", "Master Trainers"],
-  ["12", "Government Partnerships"],
-  ["141", "Aspirational Blocks"],
+// Six headline numbers (Data as of March 2025). Colours and icons follow the supplied "metric boxes" design.
+const Icon = ({ d }) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-[22px] w-[22px]" aria-hidden="true">
+    {d.map((p) => (
+      <path key={p} d={p} />
+    ))}
+  </svg>
+);
+
+const STATS = [
+  {
+    value: "29 Lakh",
+    label: "Adolescents",
+    tag: "Youth",
+    bg: "linear-gradient(135deg,#fff7ed 0%,#ffedd5 100%)",
+    border: "#fed7aa",
+    iconBg: "linear-gradient(135deg,#f97316 0%,#ea580c 100%)",
+    tagColor: "#c2410c",
+    d: ["M12 14l9-5-9-5-9 5 9 5z", "M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"],
+  },
+  {
+    value: "28,976",
+    label: "Schools",
+    tag: "Institutions",
+    bg: "linear-gradient(135deg,#f0fdfa 0%,#ccfbf1 100%)",
+    border: "#99f6e4",
+    iconBg: "linear-gradient(135deg,#0d9488 0%,#059669 100%)",
+    tagColor: "#0f766e",
+    d: ["M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"],
+  },
+  {
+    value: "37,429",
+    label: "Teachers",
+    tag: "Educators",
+    bg: "linear-gradient(135deg,#eef2ff 0%,#e0e7ff 100%)",
+    border: "#c7d2fe",
+    iconBg: "linear-gradient(135deg,#6366f1 0%,#4f46e5 100%)",
+    tagColor: "#4338ca",
+    d: ["M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z"],
+  },
+  {
+    value: "1,474",
+    label: "Master Trainers",
+    tag: "Mentors",
+    bg: "linear-gradient(135deg,#f0f9ff 0%,#e0f2fe 100%)",
+    border: "#bae6fd",
+    iconBg: "linear-gradient(135deg,#0284c7 0%,#0369a1 100%)",
+    tagColor: "#0369a1",
+    d: ["M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"],
+  },
+  {
+    value: "12",
+    label: "Government Partnerships",
+    tag: "State Level",
+    bg: "linear-gradient(135deg,#fff1f2 0%,#ffe4e6 100%)",
+    border: "#fecdd3",
+    iconBg: "linear-gradient(135deg,#e11d48 0%,#be123c 100%)",
+    tagColor: "#be123c",
+    d: ["M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z"],
+  },
+  {
+    value: "141",
+    label: "Aspirational Blocks",
+    tag: "NITI Aayog",
+    bg: "linear-gradient(135deg,#fefce8 0%,#fef08a 100%)",
+    border: "#fde047",
+    iconBg: "linear-gradient(135deg,#d97706 0%,#b45309 100%)",
+    tagColor: "#b45309",
+    d: ["M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z", "M15 11a3 3 0 11-6 0 3 3 0 016 0z"],
+  },
 ];
 
 const NITI = "Also part of the NITI Aayog partnership, which aims to improve educational outcomes for 2,00,000 adolescents in aspirational blocks of Uttar Pradesh, Himachal Pradesh, Uttarakhand and Haryana.";
@@ -88,6 +151,38 @@ export default function GovernmentFootprintMap() {
 
   return (
     <div>
+      {/* headline numbers */}
+      <div className="mb-10 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm sm:p-10">
+        <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-[#ffe4e6] bg-[#fff1f2] px-3.5 py-1.5">
+          <span className="h-2 w-2 rounded-full bg-[#e11d48]" />
+          <span className="text-[11px] font-extrabold uppercase tracking-[0.08em] text-[#e11d48]">Nationwide Reach in Education and Skilling</span>
+        </div>
+        <h3 className="mb-8 text-2xl font-extrabold leading-tight tracking-tight text-[#0f2644] sm:text-3xl">Government Partnership: System Strengthening Model</h3>
+        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {STATS.map((c) => (
+            <div
+              key={c.label}
+              className="flex min-h-[160px] flex-col justify-between rounded-[18px] border p-6 transition duration-200 hover:-translate-y-1 hover:shadow-[0_12px_24px_-6px_rgba(15,23,42,0.08)]"
+              style={{ background: c.bg, borderColor: c.border }}
+            >
+              <div className="mb-4 flex items-center justify-between">
+                <span className="flex h-11 w-11 items-center justify-center rounded-xl text-white shadow-[0_4px_10px_rgba(0,0,0,0.1)]" style={{ background: c.iconBg }}>
+                  <Icon d={c.d} />
+                </span>
+                <span className="rounded-full bg-white/70 px-2 py-[3px] text-[10px] font-bold uppercase tracking-[0.06em] backdrop-blur-sm" style={{ color: c.tagColor }}>
+                  {c.tag}
+                </span>
+              </div>
+              <div>
+                <p className="mb-1 text-[34px] font-extrabold leading-[1.1] tracking-tight text-[#0f2644]">{c.value}</p>
+                <p className="text-[13.5px] font-semibold text-slate-600">{c.label}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+        <p className="mt-8 border-t border-slate-100 pt-5 text-xs font-medium text-slate-400">Source: Data as of March 2025</p>
+      </div>
+
       <div className="grid items-start gap-8 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,0.8fr)]">
         {/* map */}
         <div className="rounded-3xl border border-black/10 bg-white p-4 shadow-sm sm:p-6">
@@ -177,23 +272,7 @@ export default function GovernmentFootprintMap() {
         </div>
 
         {/* right column */}
-        <div className="space-y-5">
-          <div>
-            <p className="text-sm font-bold uppercase tracking-[0.16em] text-brand-red">Nationwide reach in education and skilling</p>
-            <h3 className="mt-1 text-2xl font-black text-[#0F172A]">Government Partnership: System Strengthening Model</h3>
-          </div>
-          <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
-            {FOOTPRINT.map(([value, label]) => (
-              <div key={label} className="rounded-2xl border border-black/10 bg-[#F8FAFC] p-4 text-center shadow-sm">
-                <p className="whitespace-nowrap text-xl font-black sm:text-2xl" style={{ color: NAVY }}>
-                  {value}
-                </p>
-                <p className="mt-1 text-sm font-semibold leading-snug text-slate-600">{label}</p>
-              </div>
-            ))}
-          </div>
-          <p className="text-xs text-slate-500">Source: Data as of March 2025</p>
-
+        <div className="space-y-5 lg:sticky lg:top-28">
           <div className="rounded-2xl border bg-white p-5 shadow-sm transition-colors" style={{ borderColor: `${TEAL}88`, background: "linear-gradient(135deg,#ECFAFA 0%,#fff 60%)" }}>
             <div className="flex items-center gap-3 border-b border-black/10 pb-3">
               <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl text-white" style={{ background: TEAL_DARK }}>
