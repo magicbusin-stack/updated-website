@@ -124,11 +124,12 @@ const NAVIGATION_ITEMS = [
       {
         title: "Policies",
         items: [
-          { label: "Privacy", path: "#" },
-          { label: "Terms & Conditions", path: "#" },
+          { label: "Privacy Policy", path: "/privacy-policy" },
+          { label: "Terms & Conditions", path: "/terms-and-conditions" },
           { label: "Refund & Cancellation Policy", path: "/refund-policy" },
           { label: "POSH Policy", path: "/posh-policy" },
           { label: "Child Protection Policy", path: "/child-protection-policy" },
+          { label: "ISMS Policy", path: "/isms-policy" },
         ],
       },
       {

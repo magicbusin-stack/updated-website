@@ -190,11 +190,12 @@ export default function Footer() {
         <div className="mt-8 flex flex-col md:flex-row justify-between items-center gap-2 border-t border-white/10 pt-8 text-xs text-gray-400">
           <p>© {new Date().getFullYear()} Magic Bus. All rights reserved.</p>
           <div className="flex gap-4">
-            <a href="#" className="underline hover:text-brand-yellow transition-colors">Privacy Policy</a>
-            <a href="#" className="underline hover:text-brand-yellow transition-colors">Terms & Conditions</a>
+            <Link to="/privacy-policy" className="underline hover:text-brand-yellow transition-colors">Privacy Policy</Link>
+            <Link to="/terms-and-conditions" className="underline hover:text-brand-yellow transition-colors">Terms & Conditions</Link>
             <Link to="/refund-policy" className="underline hover:text-brand-yellow transition-colors">Refund Policy</Link>
             <Link to="/posh-policy" className="underline hover:text-brand-yellow transition-colors">POSH Policy</Link>
             <Link to="/child-protection-policy" className="underline hover:text-brand-yellow transition-colors">Child Protection Policy</Link>
+            <Link to="/isms-policy" className="underline hover:text-brand-yellow transition-colors">ISMS Policy</Link>
           </div>
         </div>
       </div>

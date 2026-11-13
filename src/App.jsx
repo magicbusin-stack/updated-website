@@ -45,6 +45,9 @@ const EmploymentPartners = lazy(() => import('./pages/EmploymentPartners'))
 const ChildProtectionPolicy = lazy(() => import('./pages/ChildProtectionPolicy'))
 const PoshPolicy = lazy(() => import('./pages/PoshPolicy'))
 const RefundPolicy = lazy(() => import('./pages/RefundPolicy'))
+const TermsAndConditions = lazy(() => import('./pages/TermsAndConditions'))
+const IsmsPolicy = lazy(() => import('./pages/IsmsPolicy'))
+const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy'))
 const WorkWithUs = lazy(() => import('./pages/WorkWithUs'))
 const Events = lazy(() => import('./pages/Events'))
 const Podcasts = lazy(() => import('./pages/Podcasts'))
@@ -108,6 +111,9 @@ function App() {
           <Route path="/child-protection-policy" element={<ChildProtectionPolicy />} />
           <Route path="/posh-policy" element={<PoshPolicy />} />
           <Route path="/refund-policy" element={<RefundPolicy />} />
+          <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
+          <Route path="/isms-policy" element={<IsmsPolicy />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/work-with-us" element={<WorkWithUs />} />
           <Route path="/events" element={<Events />} />
           <Route path="/podcasts" element={<Podcasts />} />

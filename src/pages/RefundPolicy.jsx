@@ -124,8 +124,8 @@ export default function RefundPolicy() {
             />
           </PolicyCard>
 
-          <PolicyCard color="#0F7F96" Icon={Receipt} title="Delivery">
-            <Points color="#0F7F96" items={["We will send you a receipt for your donation in the post and/or via email, according to your preferences."]} />
+          <PolicyCard color="#2E8B3E" Icon={Receipt} title="Delivery">
+            <Points color="#2E8B3E" items={["We will send you a receipt for your donation in the post and/or via email, according to your preferences."]} />
           </PolicyCard>
 
           <FadeUp>
