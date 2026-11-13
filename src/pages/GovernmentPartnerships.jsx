@@ -1,6 +1,6 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
-import { Landmark, Mail, ArrowRight, ArrowUpRight, Play, GraduationCap, Brain, MapPin } from "lucide-react";
+import { Landmark, Mail, ArrowRight, ArrowUpRight, Play, GraduationCap, Brain, MapPin, X } from "lucide-react";
 import Layout from "../components/Layout";
 import HeroBanner from "../components/HeroBanner";
 import usePageMeta from "../hooks/usePageMeta";
@@ -45,6 +45,10 @@ const TRAINING_VIDEOS = [
   { title: "Effective Facilitation skill", url: "https://www.youtube.com/watch?v=of-HUcauoRM" },
   { title: "Training on Life Skills Education", url: "https://www.youtube.com/watch?v=eF7z6suqie4" },
 ];
+const ytId = (url) => {
+  const m = String(url).match(/(?:v=|youtu\.be\/|embed\/)([A-Za-z0-9_-]{11})/);
+  return m ? m[1] : null;
+};
 const HUNDRED_REPORT_URL = ""; // "To read the HundrED report, Click Here"
 const GOOD_SIGHT_URL = ""; // "To read the Good Sight Story, Click Here"
 const STORIES_VIDEOS = [
@@ -460,6 +464,7 @@ function VoicesSection() {
 
 /* ---------- 7. training videos, recognition, stories ---------- */
 function MediaSection() {
+  const [playing, setPlaying] = useState(null);
   const videos = TRAINING_VIDEOS.filter((v) => v.url);
   const stories = STORIES_VIDEOS.filter((v) => v.youtubeId);
   return (
@@ -468,23 +473,58 @@ function MediaSection() {
         <section className="bg-white pt-16 sm:pt-20">
           <div className="mx-auto max-w-7xl px-6 lg:px-12">
             <FadeUp>
-              <p className="text-sm font-bold uppercase tracking-[0.16em] text-slate-500">Training videos</p>
-              <div className="mt-3 flex flex-wrap gap-3">
-                {videos.map((v) => (
-                  <a
-                    key={v.title}
-                    href={v.url}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="inline-flex items-center gap-2 rounded-full bg-brand-yellow px-4 py-2 text-sm font-semibold text-[#0F172A] transition hover:-translate-y-0.5 hover:shadow-md"
-                  >
-                    <Play className="h-3.5 w-3.5 fill-current" />
-                    {v.title}
-                  </a>
-                ))}
+              <h3 className="text-2xl font-black text-[#0F172A] md:text-3xl">Training videos</h3>
+              <p className="mt-1 text-slate-600">Select a video to watch it here.</p>
+              <div className="mt-6 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+                {videos.map((v) => {
+                  const id = ytId(v.url);
+                  return (
+                    <button
+                      key={v.title}
+                      type="button"
+                      onClick={() => setPlaying(v)}
+                      className="group overflow-hidden rounded-xl border border-black/10 bg-white text-left shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
+                      aria-label={`Play video: ${v.title}`}
+                    >
+                      <span className="relative block aspect-video overflow-hidden bg-black">
+                        <img src={`https://i.ytimg.com/vi/${id}/hqdefault.jpg`} alt="" loading="lazy" className="h-full w-full object-cover transition duration-300 group-hover:scale-105" />
+                        <span className="absolute inset-0 flex items-center justify-center bg-black/10 transition group-hover:bg-black/25">
+                          <span className="flex h-14 w-14 items-center justify-center rounded-full bg-[#FF0000] shadow-lg transition group-hover:scale-110">
+                            <Play className="ml-0.5 h-6 w-6 fill-white text-white" />
+                          </span>
+                        </span>
+                      </span>
+                      <span className="block bg-brand-yellow px-3 py-2.5 text-center text-sm font-semibold text-[#0F172A]">{v.title}</span>
+                    </button>
+                  );
+                })}
               </div>
             </FadeUp>
           </div>
+          {playing && (
+            <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4" role="dialog" aria-modal="true" aria-label={playing.title} onClick={() => setPlaying(null)}>
+              <div className="relative w-full max-w-4xl" onClick={(e) => e.stopPropagation()}>
+                <button
+                  type="button"
+                  onClick={() => setPlaying(null)}
+                  aria-label="Close video"
+                  className="absolute -top-12 right-0 flex h-10 w-10 items-center justify-center rounded-full bg-white text-[#0F172A] shadow hover:opacity-90"
+                >
+                  <X className="h-5 w-5" />
+                </button>
+                <div className="aspect-video overflow-hidden rounded-2xl bg-black shadow-2xl">
+                  <iframe
+                    className="h-full w-full"
+                    src={`https://www.youtube-nocookie.com/embed/${ytId(playing.url)}?autoplay=1&rel=0`}
+                    title={playing.title}
+                    allow="autoplay; encrypted-media; picture-in-picture"
+                    allowFullScreen
+                  />
+                </div>
+                <p className="mt-3 text-center font-semibold text-white">{playing.title}</p>
+              </div>
+            </div>
+          )}
         </section>
       )}
 
