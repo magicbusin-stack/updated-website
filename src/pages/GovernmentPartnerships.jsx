@@ -40,10 +40,10 @@ function SectionTag({ children }) {
    Paste the YouTube link (or the report link) in the empty quotes and the matching button / video appears on the page.
    Anything left empty is simply not shown. */
 const TRAINING_VIDEOS = [
-  { title: "Importance of child Protection", url: "" },
-  { title: "Gender Equality", url: "" },
-  { title: "Effective Facilitation skill", url: "" },
-  { title: "Training on Life Skills Education", url: "" },
+  { title: "Importance of child Protection", url: "https://www.youtube.com/watch?v=i7f3lsMQbh8" },
+  { title: "Gender Equality", url: "https://www.youtube.com/watch?v=O-8oVEp9Ufw" },
+  { title: "Effective Facilitation skill", url: "https://www.youtube.com/watch?v=of-HUcauoRM" },
+  { title: "Training on Life Skills Education", url: "https://www.youtube.com/watch?v=eF7z6suqie4" },
 ];
 const HUNDRED_REPORT_URL = ""; // "To read the HundrED report, Click Here"
 const GOOD_SIGHT_URL = ""; // "To read the Good Sight Story, Click Here"
