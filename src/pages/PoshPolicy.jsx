@@ -9,112 +9,69 @@ import HeroBanner from "../components/HeroBanner";
 const EASE_EXPO = [0.16, 1, 0.3, 1];
 
 const HARASSMENT_DEFINITIONS = [
-  {
-    id: 1,
-    title: "Unwelcome Advances & Visuals",
-    desc: "Unwelcome sexual advances, requests for sexual favours, display of sex-related visuals, audios, pornographic or obscene material, and any other verbal or physical conduct of a sexual nature."
-  },
-  {
-    id: 2,
-    title: "Suggestive Communication",
-    desc: "Transmitting any message by mail, telephone, email, etc., that is obscene, lewd, suggestive, or blatantly sexual in nature."
-  },
-  {
-    id: 3,
-    title: "Employment Conditions",
-    desc: "Any explicit or implicit communication wherein a sexual favor or demand, whether by words or actions, is made a condition for an individual’s employment, career progress, promotion, or benefits."
-  },
-  {
-    id: 4,
-    title: "Sexually Charged Remarks",
-    desc: "Sexually charged jokes, verbal remarks, and behavior that have sexually oriented innuendoes or unwanted targeting."
-  },
-  {
-    id: 5,
-    title: "Unwanted Contact & Attention",
-    desc: "Consistent pattern of unnecessary physical contact, staring, or targeting unreasonable attention at an individual in day-to-day dealings."
-  },
-  {
-    id: 6,
-    title: "Gender Differentiation",
-    desc: "Any pervasive pattern of behaviour that makes employees uncomfortable, insecure, or feel humiliated or disadvantaged on the basis of gender differentiation, or actual sexual assault."
-  }
+  { id: 1, title: "Unwelcome Advances & Visuals", desc: "Unwelcome sexual advances, requests for sexual favours, display of sex-related visuals, audios, pornographic or obscene material, and any other verbal or physical conduct of a sexual nature." },
+  { id: 2, title: "Suggestive Communication", desc: "Transmitting any message by mail, telephone, email, etc., that is obscene, lewd, suggestive, or blatantly sexual in nature." },
+  { id: 3, title: "Employment Conditions", desc: "Any explicit or implicit communication wherein a sexual favor or demand, whether by words or actions, is made a condition for an individual\u2019s employment, career progress, promotion, etc." },
+  { id: 4, title: "Sexually Charged Remarks", desc: "Sexually charged jokes or remarks and behaviour that have sexually oriented innuendoes." },
+  { id: 5, title: "Unwanted Contact & Attention", desc: "Consistent pattern of unnecessary physical contact, staring, or targeting unreasonable attention at an individual in day-to-day dealings." },
+  { id: 6, title: "Gender Differentiation", desc: "Any pervasive pattern of behaviour that makes employees uncomfortable, insecure, or feel humiliated or disadvantaged on the basis of gender differentiation." },
+  { id: 7, title: "Sexual Assault", desc: "Actual sexual assault." }
 ];
 
+// Committee as listed on the current POSH page (July 2026 policy). Update this list when members change.
+// `image` is optional: leads without a local photo show their initials instead.
 const REGIONAL_COMMITTEE = {
   east: {
     email: "posh.east@magicbusindia.org",
-    leadName: "Sandhya Raman Krishnan",
-    leadRole: "Director - Adolescent Program Operations",
-    featuredMember: {
-      name: "Mary Jones Lallawmawmi",
-      role: "Sr. Manager - Program & Govt. Partnership",
-      image: "/posh/mary.webp"
-    },
+    lead: { name: "Mary Jones Lallawmawmi", role: "Sr. Manager - Program & Govt. Partnership", image: "/posh/mary.webp" },
     members: [
       { name: "Somenath Ghosh", role: "Sr. Manager - Monitoring & Evaluation" },
       { name: "Sujit Ghosh", role: "Sr. Manager - Operations" },
-      { name: "Manaswini Panigrahi", role: "Sr. Manager - Training" },
-      { name: "Padmini Pathi", role: "Program Manager" }
+      { name: "Bhumisuta Sahu", role: "Program Manager" },
+      { name: "Padmini Pathi", role: "Program Manager" },
+      { name: "Maneeshee Kumar", role: "State Lead" }
     ]
   },
   west: {
     email: "posh.west@magicbusindia.org",
-    leadName: "Leena C Rao",
-    leadRole: "Head - Program Design and Development",
-    featuredMember: {
-      name: "Leena C Rao",
-      role: "Head - Program Design and Development",
-      image: "/posh/leena.jpg"
-    },
+    lead: { name: "Diana Peters", role: "Associate Director - Corporate", image: "/posh/diana.jpg" },
     members: [
-      { name: "Diana Peters", role: "Head - Executive Assistant to CEO" },
-      { name: "Bhimraj Pawar", role: "City Manager" },
-      { name: "Subhomoy Bhaduri", role: "Associate Director - Training" },
-      { name: "Apoorva Deepesh Punekar", role: "Deputy General Manager - Human Resources" },
-      { name: "Dipti Patel", role: "Sr. Manager - Donor Retention & Engagement" },
-      { name: "Niles Desai", role: "Deputy General Manager - Finance & Accounts" },
-      { name: "Pravina Kukade", role: "Deputy General Manager - EDP Livelihood" },
-      { name: "Ritesh Dhote", role: "Sr. Manager - Program" }
+      { name: "Pravina Kukade", role: "General Manager - Rural Livelihood" },
+      { name: "Nilesh Desai", role: "Deputy General Manager - Accounts & Finance" },
+      { name: "Apoorva Deepesh Punekar", role: "General Manager - Human Resources" },
+      { name: "Ritesh Dhote", role: "Senior Manager - Program" },
+      { name: "Onkar Dilip Kotulkar", role: "Centre Manager" },
+      { name: "Akriti Manchanda", role: "General Manager - Corporate Relationships" }
     ]
   },
   north: {
     email: "posh.north@magicbusindia.org",
-    leadName: "Smita Shendye",
-    leadRole: "Head - Government Partnership",
-    featuredMember: {
-      name: "Smita Shendye",
-      role: "Head - Government Partnership",
-      image: "/posh/smita.jpg"
-    },
+    lead: { name: "Smita Shendye", role: "Head - Government Partnership", image: "/posh/smita.jpg" },
     members: [
-      { name: "Sandeep Singh", role: "District Livelihood - Sr. Manager" },
+      { name: "Sandeep Singh", role: "Senior Centre Manager" },
       { name: "Vikas Khanna", role: "Project Director" },
-      { name: "Jaya Verma", role: "Manager - Staff Training" },
-      { name: "Swetabja Patranabish", role: "Assistant Manager - Program" },
-      { name: "Manish Pathak", role: "Manager - Training" }
+      { name: "Jaya Verma", role: "Senior Manager - Staff Training" },
+      { name: "Manish Pathak", role: "Senior Manager - Training" }
     ]
   },
   south: {
     email: "posh.south@magicbusindia.org",
-    leadName: "Yalamanchi Siva Ranjani",
-    leadRole: "Sr. Manager - Program",
-    featuredMember: {
-      name: "Yalamanchi Siva Ranjani",
-      role: "Sr. Manager - Program",
-      image: "/posh/yalamanchi.jpg"
-    },
+    lead: { name: "Deepa Rajkamal", role: "General Manager - Connect with Work Training", image: "/posh/deepa.jpg" },
     members: [
-      { name: "Pasumarthy Venkata Gowri Soujanya", role: "Assistant Manager - Training" },
-      { name: "Alexander A", role: "Program Manager" },
-      { name: "Anuja V S", role: "Program Manager" },
-      { name: "Vijay Kotina", role: "Sr. Manager - Staff Training" },
-      { name: "Nicholette Joyce", role: "Sr. Manager - Program" },
+      { name: "Pasumarthy Venkata Gowri Soujanya", role: "Manager - Training" },
+      { name: "Nicholette Joyce", role: "Cluster Manager" },
       { name: "Bindu A", role: "Cluster Manager" },
-      { name: "Venkatesh T", role: "Deputy General Manager - Program" }
+      { name: "Vijay Kotina", role: "Senior Manager - Staff Training" },
+      { name: "Anuja V S", role: "Senior Program Manager" },
+      { name: "Yalamanchi Siva Ranjani", role: "Cluster Manager" },
+      { name: "Kandipalli Ananda Rao", role: "Senior Program Manager" }
     ]
   }
 };
+
+const POSH_PDF_URL = "/policies/POSH_Policy_July_2026.pdf";
+
+const initials = (name) => name.split(/\s+/).filter(Boolean).slice(0, 2).map((w) => w[0]).join("").toUpperCase();
 
 export default function PoshPolicy() {
   const [activeRegion, setActiveRegion] = useState("west");
@@ -144,7 +101,7 @@ export default function PoshPolicy() {
           description="Magic Bus is committed to ensuring that the work environment at all locations is conducive to fair, safe, and harmonious relationships between employees."
           image="/ngo-images/6.jpeg"
           ctas={[
-            { href: "https://www.magicbus.org/assets/uploads/POSH_Policy_April_2025.pdf", label: "Read Complete Policy PDF", variant: "primary", showArrow: true, target: "_blank" },
+            { href: POSH_PDF_URL, label: "Read Complete Policy PDF", variant: "primary", showArrow: true, target: "_blank" },
             { href: "#committee-directory", label: "Contact Internal Committee", variant: "secondary" }
           ]}
         />
@@ -167,7 +124,7 @@ export default function PoshPolicy() {
               <div className="lg:sticky lg:top-24 space-y-6">
                 <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-bold tracking-wider text-brand-red bg-brand-red/5 border border-brand-red/10 uppercase">
                   <span className="w-1.5 h-1.5 rounded-full bg-brand-red" />
-                  Zero Tolerance Stance
+                  Our Policy
                 </span>
                 
                 <h2 className="text-4xl md:text-5xl font-black text-slate-900 tracking-tight leading-[1.15]">
@@ -200,7 +157,7 @@ export default function PoshPolicy() {
                 <div className="border-l-4 border-brand-red pl-6 py-2 bg-slate-50/50 rounded-r-xl">
                   <h4 className="font-bold text-slate-950 text-base">Organization Policy on Sexual Harassment</h4>
                   <p className="text-sm text-slate-600 mt-2 leading-relaxed font-light">
-                    The organization policy is to totally prohibit any form of sexual harassment. This applies equally to relations between superior and subordinates as well as between peers. Any incident of sexual harassment will be viewed extremely seriously. A complaint or report of sexual harassment will be immediately investigated, and appropriate action will be taken against the offending employee or employees. Such action will include strict disciplinary action, including termination of service.
+                    The organization policy is to totally prohibit any form of sexual harassment. This applies equally to relations between superior and subordinates as well as between peers. Any incident of sexual harassment will be viewed extremely seriously. A complaint or report of sexual harassment will be immediately investigated, and appropriate action will be taken against the offending employee or employees. Such action will depend on the nature and seriousness of the offence and will include strict disciplinary action, including termination of service.
                   </p>
                 </div>
               </div>
@@ -222,7 +179,7 @@ export default function PoshPolicy() {
                 What Constitutes Sexual Harassment?
               </h3>
               <p className="text-slate-500 text-sm mt-2 max-w-lg mx-auto">
-                Any physical or verbal behavior and communication that has unwelcome sexual connotations. Below is an indicative overview.
+                Any physical or verbal behaviour and any form of communication that has unnecessary, improper, or unwelcome sexual connotations. It may vary in form depending on circumstances. Below is an indicative list; it is not exhaustive.
               </p>
             </div>
 
@@ -250,7 +207,7 @@ export default function PoshPolicy() {
             {/* Full Document Link */}
             <div className="mt-12 text-center">
               <a
-                href="https://www.magicbus.org/assets/uploads/POSH_Policy_April_2025.pdf"
+                href={POSH_PDF_URL}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 text-xs font-bold text-brand-red hover:text-slate-900 border-b-2 border-brand-red/30 hover:border-slate-900 pb-1 transition-all"
@@ -276,7 +233,7 @@ export default function PoshPolicy() {
                 Speak Up Safely — Contact Our Committee
               </h3>
               <p className="text-slate-500 text-sm mt-2">
-                Our committee consists of regional support representatives and an independent external member.
+                Contact your regional committee, or write to the Internal Committee at the address below.
               </p>
             </div>
 
@@ -290,14 +247,9 @@ export default function PoshPolicy() {
                 />
               </div>
               <div className="text-center sm:text-left">
-                <span className="inline-block bg-brand-yellow text-slate-900 font-extrabold text-[9px] uppercase tracking-wider px-2 py-0.5 rounded-full mb-2">
-                  Committee Oversight
-                </span>
+                
                 <h4 className="font-extrabold text-slate-950 text-lg leading-tight">Dr. Sandya Advani</h4>
-                <p className="text-xs text-brand-red font-bold mt-0.5">Independent External Member</p>
-                <p className="text-[11px] text-slate-400 mt-2 leading-relaxed">
-                  Acts as an objective external voice to guarantee fair, impartial audits and procedural compliance.
-                </p>
+                <p className="text-xs text-brand-red font-bold mt-0.5">External Member</p>
               </div>
             </div>
 
@@ -337,18 +289,18 @@ export default function PoshPolicy() {
                       className="bg-white rounded-2xl p-6 border border-slate-100 shadow-sm flex flex-col justify-between"
                     >
                       <div>
-                        <div className="w-24 h-24 rounded-2xl overflow-hidden mb-6 border border-slate-100 mx-auto lg:mx-0">
-                          <img
-                            src={data.featuredMember.image}
-                            alt={data.featuredMember.name}
-                            className="w-full h-full object-cover"
-                          />
+                        <div className="w-24 h-24 rounded-2xl overflow-hidden mb-6 border border-slate-100 mx-auto lg:mx-0 bg-brand-yellow/30 flex items-center justify-center">
+                          {data.lead.image ? (
+                            <img src={data.lead.image} alt={data.lead.name} className="w-full h-full object-cover" />
+                          ) : (
+                            <span className="text-3xl font-black text-slate-700">{initials(data.lead.name)}</span>
+                          )}
                         </div>
                         
                         <div className="text-center lg:text-left">
-                          <span className="text-[10px] font-extrabold uppercase tracking-widest text-slate-400">Featured Member</span>
-                          <h4 className="font-extrabold text-slate-950 text-lg leading-tight mt-1">{data.featuredMember.name}</h4>
-                          <p className="text-xs text-brand-red font-semibold mt-1">{data.featuredMember.role}</p>
+                          <span className="text-[10px] font-extrabold uppercase tracking-widest text-slate-400">Regional Contact</span>
+                          <h4 className="font-extrabold text-slate-950 text-lg leading-tight mt-1">{data.lead.name}</h4>
+                          <p className="text-xs text-brand-red font-semibold mt-1">{data.lead.role}</p>
                         </div>
                       </div>
 

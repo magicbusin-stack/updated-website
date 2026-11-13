@@ -46,9 +46,6 @@ const POSTS = [
     date: "2025-10-01",
     readingTime: 6,
     featured: true,
-    views: 2400,
-    likes: 89,
-    author: "Dr. Priya Sharma",
     tags: ["Education", "Play-based Learning", "School Attendance"],
   },
   {
@@ -60,9 +57,6 @@ const POSTS = [
     date: "2025-09-18",
     readingTime: 5,
     featured: true,
-    views: 1800,
-    likes: 67,
-    author: "Rajesh Kumar",
     tags: ["Life Skills", "Curriculum Design", "Teacher Training"],
   },
   {
@@ -74,9 +68,6 @@ const POSTS = [
     date: "2025-09-05",
     readingTime: 4,
     featured: true,
-    views: 900,
-    likes: 45,
-    author: "Meera Patel",
     tags: ["Teacher Stories", "Classroom Innovation", "Student Engagement"],
   },
   {
@@ -88,9 +79,6 @@ const POSTS = [
     date: "2025-08-12",
     readingTime: 5,
     featured: false,
-    views: 1100,
-    likes: 78,
-    author: "Amit Singh",
     tags: ["Corporate Volunteering", "CSR", "Employee Engagement"],
   },
   {
@@ -102,9 +90,6 @@ const POSTS = [
     date: "2025-07-21",
     readingTime: 7,
     featured: false,
-    views: 600,
-    likes: 34,
-    author: "Dr. Anita Desai",
     tags: ["Impact Measurement", "Research", "Data Analytics"],
   },
   {
@@ -116,9 +101,6 @@ const POSTS = [
     date: "2025-07-10",
     readingTime: 4,
     featured: false,
-    views: 850,
-    likes: 56,
-    author: "Suresh Reddy",
     tags: ["Digital Literacy", "Rural Education", "Technology"],
   },
   {
@@ -130,9 +112,6 @@ const POSTS = [
     date: "2025-06-28",
     readingTime: 6,
     featured: false,
-    views: 1200,
-    likes: 92,
-    author: "Kavita Joshi",
     tags: ["Youth Leadership", "Community Development", "Success Stories"],
   },
   {
@@ -144,9 +123,6 @@ const POSTS = [
     date: "2025-06-15",
     readingTime: 8,
     featured: false,
-    views: 950,
-    likes: 73,
-    author: "Dr. Vikram Gupta",
     tags: ["AI in Education", "Innovation", "EdTech"],
   },
   {
@@ -158,9 +134,6 @@ const POSTS = [
     date: "2025-06-01",
     readingTime: 3,
     featured: false,
-    views: 750,
-    likes: 41,
-    author: "Communications Team",
     tags: ["Awards", "Recognition", "Achievements"],
   },
   {
@@ -172,15 +145,24 @@ const POSTS = [
     date: "2025-05-20",
     readingTime: 5,
     featured: false,
-    views: 1400,
-    likes: 108,
-    author: "Sunita Rao",
     tags: ["Girls Education", "Empowerment", "Gender Equality"],
   },
 ];
 
 /* ---------------- Helper Functions ---------------- */
 const uniqueCategories = (posts) => Array.from(new Set(posts.map((p) => p.category))).sort();
+
+// One brand colour per category (used for tags, card borders and filter buttons).
+const PALETTE = [
+  { bg: "#E12228", fg: "#FFFFFF" },
+  { bg: "#21BDEA", fg: "#1A1A1A" },
+  { bg: "#B3CC35", fg: "#1A1A1A" },
+  { bg: "#E01085", fg: "#FFFFFF" },
+  { bg: "#FFCC04", fg: "#1A1A1A" },
+  { bg: "#0F7F96", fg: "#FFFFFF" },
+];
+const CATEGORIES = uniqueCategories(POSTS);
+const colorFor = (category) => PALETTE[Math.max(0, CATEGORIES.indexOf(category)) % PALETTE.length];
 const dateToPretty = (iso) => new Date(iso).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" });
 
 /* ---------------- Modern Hero Section ---------------- */
@@ -257,7 +239,8 @@ function FeaturedStories({ items }) {
   }, [items.length, isAutoPlaying]);
 
   return (
-    <section id="featured" className="max-w-7xl mx-auto px-6 py-16">
+    <section id="featured" className="bg-gradient-to-b from-[#FFF3B0] to-[#FFFBE6]">
+      <div className="max-w-7xl mx-auto px-6 py-16">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -320,10 +303,6 @@ function FeaturedStories({ items }) {
                         <Clock className="w-4 h-4" />
                         {items[activeIndex]?.readingTime} min read
                       </span>
-                      <span className="flex items-center gap-1">
-                        <Eye className="w-4 h-4" />
-                        {items[activeIndex]?.views}
-                      </span>
                     </div>
 
                     <motion.div
@@ -367,16 +346,13 @@ function FeaturedStories({ items }) {
                   <div className="flex items-center gap-3 text-xs text-slate-500">
                     <span>{dateToPretty(item.date)}</span>
                     <span>{item.readingTime}m</span>
-                    <span className="flex items-center gap-1">
-                      <Heart className="w-3 h-3" />
-                      {item.likes}
-                    </span>
                   </div>
                 </div>
               </div>
             </motion.button>
           ))}
         </div>
+      </div>
       </div>
     </section>
   );
@@ -433,10 +409,12 @@ function ModernFilterSection({ query, setQuery, resultsCount, categories, active
                 <button
                   key={category}
                   onClick={() => setActiveCategory(category)}
-                  className={`px-3 py-1 rounded-full text-xs font-medium transition-all ${activeCategory === category
-                    ? "bg-brand-red text-white"
-                    : "bg-slate-100 text-slate-600 hover:bg-slate-200"
-                    }`}
+                  style={
+                    activeCategory === category
+                      ? { background: colorFor(category).bg, color: colorFor(category).fg }
+                      : { background: colorFor(category).bg + "26", color: "#1A1A1A" }
+                  }
+                  className="px-3 py-1 rounded-full text-xs font-semibold transition-all hover:brightness-95"
                 >
                   {category.split(' ').slice(0, 2).join(' ')} ({POSTS.filter(p => p.category === category).length})
                 </button>
@@ -458,8 +436,7 @@ function ModernFilterSection({ query, setQuery, resultsCount, categories, active
 
 /* ---------------- Modern Blog Card ---------------- */
 function BlogCard({ post, index }) {
-  const [isBookmarked, setIsBookmarked] = useState(false);
-  const [isLiked, setIsLiked] = useState(false);
+  const c = colorFor(post.category);
 
   return (
     <motion.article
@@ -468,6 +445,7 @@ function BlogCard({ post, index }) {
       transition={{ delay: index * 0.1 }}
       whileHover={{ y: -8 }}
       className="group bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500"
+      style={{ borderTop: `6px solid ${c.bg}` }}
     >
       <div className="relative overflow-hidden">
         <img
@@ -477,42 +455,13 @@ function BlogCard({ post, index }) {
         />
 
         <div className="absolute top-4 left-4">
-          <span className="bg-brand-yellow text-brand-black px-3 py-1 rounded-full text-xs font-semibold">
+          <span className="px-3 py-1 rounded-full text-xs font-semibold shadow" style={{ background: c.bg, color: c.fg }}>
             {post.category}
           </span>
-        </div>
-
-        <div className="absolute top-4 right-4 flex gap-2">
-          <motion.button
-            onClick={() => setIsBookmarked(!isBookmarked)}
-            className={`p-2 rounded-full backdrop-blur-sm transition-colors ${isBookmarked ? "bg-brand-red text-white" : "bg-white/80 text-slate-600"
-              }`}
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
-          >
-            <Bookmark className="w-4 h-4" />
-          </motion.button>
-
-          <motion.button
-            className="p-2 rounded-full bg-white/80 text-slate-600 hover:bg-white transition-colors"
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
-          >
-            <Share2 className="w-4 h-4" />
-          </motion.button>
         </div>
       </div>
 
       <div className="p-6">
-        <div className="flex items-center gap-2 mb-3">
-          <img
-            src={`https://ui-avatars.com/api/?name=${post.author}&background=ef4444&color=fff&size=32`}
-            alt={post.author}
-            className="w-8 h-8 rounded-full"
-          />
-          <span className="text-sm text-slate-600">{post.author}</span>
-        </div>
-
         <h3 className="text-xl font-bold text-ink mb-3 line-clamp-2 group-hover:text-brand-red transition-colors">
           {post.title}
         </h3>
@@ -523,41 +472,21 @@ function BlogCard({ post, index }) {
 
         <div className="flex flex-wrap gap-2 mb-4">
           {post.tags?.slice(0, 2).map((tag) => (
-            <span key={tag} className="text-xs bg-slate-100 text-slate-600 px-2 py-1 rounded-full">
+            <span key={tag} className="text-xs px-2 py-1 rounded-full font-medium" style={{ background: c.bg + "26", color: "#1A1A1A" }}>
               #{tag}
             </span>
           ))}
         </div>
 
-        <div className="flex items-center justify-between text-sm text-slate-500 mb-4">
-          <div className="flex items-center gap-4">
-            <span className="flex items-center gap-1">
-              <Calendar className="w-4 h-4" />
-              {dateToPretty(post.date)}
-            </span>
-            <span className="flex items-center gap-1">
-              <Clock className="w-4 h-4" />
-              {post.readingTime}m
-            </span>
-          </div>
-
-          <div className="flex items-center gap-3">
-            <span className="flex items-center gap-1">
-              <Eye className="w-4 h-4" />
-              {post.views}
-            </span>
-
-            <motion.button
-              onClick={() => setIsLiked(!isLiked)}
-              className={`flex items-center gap-1 transition-colors ${isLiked ? "text-red-500" : "text-slate-500 hover:text-red-500"
-                }`}
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
-            >
-              <Heart className={`w-4 h-4 ${isLiked ? "fill-current" : ""}`} />
-              {post.likes + (isLiked ? 1 : 0)}
-            </motion.button>
-          </div>
+        <div className="flex items-center gap-4 text-sm text-slate-500 mb-4">
+          <span className="flex items-center gap-1">
+            <Calendar className="w-4 h-4" />
+            {dateToPretty(post.date)}
+          </span>
+          <span className="flex items-center gap-1">
+            <Clock className="w-4 h-4" />
+            {post.readingTime}m
+          </span>
         </div>
 
         <motion.a
@@ -574,101 +503,20 @@ function BlogCard({ post, index }) {
 }
 
 /* ---------------- Enhanced Sidebar ---------------- */
-function Sidebar({ posts, categories, onSubscribe }) {
-  const popular = [...posts].sort((a, b) => b.views - a.views).slice(0, 4);
-  const latest = [...posts].sort((a, b) => new Date(b.date) - new Date(a.date)).slice(0, 5);
-  const trending = [...posts].sort((a, b) => b.likes - a.likes).slice(0, 3);
+function Sidebar({ posts, categories, activeCategory, onSelect }) {
+  const latest = [...posts].sort((a, b) => new Date(b.date) - new Date(a.date)).slice(0, 4);
 
   return (
     <aside className="space-y-8">
-      {/* Newsletter Signup */}
-      <motion.div
-        className="bg-gradient-to-br from-brand-red via-brand-red to-brand-yellow text-white rounded-3xl p-6 shadow-xl"
-        initial={{ opacity: 0, scale: 0.9 }}
-        whileInView={{ opacity: 1, scale: 1 }}
-        viewport={{ once: true }}
-      >
-        <div className="text-center mb-6">
-          <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4">
-            <BookOpen className="w-8 h-8 text-white" />
-          </div>
-          <h4 className="text-xl font-bold mb-2">Stay Updated</h4>
-          <p className="text-white/90 text-sm">
-            Get monthly insights and stories delivered to your inbox
-          </p>
+      {/* Latest Posts */}
+      <div className="bg-white rounded-3xl shadow-lg overflow-hidden">
+        <div className="flex items-center gap-2 px-6 py-4 bg-brand-red text-white">
+          <TrendingUp className="w-5 h-5" />
+          <h4 className="font-bold">Latest Stories</h4>
         </div>
 
-        <form onSubmit={(e) => { e.preventDefault(); onSubscribe(); }}>
-          <input
-            required
-            type="email"
-            placeholder="Enter your email"
-            className="w-full rounded-xl px-4 py-3 text-white mb-4 focus:outline-none focus:ring-2 focus:ring-white/50"
-          />
-          <motion.button
-            type="submit"
-            className="w-full bg-white text-brand-red font-semibold py-3 rounded-xl hover:bg-white/90 transition-colors"
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-          >
-            Subscribe Now
-          </motion.button>
-        </form>
-      </motion.div>
-
-      {/* Trending Posts */}
-      <div className="bg-white rounded-3xl p-6 shadow-lg">
-        <div className="flex items-center gap-2 mb-6">
-          <TrendingUp className="w-5 h-5 text-brand-red" />
-          <h4 className="font-bold text-ink">Trending Now</h4>
-        </div>
-
-        <div className="space-y-4">
-          {trending.map((post, index) => (
-            <motion.a
-              key={post.id}
-              href={`/blog/${post.id}`}
-              className="flex gap-4 group"
-              whileHover={{ x: 5 }}
-            >
-              <div className="relative">
-                <img
-                  src={post.image}
-                  alt={post.title}
-                  className="w-16 h-16 object-cover rounded-xl"
-                />
-                <div className="absolute -top-2 -left-2 w-6 h-6 bg-brand-red text-white rounded-full flex items-center justify-center text-xs font-bold">
-                  {index + 1}
-                </div>
-              </div>
-
-              <div className="flex-1">
-                <h5 className="font-semibold text-sm text-ink group-hover:text-brand-red transition-colors line-clamp-2 mb-1">
-                  {post.title}
-                </h5>
-                <div className="flex items-center gap-2 text-xs text-slate-500">
-                  <span>{dateToPretty(post.date)}</span>
-                  <span>•</span>
-                  <span className="flex items-center gap-1">
-                    <Heart className="w-3 h-3" />
-                    {post.likes}
-                  </span>
-                </div>
-              </div>
-            </motion.a>
-          ))}
-        </div>
-      </div>
-
-      {/* Popular Posts */}
-      <div className="bg-white rounded-3xl p-6 shadow-lg">
-        <div className="flex items-center gap-2 mb-6">
-          <Eye className="w-5 h-5 text-brand-red" />
-          <h4 className="font-bold text-ink">Most Read</h4>
-        </div>
-
-        <div className="space-y-4">
-          {popular.map((post) => (
+        <div className="p-6 space-y-4">
+          {latest.map((post) => (
             <motion.a
               key={post.id}
               href={`/blog/${post.id}`}
@@ -684,11 +532,7 @@ function Sidebar({ posts, categories, onSubscribe }) {
                 <h5 className="font-semibold text-sm text-ink group-hover:text-brand-red transition-colors line-clamp-2 mb-1">
                   {post.title}
                 </h5>
-                <div className="flex items-center gap-2 text-xs text-slate-500">
-                  <span>{dateToPretty(post.date)}</span>
-                  <span>•</span>
-                  <span>{post.views} views</span>
-                </div>
+                <span className="text-xs text-slate-500">{dateToPretty(post.date)}</span>
               </div>
             </motion.a>
           ))}
@@ -696,34 +540,40 @@ function Sidebar({ posts, categories, onSubscribe }) {
       </div>
 
       {/* Categories */}
-      <div className="bg-white rounded-3xl p-6 shadow-lg">
-        <div className="flex items-center gap-2 mb-6">
-          <Tag className="w-5 h-5 text-brand-red" />
-          <h4 className="font-bold text-ink">Categories</h4>
+      <div className="bg-white rounded-3xl shadow-lg overflow-hidden">
+        <div className="flex items-center gap-2 px-6 py-4 bg-brand-blue text-ink">
+          <Tag className="w-5 h-5" />
+          <h4 className="font-bold">Categories</h4>
         </div>
 
-        <div className="space-y-3">
+        <div className="p-4 space-y-1">
           {categories.map((category) => {
-            const count = posts.filter(p => p.category === category).length;
+            const count = posts.filter((p) => p.category === category).length;
+            const c = colorFor(category);
+            const active = activeCategory === category;
             return (
-              <motion.button
+              <button
                 key={category}
-                className="w-full flex items-center justify-between p-3 rounded-xl hover:bg-slate-50 transition-colors text-left"
-                whileHover={{ x: 5 }}
+                onClick={() => onSelect(active ? "All" : category)}
+                className={`w-full flex items-center justify-between gap-3 p-3 rounded-xl transition-colors text-left ${active ? "bg-slate-100" : "hover:bg-slate-50"}`}
               >
-                <span className="text-sm text-ink">{category}</span>
-                <span className="text-xs bg-brand-red/10 text-brand-red px-2 py-1 rounded-full">
+                <span className="flex items-center gap-2 text-sm text-ink">
+                  <span className="w-2.5 h-2.5 rounded-full shrink-0" style={{ background: c.bg }} />
+                  {category}
+                </span>
+                <span className="text-xs px-2 py-1 rounded-full font-semibold" style={{ background: c.bg, color: c.fg }}>
                   {count}
                 </span>
-              </motion.button>
+              </button>
             );
           })}
         </div>
       </div>
     </aside>
   );
-}/* --
--------------- Enhanced Pagination ---------------- */
+}
+
+/* ---------------- Enhanced Pagination ---------------- */
 function Pagination({ currentPage, totalPages, onPageChange, hasMore, onLoadMore }) {
   const getPageNumbers = () => {
     const pages = [];
@@ -801,7 +651,7 @@ function Pagination({ currentPage, totalPages, onPageChange, hasMore, onLoadMore
 /* ---------------- Enhanced Bottom CTA ---------------- */
 function BottomCTA() {
   return (
-    <section className="mt-20 bg-gradient-to-r from-slate-50 to-white py-16">
+    <section className="mt-20 bg-gradient-to-br from-[#1A1A1A] via-[#2B1216] to-[#4A0F16] py-16">
       <div className="max-w-7xl mx-auto px-6">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -809,10 +659,10 @@ function BottomCTA() {
           viewport={{ once: true }}
           className="text-center mb-12"
         >
-          <h3 className="text-3xl md:text-4xl font-heading font-bold text-ink mb-4">
+          <h3 className="text-3xl md:text-4xl font-heading font-bold text-white mb-4">
             Join Our Mission
           </h3>
-          <p className="text-lg text-slate-600 max-w-2xl mx-auto">
+          <p className="text-lg text-white/80 max-w-2xl mx-auto">
             Support us in empowering young people through education, life skills, and sustainable livelihoods
           </p>
         </motion.div>
@@ -841,7 +691,7 @@ function BottomCTA() {
           </motion.a>
 
           <motion.a
-            href="/volunteer"
+            href="/employee-volunteering"
             className="group p-8 bg-white rounded-3xl shadow-lg hover:shadow-xl transition-all text-center"
             whileHover={{ y: -5, scale: 1.02 }}
             initial={{ opacity: 0, y: 30 }}
@@ -931,13 +781,9 @@ export default function Blogs() {
     setCurrentPage(1);
   };
 
-  const handleSubscribe = () => {
-    alert("Thank you for subscribing! You'll receive our monthly insights soon.");
-  };
-
   return (
     <Layout>
-      <main className="bg-slate-50 text-ink min-h-screen">
+      <main className="bg-gradient-to-b from-[#EAF8FD] via-white to-[#FFF0F6] text-ink min-h-screen">
         <Hero />
 
         <FeaturedStories items={featuredPosts} />
@@ -1046,7 +892,8 @@ export default function Blogs() {
               <Sidebar
                 posts={POSTS}
                 categories={categories}
-                onSubscribe={handleSubscribe}
+                activeCategory={activeCategory}
+                onSelect={handleCategoryChange}
               />
             </div>
           </div>
