@@ -474,8 +474,7 @@ function MediaSection() {
           <div className="mx-auto max-w-7xl px-6 lg:px-12">
             <FadeUp>
               <h3 className="text-2xl font-black text-[#0F172A] md:text-3xl">Training videos</h3>
-              <p className="mt-1 text-slate-600">Select a video to watch it here.</p>
-              <div className="mt-6 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+              <div className="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
                 {videos.map((v) => {
                   const id = ytId(v.url);
                   return (
