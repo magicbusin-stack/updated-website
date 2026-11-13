@@ -481,6 +481,15 @@ function MediaSection() {
   const stories = STORIES_VIDEOS.filter((v) => v.youtubeId);
   return (
     <>
+      <style>{`
+@keyframes gpGlow{0%{transform:scale(1);opacity:.55}70%,100%{transform:scale(1.35,1.6);opacity:0}}
+@keyframes gpBlink{0%,100%{box-shadow:0 0 0 0 rgba(15,23,42,.35)}50%{box-shadow:0 0 0 6px rgba(15,23,42,0)}}
+@keyframes gpNudge{0%,100%{transform:translateX(0)}50%{transform:translateX(4px)}}
+.gp-watch-glow{animation:gpGlow 1.8s ease-out infinite}
+.gp-watch{animation:gpBlink 1.8s ease-in-out infinite}
+.gp-watch-arrow{animation:gpNudge 1.2s ease-in-out infinite}
+@media (prefers-reduced-motion: reduce){.gp-watch-glow,.gp-watch,.gp-watch-arrow{animation:none}}
+`}</style>
       {videos.length > 0 && (
         <section className="bg-white pt-16 sm:pt-20">
           <div className="mx-auto max-w-7xl px-6 lg:px-12">
@@ -507,15 +516,14 @@ function MediaSection() {
                             </span>
                           </span>
                         </span>
-                        <span className="flex flex-1 flex-col justify-between bg-brand-yellow p-4 transition-colors group-hover:bg-[#F7BE00]">
-                          <span>
-                            <span className="mb-1 block text-[11px] font-bold uppercase tracking-wide text-slate-800/80">Video {String(i + 1).padStart(2, "0")}</span>
-                            <span className="block text-lg font-extrabold leading-snug tracking-tight text-slate-900">{v.title}</span>
-                          </span>
-                          <span className="mt-4 flex items-center justify-end border-t border-black/10 pt-3 text-sm font-bold text-slate-950">
-                            <span className="inline-flex items-center gap-0.5 transition-transform group-hover:translate-x-0.5">
+                        <span className="flex flex-1 flex-col items-center justify-between gap-4 bg-brand-yellow p-4 text-center transition-colors group-hover:bg-[#F7BE00]">
+                          <span className="block text-lg font-extrabold leading-snug tracking-tight text-slate-900">{v.title}</span>
+                          <span className="relative inline-flex">
+                            <span aria-hidden="true" className="gp-watch-glow absolute inset-0 rounded-full bg-slate-900" />
+                            <span className="gp-watch relative inline-flex items-center gap-1.5 rounded-full bg-slate-900 px-6 py-2.5 text-sm font-extrabold uppercase tracking-wider text-white shadow-lg transition group-hover:bg-white group-hover:text-slate-900">
+                              <Play className="h-4 w-4 fill-current" />
                               Watch
-                              <ChevronRight className="h-4 w-4" />
+                              <ChevronRight className="gp-watch-arrow h-4 w-4" />
                             </span>
                           </span>
                         </span>
