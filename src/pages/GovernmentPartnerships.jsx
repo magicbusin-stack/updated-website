@@ -1,6 +1,6 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
-import { Landmark, Mail, ArrowRight, ArrowUpRight, Play, GraduationCap, Brain, MapPin, X } from "lucide-react";
+import { Landmark, Mail, ArrowRight, ArrowUpRight, Play, GraduationCap, Brain, MapPin, X, ChevronRight } from "lucide-react";
 import Layout from "../components/Layout";
 import HeroBanner from "../components/HeroBanner";
 import usePageMeta from "../hooks/usePageMeta";
@@ -465,6 +465,18 @@ function VoicesSection() {
 /* ---------- 7. training videos, recognition, stories ---------- */
 function MediaSection() {
   const [playing, setPlaying] = useState(null);
+  // close the video pop-up with Esc and stop the page scrolling behind it
+  useEffect(() => {
+    if (!playing) return undefined;
+    const onKey = (e) => e.key === "Escape" && setPlaying(null);
+    window.addEventListener("keydown", onKey);
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      document.body.style.overflow = prev;
+    };
+  }, [playing]);
   const videos = TRAINING_VIDEOS.filter((v) => v.url);
   const stories = STORIES_VIDEOS.filter((v) => v.youtubeId);
   return (
@@ -473,45 +485,62 @@ function MediaSection() {
         <section className="bg-white pt-16 sm:pt-20">
           <div className="mx-auto max-w-7xl px-6 lg:px-12">
             <FadeUp>
-              <h3 className="text-2xl font-black text-[#0F172A] md:text-3xl">Training videos</h3>
-              <div className="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
-                {videos.map((v) => {
-                  const id = ytId(v.url);
-                  return (
-                    <button
-                      key={v.title}
-                      type="button"
-                      onClick={() => setPlaying(v)}
-                      className="group flex flex-col overflow-hidden rounded-xl border border-black/10 bg-white text-left shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
-                      aria-label={`Play video: ${v.title}`}
-                    >
-                      <span className="relative block aspect-video overflow-hidden bg-black">
-                        <img src={`https://i.ytimg.com/vi/${id}/hqdefault.jpg`} alt="" loading="lazy" className="h-full w-full object-cover transition duration-300 group-hover:scale-105" />
-                        <span className="absolute inset-0 flex items-center justify-center bg-black/10 transition group-hover:bg-black/25">
-                          <span className="flex h-14 w-14 items-center justify-center rounded-full bg-[#FF0000] shadow-lg transition group-hover:scale-110">
-                            <Play className="ml-0.5 h-6 w-6 fill-white text-white" />
+              <div className="rounded-3xl border border-slate-200/80 bg-white p-6 shadow-[0_8px_24px_-4px_rgba(15,23,42,0.08),0_4px_12px_-2px_rgba(15,23,42,0.04)] sm:p-8 lg:p-10">
+                <h3 className="text-2xl font-black tracking-tight text-slate-900 sm:text-3xl lg:text-4xl">Training videos</h3>
+                <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+                  {videos.map((v, i) => {
+                    const id = ytId(v.url);
+                    return (
+                      <button
+                        key={v.title}
+                        type="button"
+                        onClick={() => setPlaying(v)}
+                        aria-label={`Play video: ${v.title}`}
+                        className="group relative flex flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white text-left shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_20px_32px_-6px_rgba(15,23,42,0.16),0_8px_16px_-4px_rgba(15,23,42,0.06)] focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-red"
+                      >
+                        <span className="relative block aspect-video w-full overflow-hidden bg-black">
+                          <img src={`https://i.ytimg.com/vi/${id}/hqdefault.jpg`} alt="" loading="lazy" className="h-full w-full object-cover transition duration-500 group-hover:scale-105" />
+                          <span className="absolute inset-0 flex items-center justify-center bg-black/10 transition group-hover:bg-black/20">
+                            <span className="relative flex h-14 w-14 items-center justify-center rounded-full bg-brand-red text-white shadow-[0_8px_20px_rgba(225,34,40,0.45)] transition duration-300 group-hover:scale-110 group-active:scale-95">
+                              <span className="absolute inset-0 -z-10 animate-ping rounded-full bg-red-500 opacity-40 motion-reduce:hidden" />
+                              <Play className="ml-0.5 h-6 w-6 fill-current" />
+                            </span>
                           </span>
                         </span>
-                      </span>
-                      <span className="flex flex-1 items-center justify-center bg-brand-yellow px-3 py-3.5 text-center text-base font-extrabold leading-snug tracking-tight text-[#0F172A] sm:text-lg">{v.title}</span>
-                    </button>
-                  );
-                })}
+                        <span className="flex flex-1 flex-col justify-between bg-brand-yellow p-4 transition-colors group-hover:bg-[#F7BE00]">
+                          <span>
+                            <span className="mb-1 block text-[11px] font-bold uppercase tracking-wide text-slate-800/80">Video {String(i + 1).padStart(2, "0")}</span>
+                            <span className="block text-lg font-extrabold leading-snug tracking-tight text-slate-900">{v.title}</span>
+                          </span>
+                          <span className="mt-4 flex items-center justify-end border-t border-black/10 pt-3 text-sm font-bold text-slate-950">
+                            <span className="inline-flex items-center gap-0.5 transition-transform group-hover:translate-x-0.5">
+                              Watch
+                              <ChevronRight className="h-4 w-4" />
+                            </span>
+                          </span>
+                        </span>
+                      </button>
+                    );
+                  })}
+                </div>
               </div>
             </FadeUp>
           </div>
           {playing && (
-            <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4" role="dialog" aria-modal="true" aria-label={playing.title} onClick={() => setPlaying(null)}>
-              <div className="relative w-full max-w-4xl" onClick={(e) => e.stopPropagation()}>
-                <button
-                  type="button"
-                  onClick={() => setPlaying(null)}
-                  aria-label="Close video"
-                  className="absolute -top-12 right-0 flex h-10 w-10 items-center justify-center rounded-full bg-white text-[#0F172A] shadow hover:opacity-90"
-                >
-                  <X className="h-5 w-5" />
-                </button>
-                <div className="aspect-video overflow-hidden rounded-2xl bg-black shadow-2xl">
+            <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/80 p-4 backdrop-blur-sm" role="dialog" aria-modal="true" aria-label={playing.title} onClick={() => setPlaying(null)}>
+              <div className="w-full max-w-3xl overflow-hidden rounded-3xl border border-slate-800 bg-slate-900 text-white shadow-2xl" onClick={(e) => e.stopPropagation()}>
+                <div className="flex items-center justify-between gap-4 border-b border-slate-800 bg-slate-900/60 px-6 py-4">
+                  <h4 className="text-lg font-bold leading-tight text-white">{playing.title}</h4>
+                  <button
+                    type="button"
+                    onClick={() => setPlaying(null)}
+                    aria-label="Close video"
+                    className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-slate-800 text-slate-300 transition-colors hover:bg-slate-700 hover:text-white"
+                  >
+                    <X className="h-5 w-5" />
+                  </button>
+                </div>
+                <div className="aspect-video w-full bg-black">
                   <iframe
                     className="h-full w-full"
                     src={`https://www.youtube-nocookie.com/embed/${ytId(playing.url)}?autoplay=1&rel=0`}
@@ -520,7 +549,6 @@ function MediaSection() {
                     allowFullScreen
                   />
                 </div>
-                <p className="mt-3 text-center font-semibold text-white">{playing.title}</p>
               </div>
             </div>
           )}
