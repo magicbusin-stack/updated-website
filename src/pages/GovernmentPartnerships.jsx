@@ -635,8 +635,9 @@ export default function GovernmentPartnerships() {
         badgeText="Adolescent Programme"
         title="Government Partnerships"
         subtitle="Life skills education at scale, with state governments and national bodies"
-        image="/ngo-images/6.jpeg"
-        imagePosition="50% 18%"
+        image="/ngo-images/government-partnerships-banner.webp"
+        imagePosition="50% 6%"
+        minHeight="max(70vh, min(88vh, 54vw))"
       />
       <IntroSection />
       <ModelSection />

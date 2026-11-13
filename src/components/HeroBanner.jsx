@@ -13,6 +13,7 @@ function HeroBanner({
     description,
     image = "/ngo-images/3.JPG",
     imagePosition = "center",
+    minHeight,
     ctas = [],
     showStats = false,
     stats = [],
@@ -24,7 +25,7 @@ function HeroBanner({
 }) {
     const navigate = useNavigate();
     return (
-        <section className="relative min-h-[70vh] w-full flex items-end overflow-hidden bg-[#1A1A1A]" style={{ marginTop: "var(--header-h, 93px)" }}>
+        <section className="relative min-h-[70vh] w-full flex items-end overflow-hidden bg-[#1A1A1A]" style={{ marginTop: "var(--header-h, 93px)", ...(minHeight ? { minHeight } : {}) }}>
             <div className="absolute inset-0">
                 <img
                     src={image}
