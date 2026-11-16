@@ -286,15 +286,15 @@ function KeyComponentsGrid() {
 
 // ===== Page component =====
 export default function OurApproach() {
-  const heroImg = "/src/assets/images/banner1.jpg";
-  const adolescentImg = "/src/assets/images/approach1.jpg";
-  const livelihoodImg = "/src/assets/images/approach2.jpg";
+  const heroImg = "/ngo-images/our-approach-hero.jpg";
+  const adolescentImg = "/ngo-images/our-approach-adolescent.jpg";
+  const livelihoodImg = "/ngo-images/our-approach-livelihood.jpg";
 
   return (
     <Layout>
       <main className="text-ink font-sans bg-white">
         {/* ===== HERO ===== */}
-        <section className="relative h-screen w-full overflow-hidden">
+        <section className="relative h-screen w-full overflow-hidden bg-[#1A1A1A]">
           <img
             src={heroImg}
             alt="Adult with children walking (Magic Bus)"

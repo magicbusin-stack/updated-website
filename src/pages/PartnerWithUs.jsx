@@ -81,7 +81,7 @@ export default function PartnerWithUs() {
         {/* ===== 1) HERO (matches Donate) ===== */}
         <section className="relative h-screen w-full overflow-hidden">
         <img
-            src="/src/assets/images/partner-hero.jpg"
+            src="/ngo-images/partner-hero.jpg"
             alt="Group of smiling children and mentors waving"
             className="absolute inset-0 w-full h-full object-cover"
             onError={(e) => {

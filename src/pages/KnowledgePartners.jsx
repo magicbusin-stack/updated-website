@@ -59,7 +59,7 @@ export default function KnowledgePartners() {
           title="Knowledge partners."
           subtitle="Amplifying impact and learning through strategic research and expert collaborations."
           description="We work with leading global advisory organizations and think tanks to design and evaluate our life skills and youth skilling interventions."
-          image="/src/assets/images/partner-hero.jpg"
+          image="/ngo-images/partner-hero.jpg"
           ctas={[
             { href: "mailto:govtpartner@magicbusindia.org", label: "Connect with us", variant: "primary", showArrow: true },
             { href: "#knowledge-showcase", label: "View Partners", variant: "secondary" },

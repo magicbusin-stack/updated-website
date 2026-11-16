@@ -669,7 +669,7 @@ export default function ContactUs() {
         {/* ===== HERO (leave as you had it) ===== */}
         <section className="relative h-screen w-full overflow-hidden">
           <img
-            src="src/assets/images/contact-hero.jpg"
+            src="/ngo-images/contact-hero.jpg"
             alt="Contact Us Hero"
             className="absolute inset-0 w-full h-full object-cover"
             onError={(e) => {

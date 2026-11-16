@@ -88,7 +88,7 @@ export default function FoundationPartners() {
           title="Working together for a better tomorrow."
           subtitle="Building collaborative ecosystems to expand child development and education"
           description="Strategic foundations and institutions that support our mission by providing vital funding, capacity building, and program recognition."
-          image="/src/assets/images/partner-hero.jpg"
+          image="/ngo-images/partner-hero.jpg"
           ctas={[
             { href: "mailto:institutional@magicbusindia.org", label: "Connect With Us", variant: "primary", showArrow: true },
             { href: "#foundation-showcase", label: "Explore Partners", variant: "secondary" },

@@ -167,7 +167,7 @@ export default function CorporatePartners() {
           title="United to spread the magic."
           subtitle="Driving impact together through shared vision and commitment"
           description="At Magic Bus, collaborations play an essential role in reaching out to children and young people. Together, we build resources, skills, and pathways out of poverty."
-          image="/src/assets/images/partner-hero.jpg"
+          image="/ngo-images/partner-hero.jpg"
           ctas={[
             { href: "mailto:csr@magicbusindia.org", label: "Partner with Us", variant: "primary", showArrow: true },
             { href: "#partners-showcase", label: "View Partners", variant: "secondary" },

@@ -60,7 +60,7 @@ export default function GovernmentPartners() {
           title="Government partners."
           subtitle="Co-creating scalable, system-led programs across Indian school networks."
           description="Magic Bus partners with multiple state governments to align with the National Education Policy (NEP 2020) and mainstream life skills education."
-          image="/src/assets/images/partner-hero.jpg"
+          image="/ngo-images/partner-hero.jpg"
           ctas={[
             { href: "mailto:govtpartner@magicbusindia.org", label: "Partner with us", variant: "primary", showArrow: true },
             { href: "#government-showcase", label: "View State Partners", variant: "secondary" },
