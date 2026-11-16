@@ -3,6 +3,8 @@ import { AnimatePresence, motion, useInView } from "framer-motion";
 import { Globe, Users, ArrowRight, MapPin } from "lucide-react";
 import { Link } from "react-router-dom";
 import Layout from "../components/Layout";
+import { indiaTeam } from "../data/indiaTeam";
+import { OurTeamSchema, PersonSchema } from "../components/seo/TeamSchemas";
 
 /* ─────────────────────────── helpers ─────────────────────────── */
 const EASE = [0.16, 1, 0.3, 1];
@@ -71,7 +73,7 @@ function toPhotoPath(name) {
 }
 
 /* ─────────────────────────── PHOTO CARD ─────────────────────────── */
-function TeamCard({ member, index, variant = "light" }) {
+function TeamCard({ member, index, variant = "light", onOpen }) {
     const [imgError, setImgError] = useState(false);
     const isDark = variant === "dark";
     const [from, to] = GRADIENTS[index % GRADIENTS.length];
@@ -119,7 +121,7 @@ function TeamCard({ member, index, variant = "light" }) {
                     {/* Location badge */}
                     {member.location && (
                         <div className="absolute top-3 left-3">
-                            <span className="inline-flex items-center gap-1 rounded-full bg-black/40 backdrop-blur-sm px-2.5 py-1 text-[10px] font-semibold text-white">
+                            <span className="inline-flex items-center gap-1 rounded-full bg-black/50 backdrop-blur-sm px-2.5 py-1 text-xs font-semibold text-white">
                                 <MapPin className="w-2.5 h-2.5" />
                                 {member.location}
                             </span>
@@ -130,24 +132,34 @@ function TeamCard({ member, index, variant = "light" }) {
                 {/* ── Text body ───────────────────────────────────────── */}
                 <div className="flex flex-col gap-2 p-5 flex-1">
                     <h3
-                        className={`font-bold text-base leading-snug ${isDark ? "text-white" : "text-[#1A1A1A]"
+                        className={`font-bold text-lg leading-snug ${isDark ? "text-white" : "text-[#1A1A1A]"
                             }`}
                     >
                         {member.name}
                     </h3>
                     <p
-                        className={`text-xs font-semibold leading-snug ${isDark ? "text-brand-yellow" : "text-brand-red"
+                        className={`text-sm font-semibold leading-snug ${isDark ? "text-brand-yellow" : "text-brand-red"
                             }`}
                     >
                         {member.role}
                     </p>
                     {member.bio && (
                         <p
-                            className={`text-[13px] leading-relaxed mt-1 flex-1 ${isDark ? "text-white/50" : "text-[#1A1A1A]/55"
+                            className={`text-[15px] leading-relaxed mt-1 flex-1 ${isDark ? "text-white/65" : "text-[#1A1A1A]/70"
                                 }`}
                         >
                             {member.bio}
                         </p>
+                    )}
+                    {member.fullBio && onOpen && (
+                        <button
+                            type="button"
+                            onClick={() => onOpen(member)}
+                            className="mt-3 inline-flex w-fit items-center gap-2 rounded-full border border-brand-red/25 px-4 py-1.5 text-sm font-bold text-brand-red transition-colors hover:bg-brand-red/5"
+                        >
+                            Read More
+                            <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-brand-yellow text-brand-black text-sm font-extrabold">+</span>
+                        </button>
                     )}
                 </div>
 
@@ -162,49 +174,6 @@ function TeamCard({ member, index, variant = "light" }) {
 }
 
 /* ─────────────────────────── DATA ─────────────────────────── */
-const indiaTeam = [
-    {
-        name: "Aarthi Singh",
-        role: "Senior Director – Livelihood Operations",
-        bio: "Aarthi comes with more than two decades of work experience across corporate and development sectors.",
-    },
-    {
-        name: "Alpa Chauhan",
-        role: "Senior Regional Director – West",
-        bio: "Alpa is a development professional with over two decades of experience.",
-    },
-    {
-        name: "Arun Nalavadi",
-        role: "Chief of Programmes",
-        bio: "Arun brings more than 43 years of experience spanning corporates and development work.",
-    },
-    {
-        name: "Dhanashri Brahme",
-        role: "Chief of Programmes",
-        bio: "A graduate from Tata Institute of Social Sciences with extensive programme leadership experience.",
-    },
-    {
-        name: "Ganeish Shridhar Heghisthe",
-        role: "Director – Finance",
-        bio: "Chartered Accountant with 23+ years of experience in financial leadership and compliance.",
-    },
-    {
-        name: "Harish Hariharan",
-        role: "Senior Director – Digital Skilling & Livelihoods",
-        bio: "B-Tech (IIT-BHU) and MBA (FMS – Delhi University), with strong experience in digital skilling initiatives.",
-    },
-    {
-        name: "Ipe Walliaveetil Eipe",
-        role: "Director – Individual Fundraising",
-        bio: "Heads the retail fundraising function and helps define the strategic roadmap for individual donor engagement.",
-    },
-    {
-        name: "K Sai Kulothungan",
-        role: "Senior Leader",
-        bio: "A valued member of the Magic Bus India leadership team driving programme and operational excellence.",
-    },
-];
-
 const internationalTeam = {
     uk: [
         {
@@ -254,6 +223,12 @@ const featuredLeadership = [
     {
         name: "Matthew Spacie",
         role: "Founder",
+        awards: [
+            "MBE for services to children in the Commonwealth (2007)",
+            "Ashoka Fellow",
+            "TED Fellow",
+            "ACSEP (Asia Centre for Social Entrepreneurship and Philanthropy) Fellow",
+        ],
         image: "/board-of-directors/matthew-sapacie.png",
         shortBio:
             "Formerly Chief Operating Officer of Cox and Kings and Founder of Cleartrip.com, Matthew comes with an extensive experience in senior positions in the corporate sector and an intuitive understanding of the needs of children and youth in India.",
@@ -312,21 +287,30 @@ function LeadershipBioModal({ leader, isOpen, onClose }) {
                         </button>
                         <div className="grid grid-cols-1 lg:grid-cols-2">
                             <div className="relative min-h-[300px] lg:min-h-full">
-                                <img
-                                    src={leader.image}
-                                    alt={leader.name}
-                                    className="h-full w-full object-cover object-top"
-                                />
-                                <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/60 to-transparent p-6">
+                                {leader.image || leader.photo ? (
+                                    <img
+                                        src={leader.image || leader.photo}
+                                        alt={leader.name}
+                                        className="h-full w-full object-cover object-top"
+                                    />
+                                ) : (
+                                    <div
+                                        className="flex h-full min-h-[300px] w-full items-center justify-center"
+                                        style={{ background: "linear-gradient(145deg, #E12228, #FF6B6B)" }}
+                                    >
+                                        <span className="select-none text-7xl font-extrabold text-white/90">{getInitials(leader.name)}</span>
+                                    </div>
+                                )}
+                                <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent p-6">
                                     <h3 className="text-3xl font-extrabold text-white">{leader.name}</h3>
-                                    <p className="mt-1 text-xs font-semibold uppercase tracking-[0.18em] text-brand-yellow">
+                                    <p className="mt-1 text-sm font-semibold uppercase tracking-[0.12em] text-brand-yellow">
                                         {leader.role}
                                     </p>
                                 </div>
                             </div>
-                            <div className="px-5 py-5 sm:px-6 sm:py-6 lg:py-7">
+                            <div className="px-5 py-6 sm:px-8 sm:py-8">
                                 {leader.fullBio.map((paragraph) => (
-                                    <p key={paragraph} className="mb-3 text-[13px] leading-relaxed text-[#1A1A1A]/80 last:mb-0">
+                                    <p key={paragraph} className="mb-4 text-base leading-relaxed text-[#1A1A1A]/80 last:mb-0">
                                         {paragraph}
                                     </p>
                                 ))}
@@ -460,14 +444,12 @@ function HeroSection() {
                     className="mt-10 flex flex-wrap gap-2 md:gap-0"
                 >
                     {[
-                        { num: "4", label: "Global Offices" },
-                        { num: "11+", label: "Senior Leaders" },
-                        { num: "25+", label: "Avg. Years Experience" },
+                        { num: String(indiaTeam.length + 2), label: "India Leaders" },
                         { num: "4", label: "Countries" },
                     ].map((s, i) => (
                         <div key={s.label} className="flex items-center gap-3 pr-6 mr-6 border-r border-white/10 last:border-0">
-                            <div className="text-2xl font-extrabold text-brand-yellow">{s.num}</div>
-                            <div className="text-xs text-white/40 font-medium leading-tight max-w-[80px]">{s.label}</div>
+                            <div className="text-3xl font-extrabold text-brand-yellow">{s.num}</div>
+                            <div className="text-sm text-white/60 font-medium leading-tight max-w-[90px]">{s.label}</div>
                         </div>
                     ))}
                 </motion.div>
@@ -477,7 +459,7 @@ function HeroSection() {
 }
 
 /* INDIA TEAM */
-function IndiaTeamSection() {
+function IndiaTeamSection({ onOpen }) {
     return (
         <section className="py-20 bg-[#F7F7F5]">
             <div className="max-w-7xl mx-auto px-6 lg:px-12">
@@ -486,7 +468,7 @@ function IndiaTeamSection() {
                     <h2 className="text-3xl md:text-4xl font-extrabold text-[#1A1A1A] leading-tight">
                         Leadership in India
                     </h2>
-                    <p className="mt-3 text-[#1A1A1A]/60 max-w-xl leading-relaxed">
+                    <p className="mt-3 text-lg text-[#1A1A1A]/65 max-w-2xl leading-relaxed">
                         Our India leadership team drives our core programmes across adolescent
                         development, livelihood skilling, and organisational excellence.
                     </p>
@@ -494,7 +476,7 @@ function IndiaTeamSection() {
 
                 <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5">
                     {indiaTeam.map((member, i) => (
-                        <TeamCard key={member.name} member={member} index={i} variant="light" />
+                        <TeamCard key={member.name} member={member} index={i} variant="light" onOpen={onOpen} />
                     ))}
                 </div>
             </div>
@@ -620,9 +602,13 @@ export default function OurTeam() {
 
     return (
         <Layout>
+            {/* Three structured-data (schema.org) blocks on this page: 1) Our Team, 2) Founder, 3) CEO */}
+            <OurTeamSchema founder={featuredLeadership[0]} ceo={featuredLeadership[1]} team={indiaTeam} />
+            <PersonSchema person={featuredLeadership[0]} />
+            <PersonSchema person={featuredLeadership[1]} />
             <HeroSection />
             <LeadershipIntroSection onReadMore={setSelectedLeader} />
-            <IndiaTeamSection />
+            <IndiaTeamSection onOpen={setSelectedLeader} />
             <InternationalTeamSection />
             <JoinCTA />
             <LeadershipBioModal
