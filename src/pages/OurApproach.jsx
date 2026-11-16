@@ -1,581 +1,614 @@
-// src/pages/OurApproach.jsx
-import React, { useState } from "react"; // Added useState
-import { motion } from "framer-motion";
+// src/pages/OurApproach.jsx  (new design: "Childhood to Livelihood")
+import React, { useRef, useState } from "react";
+import { motion, AnimatePresence, useInView } from "framer-motion";
+import { Link } from "react-router-dom";
 import {
-  Users,
-  Briefcase,
   Sparkles,
-  School,
+  GraduationCap,
+  Briefcase,
+  Users,
   Handshake,
+  BookMarked,
+  Layers,
+  Target,
+  ShieldCheck,
+  UserCheck,
+  CheckCircle,
   ArrowRight,
-  BookOpen,
+  GitMerge,
+  ChevronDown,
 } from "lucide-react";
 import Layout from "../components/Layout";
 import StrategicFramework from "../components/AboutUs/StrategicFramework";
-import AnimatedGradientBorder from "../components/ui/animated-gradient-border";
-import { Link } from "react-router-dom";
 
-// ===== Animation variants =====
-const container = {
-  hidden: {},
-  show: {
-    transition: { staggerChildren: 0.09, delayChildren: 0.08 },
-  },
-};
+const EASE = [0.16, 1, 0.3, 1];
 
-const fadeUp = {
-  hidden: { opacity: 0, y: 28 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.55, ease: "easeOut" } },
-};
+// Photos used on this page are real Magic Bus photos from /public/ngo-images
+const HERO_IMG = "/ngo-images/our-approach-hero.jpg";
+const ADOLESCENT_IMG = "/ngo-images/our-approach-adolescent.jpg";
+const LIVELIHOOD_IMG = "/ngo-images/our-approach-livelihood.jpg";
 
-const cardHover = { scale: 1.02, y: -4, boxShadow: "0 18px 40px rgba(0,0,0,0.12)" };
+const STYLES = `
+.oa-page{font-family:"Plus Jakarta Sans",system-ui,sans-serif}
+.oa-display{font-family:"Epilogue","Plus Jakarta Sans",system-ui,sans-serif;letter-spacing:-0.02em}
+@keyframes oaSpin{to{transform:rotate(360deg)}}
+@keyframes oaPing{75%,100%{transform:scale(1.7);opacity:0}}
+.oa-orbit{animation:oaSpin 40s linear infinite;transform-origin:400px 310px}
+.oa-ping{animation:oaPing 2.4s cubic-bezier(0,0,.2,1) infinite}
+.oa-scroll-row{scrollbar-width:none}
+.oa-scroll-row::-webkit-scrollbar{display:none}
+@media (prefers-reduced-motion: reduce){.oa-orbit,.oa-ping{animation:none}}
+`;
 
-// ===== Small components =====
-function ProgramCard({ img, title, colorClass, Icon, children, href = "#" }) {
-  return (
-    <motion.article
-      whileHover={cardHover}
-      className="bg-white rounded-2xl overflow-hidden border shadow-sm hover:shadow-md transition"
-    >
-      <div className="h-64 w-full overflow-hidden">
-        <img src={img} alt={title} className="w-full h-full object-cover" />
-      </div>
-
-      <div className="p-6">
-        <h3 className="flex items-center gap-3 text-lg font-semibold">
-          <span className={`p-2 rounded-md ${colorClass} text-white`}>
-            <Icon size={18} />
-          </span>
-          {title}
-        </h3>
-
-        <p className="mt-3 text-gray-600 text-sm leading-relaxed">{children}</p>
-
-        <a
-          href={href}
-          className={`mt-4 inline-flex items-center gap-2 text-sm font-semibold ${colorClass.replace(
-            "bg-",
-            "text-"
-          )} hover:gap-3 transition`}
-        >
-          Learn More <ArrowRight size={16} />
-        </a>
-      </div>
-    </motion.article>
-  );
-}
-
-function InfoCard({ title, children, accent }) {
+function FadeUp({ children, delay = 0, className = "" }) {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: "-60px" });
   return (
     <motion.div
-      variants={fadeUp}
-      className="p-6 bg-white rounded-xl border shadow-sm"
+      ref={ref}
+      className={className}
+      initial={{ opacity: 0, y: 28 }}
+      animate={inView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.6, ease: EASE, delay }}
     >
-      <h4 className={`font-semibold mb-2 ${accent || "text-brand-red"}`}>{title}</h4>
-      <p className="text-gray-600 text-sm">{children}</p>
+      {children}
     </motion.div>
   );
 }
 
-// ===== Key Components Circular Diagram (Updated) =====
-function KeyComponentsGrid() {
-  // State to track which component is active (Default to ID 1)
-  const [activeId, setActiveId] = useState(1);
+/* ------------------------------------------------------------------
+   The five pillars. Descriptions are the same approved wording the page
+   already used; the three small tags under each description are taken
+   word-for-word from that description.
+------------------------------------------------------------------- */
+const PILLARS = [
+  {
+    id: 1,
+    short: "Life Skills",
+    title: "Life Skills Education",
+    lines: ["Life Skills", "Education"],
+    tag: "Pillar 01",
+    Icon: Sparkles,
+    hex: "#F59E0B",
+    iconBg: "bg-amber-500",
+    dot: "bg-amber-500",
+    text: "text-amber-600",
+    chipActive: "bg-amber-500",
+    desc: "Teaches core life skills to adolescents and youth, helping them become more resilient and show higher self-efficacy.",
+    chips: ["Core life skills", "Resilience", "Self-efficacy"],
+    pos: { top: 25, left: "50%", transform: "translateX(-50%)", width: 220 },
+  },
+  {
+    id: 2,
+    short: "Education Enhancement",
+    title: "Education Enhancement",
+    lines: ["Education", "Enhancement"],
+    tag: "Pillar 02",
+    Icon: GraduationCap,
+    hex: "#C026D3",
+    iconBg: "bg-fuchsia-600",
+    dot: "bg-fuchsia-500",
+    text: "text-fuchsia-600",
+    chipActive: "bg-fuchsia-600",
+    desc: "Provides adolescents with learning support that improves their basic literacy and numeracy, to boost their overall grades.",
+    chips: ["Basic literacy", "Basic numeracy", "Better grades"],
+    pos: { top: 140, right: 55, width: 210 },
+  },
+  {
+    id: 3,
+    short: "Employability Skills",
+    title: "Employability Skills Education",
+    lines: ["Employability", "Skills Education"],
+    tag: "Pillar 03",
+    Icon: Briefcase,
+    hex: "#2563EB",
+    iconBg: "bg-blue-600",
+    dot: "bg-blue-500",
+    text: "text-blue-600",
+    chipActive: "bg-blue-600",
+    desc: "Includes financial literacy, digital literacy, spoken English and career awareness that will help young people to get a job.",
+    chips: ["Financial & digital literacy", "Spoken English", "Career awareness"],
+    pos: { bottom: 50, right: 140, width: 220 },
+  },
+  {
+    id: 4,
+    short: "Livelihood Connect",
+    title: "Livelihood Connect",
+    lines: ["Livelihood", "Connect"],
+    tag: "Pillar 04",
+    Icon: Users,
+    hex: "#E11D48",
+    iconBg: "bg-rose-600",
+    dot: "bg-rose-500",
+    text: "text-rose-600",
+    chipActive: "bg-rose-600",
+    desc: "Involves sector-specific orientation, placement and post-placement support to help young people sustain their jobs.",
+    chips: ["Sector-specific orientation", "Placement", "Post-placement support"],
+    pos: { bottom: 50, left: 140, width: 220 },
+  },
+  {
+    id: 5,
+    short: "Community Engagement",
+    title: "Community Engagement",
+    lines: ["Community", "Engagement"],
+    tag: "Pillar 05",
+    Icon: Handshake,
+    hex: "#059669",
+    iconBg: "bg-emerald-600",
+    dot: "bg-emerald-500",
+    text: "text-emerald-600",
+    chipActive: "bg-emerald-600",
+    desc: "Engages with parents, local government bodies, and the community to build support for adolescents.",
+    chips: ["Parents", "Local government bodies", "Community support"],
+    pos: { top: 140, left: 55, width: 210 },
+  },
+];
 
-  const components = [
-    {
-      id: 1,
-      title: "Life Skills\nEducation",
-      icon: Sparkles,
-      color: "bg-brand-yellow",
-      borderColor: "border-brand-yellow",
-      textColor: "text-brand-yellow",
-      position: { top: "0%", left: "35%", transform: "translate(-35%, 0%)" },
-      description: "Teaches core life skills to adolescents and youth, helping them become more resilient and show higher self-efficacy."
-    },
-    {
-      id: 2,
-      title: "Education\nEnhancement",
-      icon: School,
-      color: "bg-brand-magenta",
-      borderColor: "border-brand-magenta",
-      textColor: "text-brand-magenta",
-      position: { top: "30%", right: "0%", transform: "translate(0%, 0%)" },
-      description: "Provides adolescents with learning support that improves their basic literacy and numeracy, to boost their overall grades."
-    },
-    {
-      id: 3,
-      title: "Employability\nSkills Education",
-      icon: Briefcase,
-      color: "bg-brand-blue",
-      borderColor: "border-brand-blue",
-      textColor: "text-brand-blue",
-      position: { bottom: "10%", right: "10%", transform: "translate(0%, 0%)" },
-      description: "Includes financial literacy, digital literacy, spoken English and career awareness that will help young people to get a job."
-    },
-    {
-      id: 4,
-      title: "Livelihood\nConnect",
-      icon: Users,
-      color: "bg-brand-red",
-      borderColor: "border-brand-red",
-      textColor: "text-brand-red",
-      position: { bottom: "10%", left: "10%", transform: "translate(0%, 0%)" },
-      description: "Involves sector-specific orientation, placement and post-placement support to help young people sustain their jobs."
-    },
-    {
-      id: 5,
-      title: "Community\nEngagement",
-      icon: Handshake,
-      color: "bg-brand-green",
-      borderColor: "border-brand-green",
-      textColor: "text-brand-green",
-      position: { top: "30%", left: "0%", transform: "translate(0%, 0%)" },
-      description: "Engages with parents, local government bodies, and the community to build support for adolescents."
-    },
-  ];
+// line end points for the diagram (centre is 400,310)
+const LINE_ENDS = {
+  1: [400, 85],
+  2: [630, 190],
+  3: [550, 495],
+  4: [250, 495],
+  5: [170, 190],
+};
 
+const CHIP_ICONS = [Target, ShieldCheck, UserCheck];
+
+/* ====================== HERO ====================== */
+function Hero() {
   return (
-    <section className="py-20 bg-white overflow-hidden">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-10 md:mb-20"
-        >
-          <h3 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 tracking-wide">
-            KEY COMPONENTS
-          </h3>
-          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-            Five integrated pillars working together to move youth from childhood into secure livelihoods.
-          </p>
-        </motion.div>
+    <section
+      id="overview"
+      className="relative flex min-h-[78svh] items-center overflow-hidden bg-slate-900 text-white md:min-h-[88vh]"
+      style={{ marginTop: "var(--header-h, 93px)" }}
+    >
+      <div className="absolute inset-0">
+        <img
+          src={HERO_IMG}
+          alt="A Magic Bus mentor walking with two children"
+          className="h-full w-full object-cover object-center brightness-[0.45] contrast-[1.05]"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/60 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-slate-900/90 via-slate-900/55 to-transparent" />
+      </div>
 
-        {/* ===== DESKTOP RADIAL LAYOUT (Visible on lg screens) ===== */}
-        <div className="hidden lg:block relative w-full max-w-4xl mx-auto aspect-square max-h-[700px]">
-
-          {/* Central Hub */}
+      <div className="relative z-10 mx-auto w-full max-w-7xl px-4 py-16 sm:px-6 md:py-24 lg:px-8">
+        <div className="max-w-3xl space-y-6">
           <motion.div
-            initial={{ scale: 0, opacity: 0 }}
-            whileInView={{ scale: 1, opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20"
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, ease: EASE }}
+            className="inline-flex items-center gap-2 rounded-full border border-amber-400/40 bg-amber-500/20 px-3.5 py-1.5 text-xs font-semibold uppercase tracking-wider text-amber-300 backdrop-blur-md"
           >
-            {/* Pulsing rings around center */}
-            <div className="absolute inset-0 rounded-full border-2 border-gray-100 scale-[1.8] opacity-50"></div>
-            <div className="absolute inset-0 rounded-full border border-gray-100 scale-[2.5] opacity-30"></div>
-
-            <div className="w-48 h-48 bg-white rounded-full flex flex-col items-center justify-center shadow-2xl border-4 border-gray-50 z-20 relative">
-              <div className="p-3 bg-gray-50 rounded-full mb-2">
-                <BookOpen className="w-8 h-8 text-gray-400" />
-              </div>
-              <h4 className="text-xl font-bold text-gray-800 text-center leading-none">
-                OUR<br /><span className="text-brand-red">APPROACH</span>
-              </h4>
-            </div>
+            <span className="oa-ping relative inline-flex h-2 w-2 rounded-full bg-amber-400" />
+            Our Approach &amp; Pedagogy
           </motion.div>
 
-          {/* Component Satellites */}
-          {components.map((component, index) => {
-            const Icon = component.icon;
-            const delay = 0.5 + (index * 0.1);
-            const isActive = activeId === component.id;
+          <motion.h1
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: EASE, delay: 0.08 }}
+            className="oa-display text-4xl font-extrabold leading-[1.12] tracking-tight sm:text-5xl lg:text-6xl"
+          >
+            Equip. Educate. <br />
+            <span className="bg-gradient-to-r from-amber-300 via-rose-400 to-rose-500 bg-clip-text text-transparent">Empower for Life.</span>
+          </motion.h1>
 
-            return (
-              <motion.div
-                key={component.id}
-                initial={{ scale: 0, opacity: 0 }}
-                whileInView={{ scale: 1, opacity: 1 }}
-                viewport={{ once: true }}
-                transition={{
-                  duration: 0.5,
-                  delay: delay,
-                  type: "spring",
-                  stiffness: 100
-                }}
-                className="absolute w-64 group z-30"
-                style={component.position}
-                onMouseEnter={() => setActiveId(component.id)} // Set Active on Hover
-              >
-                <div className="flex flex-col items-center text-center">
+          <motion.p
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: EASE, delay: 0.16 }}
+            className="max-w-2xl text-base leading-relaxed text-slate-200 sm:text-lg md:text-xl"
+          >
+            Working hand-in-hand with vulnerable young people to create an unbroken pathway from childhood into sustainable, dignified
+            livelihoods—combining socio-emotional life skills, foundational education, and sector-specific employability aligned with NEP 2020.
+          </motion.p>
 
-                  {/* Icon Circle */}
-                  <div className={`
-                    w-20 h-20 rounded-full flex items-center justify-center shadow-lg mb-4
-                    text-white ${component.color} relative z-10 transition-transform duration-300 
-                    ${isActive ? 'scale-110 shadow-xl' : 'scale-100'}
-                  `}>
-                    <Icon size={32} className="relative z-10" />
-
-                    {/* Rotating Dashed ring around icon */}
-                    <motion.div
-                      animate={{ rotate: 360 }}
-                      transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
-                      className={`absolute inset-0 rounded-full border-2 border-dashed ${component.borderColor} opacity-60 scale-125`}
-                    />
-                  </div>
-
-                  {/* Title */}
-                  <h4 className={`font-bold text-lg mb-2 whitespace-pre-line leading-tight transition-colors duration-300 ${isActive ? 'text-brand-black' : 'text-gray-500'}`}>
-                    {component.title}
-                  </h4>
-
-                  {/* Description Card (Visible if Active) */}
-                  <div className={`
-                      transition-all duration-500 transform absolute top-full left-1/2 -translate-x-1/2 w-72 bg-white p-4 rounded-xl shadow-xl border border-gray-100 z-50
-                      ${isActive ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 translate-y-4 pointer-events-none'}
-                  `}>
-                    <p className="text-sm text-gray-600 leading-relaxed text-left">
-                      {component.description}
-                    </p>
-                    <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-4 h-4 bg-white transform rotate-45 border-l border-t border-gray-100"></div>
-                  </div>
-
-                </div>
-
-                {/* Connecting Line to Center */}
-                <svg className="absolute top-1/2 left-1/2 w-[500px] h-[500px] -translate-x-1/2 -translate-y-1/2 -z-10 pointer-events-none opacity-20">
-                  <line x1="50%" y1="50%" x2="50%" y2="50%" stroke="currentColor" strokeWidth="1" />
-                </svg>
-
-              </motion.div>
-            );
-          })}
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: EASE, delay: 0.24 }}
+            className="flex flex-wrap items-center gap-3 pt-2 sm:gap-4"
+          >
+            <a
+              href="#framework"
+              className="flex items-center gap-2.5 rounded-xl bg-rose-600 px-6 py-3.5 font-semibold text-white shadow-lg shadow-rose-600/40 transition hover:-translate-y-0.5 hover:bg-rose-700"
+            >
+              Strategic Framework
+              <GitMerge className="h-5 w-5" />
+            </a>
+            <a
+              href="#programmes"
+              className="flex items-center gap-2 rounded-xl border border-white/25 bg-white/10 px-6 py-3.5 font-semibold text-white backdrop-blur-md transition hover:bg-white/20"
+            >
+              Explore 2 Programmes
+              <ChevronDown className="h-4 w-4" />
+            </a>
+          </motion.div>
         </div>
-
-        {/* ===== MOBILE/TABLET LIST LAYOUT (Visible on md/sm screens) ===== */}
-        <div className="lg:hidden grid grid-cols-1 md:grid-cols-2 gap-6">
-          {components.map((component, index) => {
-            const Icon = component.icon;
-            return (
-              <motion.div
-                key={component.id}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex flex-col items-center text-center"
-              >
-                <div className={`p-4 rounded-full ${component.color} text-white mb-4 relative`}>
-                  <Icon size={24} className="relative z-10" />
-                  {/* Mobile Rotation Effect */}
-                  <motion.div
-                    animate={{ rotate: 360 }}
-                    transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
-                    className="absolute inset-0 border-2 border-dashed border-white/50 rounded-full scale-110"
-                  />
-                </div>
-                <h4 className={`font-bold text-lg mb-2 ${component.textColor}`}>
-                  {component.title.replace('\n', ' ')}
-                </h4>
-                <p className="text-gray-600 text-sm leading-relaxed">
-                  {component.description}
-                </p>
-              </motion.div>
-            )
-          })}
-        </div>
-
       </div>
     </section>
   );
 }
 
-// ===== Page component =====
-export default function OurApproach() {
-  const heroImg = "/ngo-images/our-approach-hero.jpg";
-  const adolescentImg = "/ngo-images/our-approach-adolescent.jpg";
-  const livelihoodImg = "/ngo-images/our-approach-livelihood.jpg";
+/* ====================== OVERVIEW (existing approved intro text) ====================== */
+function Overview() {
+  const focus = [
+    { Icon: Sparkles, hex: "bg-amber-500", title: "Life Skills", text: "Socio-emotional learning, resilience & decision-making" },
+    { Icon: GraduationCap, hex: "bg-fuchsia-600", title: "Education Enhancement", text: "Foundational literacy & numeracy support" },
+    { Icon: Briefcase, hex: "bg-blue-600", title: "Livelihood Skills", text: "Digital, English, sector-specific training & job placement" },
+  ];
+  return (
+    <section className="bg-white py-12 md:py-20">
+      <div className="mx-auto grid max-w-7xl gap-8 px-4 sm:px-6 lg:grid-cols-5 lg:gap-14 lg:px-8">
+        <FadeUp className="lg:col-span-3">
+          <span className="inline-flex items-center gap-2 rounded-full border border-rose-200 bg-rose-50 px-3 py-1 text-xs font-bold uppercase tracking-wider text-rose-600">
+            Overview
+          </span>
+          <h2 className="oa-display mt-3 text-3xl font-extrabold text-slate-900 sm:text-4xl">Our Approach</h2>
+          <p className="mt-4 text-base leading-relaxed text-slate-600 sm:text-lg">
+            Young people from underserved communities are especially vulnerable to the fallouts of poverty such as school drop-out and child
+            labour. Magic Bus works to address these at the root through our <strong className="text-slate-900">Childhood to Livelihood</strong>{" "}
+            approach. The National Education Policy (2020) emphasises socio-emotional learning and higher-order thinking skills — both core to our
+            programmes.
+          </p>
+        </FadeUp>
+
+        <FadeUp delay={0.1} className="lg:col-span-2">
+          <div className="rounded-3xl border border-slate-200 bg-slate-50 p-5 shadow-sm sm:p-6">
+            <h3 className="oa-display text-sm font-extrabold uppercase tracking-wider text-slate-500">Focus Areas</h3>
+            <ul className="mt-4 space-y-3">
+              {focus.map(({ Icon, hex, title, text }) => (
+                <li key={title} className="flex items-start gap-3 rounded-2xl bg-white p-3 shadow-sm">
+                  <span className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl text-white ${hex}`}>
+                    <Icon className="h-5 w-5" />
+                  </span>
+                  <div>
+                    <p className="text-sm font-bold text-slate-900">{title}</p>
+                    <p className="text-xs leading-relaxed text-slate-600">{text}</p>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </FadeUp>
+      </div>
+    </section>
+  );
+}
+
+/* ====================== FIVE PILLARS (interactive) ====================== */
+function Pillars() {
+  const [activeId, setActiveId] = useState(1);
+  const active = PILLARS.find((p) => p.id === activeId);
 
   return (
-    <Layout>
-      <main className="text-ink font-sans bg-white">
-        {/* ===== HERO ===== */}
-        <section className="relative h-screen w-full overflow-hidden bg-[#1A1A1A]">
-          <img
-            src={heroImg}
-            alt="Adult with children walking (Magic Bus)"
-            className="absolute inset-0 w-full h-full object-cover brightness-[0.57]"
-            onError={(e) => {
-              e.currentTarget.src =
-                "https://images.unsplash.com/photo-1593113598332-cd5ca77b6b0b";
-            }}
-          />
+    <section id="components" className="relative overflow-hidden bg-white py-12 md:py-24">
+      <div className="pointer-events-none absolute -top-32 left-1/2 -z-0 h-[900px] w-[900px] -translate-x-1/2 rounded-full bg-gradient-to-b from-rose-50/60 via-slate-50/40 to-transparent blur-3xl" />
+      <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <FadeUp className="mx-auto mb-8 max-w-3xl text-center md:mb-14">
+          <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-rose-200 bg-rose-50 px-3 py-1 text-xs font-bold uppercase tracking-wider text-rose-600">
+            <Layers className="h-3.5 w-3.5" /> Integrated Ecosystem
+          </div>
+          <h2 className="oa-display text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl lg:text-5xl">Five Pillars of Our Approach</h2>
+          <p className="mt-4 text-base leading-relaxed text-slate-600 sm:text-lg">
+            Hover or tap any pillar below to see how these five connected components work together to guide adolescents into sustainable livelihoods.
+          </p>
+        </FadeUp>
 
-          <div className="relative z-10 h-full flex items-center">
-            <div className="max-w-6xl mx-auto px-6 lg:px-8 w-full grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
-              <motion.div
-                variants={container}
-                initial="hidden"
-                whileInView="show"
-                viewport={{ once: true, amount: 0.3 }}
-                className="space-y-6"
+        {/* Pillar tabs: one swipeable row on phones */}
+        <div className="oa-scroll-row -mx-4 mb-8 flex items-center gap-2 overflow-x-auto px-4 pb-1 sm:mx-0 sm:mb-12 sm:flex-wrap sm:justify-center sm:gap-3 sm:overflow-visible sm:px-0">
+          {PILLARS.map((p) => {
+            const on = p.id === activeId;
+            return (
+              <button
+                key={p.id}
+                onClick={() => setActiveId(p.id)}
+                className={`flex shrink-0 items-center gap-2 whitespace-nowrap rounded-full border px-4 py-2 text-xs font-semibold shadow-sm transition-all duration-200 sm:text-sm ${
+                  on ? `${p.chipActive} border-transparent text-white` : "border-slate-200 bg-white text-slate-700 hover:border-slate-300"
+                }`}
               >
-                <motion.span
-                  variants={fadeUp}
-                  className="inline-block bg-brand-yellow text-brand-black px-3 py-1 rounded-full text-sm font-semibold"
-                >
-                  Our Approach
-                </motion.span>
+                <span className={`h-2.5 w-2.5 rounded-full ${on ? "bg-white" : p.dot}`} />
+                {p.short}
+              </button>
+            );
+          })}
+        </div>
 
-                <motion.h1
-                  variants={fadeUp}
-                  className="text-3xl md:text-5xl font-heading font-extrabold leading-tight text-white max-w-xl"
-                >
-                  Equip. Educate. Empower.
-                </motion.h1>
+        {/* Desktop radial diagram */}
+        <div className="relative mx-auto mb-8 hidden h-[620px] w-full max-w-4xl select-none lg:block">
+          <svg className="pointer-events-none absolute inset-0 h-full w-full" fill="none" viewBox="0 0 800 620">
+            <circle className="oa-orbit" cx="400" cy="310" r="230" stroke="#E2E8F0" strokeDasharray="6 6" strokeWidth="2" />
+            <circle cx="400" cy="310" r="160" stroke="#F1F5F9" strokeWidth="1.5" />
+            {PILLARS.map((p) => (
+              <line
+                key={p.id}
+                x1="400"
+                y1="310"
+                x2={LINE_ENDS[p.id][0]}
+                y2={LINE_ENDS[p.id][1]}
+                stroke={p.hex}
+                strokeDasharray="4 4"
+                strokeWidth="2.5"
+                style={{ opacity: p.id === activeId ? 0.9 : 0.25, transition: "opacity 0.5s" }}
+              />
+            ))}
+          </svg>
 
-                <motion.p variants={fadeUp} className="text-white/90 max-w-xl">
-                  Magic Bus works with vulnerable young people to create a
-                  seamless pathway from childhood to livelihood — combining
-                  socio-emotional learning, foundational education and sectoral
-                  employability aligned with NEP 2020.
-                </motion.p>
-
-                <motion.div variants={fadeUp} className="flex gap-4">
-                  <motion.a
-                    whileHover={{ scale: 1.03 }}
-                    className="inline-flex items-center gap-2 px-5 py-3 rounded-md bg-brand-red text-white font-semibold shadow"
-                    href="#programmes"
-                  >
-                    Explore Programmes
-                    <ArrowRight size={14} />
-                  </motion.a>
-
-                  <motion.a
-                    whileHover={{ scale: 1.03 }}
-                    className="inline-flex items-center gap-2 px-5 py-3 rounded-md border border-white/30 text-white bg-white/10"
-                    href="#impact"
-                  >
-                    Our Impact
-                  </motion.a>
-                </motion.div>
-              </motion.div>
-
-              <div className="hidden md:flex justify-end">
-                <motion.div
-                  variants={fadeUp}
-                  className="w-full max-w-xs text-right pr-6"
-                >
-                  <div className="bg-white/6 rounded-lg p-4 backdrop-blur-sm">
-                    <h3 className="text-white font-semibold">Childhood to Livelihood</h3>
-                    <p className="text-white/90 text-sm mt-2">
-                      Two aligned pathways for adolescents and youth to ensure
-                      educational completion and stable livelihoods.
-                    </p>
-                  </div>
-                </motion.div>
+          {/* Central hub */}
+          <div className="absolute left-1/2 top-1/2 z-20 -translate-x-1/2 -translate-y-1/2 text-center">
+            <div className="relative flex h-44 w-44 flex-col items-center justify-center rounded-full border-4 border-slate-50 bg-white p-4 shadow-2xl transition-transform duration-300 hover:scale-105">
+              <div className="oa-ping pointer-events-none absolute inset-0 rounded-full border-2 border-rose-300 opacity-25" />
+              <div className="mb-2 flex h-12 w-12 items-center justify-center rounded-full bg-rose-50 text-rose-600 shadow-inner">
+                <BookMarked className="h-6 w-6" />
               </div>
+              <span className="text-[11px] font-bold uppercase tracking-widest text-slate-400">Our Model</span>
+              <h3 className="oa-display text-xl font-extrabold leading-tight text-slate-900">
+                CHILDHOOD <br />
+                <span className="text-rose-600">TO LIVELIHOOD</span>
+              </h3>
             </div>
           </div>
-        </section>
 
-        {/* ===== INTRO & BREADCRUMB ===== */}
-        <section className="py-12 bg-white">
-          <div className="max-w-7xl mx-auto px-6 lg:px-8">
-            <div className="text-sm text-gray-500 mb-4">Home / Our Approach</div>
-
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-              <motion.div
-                variants={fadeUp}
-                initial="hidden"
-                whileInView="show"
-                viewport={{ once: true }}
-                className="lg:col-span-2"
+          {/* Pillar nodes */}
+          {PILLARS.map((p) => {
+            const on = p.id === activeId;
+            return (
+              <div
+                key={p.id}
+                role="button"
+                tabIndex={0}
+                aria-label={p.title}
+                onClick={() => setActiveId(p.id)}
+                onMouseEnter={() => setActiveId(p.id)}
+                onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && setActiveId(p.id)}
+                className="absolute z-30 cursor-pointer text-center"
+                style={p.pos}
               >
-                <h2 className="text-2xl md:text-3xl font-semibold text-brand-black">
-                  Our Approach
-                </h2>
-
-                <p className="mt-4 text-gray-700 leading-relaxed">
-                  Young people from underserved communities are especially
-                  vulnerable to the fallouts of poverty such as school
-                  drop-out and child labour. Magic Bus works to address these at
-                  the root through our <strong>Childhood to Livelihood</strong>{" "}
-                  approach. The National Education Policy (2020) emphasises
-                  socio-emotional learning and higher-order thinking skills —
-                  both core to our programmes.
-                </p>
-              </motion.div>
-
-              <motion.div
-                variants={fadeUp}
-                initial="hidden"
-                whileInView="show"
-                viewport={{ once: true }}
-              >
-                <AnimatedGradientBorder radius="1rem">
-                  <aside className="bg-gray-50 rounded-2xl p-6">
-                    <h4 className="font-semibold text-brand-black mb-3">Focus Areas</h4>
-                    <ul className="space-y-3 text-sm text-gray-700">
-                      <li className="flex items-start gap-3">
-                        <Sparkles className="mt-1 text-brand-yellow" size={16} />
-                        <div>
-                          <strong className="block">Life Skills</strong>
-                          Socio-emotional learning, resilience & decision-making
-                        </div>
-                      </li>
-                      <li className="flex items-start gap-3">
-                        <School className="mt-1 text-brand-blue" size={16} />
-                        <div>
-                          <strong className="block">Education Enhancement</strong>
-                          Foundational literacy & numeracy support
-                        </div>
-                      </li>
-                      <li className="flex items-start gap-3">
-                        <Briefcase className="mt-1 text-brand-magenta" size={16} />
-                        <div>
-                          <strong className="block">Livelihood Skills</strong>
-                          Digital, English, sector-specific training & job placement
-                        </div>
-                      </li>
-                    </ul>
-                  </aside>
-                </AnimatedGradientBorder>
-              </motion.div>
-            </div>
-          </div>
-        </section>
-
-        {/* ===== PROGRAMME AREAS (TWO-COLUMN) ===== */}
-        <section id="programmes" className="py-12 bg-gray-50">
-          <div className="max-w-7xl mx-auto px-6 lg:px-8">
-            <motion.h3
-              variants={fadeUp}
-              initial="hidden"
-              whileInView="show"
-              viewport={{ once: true }}
-              className="text-2xl font-semibold text-center text-brand-black mb-8"
-            >
-              Programme Areas
-            </motion.h3>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <motion.div variants={container} initial="hidden" whileInView="show" viewport={{ once: true }}>
-                <ProgramCard
-                  img={adolescentImg}
-                  title="Adolescent Programme"
-                  colorClass="bg-brand-red"
-                  Icon={Users}
+                <div
+                  className={`mx-auto flex h-20 w-20 items-center justify-center rounded-2xl text-white shadow-lg transition-all duration-300 ${p.iconBg} ${
+                    on ? "scale-110 ring-4 shadow-2xl" : "ring-4 ring-transparent"
+                  }`}
+                  style={on ? { boxShadow: `0 18px 30px -8px ${p.hex}88`, ["--tw-ring-color"]: `${p.hex}33` } : { boxShadow: `0 8px 16px -6px ${p.hex}66` }}
                 >
-                  Through the Adolescent Programme we work with adolescents for
-                  holistic development — helping them complete secondary
-                  education. Activity-based life skills and education enhancement
-                  build confidence and foundational literacy & numeracy.
-                </ProgramCard>
-              </motion.div>
+                  <p.Icon className="h-9 w-9" />
+                </div>
+                <h4 className={`oa-display mt-3 text-base font-bold leading-tight transition-colors ${on ? "text-slate-950" : "text-slate-500"}`}>
+                  {p.lines[0]}
+                  <br />
+                  {p.lines[1]}
+                </h4>
+              </div>
+            );
+          })}
+        </div>
 
-              <motion.div variants={container} initial="hidden" whileInView="show" viewport={{ once: true }}>
-                <ProgramCard
-                  img={livelihoodImg}
-                  title="Livelihood Programme"
-                  colorClass="bg-brand-blue"
-                  Icon={Briefcase}
-                >
-                  The Livelihood Programme enhances youth employability via
-                  life skills, sectoral training and job placements. Post-placement
-                  mentoring and financial counselling supports retention.
-                </ProgramCard>
-              </motion.div>
-            </div>
-          </div>
-        </section>
-
-        {/* ===== KEY COMPONENTS (GRID) ===== */}
-        <KeyComponentsGrid />
-
-        {/* ===== THEORY OF CHANGE ===== */}
-        <section className="py-12 bg-gray-50">
-          <div className="max-w-6xl mx-auto px-6">
-            <motion.h3
-              variants={fadeUp}
-              initial="hidden"
-              whileInView="show"
-              viewport={{ once: true }}
-              className="text-2xl font-semibold text-center text-brand-black"
-            >
-              Theory of Change
-            </motion.h3>
-
-            <motion.p
-              variants={fadeUp}
-              initial="hidden"
-              whileInView="show"
-              viewport={{ once: true }}
-              className="mt-3 text-gray-600 max-w-3xl mx-auto text-center"
-            >
-              Magic Bus emerged stronger following the pandemic. A planning
-              exercise mapped a strategy to deliver two aligned, skills-anchored
-              approaches for adolescents and youth.
-            </motion.p>
-
-            <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
-              <InfoCard title="Strategic Pathways">
-                Adolescent Programme (12–18): secondary completion and life
-                skills. Livelihood Programme (18–25): skills, placements and
-                retention.
-              </InfoCard>
-
-              <InfoCard title="Best-in-Class Programmes">
-                Direct delivery (school & community), government partnership,
-                livelihood centers for skilling & placement support.
-              </InfoCard>
-
-              <InfoCard title="Outcomes of Focus">
-                Academic impact, empowerment & agency, employability,
-                job-placement and workplace retention.
-              </InfoCard>
-            </div>
-          </div>
-        </section>
-
-        {/* ===== STRATEGIC FRAMEWORK ===== */}
-        <StrategicFramework />
-
-        {/* ===== CTA ===== */}
-        <section className="bg-brand-red text-white py-12">
-          <div className="max-w-5xl mx-auto px-6 text-center">
-            <motion.h3
-              variants={fadeUp}
-              initial="hidden"
-              whileInView="show"
-              viewport={{ once: true }}
-              className="text-2xl font-semibold"
-            >
-              Join us to transform lives
-            </motion.h3>
-
-            <motion.p
-              variants={fadeUp}
-              initial="hidden"
-              whileInView="show"
-              viewport={{ once: true }}
-              className="mt-3 max-w-2xl mx-auto text-white/90"
-            >
-              Support programmes that create sustained change — from classrooms
-              to careers. Partner, volunteer or donate to build a stronger
-              future for vulnerable young people.
-            </motion.p>
-
+        {/* Detail card */}
+        <div className="mx-auto max-w-3xl">
+          <AnimatePresence mode="wait">
             <motion.div
-              variants={fadeUp}
-              initial="hidden"
-              whileInView="show"
-              viewport={{ once: true }}
-              className="mt-6 flex justify-center gap-4"
+              key={active.id}
+              initial={{ opacity: 0, y: 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.28 }}
+              className="relative rounded-3xl border-2 bg-white p-5 shadow-xl shadow-slate-200/50 sm:p-8"
+              style={{ borderColor: `${active.hex}66`, backgroundImage: `linear-gradient(135deg, ${active.hex}1A, #ffffff 55%)` }}
             >
-              <Link to="/donate" className="px-5 py-2 rounded-md bg-white text-brand-red font-semibold">
-                Donate
-              </Link>
-              <Link to="/partner" className="px-5 py-2 rounded-md border border-white/40 text-white">
-                Partner with us
-              </Link>
+              <div className="flex flex-col justify-between gap-4 border-b border-slate-100 pb-4 sm:flex-row sm:items-center">
+                <div className="flex items-center gap-3.5">
+                  <span className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl text-white shadow-md ${active.iconBg}`}>
+                    <active.Icon className="h-6 w-6" />
+                  </span>
+                  <div>
+                    <span className={`text-xs font-bold uppercase tracking-wider ${active.text}`}>{active.tag}</span>
+                    <h3 className="oa-display text-xl font-bold text-slate-900 sm:text-2xl">{active.title}</h3>
+                  </div>
+                </div>
+              </div>
+
+              <p className="mt-5 text-base leading-relaxed text-slate-700 sm:text-lg">{active.desc}</p>
+
+              <div className="mt-6 grid gap-3 border-t border-slate-100 pt-4 text-xs font-medium text-slate-600 sm:grid-cols-3">
+                {active.chips.map((c, i) => {
+                  const Icon = CHIP_ICONS[i % CHIP_ICONS.length];
+                  return (
+                    <div key={c} className="flex items-center gap-2 rounded-xl bg-slate-50 p-2.5">
+                      <Icon className={`h-4 w-4 shrink-0 ${active.text}`} />
+                      <span>{c}</span>
+                    </div>
+                  );
+                })}
+              </div>
             </motion.div>
-          </div>
-        </section>
+          </AnimatePresence>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ====================== PROGRAMME AREAS ====================== */
+const PROGRAMMES = [
+  {
+    key: "adolescent",
+    img: ADOLESCENT_IMG,
+    imgAlt: "Children taking part in a Magic Bus session on a playground",
+    badge: "Ages 12 – 18",
+    badgeBg: "bg-rose-600",
+    BadgeIcon: Users,
+    title: "Adolescent Programme",
+    sub: "Helping adolescents complete secondary education",
+    text: "Through the Adolescent Programme we work with adolescents for holistic development — helping them complete secondary education. Activity-based life skills and education enhancement build confidence and foundational literacy & numeracy.",
+    points: ["Socio-emotional learning, resilience & decision-making", "Foundational literacy & numeracy support", "Activity-based life skills and education enhancement"],
+    foot: "Direct delivery in schools & communities",
+    cta: "Support Adolescents",
+    to: "/donate",
+    ctaColor: "text-rose-600",
+  },
+  {
+    key: "livelihood",
+    img: LIVELIHOOD_IMG,
+    imgAlt: "Young people in a Magic Bus livelihood training session",
+    badge: "Ages 18 – 25",
+    badgeBg: "bg-blue-600",
+    BadgeIcon: Briefcase,
+    title: "Livelihood Programme",
+    sub: "Employability, placement and retention",
+    text: "The Livelihood Programme enhances youth employability via life skills, sectoral training and job placements. Post-placement mentoring and financial counselling supports retention.",
+    points: ["Digital, English & sector-specific training", "Job placements", "Post-placement mentoring & financial counselling"],
+    foot: "Livelihood centres",
+    cta: "Hire or Partner",
+    to: "/partner",
+    ctaColor: "text-blue-600",
+  },
+];
+
+function Programmes() {
+  return (
+    <section id="programmes" className="border-t border-slate-200 bg-slate-100 py-12 md:py-20">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <FadeUp className="mx-auto mb-8 max-w-3xl text-center md:mb-14">
+          <span className="rounded-full bg-rose-100 px-3 py-1 text-xs font-bold uppercase tracking-wider text-rose-600">Core Offerings</span>
+          <h2 className="oa-display mt-3 text-3xl font-extrabold text-slate-900 sm:text-4xl">Two Targeted Programme Areas</h2>
+          <p className="mt-3 text-base text-slate-600 sm:text-lg">Interventions designed for adolescents and young adults respectively.</p>
+        </FadeUp>
+
+        <div className="grid items-stretch gap-6 lg:grid-cols-2 lg:gap-8">
+          {PROGRAMMES.map((p, i) => (
+            <FadeUp key={p.key} delay={i * 0.1} className="h-full">
+              <article className="group flex h-full flex-col overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
+                <div className="relative h-60 w-full overflow-hidden bg-slate-900 sm:h-72">
+                  <img src={p.img} alt={p.imgAlt} loading="lazy" className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent" />
+                  <div className="absolute left-4 top-4">
+                    <span className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-bold uppercase tracking-wider text-white shadow-md ${p.badgeBg}`}>
+                      <p.BadgeIcon className="h-3.5 w-3.5" /> {p.badge}
+                    </span>
+                  </div>
+                  <div className="absolute bottom-4 left-4 right-4">
+                    <h3 className="oa-display text-xl font-extrabold text-white sm:text-2xl">{p.title}</h3>
+                    <p className="mt-1 text-xs text-slate-200">{p.sub}</p>
+                  </div>
+                </div>
+
+                <div className="flex flex-1 flex-col justify-between gap-5 p-5 sm:p-8">
+                  <p className="text-sm leading-relaxed text-slate-600 sm:text-base">{p.text}</p>
+                  <ul className="space-y-2.5">
+                    {p.points.map((pt) => (
+                      <li key={pt} className="flex items-start gap-2.5 text-sm font-medium text-slate-700">
+                        <CheckCircle className="mt-0.5 h-4 w-4 shrink-0 text-emerald-500" />
+                        <span>{pt}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  <div className="flex items-center justify-between gap-3 border-t border-slate-100 pt-4">
+                    <span className="text-xs font-medium text-slate-500">{p.foot}</span>
+                    <Link to={p.to} className={`inline-flex items-center gap-2 text-sm font-bold transition-all hover:gap-3 ${p.ctaColor}`}>
+                      {p.cta} <ArrowRight className="h-4 w-4" />
+                    </Link>
+                  </div>
+                </div>
+              </article>
+            </FadeUp>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ====================== THEORY OF CHANGE (existing approved text, new style) ====================== */
+function TheoryOfChange() {
+  const items = [
+    {
+      title: "Strategic Pathways",
+      accent: "border-t-rose-500",
+      text: "Adolescent Programme (12–18): secondary completion and life skills. Livelihood Programme (18–25): skills, placements and retention.",
+    },
+    {
+      title: "Best-in-Class Programmes",
+      accent: "border-t-fuchsia-500",
+      text: "Direct delivery (school & community), government partnership, livelihood centers for skilling & placement support.",
+    },
+    {
+      title: "Outcomes of Focus",
+      accent: "border-t-blue-500",
+      text: "Academic impact, empowerment & agency, employability, job-placement and workplace retention.",
+    },
+  ];
+  return (
+    <section className="border-t border-slate-200 bg-white py-12 md:py-20">
+      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+        <FadeUp className="text-center">
+          <h2 className="oa-display text-3xl font-extrabold text-slate-900 sm:text-4xl">Theory of Change</h2>
+          <p className="mx-auto mt-3 max-w-3xl text-base leading-relaxed text-slate-600 sm:text-lg">
+            Magic Bus emerged stronger following the pandemic. A planning exercise mapped a strategy to deliver two aligned, skills-anchored
+            approaches for adolescents and youth.
+          </p>
+        </FadeUp>
+        <div className="mt-8 grid gap-4 md:grid-cols-3 md:gap-6">
+          {items.map((it, i) => (
+            <FadeUp key={it.title} delay={i * 0.08}>
+              <div className={`h-full rounded-2xl border border-slate-200 border-t-4 bg-white p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-lg sm:p-6 ${it.accent}`}>
+                <h3 className="oa-display text-lg font-bold text-slate-900">{it.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-slate-600">{it.text}</p>
+              </div>
+            </FadeUp>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ====================== CALL TO ACTION ====================== */
+function JoinCTA() {
+  return (
+    <section id="cta" className="relative overflow-hidden bg-gradient-to-r from-rose-600 via-rose-600 to-rose-700 py-14 text-white md:py-20">
+      <div className="pointer-events-none absolute -bottom-20 -right-20 h-96 w-96 rounded-full bg-white/10 blur-2xl" />
+      <div className="relative z-10 mx-auto max-w-5xl space-y-5 px-4 text-center sm:px-6 lg:px-8 md:space-y-6">
+        <span className="inline-block rounded-full bg-amber-400 px-3.5 py-1 text-xs font-extrabold uppercase tracking-wider text-slate-900 shadow-md">Join The Movement</span>
+        <h2 className="oa-display text-3xl font-extrabold tracking-tight sm:text-5xl">Join Us to Transform Vulnerability into Leadership</h2>
+        <p className="mx-auto max-w-2xl text-base leading-relaxed text-rose-100 sm:text-lg">
+          Support programmes that forge sustained generational change—from rural classrooms to formal corporate offices. Partner as an employer,
+          fund a cohort, or volunteer with us.
+        </p>
+        <div className="flex flex-wrap items-center justify-center gap-3 pt-2 sm:gap-4">
+          <Link to="/donate" className="rounded-xl bg-white px-8 py-3.5 font-bold text-rose-600 shadow-xl transition hover:-translate-y-0.5 hover:bg-rose-50 hover:shadow-2xl">
+            Donate Now
+          </Link>
+          <Link to="/partner" className="rounded-xl border border-white/30 bg-slate-900/40 px-8 py-3.5 font-bold text-white backdrop-blur-md transition hover:bg-slate-900/60">
+            Partner With Us
+          </Link>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ====================== PAGE ====================== */
+export default function OurApproach() {
+  return (
+    <Layout>
+      {/* Fonts for this page's design (Epilogue headings, Plus Jakarta Sans text) */}
+      <link
+        rel="stylesheet"
+        precedence="default"
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Epilogue:wght@600;700;800;900&display=swap"
+      />
+      <style>{STYLES}</style>
+      <main className="oa-page bg-slate-50 text-slate-800 antialiased">
+        <Hero />
+        <Overview />
+        <Pillars />
+        <Programmes />
+        <TheoryOfChange />
+        <div id="framework">
+          <StrategicFramework />
+        </div>
+        <JoinCTA />
       </main>
     </Layout>
   );
