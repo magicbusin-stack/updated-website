@@ -33,9 +33,9 @@ import FAQSection from "../components/Home/FAQSectiom";
 */
 const EASE = [0.16, 1, 0.3, 1];
 
-function FadeUp({ children, delay = 0, className = "" }) {
+function FadeUp({ children, delay = 0, className = "", margin = "-80px" }) {
     const ref = useRef(null);
-    const inView = useInView(ref, { once: true, margin: "-80px" });
+    const inView = useInView(ref, { once: true, margin });
     return (
         <motion.div
             ref={ref}
@@ -122,22 +122,22 @@ function SectionTag({ children }) {
 /*  VISION & MISSION  */
 function VisionMission() {
     return (
-        <section className="py-20 bg-[#F7F7F5]">
+        <section className="py-10 md:py-20 bg-[#F7F7F5]">
             <div className="max-w-7xl mx-auto px-6 lg:px-12">
-                <FadeUp className="text-center mb-14">
+                <FadeUp className="text-center mb-8 md:mb-14">
                     <SectionTag>Purpose</SectionTag>
                     <h2 className="text-3xl md:text-4xl font-extrabold text-[#1A1A1A]">
                         What Drives Us Every Day
                     </h2>
                 </FadeUp>
 
-                <div className="grid md:grid-cols-2 gap-7">
+                <div className="grid md:grid-cols-2 gap-4 md:gap-7">
                     {/* Vision */}
                     <FadeUp delay={0.05}>
-                        <div className="relative h-full rounded-3xl bg-[#1A1A1A] text-white p-8 md:p-10 overflow-hidden">
+                        <div className="relative h-full rounded-3xl bg-[#1A1A1A] text-white p-5 md:p-10 overflow-hidden">
                             <div className="pointer-events-none absolute -bottom-16 -right-16 w-56 h-56 rounded-full bg-brand-red/15 blur-2xl" />
                             <div className="relative z-10">
-                                <div className="inline-flex items-center gap-2 bg-brand-red rounded-xl px-3.5 py-2 mb-6">
+                                <div className="inline-flex items-center gap-2 bg-brand-red rounded-xl px-3.5 py-2 mb-4 md:mb-6">
                                     <Target className="w-4.5 h-4.5 text-white" />
                                     <span className="text-xs font-bold uppercase tracking-widest text-white">Our Vision</span>
                                 </div>
@@ -154,10 +154,10 @@ function VisionMission() {
 
                     {/* Mission */}
                     <FadeUp delay={0.12}>
-                        <div className="relative h-full rounded-3xl border-2 border-brand-yellow bg-white p-8 md:p-10 overflow-hidden">
+                        <div className="relative h-full rounded-3xl border-2 border-brand-yellow bg-white p-5 md:p-10 overflow-hidden">
                             <div className="pointer-events-none absolute -bottom-16 -right-16 w-56 h-56 rounded-full bg-brand-yellow/20 blur-2xl" />
                             <div className="relative z-10">
-                                <div className="inline-flex items-center gap-2 bg-brand-yellow rounded-xl px-3.5 py-2 mb-6">
+                                <div className="inline-flex items-center gap-2 bg-brand-yellow rounded-xl px-3.5 py-2 mb-4 md:mb-6">
                                     <Zap className="w-4.5 h-4.5 text-brand-black" />
                                     <span className="text-xs font-bold uppercase tracking-widest text-brand-black">Our Mission</span>
                                 </div>
@@ -320,15 +320,15 @@ const ABOUT_STYLES = `
 
 function ProblemStatement() {
     return (
-        <section className="py-20 bg-white">
+        <section className="py-10 md:py-20 bg-white">
             <style>{ABOUT_STYLES}</style>
             <div className="max-w-7xl mx-auto px-6 lg:px-12">
                 <FadeUp>
                     <SectionLabel icon={Target}>The Problem</SectionLabel>
-                    <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-[#1A1A1A] leading-tight max-w-3xl">
+                    <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold text-[#1A1A1A] leading-tight max-w-3xl">
                         Helping young people complete education and build livelihoods
                     </h2>
-                    <p className="mt-5 text-lg text-[#1A1A1A]/70 max-w-3xl leading-relaxed">
+                    <p className="mt-4 md:mt-5 text-base md:text-lg text-[#1A1A1A]/70 max-w-3xl leading-relaxed">
                         India has the biggest population of young people globally. However,
                         millions of adolescents and youth from underserved areas are at risk
                         of being left behind — dropping out of school, struggling at
@@ -337,15 +337,15 @@ function ProblemStatement() {
                 </FadeUp>
 
                 {/* Challenges */}
-                <div className="mt-14">
+                <div className="mt-8 md:mt-14">
                     <FadeUp delay={0.1}>
-                        <p className="text-xs font-semibold uppercase tracking-widest text-[#1A1A1A]/50 mb-6">
+                        <p className="text-xs font-semibold uppercase tracking-widest text-[#1A1A1A]/50 mb-4 md:mb-6">
                             Challenges India Faces Today
                         </p>
                     </FadeUp>
-                    <div className="grid md:grid-cols-3 gap-6">
+                    <div className="flex md:grid md:grid-cols-3 gap-4 md:gap-6 overflow-x-auto snap-x snap-mandatory -mx-6 px-6 md:mx-0 md:px-0 pb-3 md:pb-0 [scrollbar-width:none]">
                         {challenges.map((c, i) => (
-                            <FadeUp key={c.label} delay={0.1 + i * 0.1}>
+                            <FadeUp key={c.label} delay={0.1 + i * 0.1} margin="0px" className="w-[82%] shrink-0 snap-start md:w-auto md:shrink">
                                 <InteractiveCard icon={c.icon} hex={c.hex} stat={c.stat} label={c.label} desc={c.desc} />
                             </FadeUp>
                         ))}
@@ -353,14 +353,14 @@ function ProblemStatement() {
                 </div>
 
                 {/* Poverty trap callout: pulsing ring, light sweep and a blinking red line to catch the eye */}
-                <FadeUp delay={0.2} className="mt-10">
-                    <div className="ab-alert relative overflow-hidden rounded-2xl border-2 border-brand-red/40 bg-gradient-to-r from-brand-red/10 via-brand-yellow/25 to-brand-red/10 p-6 md:p-8">
+                <FadeUp delay={0.2} className="mt-5 md:mt-10">
+                    <div className="ab-alert relative overflow-hidden rounded-2xl border-2 border-brand-red/40 bg-gradient-to-r from-brand-red/10 via-brand-yellow/25 to-brand-red/10 p-4 md:p-8">
                         <span className="ab-sweep" />
-                        <div className="relative flex flex-col items-center justify-center gap-4 text-center md:flex-row md:gap-6">
-                            <span className="ab-icon flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-brand-red text-white shadow-lg">
+                        <div className="relative flex flex-col items-center justify-center gap-3 text-center md:flex-row md:gap-6">
+                            <span className="ab-icon flex h-11 w-11 md:h-14 md:w-14 shrink-0 items-center justify-center rounded-full bg-brand-red text-white shadow-lg">
                                 <AlertTriangle className="h-7 w-7" />
                             </span>
-                            <p className="text-lg font-bold text-[#1A1A1A] md:text-2xl md:leading-snug">
+                            <p className="text-base font-bold text-[#1A1A1A] md:text-2xl md:leading-snug">
                                 <span className="ab-blink font-extrabold text-brand-red">
                                     When gaps in education, life skills, and employability are not tackled,
                                 </span>
@@ -394,12 +394,12 @@ const Mark = ({ children }) => (
 
 function WhyLifeSkills() {
     return (
-        <section className="py-20 bg-[#F7F7F5]">
+        <section className="py-10 md:py-20 bg-[#F7F7F5]">
             <div className="max-w-7xl mx-auto px-6 lg:px-12">
-                <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+                <div className="grid lg:grid-cols-2 gap-8 lg:gap-20 items-center">
                     {/* Left: image */}
                     <FadeIn className="order-2 lg:order-1">
-                        <div className="relative rounded-3xl overflow-hidden aspect-[4/3] shadow-xl">
+                        <div className="relative rounded-3xl overflow-hidden aspect-[16/10] md:aspect-[4/3] shadow-xl">
                             <img
                                 src="/ngo-images/5.jpeg"
                                 alt="Life skills education"
@@ -407,7 +407,7 @@ function WhyLifeSkills() {
                             />
                             <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
                             {/* Floating card */}
-                            <div className="absolute bottom-6 left-6 right-6 bg-white/90 backdrop-blur rounded-2xl p-4 shadow-lg">
+                            <div className="absolute bottom-3 left-3 right-3 md:bottom-6 md:left-6 md:right-6 bg-white/90 backdrop-blur rounded-2xl p-3 md:p-4 shadow-lg">
                                 <div className="flex items-center gap-3">
                                     <div className="bg-brand-yellow rounded-lg p-2.5">
                                         <Star className="w-5 h-5 text-brand-black" />
@@ -425,7 +425,7 @@ function WhyLifeSkills() {
                     <div className="order-1 lg:order-2">
                         <FadeUp>
                             <SectionLabel icon={Lightbulb}>Life Skills</SectionLabel>
-                            <h2 className="text-3xl md:text-4xl font-extrabold text-[#1A1A1A] leading-tight">
+                            <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#1A1A1A] leading-tight">
                                 Why Life Skills Education Is Needed
                             </h2>
                             <p className="mt-4 text-base text-[#1A1A1A]/75 leading-relaxed">
@@ -439,31 +439,31 @@ function WhyLifeSkills() {
                                 to handle the challenges of higher education or their workplace.
                             </p>
 
-                            <p className="mt-7 text-lg font-extrabold text-[#1A1A1A]">With life skills education, young people can:</p>
-                            <div className="mt-4 grid gap-3 sm:grid-cols-2">
+                            <p className="mt-5 md:mt-7 text-base md:text-lg font-extrabold text-[#1A1A1A]">With life skills education, young people can:</p>
+                            <div className="mt-4 grid grid-cols-2 gap-2.5 md:gap-3">
                                 {lifeSkillBenefits.map((b, i) => (
                                     <FadeUp delay={0.06 * (i + 1)} key={b.text}>
                                         <motion.div
                                             whileHover={{ y: -5 }}
                                             whileTap={{ scale: 0.98 }}
-                                            className="group flex h-full items-start gap-3 rounded-2xl border border-gray-100 bg-white p-4 shadow-sm transition-shadow hover:shadow-lg"
+                                            className="group flex h-full flex-col items-start gap-2 md:flex-row md:gap-3 rounded-2xl border border-gray-100 bg-white p-3 md:p-4 shadow-sm transition-shadow hover:shadow-lg"
                                         >
                                             <motion.span
-                                                className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl shadow-md"
+                                                className="flex h-10 w-10 md:h-11 md:w-11 shrink-0 items-center justify-center rounded-xl shadow-md"
                                                 style={{ background: b.hex, color: b.fg }}
                                                 whileHover={{ rotate: [0, -12, 12, 0], scale: 1.15 }}
                                                 transition={{ duration: 0.45 }}
                                             >
                                                 <b.icon className="h-5 w-5" />
                                             </motion.span>
-                                            <span className="pt-0.5 text-sm font-semibold leading-snug text-[#1A1A1A]">{b.text}</span>
+                                            <span className="md:pt-0.5 text-xs md:text-sm font-semibold leading-snug text-[#1A1A1A]">{b.text}</span>
                                         </motion.div>
                                     </FadeUp>
                                 ))}
                             </div>
 
                             <FadeUp delay={0.3}>
-                                <div className="mt-8 rounded-xl bg-brand-red/5 border-l-4 border-brand-red p-4">
+                                <div className="mt-5 md:mt-8 rounded-xl bg-brand-red/5 border-l-4 border-brand-red p-3 md:p-4">
                                     <p className="text-sm leading-relaxed text-[#1A1A1A]/80 italic">
                                         "At Magic Bus, life skills are at the core of all our initiatives. We make
                                         sure education translates to enhanced capabilities, increased confidence,
@@ -501,20 +501,20 @@ function StatBump({ value, suffix, label, count, delay = 0 }) {
             transition={{ type: "spring", stiffness: 260, damping: 13, delay }}
             whileHover={{ scale: 1.08, y: -6 }}
             whileTap={{ scale: 0.96 }}
-            className="relative cursor-default overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-white/15 to-white/[0.03] p-6 text-center shadow-lg transition-colors hover:border-brand-yellow/60 hover:shadow-[0_0_40px_rgba(255,204,4,0.28)] sm:p-8"
+            className="relative cursor-default overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-white/15 to-white/[0.03] p-4 text-center shadow-lg transition-colors hover:border-brand-yellow/60 hover:shadow-[0_0_40px_rgba(255,204,4,0.28)] sm:p-8"
         >
             <span className="pointer-events-none absolute -top-10 left-1/2 h-24 w-24 -translate-x-1/2 rounded-full bg-brand-yellow/25 blur-2xl" />
-            <div className="relative text-5xl font-extrabold leading-none tabular-nums text-brand-yellow md:text-6xl">
+            <div className="relative text-4xl font-extrabold leading-none tabular-nums text-brand-yellow sm:text-5xl md:text-6xl">
                 {count ? <AnimatedCounter value={value} suffix={suffix} /> : <>{value}{suffix}</>}
             </div>
-            <div className="relative mt-3 text-sm font-semibold text-white/75 md:text-base">{label}</div>
+            <div className="relative mt-2 md:mt-3 text-xs font-semibold text-white/75 sm:text-sm md:text-base">{label}</div>
         </motion.div>
     );
 }
 
 function WhoWeAre() {
     return (
-        <section className="py-20 bg-[#1A1A1A] text-white relative overflow-hidden">
+        <section className="py-10 md:py-20 bg-[#1A1A1A] text-white relative overflow-hidden">
             {/* Decorative blobs */}
             <div className="pointer-events-none absolute -top-32 -left-32 w-96 h-96 rounded-full bg-brand-red/20 blur-3xl" />
             <div className="pointer-events-none absolute -bottom-32 -right-32 w-80 h-80 rounded-full bg-brand-yellow/15 blur-3xl" />
@@ -522,10 +522,10 @@ function WhoWeAre() {
 
             <div className="max-w-7xl mx-auto px-6 lg:px-12 relative z-10">
                 <SectionLabel>Who We Are</SectionLabel>
-                <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+                <div className="grid lg:grid-cols-2 gap-8 lg:gap-20 items-center">
                     <div>
                         <FadeUp>
-                            <h2 className="text-3xl md:text-4xl font-extrabold leading-tight text-white">
+                            <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold leading-tight text-white">
                                 One of India's Top NGOs in{" "}
                                 <span className="text-brand-yellow">Life Skills & Livelihoods</span>
                             </h2>
@@ -557,8 +557,8 @@ function WhoWeAre() {
                 </div>
 
                 {/* Image strip */}
-                <FadeIn delay={0.2} className="mt-16">
-                    <div className="grid grid-cols-3 gap-4 rounded-3xl overflow-hidden h-64 md:h-80">
+                <FadeIn delay={0.2} className="mt-8 md:mt-16">
+                    <div className="grid grid-cols-3 gap-2 md:gap-4 rounded-3xl overflow-hidden h-32 sm:h-64 md:h-80">
                         {["/ngo-images/6.jpeg", "/ngo-images/ai2.jpg", "/ngo-images/10.jpg"].map((src, i) => (
                             <div key={i} className="overflow-hidden">
                                 <img
@@ -569,7 +569,7 @@ function WhoWeAre() {
                             </div>
                         ))}
                     </div>
-                    <FadeUp delay={0.3} className="mt-8 text-center">
+                    <FadeUp delay={0.3} className="mt-5 md:mt-8 text-center">
                         <Link
                             to="/who-we-are"
                             className="inline-flex items-center gap-2 rounded-full bg-brand-yellow px-6 py-3 text-sm font-bold text-brand-black hover:bg-brand-yellow/90 transition-colors"
@@ -609,11 +609,11 @@ const whatWeDo = [
 
 function WhatWeDo() {
     return (
-        <section className="py-20 bg-white">
+        <section className="py-10 md:py-20 bg-white">
             <div className="max-w-7xl mx-auto px-6 lg:px-12">
                 <FadeUp>
                     <SectionLabel icon={TrendingUp}>What We Do</SectionLabel>
-                    <h2 className="text-3xl md:text-4xl font-extrabold text-[#1A1A1A] leading-tight max-w-2xl">
+                    <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#1A1A1A] leading-tight max-w-2xl">
                         From Classrooms to Careers — an Integrated Approach
                     </h2>
                     <p className="mt-4 text-[#1A1A1A]/70 max-w-2xl leading-relaxed">
@@ -622,9 +622,9 @@ function WhatWeDo() {
                     </p>
                 </FadeUp>
 
-                <div className="mt-14 grid md:grid-cols-3 gap-6">
+                <div className="mt-8 md:mt-14 flex md:grid md:grid-cols-3 gap-4 md:gap-6 overflow-x-auto snap-x snap-mandatory -mx-6 px-6 md:mx-0 md:px-0 pb-3 md:pb-0 [scrollbar-width:none]">
                     {whatWeDo.map((item, i) => (
-                        <FadeUp key={item.title} delay={0.1 + i * 0.1}>
+                        <FadeUp key={item.title} delay={0.1 + i * 0.1} margin="0px" className="w-[82%] shrink-0 snap-start md:w-auto md:shrink">
                             <InteractiveCard icon={item.icon} hex={item.hex} stat={item.title} desc={item.desc} />
                         </FadeUp>
                     ))}
@@ -902,6 +902,9 @@ function OurStory() {
     const START_FROM_CENTER = Math.floor((milestones.length - 1) / 2);
     const [activeIdx, setActiveIdx] = useState(START_FROM_CENTER);
     const [isMilestoneImageOpen, setIsMilestoneImageOpen] = useState(false);
+    const [openIdx, setOpenIdx] = useState(null); // phones: which milestone is expanded
+    const [showAll, setShowAll] = useState(false); // phones: show every milestone
+    const PREVIEW_COUNT = 6;
 
     useEffect(() => {
         if (!isMilestoneImageOpen) return;
@@ -963,12 +966,12 @@ function OurStory() {
         <section
             ref={sectionRef}
             style={{ background: '#0F0F0F' }}
-            className="relative py-16 md:py-20 overflow-hidden"
+            className="relative py-10 md:py-20 overflow-hidden"
         >
             <div className="pointer-events-none absolute top-0 left-1/2 -translate-x-1/2 h-full w-[420px] rounded-full bg-brand-red/10 blur-3xl" />
 
             <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-12 relative z-10">
-                <FadeUp className="text-center mb-10 md:mb-14">
+                <FadeUp className="text-center mb-6 md:mb-14">
                     <SectionLabel icon={Quote}>Our Story</SectionLabel>
                     <h2 className="text-3xl md:text-4xl font-extrabold text-white">
                         The Magic Bus Journey
@@ -978,13 +981,13 @@ function OurStory() {
                     </p>
                 </FadeUp>
 
-                <FadeUp delay={0.05} className="mb-10 md:mb-14">
+                <FadeUp delay={0.05} className="mb-6 md:mb-14">
                     <div className="relative overflow-hidden rounded-[1.5rem] bg-brand-red">
                         <div className="absolute -top-16 -right-14 h-44 w-44 rounded-full bg-white/10" />
                         <div className="grid lg:grid-cols-5 gap-0">
-                            <div className="relative z-10 lg:col-span-3 p-6 md:p-8 lg:p-9">
+                            <div className="relative z-10 lg:col-span-3 p-5 md:p-8 lg:p-9">
                                 <Quote className="w-10 h-10 text-white/35" />
-                                <p className="mt-4 text-white text-lg md:text-2xl font-semibold leading-snug md:leading-tight max-w-2xl">
+                                <p className="mt-3 md:mt-4 text-white text-base md:text-2xl font-semibold leading-snug md:leading-tight max-w-2xl">
                                     Magic Bus India Foundation began in 1999. Our founder noticed the
                                     transformative power of sport to change lives of young boys from underserved
                                     communities. This realisation started with simple rugby sessions that grew
@@ -1006,7 +1009,7 @@ function OurStory() {
                                     <img
                                         src="/milestone-1.jpg"
                                         alt="Magic Bus journey milestones"
-                                        className="h-44 md:h-56 w-full object-cover object-left-top transition-transform duration-300 hover:scale-[1.03]"
+                                        className="h-32 md:h-56 w-full object-cover object-left-top transition-transform duration-300 hover:scale-[1.03]"
                                     />
                                 </button>
                             </div>
@@ -1028,7 +1031,7 @@ function OurStory() {
                         </div>
                     </motion.div>
 
-                    <div className="space-y-5 md:space-y-6 lg:space-y-8">
+                    <div className="space-y-2.5 md:space-y-6 lg:space-y-8">
                         {milestones.map((m, i) => {
                             const isActive = i === activeIdx;
                             const isVisited = i <= activeIdx;
@@ -1044,9 +1047,11 @@ function OurStory() {
                                     whileInView={{ opacity: 1, y: 0 }}
                                     viewport={{ once: true, margin: '-80px' }}
                                     transition={{ duration: 0.4, ease: EASE }}
+                                    onClick={() => setOpenIdx(openIdx === i ? null : i)}
                                     className={[
-                                        'relative rounded-xl border backdrop-blur-sm p-3 md:p-4',
+                                        'relative cursor-pointer md:cursor-default rounded-xl border backdrop-blur-sm p-3 md:p-4',
                                         'lg:w-[calc(50%-4rem)]',
+                                        i >= PREVIEW_COUNT && !showAll ? 'hidden md:block' : '',
                                         alignRight ? 'lg:ml-auto' : 'lg:mr-auto',
                                         isActive ? 'shadow-[0_0_0_1px_rgba(255,255,255,0.08),0_10px_35px_rgba(230,51,41,0.22)]' : '',
                                     ].join(' ')}
@@ -1074,7 +1079,7 @@ function OurStory() {
                                             <h3 className="mt-1 text-sm md:text-base font-bold text-white leading-snug">
                                                 {m.title}
                                             </h3>
-                                            <p className="mt-1.5 text-[11px] md:text-xs text-white/65 leading-relaxed">
+                                            <p className={`${openIdx === i ? "block" : "hidden"} md:block mt-1.5 text-[11px] md:text-xs text-white/65 leading-relaxed`}>
                                                 {m.desc}
                                             </p>
                                         </div>
@@ -1086,9 +1091,12 @@ function OurStory() {
                                                 {m.impact}
                                             </span>
                                         )}
+                                        <span className="md:hidden shrink-0 text-xl font-bold leading-none text-white/50" aria-hidden="true">
+                                            {openIdx === i ? "\u2212" : "+"}
+                                        </span>
                                     </div>
 
-                                    <div className="mt-2.5 flex items-center gap-2">
+                                    <div className={`${openIdx === i ? "flex" : "hidden"} md:flex mt-2.5 items-center gap-2`}>
                                         <span
                                             className="text-[9px] font-semibold uppercase tracking-wider px-2 py-0.5 rounded-full border"
                                             style={{ color: m.color, borderColor: `${m.color}66`, background: `${m.color}1A` }}
@@ -1103,6 +1111,16 @@ function OurStory() {
                             );
                         })}
                     </div>
+                </div>
+
+                <div className="md:hidden mt-4 text-center">
+                    <button
+                        type="button"
+                        onClick={() => setShowAll((v) => !v)}
+                        className="rounded-full border border-white/25 px-6 py-2.5 text-sm font-semibold text-white hover:bg-white/10 transition-colors"
+                    >
+                        {showAll ? "Show fewer milestones" : `Show all ${milestones.length} milestones`}
+                    </button>
                 </div>
 
                 <AnimatePresence mode="wait">
@@ -1208,13 +1226,13 @@ const impacts = [
 function WhyMagicBus() {
     const navigate = useNavigate();
     return (
-        <section className="py-20 bg-white">
+        <section className="py-10 md:py-20 bg-white">
             <div className="max-w-7xl mx-auto px-6 lg:px-12">
-                <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+                <div className="grid lg:grid-cols-2 gap-8 lg:gap-20 items-center">
                     <div>
                         <FadeUp>
                             <SectionLabel icon={Zap}>Why Magic Bus?</SectionLabel>
-                            <h2 className="text-3xl md:text-4xl font-extrabold text-[#1A1A1A] leading-tight">
+                            <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#1A1A1A] leading-tight">
                                 Operating Across the Full Journey {" "}
                                 <span className="text-brand-red">Adolescence to Employment</span>
                             </h2>
@@ -1223,7 +1241,7 @@ function WhyMagicBus() {
                                 timely intervention and structured support for young people, we help in:
                             </p>
 
-                            <ul className="mt-8 space-y-5">
+                            <ul className="mt-6 md:mt-8 space-y-4 md:space-y-5 pl-3 md:pl-0">
                                 {impacts.map((im, i) => (
                                     <motion.li
                                         key={im.label}
@@ -1274,7 +1292,7 @@ function WhyMagicBus() {
                     {/* Right image */}
                     <FadeIn delay={0.15}>
                         <div className="relative">
-                            <div className="rounded-3xl overflow-hidden aspect-square shadow-xl">
+                            <div className="rounded-3xl overflow-hidden aspect-[16/10] md:aspect-square shadow-xl">
                                 <img
                                     src="/ngo-images/girl.jpeg"
                                     alt="Young person empowerment"
@@ -1283,13 +1301,13 @@ function WhyMagicBus() {
                             </div>
                             {/* Accent card */}
                             <motion.div
-                                className="absolute -bottom-6 -left-6 bg-brand-yellow rounded-2xl p-5 shadow-xl max-w-[200px]"
+                                className="absolute -bottom-4 left-3 md:-bottom-6 md:-left-6 bg-brand-yellow rounded-2xl p-3 md:p-5 shadow-xl max-w-[170px] md:max-w-[200px]"
                                 initial={{ opacity: 0, scale: 0.8 }}
                                 whileInView={{ opacity: 1, scale: 1 }}
                                 viewport={{ once: true }}
                                 transition={{ delay: 0.4, duration: 0.5 }}
                             >
-                                <div className="text-3xl font-extrabold text-brand-black">25+</div>
+                                <div className="text-2xl md:text-3xl font-extrabold text-brand-black">25+</div>
                                 <div className="text-xs font-semibold text-brand-black/70 mt-1">Years of transforming young lives across India</div>
                             </motion.div>
                         </div>
@@ -1348,7 +1366,7 @@ const values = [
 
 function VisionMissionValues() {
     return (
-        <section className="py-24 bg-[#1A1A1A] text-white relative overflow-hidden">
+        <section className="py-12 md:py-24 bg-[#1A1A1A] text-white relative overflow-hidden">
             <div className="pointer-events-none absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
             <div className="pointer-events-none absolute inset-0">
                 <div className="absolute top-0 left-1/4 w-96 h-96 rounded-full bg-brand-red/10 blur-3xl" />
@@ -1357,9 +1375,9 @@ function VisionMissionValues() {
 
             <div className="max-w-7xl mx-auto px-6 lg:px-12 relative z-10">
                 {/* Values */}
-                <FadeUp className="text-center mb-12">
+                <FadeUp className="text-center mb-8 md:mb-12">
                     <SectionLabel>Our Values</SectionLabel>
-                    <h2 className="text-3xl md:text-4xl font-extrabold text-white mt-2">
+                    <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white mt-2">
                         The Values That Drive Us Forward
                     </h2>
                     <p className="mt-3 text-white/55 max-w-xl mx-auto text-sm">
@@ -1371,7 +1389,7 @@ function VisionMissionValues() {
                     {values.map((v, i) => (
                         <FadeUp key={v.title} delay={0.07 * i} className={i === values.length - 1 ? "col-span-2 md:col-span-1" : ""}>
                             <motion.div
-                                className="group relative flex h-full cursor-default flex-col items-center overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-5 text-center transition-colors hover:border-white/30 hover:bg-white/10 sm:p-7"
+                                className="group relative flex h-full cursor-default flex-col items-center overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-4 text-center transition-colors hover:border-white/30 hover:bg-white/10 sm:p-7"
                                 whileHover={{ y: -10 }}
                                 whileTap={{ scale: 0.97 }}
                                 transition={{ type: "spring", stiffness: 300, damping: 18 }}
@@ -1382,13 +1400,13 @@ function VisionMissionValues() {
                                     style={{ background: v.hex }}
                                 />
                                 <motion.div
-                                    className={`${v.color} relative mb-5 inline-flex rounded-3xl p-4 shadow-xl ring-4 ring-white/10 sm:p-5`}
+                                    className={`${v.color} relative mb-3 sm:mb-5 inline-flex rounded-3xl p-3.5 shadow-xl ring-4 ring-white/10 sm:p-5`}
                                     whileHover={{ rotate: [0, -12, 12, -6, 0], scale: 1.18 }}
                                     transition={{ duration: 0.55 }}
                                 >
                                     <v.icon className={`h-9 w-9 sm:h-11 sm:w-11 ${v.fg}`} />
                                 </motion.div>
-                                <h4 className="relative mb-2 text-lg font-extrabold text-white sm:text-xl">{v.title}</h4>
+                                <h4 className="relative mb-1.5 text-base font-extrabold text-white sm:text-xl">{v.title}</h4>
                                 <p className="relative mt-auto text-xs leading-relaxed text-white/60 sm:text-sm">{v.desc}</p>
                                 <span
                                     className="absolute bottom-0 left-0 h-1 w-0 transition-all duration-500 group-hover:w-full"

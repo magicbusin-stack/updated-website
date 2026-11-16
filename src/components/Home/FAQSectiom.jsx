@@ -46,24 +46,24 @@ export default function FAQSection({
   }, [items, query, activeCategory]);
 
   return (
-    <section className="py-20 bg-white">
+    <section className="py-10 md:py-20 bg-white">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         {/* Header */}
-        <div className="text-center mb-10">
+        <div className="text-center mb-6 md:mb-10">
           <span className="inline-flex items-center gap-2 rounded-full border border-brand-black/20 bg-brand-yellow px-4 py-1.5 text-[11px] font-semibold tracking-[0.18em] text-brand-black uppercase">
             <HelpCircle className="w-4 h-4" />
             FAQs
           </span>
-          <h2 className="mt-4 text-4xl md:text-5xl font-extrabold text-ink">
+          <h2 className="mt-4 text-2xl sm:text-4xl md:text-5xl font-extrabold text-ink">
             {title}
           </h2>
-          <p className="mt-3 text-brand-black/70 text-base md:text-lg max-w-3xl mx-auto">
+          <p className="mt-2 md:mt-3 text-brand-black/70 text-sm md:text-lg max-w-3xl mx-auto">
             {subtitle}
           </p>
         </div>
 
         {/* Controls */}
-        <div className="flex flex-col md:flex-row gap-4 md:items-center md:justify-between mb-8">
+        <div className="flex flex-col md:flex-row gap-3 md:gap-4 md:items-center md:justify-between mb-5 md:mb-8">
           {/* Search */}
           <label className="relative flex-1 max-w-xl">
             <Search className="w-5 h-5 absolute left-3 top-1/2 -translate-y-1/2 text-ink/50" />
@@ -77,19 +77,19 @@ export default function FAQSection({
           </label>
 
           {/* Categories */}
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 min-w-0">
             <span className="hidden md:inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-ink/70">
               <Filter className="w-4 h-4" />
               {categoriesLabel}
             </span>
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-nowrap md:flex-wrap gap-2 overflow-x-auto md:overflow-visible pb-1 md:pb-0 [scrollbar-width:none]">
               {categories.map((c) => {
                 const active = c === activeCategory;
                 return (
                   <button
                     key={c}
                     onClick={() => setActiveCategory(c)}
-                    className={`px-3 py-1.5 rounded-full border text-sm transition ${
+                    className={`shrink-0 whitespace-nowrap px-3 py-1.5 rounded-full border text-sm transition ${
                       active
                         ? "bg-brand-red text-white border-brand-red"
                         : "bg-white text-ink border-border hover:bg-gray-50"
@@ -128,11 +128,11 @@ export default function FAQSection({
                   />
                   <div className="flex-1">
                     <div className="flex items-center gap-3">
-                      <h3 className="text-base md:text-lg font-semibold text-ink">
+                      <h3 className="text-[15px] md:text-lg font-semibold text-ink">
                         {item.question}
                       </h3>
                       {item.category && (
-                        <span className="text-xs font-semibold rounded-full border border-brand-black/10 bg-brand-yellow/70 text-brand-black px-2 py-0.5">
+                        <span className="hidden sm:inline-block text-xs font-semibold rounded-full border border-brand-black/10 bg-brand-yellow/70 text-brand-black px-2 py-0.5">
                           {item.category}
                         </span>
                       )}
@@ -168,7 +168,7 @@ export default function FAQSection({
         </div>
 
         {/* Contact / fallback CTA */}
-        <div className="mt-8 text-center">
+        <div className="mt-5 md:mt-8 text-center">
           <Link
             to="/contact"
             className="inline-flex items-center gap-2 rounded-full bg-brand-red text-white px-6 py-3 text-sm font-semibold hover:bg-red-600 transition active:scale-[0.99]"
