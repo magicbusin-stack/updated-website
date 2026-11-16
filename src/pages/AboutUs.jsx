@@ -14,6 +14,13 @@ import {
     ArrowRight,
     CheckCircle,
     Quote,
+    GraduationCap,
+    Wallet,
+    AlertTriangle,
+    Sprout,
+    MessageCircle,
+    HeartHandshake,
+    Rocket,
 } from "lucide-react";
 import Layout from "../components/Layout";
 import { Link, useNavigate } from "react-router-dom";
@@ -237,33 +244,84 @@ function HeroSection() {
 /* 
    PROBLEM STATEMENT
 */
+/* One interactive card used for "Challenges" and "What We Do": colour wash + top bar on hover, icon pops, stat counts up */
+function InteractiveCard({ icon: Icon, hex, stat, label, desc }) {
+    return (
+        <motion.div
+            whileHover={{ y: -8 }}
+            whileTap={{ scale: 0.98 }}
+            transition={{ type: "spring", stiffness: 300, damping: 20 }}
+            className="group relative h-full cursor-default overflow-hidden rounded-2xl border border-gray-100 bg-white p-7 shadow-sm transition-shadow duration-300 hover:shadow-xl"
+        >
+            <span
+                className="pointer-events-none absolute inset-x-0 bottom-0 h-0 opacity-[0.09] transition-all duration-500 group-hover:h-full"
+                style={{ background: hex }}
+            />
+            <span
+                className="absolute left-0 top-0 h-1.5 w-full origin-left scale-x-[0.22] transition-transform duration-500 group-hover:scale-x-100"
+                style={{ background: hex }}
+            />
+            <div className="relative flex h-full flex-col gap-4">
+                <motion.div
+                    className="inline-flex w-fit rounded-2xl p-3.5 text-white shadow-md"
+                    style={{ background: hex }}
+                    whileHover={{ rotate: [0, -10, 10, -5, 0], scale: 1.14 }}
+                    transition={{ duration: 0.5 }}
+                >
+                    <Icon className="h-7 w-7" />
+                </motion.div>
+                <div>
+                    <div className="mb-1 text-2xl font-extrabold text-brand-red transition-transform duration-300 origin-left group-hover:scale-105">
+                        {stat}
+                    </div>
+                    {label && <h3 className="mb-2 text-base font-bold text-[#1A1A1A]">{label}</h3>}
+                    <p className="text-sm leading-relaxed text-[#1A1A1A]/65">{desc}</p>
+                </div>
+            </div>
+        </motion.div>
+    );
+}
+
 const challenges = [
     {
         icon: Users,
         label: "Gender Disparity",
         stat: "2 in 5",
-        color: "bg-brand-magenta",
-        desc: "Girls drop out of school before completing education  losing their voice and chances of financial independence.",
+        hex: "#E01085",
+        desc: "Girls drop out of school before completing education — losing their voice and chances of financial independence.",
     },
     {
         icon: BookOpen,
         label: "Learning Gaps",
-        stat: "45.8%",
-        color: "bg-brand-blue",
+        stat: <AnimatedCounter value="45.8" suffix="%" />,
+        hex: "#21BDEA",
         desc: "Of 8th Grade students cannot solve simple arithmetic. Without mathematical abilities, managing a business or job becomes difficult.",
     },
     {
         icon: Briefcase,
         label: "Skill Mismatch",
-        stat: "43.6%",
-        color: "bg-brand-green",
-        desc: "Of youth are considered unemployable  they have potential, but lack future-ready skills that employers seek.",
+        stat: <AnimatedCounter value="43.6" suffix="%" />,
+        hex: "#B3CC35",
+        desc: "Of youth are considered unemployable — they have potential, but lack future-ready skills that employers seek.",
     },
 ];
+
+const ABOUT_STYLES = `
+@keyframes abBlink{0%,100%{opacity:1;text-shadow:0 0 0 rgba(225,34,40,0)}50%{opacity:.55;text-shadow:0 0 18px rgba(225,34,40,.55)}}
+@keyframes abRing{0%,100%{box-shadow:0 0 0 0 rgba(225,34,40,.45)}50%{box-shadow:0 0 0 14px rgba(225,34,40,0)}}
+@keyframes abSweep{0%{transform:translateX(-130%) skewX(-18deg)}60%,100%{transform:translateX(230%) skewX(-18deg)}}
+@keyframes abIcon{0%,100%{transform:scale(1) rotate(0)}25%{transform:scale(1.15) rotate(-8deg)}75%{transform:scale(1.15) rotate(8deg)}}
+.ab-alert{animation:abRing 2.2s ease-out infinite}
+.ab-blink{animation:abBlink 1.6s ease-in-out infinite}
+.ab-sweep{position:absolute;inset:0;width:35%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.7),transparent);animation:abSweep 3.6s ease-in-out infinite;pointer-events:none}
+.ab-icon{animation:abIcon 1.8s ease-in-out infinite}
+@media (prefers-reduced-motion: reduce){.ab-alert,.ab-blink,.ab-sweep,.ab-icon{animation:none}}
+`;
 
 function ProblemStatement() {
     return (
         <section className="py-20 bg-white">
+            <style>{ABOUT_STYLES}</style>
             <div className="max-w-7xl mx-auto px-6 lg:px-12">
                 <FadeUp>
                     <SectionLabel icon={Target}>The Problem</SectionLabel>
@@ -273,7 +331,7 @@ function ProblemStatement() {
                     <p className="mt-5 text-lg text-[#1A1A1A]/70 max-w-3xl leading-relaxed">
                         India has the biggest population of young people globally. However,
                         millions of adolescents and youth from underserved areas are at risk
-                        of being left behind  dropping out of school, struggling at
+                        of being left behind — dropping out of school, struggling at
                         workplaces, and being stuck in intergenerational poverty.
                     </p>
                 </FadeUp>
@@ -288,37 +346,28 @@ function ProblemStatement() {
                     <div className="grid md:grid-cols-3 gap-6">
                         {challenges.map((c, i) => (
                             <FadeUp key={c.label} delay={0.1 + i * 0.1}>
-                                <div className="group rounded-2xl border border-gray-100 bg-white p-7 shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1 flex flex-col gap-4">
-                                    <div className="flex items-start justify-between">
-                                        <div
-                                            className={`${c.color} rounded-xl p-3 inline-flex`}
-                                        >
-                                            <c.icon className="w-6 h-6 text-white" />
-                                        </div>
-                                        <span className="text-3xl font-extrabold text-[#1A1A1A] opacity-10 group-hover:opacity-20 transition-opacity">
-                                            0{i + 1}
-                                        </span>
-                                    </div>
-                                    <div>
-                                        <div className="text-2xl font-extrabold text-brand-red mb-1">
-                                            {c.stat}
-                                        </div>
-                                        <h3 className="text-base font-bold text-[#1A1A1A] mb-2">{c.label}</h3>
-                                        <p className="text-sm text-[#1A1A1A]/65 leading-relaxed">{c.desc}</p>
-                                    </div>
-                                </div>
+                                <InteractiveCard icon={c.icon} hex={c.hex} stat={c.stat} label={c.label} desc={c.desc} />
                             </FadeUp>
                         ))}
                     </div>
                 </div>
 
-                {/* Poverty trap callout */}
+                {/* Poverty trap callout: pulsing ring, light sweep and a blinking red line to catch the eye */}
                 <FadeUp delay={0.2} className="mt-10">
-                    <div className="rounded-2xl bg-gradient-to-r from-brand-red/10 via-brand-yellow/10 to-brand-red/5 border border-brand-red/15 p-7">
-                        <p className="text-base md:text-lg font-medium text-[#1A1A1A] text-center">
-                            <span className="text-brand-red font-bold">When gaps in education, life skills, and employability are not tackled,</span>{" "}<br/>
-                            young people are deprived of opportunities due to the poverty trap.
-                        </p>
+                    <div className="ab-alert relative overflow-hidden rounded-2xl border-2 border-brand-red/40 bg-gradient-to-r from-brand-red/10 via-brand-yellow/25 to-brand-red/10 p-6 md:p-8">
+                        <span className="ab-sweep" />
+                        <div className="relative flex flex-col items-center justify-center gap-4 text-center md:flex-row md:gap-6">
+                            <span className="ab-icon flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-brand-red text-white shadow-lg">
+                                <AlertTriangle className="h-7 w-7" />
+                            </span>
+                            <p className="text-lg font-bold text-[#1A1A1A] md:text-2xl md:leading-snug">
+                                <span className="ab-blink font-extrabold text-brand-red">
+                                    When gaps in education, life skills, and employability are not tackled,
+                                </span>
+                                <br />
+                                young people are deprived of opportunities due to the poverty trap.
+                            </p>
+                        </div>
                     </div>
                 </FadeUp>
             </div>
@@ -326,22 +375,29 @@ function ProblemStatement() {
     );
 }
 
-/* 
+/*
    WHY LIFE SKILLS
 */
 const lifeSkillBenefits = [
-    "Enhance resilience, aspiration, and self-belief",
-    "Communicate well and make conscious decisions",
-    "Handle emotions, challenges, and relationships",
-    "Get ready for real-world scenarios beyond classrooms",
+    { icon: Sprout, hex: "#B3CC35", fg: "#1A1A1A", text: "Enhance resilience, aspiration, and self-belief" },
+    { icon: MessageCircle, hex: "#21BDEA", fg: "#1A1A1A", text: "Communicate well and make conscious decisions" },
+    { icon: HeartHandshake, hex: "#E01085", fg: "#FFFFFF", text: "Handle emotions, challenges, and relationships" },
+    { icon: Rocket, hex: "#E12228", fg: "#FFFFFF", text: "Get ready for real-world scenarios beyond classrooms" },
 ];
+
+// Highlighter-pen underline for the key challenges named in the paragraph
+const Mark = ({ children }) => (
+    <span className="rounded-sm bg-gradient-to-t from-brand-yellow/70 to-brand-yellow/70 bg-[length:100%_45%] bg-bottom bg-no-repeat px-0.5 font-semibold text-[#1A1A1A]">
+        {children}
+    </span>
+);
 
 function WhyLifeSkills() {
     return (
         <section className="py-20 bg-[#F7F7F5]">
             <div className="max-w-7xl mx-auto px-6 lg:px-12">
                 <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-                    {/* Left  image */}
+                    {/* Left: image */}
                     <FadeIn className="order-2 lg:order-1">
                         <div className="relative rounded-3xl overflow-hidden aspect-[4/3] shadow-xl">
                             <img
@@ -365,35 +421,46 @@ function WhyLifeSkills() {
                         </div>
                     </FadeIn>
 
-                    {/* Right  content */}
+                    {/* Right: content */}
                     <div className="order-1 lg:order-2">
                         <FadeUp>
                             <SectionLabel icon={Lightbulb}>Life Skills</SectionLabel>
                             <h2 className="text-3xl md:text-4xl font-extrabold text-[#1A1A1A] leading-tight">
                                 Why Life Skills Education Is Needed
                             </h2>
-                            <p className="mt-4 text-base text-[#1A1A1A]/70 leading-relaxed">
+                            <p className="mt-4 text-base text-[#1A1A1A]/75 leading-relaxed">
                                 Academic education alone may not be sufficient to help young minds overcome
                                 poverty. Adolescents from underserved communities often deal with challenges
-                                beyond academics  low confidence, absence of role models, decision-making
-                                struggles, and limited exposure.
+                                beyond academics — <Mark>low confidence</Mark>, <Mark>absence of role models</Mark>,{" "}
+                                <Mark>decision-making struggles</Mark>, and <Mark>limited exposure</Mark>.
                             </p>
-                            <p className="mt-3 text-base text-[#1A1A1A]/70 leading-relaxed">
+                            <p className="mt-3 text-base text-[#1A1A1A]/75 leading-relaxed">
                                 In the absence of life skills, even students who come to school struggle
                                 to handle the challenges of higher education or their workplace.
                             </p>
 
-                            <p className="mt-6 font-semibold text-[#1A1A1A]">With life skills education, young people can:</p>
-                            <ul className="mt-4 space-y-3">
+                            <p className="mt-7 text-lg font-extrabold text-[#1A1A1A]">With life skills education, young people can:</p>
+                            <div className="mt-4 grid gap-3 sm:grid-cols-2">
                                 {lifeSkillBenefits.map((b, i) => (
-                                    <FadeUp delay={0.05 * (i + 1)} key={b}>
-                                        <li className="flex items-start gap-3">
-                                            <CheckCircle className="w-5 h-5 text-brand-green mt-0.5 shrink-0" />
-                                            <span className="text-[#1A1A1A]/75 text-sm leading-relaxed">{b}</span>
-                                        </li>
+                                    <FadeUp delay={0.06 * (i + 1)} key={b.text}>
+                                        <motion.div
+                                            whileHover={{ y: -5 }}
+                                            whileTap={{ scale: 0.98 }}
+                                            className="group flex h-full items-start gap-3 rounded-2xl border border-gray-100 bg-white p-4 shadow-sm transition-shadow hover:shadow-lg"
+                                        >
+                                            <motion.span
+                                                className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl shadow-md"
+                                                style={{ background: b.hex, color: b.fg }}
+                                                whileHover={{ rotate: [0, -12, 12, 0], scale: 1.15 }}
+                                                transition={{ duration: 0.45 }}
+                                            >
+                                                <b.icon className="h-5 w-5" />
+                                            </motion.span>
+                                            <span className="pt-0.5 text-sm font-semibold leading-snug text-[#1A1A1A]">{b.text}</span>
+                                        </motion.div>
                                     </FadeUp>
                                 ))}
-                            </ul>
+                            </div>
 
                             <FadeUp delay={0.3}>
                                 <div className="mt-8 rounded-xl bg-brand-red/5 border-l-4 border-brand-red p-4">
@@ -412,7 +479,7 @@ function WhyLifeSkills() {
     );
 }
 
-/* 
+/*
    WHO WE ARE
 */
 const stats = [
@@ -421,6 +488,29 @@ const stats = [
     { value: "14", suffix: "+", label: "States Across India" },
     { value: "1", suffix: "M+", label: "Lives Impacted" },
 ];
+
+/* Big stat tile: pops in with a springy bump, bumps again on hover, numbers count up */
+function StatBump({ value, suffix, label, count, delay = 0 }) {
+    const ref = useRef(null);
+    const inView = useInView(ref, { once: true, margin: "-60px" });
+    return (
+        <motion.div
+            ref={ref}
+            initial={{ opacity: 0, scale: 0.55, y: 30 }}
+            animate={inView ? { opacity: 1, scale: 1, y: 0 } : {}}
+            transition={{ type: "spring", stiffness: 260, damping: 13, delay }}
+            whileHover={{ scale: 1.08, y: -6 }}
+            whileTap={{ scale: 0.96 }}
+            className="relative cursor-default overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-white/15 to-white/[0.03] p-6 text-center shadow-lg transition-colors hover:border-brand-yellow/60 hover:shadow-[0_0_40px_rgba(255,204,4,0.28)] sm:p-8"
+        >
+            <span className="pointer-events-none absolute -top-10 left-1/2 h-24 w-24 -translate-x-1/2 rounded-full bg-brand-yellow/25 blur-2xl" />
+            <div className="relative text-5xl font-extrabold leading-none tabular-nums text-brand-yellow md:text-6xl">
+                {count ? <AnimatedCounter value={value} suffix={suffix} /> : <>{value}{suffix}</>}
+            </div>
+            <div className="relative mt-3 text-sm font-semibold text-white/75 md:text-base">{label}</div>
+        </motion.div>
+    );
+}
 
 function WhoWeAre() {
     return (
@@ -459,17 +549,9 @@ function WhoWeAre() {
                     </div>
 
                     {/* Stats grid */}
-                    <div className="grid grid-cols-[repeat(auto-fit,minmax(130px,1fr))] gap-5 items-center">
-                        {stats.map((s, i) => (
-                            <FadeUp key={s.label} delay={0.1 * i}>
-                                <div className="rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm p-6 hover:bg-white/10 transition-colors">
-                                    <div className="text-3xl md:text-4xl font-extrabold text-brand-yellow">
-                                        {s.value}
-                                        {s.suffix}
-                                    </div>
-                                    <div className="mt-2 text-sm text-white/60 font-medium">{s.label}</div>
-                                </div>
-                            </FadeUp>
+                    <div className="grid grid-cols-2 gap-4 sm:gap-6">
+                        {stats.map((st, i) => (
+                            <StatBump key={st.label} value={st.value} suffix={st.suffix} label={st.label} count={st.value !== "1999"} delay={0.1 * i} />
                         ))}
                     </div>
                 </div>
@@ -507,22 +589,19 @@ function WhoWeAre() {
 const whatWeDo = [
     {
         icon: BookOpen,
-        color: "text-brand-blue",
-        bg: "bg-brand-blue/10",
+        hex: "#21BDEA",
         title: "Education & Adolescents",
         desc: "Adolescents stay in school, acquire life skills through our curriculum, and finish secondary education.",
     },
     {
         icon: Briefcase,
-        color: "text-brand-green",
-        bg: "bg-brand-green/10",
+        hex: "#B3CC35",
         title: "Youth & Livelihoods",
         desc: "Youth acquire employability skills, access opportunities for jobs or self-employment, and sustain livelihoods.",
     },
     {
         icon: Users,
-        color: "text-brand-magenta",
-        bg: "bg-brand-magenta/10",
+        hex: "#E01085",
         title: "Community Support",
         desc: "Communities support young people's education and career growth through an integrated ecosystem.",
     },
@@ -535,7 +614,7 @@ function WhatWeDo() {
                 <FadeUp>
                     <SectionLabel icon={TrendingUp}>What We Do</SectionLabel>
                     <h2 className="text-3xl md:text-4xl font-extrabold text-[#1A1A1A] leading-tight max-w-2xl">
-                        From Classrooms to Careers  an Integrated Approach
+                        From Classrooms to Careers — an Integrated Approach
                     </h2>
                     <p className="mt-4 text-[#1A1A1A]/70 max-w-2xl leading-relaxed">
                         Our work aims to achieve long-term goals, ensuring that progress made in classrooms
@@ -543,21 +622,10 @@ function WhatWeDo() {
                     </p>
                 </FadeUp>
 
-                <div className="mt-14 grid md:grid-cols-3 gap-7">
+                <div className="mt-14 grid md:grid-cols-3 gap-6">
                     {whatWeDo.map((item, i) => (
                         <FadeUp key={item.title} delay={0.1 + i * 0.1}>
-                            <div className="relative rounded-2xl border border-gray-100 bg-[#F7F7F5] p-8 hover:shadow-lg transition-all duration-300 group hover:-translate-y-1">
-                                {/* Icon */}
-                                <div className={`${item.bg} ${item.color} inline-flex rounded-xl p-3.5 mb-5`}>
-                                    <item.icon className="w-6 h-6" />
-                                </div>
-                                <h3 className="text-lg font-bold text-[#1A1A1A] mb-3">{item.title}</h3>
-                                <p className="text-sm text-[#1A1A1A]/65 leading-relaxed">{item.desc}</p>
-                                {/* Decorative number */}
-                                <div className="absolute top-6 right-6 text-5xl font-extrabold text-[#1A1A1A]/5 group-hover:text-[#1A1A1A]/10 transition-colors">
-                                    0{i + 1}
-                                </div>
-                            </div>
+                            <InteractiveCard icon={item.icon} hex={item.hex} stat={item.title} desc={item.desc} />
                         </FadeUp>
                     ))}
                 </div>
@@ -566,8 +634,8 @@ function WhatWeDo() {
     );
 }
 
-/* 
-   OUR STORY  SCROLL-DRIVEN BUS JOURNEY
+/*
+   OUR STORY: SCROLL-DRIVEN BUS JOURNEY
 */
 
 const milestones = [
@@ -1132,9 +1200,9 @@ function OurStory() {
 }
 /* WHY MAGIC BUS */
 const impacts = [
-    { icon: TrendingUp, color: "text-brand-blue", label: "Reduces school dropout rates" },
-    { icon: Briefcase, color: "text-brand-green", label: "Enhances job readiness" },
-    { icon: Shield, color: "text-brand-magenta", label: "Enables long-term financial independence" },
+    { icon: GraduationCap, hex: "#21BDEA", fg: "#FFFFFF", label: "Reduces school dropout rates" },
+    { icon: Briefcase, hex: "#B3CC35", fg: "#1A1A1A", label: "Enhances job readiness" },
+    { icon: Wallet, hex: "#E01085", fg: "#FFFFFF", label: "Enables long-term financial independence" },
 ];
 
 function WhyMagicBus() {
@@ -1155,14 +1223,31 @@ function WhyMagicBus() {
                                 timely intervention and structured support for young people, we help in:
                             </p>
 
-                            <ul className="mt-6 space-y-4">
+                            <ul className="mt-8 space-y-5">
                                 {impacts.map((im, i) => (
-                                    <FadeUp key={im.label} delay={0.1 * i}>
-                                        <li className="flex items-center gap-4 rounded-xl border border-gray-100 bg-[#F7F7F5] px-5 py-4">
-                                            <im.icon className={`w-5 h-5 ${im.color} shrink-0`} />
-                                            <span className="font-medium text-[#1A1A1A]">{im.label}</span>
-                                        </li>
-                                    </FadeUp>
+                                    <motion.li
+                                        key={im.label}
+                                        initial={{ opacity: 0, x: -30 }}
+                                        whileInView={{ opacity: 1, x: 0 }}
+                                        viewport={{ once: true, margin: "-40px" }}
+                                        transition={{ duration: 0.5, ease: EASE, delay: 0.1 * i }}
+                                        whileHover={{ x: 6 }}
+                                        className="group relative flex items-center gap-5 rounded-2xl border border-gray-100 bg-[#F7F7F5] py-4 pl-20 pr-5 shadow-sm transition-shadow hover:shadow-lg"
+                                    >
+                                        {/* Logo badge that pops out of the card's left edge */}
+                                        <motion.span
+                                            initial={{ scale: 0, rotate: -40 }}
+                                            whileInView={{ scale: 1, rotate: 0 }}
+                                            viewport={{ once: true }}
+                                            transition={{ type: "spring", stiffness: 280, damping: 12, delay: 0.25 + 0.1 * i }}
+                                            whileHover={{ rotate: [0, -12, 12, 0], scale: 1.18 }}
+                                            className="absolute -left-3 top-1/2 flex h-16 w-16 -translate-y-1/2 items-center justify-center rounded-2xl shadow-xl ring-4 ring-white"
+                                            style={{ background: im.hex, color: im.fg }}
+                                        >
+                                            <im.icon className="h-8 w-8" />
+                                        </motion.span>
+                                        <span className="text-base font-semibold text-[#1A1A1A] md:text-lg">{im.label}</span>
+                                    </motion.li>
                                 ))}
                             </ul>
 
@@ -1224,30 +1309,40 @@ const values = [
         title: "Passion",
         desc: "We will work with entrepreneurial zeal to achieve organisational objectives.",
         color: "bg-brand-red",
+        hex: "#E12228",
+        fg: "text-white",
     },
     {
         icon: Shield,
         title: "Integrity",
         desc: "We will be truthful to ourselves and Magic Bus India Foundation.",
         color: "bg-brand-blue",
+        hex: "#21BDEA",
+        fg: "text-white",
     },
     {
         icon: Users,
         title: "Respect",
         desc: "We will respect our internal and external stakeholders, diversity of people, ideas and culture.",
         color: "bg-brand-magenta",
+        hex: "#E01085",
+        fg: "text-white",
     },
     {
         icon: Lightbulb,
         title: "Innovation",
         desc: "We will promote viable and implementable innovation at our workplace.",
         color: "bg-brand-green",
+        hex: "#B3CC35",
+        fg: "text-brand-black",
     },
     {
         icon: Star,
         title: "Collaboration",
         desc: "We will always be a united team by upholding our core purpose and honouring one another's commitments.",
         color: "bg-brand-yellow",
+        hex: "#FFCC04",
+        fg: "text-brand-black",
     },
 ];
 
@@ -1272,19 +1367,33 @@ function VisionMissionValues() {
                     </p>
                 </FadeUp>
 
-                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5">
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 sm:gap-6">
                     {values.map((v, i) => (
-                        <FadeUp key={v.title} delay={0.07 * i}>
+                        <FadeUp key={v.title} delay={0.07 * i} className={i === values.length - 1 ? "col-span-2 md:col-span-1" : ""}>
                             <motion.div
-                                className="rounded-2xl border border-white/10 bg-white/5 p-6 text-center hover:bg-white/10 transition-colors group cursor-default h-full flex flex-col"
-                                whileHover={{ y: -4 }}
-                                transition={{ duration: 0.25 }}
+                                className="group relative flex h-full cursor-default flex-col items-center overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-5 text-center transition-colors hover:border-white/30 hover:bg-white/10 sm:p-7"
+                                whileHover={{ y: -10 }}
+                                whileTap={{ scale: 0.97 }}
+                                transition={{ type: "spring", stiffness: 300, damping: 18 }}
                             >
-                                <div className={`${v.color} inline-flex rounded-xl p-3 mb-4 mx-auto`}>
-                                    <v.icon className={`w-5 h-5 ${v.title === "Innovation" || v.title === "Collaboration" ? "text-brand-black" : "text-white"}`} />
-                                </div>
-                                <h4 className="font-bold text-white mb-2">{v.title}</h4>
-                                <p className="text-xs text-white/50 leading-relaxed mt-auto">{v.desc}</p>
+                                {/* glow in the value's own colour */}
+                                <span
+                                    className="pointer-events-none absolute -top-14 left-1/2 h-32 w-32 -translate-x-1/2 rounded-full opacity-0 blur-3xl transition-opacity duration-500 group-hover:opacity-60"
+                                    style={{ background: v.hex }}
+                                />
+                                <motion.div
+                                    className={`${v.color} relative mb-5 inline-flex rounded-3xl p-4 shadow-xl ring-4 ring-white/10 sm:p-5`}
+                                    whileHover={{ rotate: [0, -12, 12, -6, 0], scale: 1.18 }}
+                                    transition={{ duration: 0.55 }}
+                                >
+                                    <v.icon className={`h-9 w-9 sm:h-11 sm:w-11 ${v.fg}`} />
+                                </motion.div>
+                                <h4 className="relative mb-2 text-lg font-extrabold text-white sm:text-xl">{v.title}</h4>
+                                <p className="relative mt-auto text-xs leading-relaxed text-white/60 sm:text-sm">{v.desc}</p>
+                                <span
+                                    className="absolute bottom-0 left-0 h-1 w-0 transition-all duration-500 group-hover:w-full"
+                                    style={{ background: v.hex }}
+                                />
                             </motion.div>
                         </FadeUp>
                     ))}
