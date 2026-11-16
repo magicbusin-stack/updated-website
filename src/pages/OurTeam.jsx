@@ -130,22 +130,22 @@ function TeamCard({ member, index, variant = "light", onOpen }) {
                 </div>
 
                 {/* ── Text body ───────────────────────────────────────── */}
-                <div className="flex flex-col gap-2 p-5 flex-1">
+                <div className="flex flex-col gap-2 p-5 sm:p-6 flex-1">
                     <h3
-                        className={`font-bold text-lg leading-snug ${isDark ? "text-white" : "text-[#1A1A1A]"
+                        className={`font-bold text-xl leading-snug ${isDark ? "text-white" : "text-[#1A1A1A]"
                             }`}
                     >
                         {member.name}
                     </h3>
                     <p
-                        className={`text-sm font-semibold leading-snug ${isDark ? "text-brand-yellow" : "text-brand-red"
+                        className={`text-base font-semibold leading-snug ${isDark ? "text-brand-yellow" : "text-brand-red"
                             }`}
                     >
                         {member.role}
                     </p>
                     {member.bio && (
                         <p
-                            className={`text-[15px] leading-relaxed mt-1 flex-1 ${isDark ? "text-white/65" : "text-[#1A1A1A]/70"
+                            className={`text-base leading-relaxed mt-1 flex-1 line-clamp-5 ${isDark ? "text-white/70" : "text-[#1A1A1A]/75"
                                 }`}
                         >
                             {member.bio}
@@ -155,7 +155,7 @@ function TeamCard({ member, index, variant = "light", onOpen }) {
                         <button
                             type="button"
                             onClick={() => onOpen(member)}
-                            className="mt-3 inline-flex w-fit items-center gap-2 rounded-full border border-brand-red/25 px-4 py-1.5 text-sm font-bold text-brand-red transition-colors hover:bg-brand-red/5"
+                            className="mt-4 inline-flex w-fit items-center gap-2 rounded-full border border-brand-red/25 px-5 py-2 text-base font-bold text-brand-red transition-colors hover:bg-brand-red/5"
                         >
                             Read More
                             <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-brand-yellow text-brand-black text-sm font-extrabold">+</span>
@@ -218,6 +218,8 @@ const internationalTeam = {
         },
     ],
 };
+
+const internationalCount = Object.values(internationalTeam).reduce((n, group) => n + group.length, 0);
 
 const featuredLeadership = [
     {
@@ -436,20 +438,22 @@ function HeroSection() {
                     through education, life skills, and livelihood opportunities.
                 </motion.p>
 
-                {/* Stats row */}
+                {/* Stats row: all four numbers are counted from the people listed on this page */}
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.5, duration: 0.6, ease: EASE }}
-                    className="mt-10 flex flex-wrap gap-2 md:gap-0"
+                    className="mt-10 grid max-w-4xl grid-cols-2 gap-3 sm:gap-4 md:grid-cols-4"
                 >
                     {[
                         { num: String(indiaTeam.length + 2), label: "India Leaders" },
+                        { num: String(internationalCount), label: "International Leaders" },
                         { num: "4", label: "Countries" },
-                    ].map((s, i) => (
-                        <div key={s.label} className="flex items-center gap-3 pr-6 mr-6 border-r border-white/10 last:border-0">
-                            <div className="text-3xl font-extrabold text-brand-yellow">{s.num}</div>
-                            <div className="text-sm text-white/60 font-medium leading-tight max-w-[90px]">{s.label}</div>
+                        { num: "1999", label: "Founded in Mumbai" },
+                    ].map((st) => (
+                        <div key={st.label} className="rounded-2xl border border-white/10 bg-white/5 px-5 py-5 backdrop-blur-sm">
+                            <div className="text-4xl font-extrabold leading-none text-brand-yellow sm:text-5xl">{st.num}</div>
+                            <div className="mt-2 text-base font-medium leading-snug text-white/75 sm:text-lg">{st.label}</div>
                         </div>
                     ))}
                 </motion.div>
@@ -474,7 +478,7 @@ function IndiaTeamSection({ onOpen }) {
                     </p>
                 </FadeUp>
 
-                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                     {indiaTeam.map((member, i) => (
                         <TeamCard key={member.name} member={member} index={i} variant="light" onOpen={onOpen} />
                     ))}
