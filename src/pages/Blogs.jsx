@@ -241,19 +241,7 @@ function FeaturedStories({ items }) {
   return (
     <section id="featured" className="bg-gradient-to-b from-[#FFF3B0] to-[#FFFBE6]">
       <div className="max-w-7xl mx-auto px-6 py-16">
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        className="text-center mb-12"
-      >
-        <h2 className="text-3xl md:text-4xl font-heading font-bold text-ink mb-4">
-          Featured Stories
-        </h2>
-        <p className="text-lg text-slate-600 max-w-2xl mx-auto">
-          Discover our most impactful stories and insights from the field
-        </p>
-      </motion.div>
+      <h2 className="lg:hidden text-3xl font-heading font-bold text-ink mb-6">Latest Stories</h2>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Main featured article */}
@@ -268,11 +256,12 @@ function FeaturedStories({ items }) {
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -20 }}
               transition={{ duration: 0.5 }}
-              className="group cursor-pointer"
+              className="group relative cursor-pointer"
               onMouseEnter={() => setIsAutoPlaying(false)}
               onMouseLeave={() => setIsAutoPlaying(true)}
             >
-              <a href={`/blog/${items[activeIndex]?.id}`} className="relative block rounded-3xl overflow-hidden shadow-2xl">
+              <a href={`/blog/${items[activeIndex]?.id}`} aria-label={items[activeIndex]?.title} className="absolute inset-0 z-10 rounded-3xl" />
+              <div className="relative block rounded-3xl overflow-hidden shadow-2xl">
                 <img
                   src={items[activeIndex]?.image}
                   alt={items[activeIndex]?.title}
@@ -281,24 +270,26 @@ function FeaturedStories({ items }) {
                 <span className="absolute top-5 left-5 inline-block bg-brand-yellow text-brand-black px-3 py-1 rounded-full text-sm font-semibold shadow">
                   {items[activeIndex]?.category}
                 </span>
-              </a>
+              </div>
 
-              <a
-                href={`/blog/${items[activeIndex]?.id}`}
-                className="group/title mt-5 flex items-center justify-between gap-4 rounded-2xl bg-white px-5 py-4 shadow-md transition hover:shadow-lg"
+              <div
+                className="mt-5 flex items-center justify-between gap-4 rounded-2xl bg-white px-5 py-4 shadow-md transition hover:shadow-lg"
               >
-                <h3 className="text-xl md:text-2xl font-bold leading-snug text-ink underline decoration-brand-red/40 decoration-2 underline-offset-4 transition-colors group-hover/title:text-brand-red group-hover/title:decoration-brand-red">
+                <h3 className="text-xl md:text-2xl font-bold leading-snug text-ink underline decoration-brand-red/40 decoration-2 underline-offset-4 transition-colors group-hover:text-brand-red group-hover:decoration-brand-red">
                   {items[activeIndex]?.title}
                 </h3>
-                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-brand-red text-white transition-transform group-hover/title:translate-x-1">
+                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-brand-red text-white transition-transform group-hover:translate-x-1">
                   <ArrowRight className="h-5 w-5" />
                 </span>
-              </a>
+              </div>
             </motion.article>
           </AnimatePresence>
         </motion.div>
 
         {/* Story navigation */}
+        <div>
+        <h2 className="hidden lg:block text-3xl md:text-4xl font-heading font-bold text-ink mb-2">Latest Stories</h2>
+        <p className="hidden lg:block text-sm text-slate-600 mb-5">Discover our most impactful stories and insights from the field</p>
         <div className="space-y-4">
           {items.map((item, index) => (
             <motion.button
@@ -330,6 +321,7 @@ function FeaturedStories({ items }) {
               </div>
             </motion.button>
           ))}
+        </div>
         </div>
       </div>
       </div>
@@ -423,9 +415,11 @@ function BlogCard({ post, index }) {
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: index * 0.1 }}
       whileHover={{ y: -8 }}
-      className="group bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500"
+      className="group relative cursor-pointer bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500"
       style={{ borderTop: `6px solid ${c.bg}` }}
     >
+      {/* Invisible link covering the whole card, so a click anywhere opens the post */}
+      <a href={`/blog/${post.id}`} aria-label={post.title} className="absolute inset-0 z-10 rounded-3xl" />
       <div className="relative overflow-hidden">
         <img
           src={post.image}
@@ -477,77 +471,6 @@ function BlogCard({ post, index }) {
         </motion.a>
       </div>
     </motion.article>
-  );
-}
-
-/* ---------------- Enhanced Sidebar ---------------- */
-function Sidebar({ posts, categories, activeCategory, onSelect }) {
-  const latest = [...posts].sort((a, b) => new Date(b.date) - new Date(a.date)).slice(0, 4);
-
-  return (
-    <aside className="space-y-8">
-      {/* Latest Posts */}
-      <div className="bg-white rounded-3xl shadow-lg overflow-hidden">
-        <div className="flex items-center gap-2 px-6 py-4 bg-brand-red text-white">
-          <TrendingUp className="w-5 h-5" />
-          <h4 className="font-bold">Latest Stories</h4>
-        </div>
-
-        <div className="p-6 space-y-4">
-          {latest.map((post) => (
-            <motion.a
-              key={post.id}
-              href={`/blog/${post.id}`}
-              className="flex gap-4 group"
-              whileHover={{ x: 5 }}
-            >
-              <img
-                src={post.image}
-                alt={post.title}
-                className="w-16 h-16 object-cover rounded-xl"
-              />
-              <div className="flex-1">
-                <h5 className="font-semibold text-sm text-ink group-hover:text-brand-red transition-colors line-clamp-2 mb-1">
-                  {post.title}
-                </h5>
-                <span className="text-xs text-slate-500">{dateToPretty(post.date)}</span>
-              </div>
-            </motion.a>
-          ))}
-        </div>
-      </div>
-
-      {/* Categories */}
-      <div className="bg-white rounded-3xl shadow-lg overflow-hidden">
-        <div className="flex items-center gap-2 px-6 py-4 bg-brand-blue text-ink">
-          <Tag className="w-5 h-5" />
-          <h4 className="font-bold">Categories</h4>
-        </div>
-
-        <div className="p-4 space-y-1">
-          {categories.map((category) => {
-            const count = posts.filter((p) => p.category === category).length;
-            const c = colorFor(category);
-            const active = activeCategory === category;
-            return (
-              <button
-                key={category}
-                onClick={() => onSelect(active ? "All" : category)}
-                className={`w-full flex items-center justify-between gap-3 p-3 rounded-xl transition-colors text-left ${active ? "bg-slate-100" : "hover:bg-slate-50"}`}
-              >
-                <span className="flex items-center gap-2 text-sm text-ink">
-                  <span className="w-2.5 h-2.5 rounded-full shrink-0" style={{ background: c.bg }} />
-                  {category}
-                </span>
-                <span className="text-xs px-2 py-1 rounded-full font-semibold" style={{ background: c.bg, color: c.fg }}>
-                  {count}
-                </span>
-              </button>
-            );
-          })}
-        </div>
-      </div>
-    </aside>
   );
 }
 
@@ -817,7 +740,7 @@ export default function Blogs() {
               {paginatedPosts.length > 0 ? (
                 <motion.div
                   className={`grid gap-8 ${viewMode === "grid"
-                    ? "grid-cols-1 md:grid-cols-2"
+                    ? "grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
                     : "grid-cols-1"
                     }`}
                   layout
@@ -865,15 +788,6 @@ export default function Blogs() {
               )}
             </div>
 
-            {/* Sidebar */}
-            <div className="lg:w-80">
-              <Sidebar
-                posts={POSTS}
-                categories={categories}
-                activeCategory={activeCategory}
-                onSelect={handleCategoryChange}
-              />
-            </div>
           </div>
         </div>
 
