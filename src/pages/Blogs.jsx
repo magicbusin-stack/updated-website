@@ -168,7 +168,7 @@ const dateToPretty = (iso) => new Date(iso).toLocaleDateString("en-GB", { day: "
 /* ---------------- Modern Hero Section ---------------- */
 function Hero() {
   return (
-    <section className="relative h-screen w-full overflow-hidden">
+    <section className="relative h-[60svh] min-h-[420px] md:h-screen w-full overflow-hidden">
       <img
         src="/ngo-images/1.jpeg"
         alt="Blogs Hero"
@@ -240,10 +240,10 @@ function FeaturedStories({ items }) {
 
   return (
     <section id="featured" className="bg-gradient-to-b from-[#FFF3B0] to-[#FFFBE6]">
-      <div className="max-w-7xl mx-auto px-6 py-16">
-      <h2 className="lg:hidden text-3xl font-heading font-bold text-ink mb-6">Latest Stories</h2>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8 sm:py-16">
+      <h2 className="lg:hidden text-2xl sm:text-3xl font-heading font-bold text-ink mb-4">Latest Stories</h2>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 lg:gap-8">
         {/* Main featured article */}
         <motion.div
           className="lg:col-span-2"
@@ -265,7 +265,7 @@ function FeaturedStories({ items }) {
                 <img
                   src={items[activeIndex]?.image}
                   alt={items[activeIndex]?.title}
-                  className="w-full h-[400px] object-cover group-hover:scale-105 transition-transform duration-700"
+                  className="w-full h-56 sm:h-[400px] object-cover group-hover:scale-105 transition-transform duration-700"
                 />
                 <span className="absolute top-5 left-5 inline-block bg-brand-yellow text-brand-black px-3 py-1 rounded-full text-sm font-semibold shadow">
                   {items[activeIndex]?.category}
@@ -273,9 +273,9 @@ function FeaturedStories({ items }) {
               </div>
 
               <div
-                className="mt-5 flex items-center justify-between gap-4 rounded-2xl bg-white px-5 py-4 shadow-md transition hover:shadow-lg"
+                className="mt-3 sm:mt-5 flex items-center justify-between gap-3 sm:gap-4 rounded-2xl bg-white px-4 sm:px-5 py-3 sm:py-4 shadow-md transition hover:shadow-lg"
               >
-                <h3 className="text-xl md:text-2xl font-bold leading-snug text-ink underline decoration-brand-red/40 decoration-2 underline-offset-4 transition-colors group-hover:text-brand-red group-hover:decoration-brand-red">
+                <h3 className="text-base sm:text-xl md:text-2xl font-bold leading-snug text-ink underline decoration-brand-red/40 decoration-2 underline-offset-4 transition-colors group-hover:text-brand-red group-hover:decoration-brand-red">
                   {items[activeIndex]?.title}
                 </h3>
                 <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-brand-red text-white transition-transform group-hover:translate-x-1">
@@ -290,12 +290,12 @@ function FeaturedStories({ items }) {
         <div>
         <h2 className="hidden lg:block text-3xl md:text-4xl font-heading font-bold text-ink mb-2">Latest Stories</h2>
         <p className="hidden lg:block text-sm text-slate-600 mb-5">Discover our most impactful stories and insights from the field</p>
-        <div className="space-y-4">
+        <div className="flex gap-3 overflow-x-auto snap-x snap-mandatory pb-2 lg:block lg:space-y-4 lg:overflow-visible lg:pb-0 [scrollbar-width:none]">
           {items.map((item, index) => (
             <motion.button
               key={item.id}
               onClick={() => setActiveIndex(index)}
-              className={`w-full text-left p-4 rounded-2xl transition-all ${index === activeIndex
+              className={`w-[78%] shrink-0 snap-start lg:w-full lg:shrink text-left p-3 sm:p-4 rounded-2xl transition-all ${index === activeIndex
                 ? "bg-brand-red/10 border-2 border-brand-red/20 shadow-lg"
                 : "bg-white hover:bg-slate-50 border-2 border-transparent"
                 }`}
@@ -334,9 +334,9 @@ function ModernFilterSection({ query, setQuery, resultsCount, categories, active
   const [isFocused, setIsFocused] = useState(false);
 
   return (
-    <div className="max-w-7xl mx-auto px-6 py-6">
-      <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
-        <div className="flex flex-col lg:flex-row lg:items-center gap-6">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 sm:py-6">
+      <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-4 sm:p-6">
+        <div className="flex flex-col lg:flex-row lg:items-center gap-3 lg:gap-6">
           {/* Search Bar - Extra Compact */}
           <div className="lg:min-w-xs">
             <div className={`flex items-center gap-2 bg-slate-50 rounded-md px-2 py-1.5 border transition-all ${isFocused ? "border-brand-red bg-white shadow-sm" : "border-transparent"}`}>
@@ -347,7 +347,7 @@ function ModernFilterSection({ query, setQuery, resultsCount, categories, active
                 onFocus={() => setIsFocused(true)}
                 onBlur={() => setIsFocused(false)}
                 placeholder="Search..."
-                className="flex-1 bg-transparent outline-none text-ink placeholder-slate-400 text-xs w-24"
+                className="flex-1 bg-transparent outline-none text-ink placeholder-slate-400 text-sm sm:text-xs w-24"
               />
               {query && (
                 <button
@@ -365,11 +365,11 @@ function ModernFilterSection({ query, setQuery, resultsCount, categories, active
 
           {/* Category Filters */}
           <div className="flex-1">
-            <div className="flex flex-wrap items-center gap-2">
-              <span className="text-sm font-medium text-slate-600 mr-2">Filter:</span>
+            <div className="flex flex-nowrap sm:flex-wrap items-center gap-2 overflow-x-auto sm:overflow-visible pb-1 [scrollbar-width:none]">
+              <span className="hidden sm:inline text-sm font-medium text-slate-600 mr-2">Filter:</span>
               <button
                 onClick={() => setActiveCategory("All")}
-                className={`px-3 py-1 rounded-full text-xs font-medium transition-all ${activeCategory === "All"
+                className={`shrink-0 whitespace-nowrap px-3 py-1.5 sm:py-1 rounded-full text-xs font-medium transition-all ${activeCategory === "All"
                   ? "bg-brand-red text-white"
                   : "bg-slate-100 text-slate-600 hover:bg-slate-200"
                   }`}
@@ -385,7 +385,7 @@ function ModernFilterSection({ query, setQuery, resultsCount, categories, active
                       ? { background: colorFor(category).bg, color: colorFor(category).fg }
                       : { background: colorFor(category).bg + "26", color: "#1A1A1A" }
                   }
-                  className="px-3 py-1 rounded-full text-xs font-semibold transition-all hover:brightness-95"
+                  className="shrink-0 whitespace-nowrap px-3 py-1.5 sm:py-1 rounded-full text-xs font-semibold transition-all hover:brightness-95"
                 >
                   {category.split(' ').slice(0, 2).join(' ')} ({POSTS.filter(p => p.category === category).length})
                 </button>
@@ -415,34 +415,34 @@ function BlogCard({ post, index }) {
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: index * 0.1 }}
       whileHover={{ y: -8 }}
-      className="group relative cursor-pointer bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500"
-      style={{ borderTop: `6px solid ${c.bg}` }}
+      className="group relative cursor-pointer flex sm:block bg-white rounded-2xl sm:rounded-3xl overflow-hidden shadow-md sm:shadow-lg hover:shadow-2xl transition-all duration-500 border-l-[6px] sm:border-l-0 sm:border-t-[6px]"
+      style={{ borderColor: c.bg }}
     >
       {/* Invisible link covering the whole card, so a click anywhere opens the post */}
-      <a href={`/blog/${post.id}`} aria-label={post.title} className="absolute inset-0 z-10 rounded-3xl" />
-      <div className="relative overflow-hidden">
+      <a href={`/blog/${post.id}`} aria-label={post.title} className="absolute inset-0 z-10 rounded-2xl sm:rounded-3xl" />
+
+      <div className="relative overflow-hidden w-28 shrink-0 sm:w-auto">
         <img
           src={post.image}
           alt={post.title}
-          className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-700"
+          className="w-full h-full min-h-[120px] sm:h-48 object-cover group-hover:scale-110 transition-transform duration-700"
         />
-
       </div>
 
-      <div className="p-6">
-        <span className="inline-block mb-3 px-3 py-1 rounded-full text-xs font-semibold" style={{ background: c.bg, color: c.fg }}>
+      <div className="p-3 sm:p-6 min-w-0">
+        <span className="inline-block mb-1.5 sm:mb-3 px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full text-[11px] sm:text-xs font-semibold" style={{ background: c.bg, color: c.fg }}>
           {post.category}
         </span>
 
-        <h3 className="text-xl font-bold text-ink mb-3 line-clamp-2 group-hover:text-brand-red transition-colors">
+        <h3 className="text-sm sm:text-xl font-bold text-ink mb-1.5 sm:mb-3 line-clamp-3 sm:line-clamp-2 group-hover:text-brand-red transition-colors">
           {post.title}
         </h3>
 
-        <p className="text-slate-600 mb-4 line-clamp-3">
+        <p className="hidden sm:block text-slate-600 mb-4 line-clamp-3">
           {post.excerpt}
         </p>
 
-        <div className="flex flex-wrap gap-2 mb-4">
+        <div className="hidden sm:flex flex-wrap gap-2 mb-4">
           {post.tags?.slice(0, 2).map((tag) => (
             <span key={tag} className="text-xs px-2 py-1 rounded-full font-medium" style={{ background: c.bg + "26", color: "#1A1A1A" }}>
               #{tag}
@@ -450,20 +450,20 @@ function BlogCard({ post, index }) {
           ))}
         </div>
 
-        <div className="flex items-center gap-4 text-sm text-slate-500 mb-4">
+        <div className="flex items-center gap-3 sm:gap-4 text-xs sm:text-sm text-slate-500 sm:mb-4">
           <span className="flex items-center gap-1">
-            <Calendar className="w-4 h-4" />
+            <Calendar className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
             {dateToPretty(post.date)}
           </span>
           <span className="flex items-center gap-1">
-            <Clock className="w-4 h-4" />
+            <Clock className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
             {post.readingTime}m
           </span>
         </div>
 
         <motion.a
           href={`/blog/${post.id}`}
-          className="inline-flex items-center gap-2 text-brand-red font-semibold hover:gap-3 transition-all"
+          className="hidden sm:inline-flex items-center gap-2 text-brand-red font-semibold hover:gap-3 transition-all"
           whileHover={{ x: 5 }}
         >
           Read Full Story
@@ -493,7 +493,7 @@ function Pagination({ currentPage, totalPages, onPageChange, hasMore, onLoadMore
   };
 
   return (
-    <div className="flex flex-col items-center gap-6 mt-12">
+    <div className="flex flex-col items-center gap-4 mt-6 sm:mt-12">
       {/* Load More Button */}
       {hasMore && (
         <motion.button
@@ -507,7 +507,7 @@ function Pagination({ currentPage, totalPages, onPageChange, hasMore, onLoadMore
       )}
 
       {/* Page Numbers */}
-      <div className="flex items-center gap-2">
+      <div className="hidden sm:flex items-center gap-2">
         <motion.button
           onClick={() => onPageChange(currentPage - 1)}
           disabled={currentPage === 1}
@@ -552,37 +552,37 @@ function Pagination({ currentPage, totalPages, onPageChange, hasMore, onLoadMore
 /* ---------------- Enhanced Bottom CTA ---------------- */
 function BottomCTA() {
   return (
-    <section className="mt-20 bg-gradient-to-br from-[#1A1A1A] via-[#2B1216] to-[#4A0F16] py-16">
-      <div className="max-w-7xl mx-auto px-6">
+    <section className="mt-8 sm:mt-20 bg-gradient-to-br from-[#1A1A1A] via-[#2B1216] to-[#4A0F16] py-8 sm:py-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-12"
+          className="text-center mb-5 sm:mb-12"
         >
-          <h3 className="text-3xl md:text-4xl font-heading font-bold text-white mb-4">
+          <h3 className="text-2xl sm:text-3xl md:text-4xl font-heading font-bold text-white mb-2 sm:mb-4">
             Join Our Mission
           </h3>
-          <p className="text-lg text-white/80 max-w-2xl mx-auto">
+          <p className="text-sm sm:text-lg text-white/80 max-w-2xl mx-auto">
             Support us in empowering young people through education, life skills, and sustainable livelihoods
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-6">
           <motion.a
             href="/partner"
-            className="group p-8 bg-white rounded-3xl shadow-lg hover:shadow-xl transition-all text-center"
+            className="group p-4 sm:p-8 bg-white rounded-3xl shadow-lg hover:shadow-xl transition-all text-center"
             whileHover={{ y: -5, scale: 1.02 }}
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
           >
-            <div className="w-16 h-16 bg-brand-blue/10 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-brand-blue/20 transition-colors">
+            <div className="w-11 h-11 sm:w-16 sm:h-16 bg-brand-blue/10 rounded-full flex items-center justify-center mx-auto mb-2 sm:mb-6 group-hover:bg-brand-blue/20 transition-colors">
               <Users className="w-8 h-8 text-brand-blue" />
             </div>
-            <h4 className="text-xl font-bold text-ink mb-3">Partner With Us</h4>
-            <p className="text-slate-600 mb-6">
+            <h4 className="text-lg sm:text-xl font-bold text-ink mb-1 sm:mb-3">Partner With Us</h4>
+            <p className="hidden sm:block text-slate-600 mb-6">
               Collaborate with us to create lasting impact in communities
             </p>
             <div className="inline-flex items-center gap-2 text-brand-blue font-semibold group-hover:gap-3 transition-all">
@@ -593,18 +593,18 @@ function BottomCTA() {
 
           <motion.a
             href="/employee-volunteering"
-            className="group p-8 bg-white rounded-3xl shadow-lg hover:shadow-xl transition-all text-center"
+            className="group p-4 sm:p-8 bg-white rounded-3xl shadow-lg hover:shadow-xl transition-all text-center"
             whileHover={{ y: -5, scale: 1.02 }}
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
           >
-            <div className="w-16 h-16 bg-brand-yellow/10 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-brand-yellow/20 transition-colors">
+            <div className="w-11 h-11 sm:w-16 sm:h-16 bg-brand-yellow/10 rounded-full flex items-center justify-center mx-auto mb-2 sm:mb-6 group-hover:bg-brand-yellow/20 transition-colors">
               <Heart className="w-8 h-8 text-brand-yellow" />
             </div>
-            <h4 className="text-xl font-bold text-ink mb-3">Volunteer</h4>
-            <p className="text-slate-600 mb-6">
+            <h4 className="text-lg sm:text-xl font-bold text-ink mb-1 sm:mb-3">Volunteer</h4>
+            <p className="hidden sm:block text-slate-600 mb-6">
               Join our community of volunteers making a difference
             </p>
             <div className="inline-flex items-center gap-2 text-brand-yellow font-semibold group-hover:gap-3 transition-all">
@@ -615,18 +615,18 @@ function BottomCTA() {
 
           <motion.a
             href="/donate"
-            className="group p-8 bg-gradient-to-br from-brand-red to-brand-red/80 text-white rounded-3xl shadow-lg hover:shadow-xl transition-all text-center"
+            className="group p-4 sm:p-8 bg-gradient-to-br from-brand-red to-brand-red/80 text-white rounded-3xl shadow-lg hover:shadow-xl transition-all text-center"
             whileHover={{ y: -5, scale: 1.02 }}
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.3 }}
           >
-            <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-white/30 transition-colors">
+            <div className="w-11 h-11 sm:w-16 sm:h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-2 sm:mb-6 group-hover:bg-white/30 transition-colors">
               <Heart className="w-8 h-8 text-white" />
             </div>
-            <h4 className="text-xl font-bold mb-3">Donate Now</h4>
-            <p className="text-white/90 mb-6">
+            <h4 className="text-lg sm:text-xl font-bold mb-1 sm:mb-3">Donate Now</h4>
+            <p className="hidden sm:block text-white/90 mb-6">
               Make a direct impact with your generous contribution
             </p>
             <div className="inline-flex items-center gap-2 text-white font-semibold group-hover:gap-3 transition-all">
@@ -699,12 +699,12 @@ export default function Blogs() {
         />
 
         {/* Main Content Area */}
-        <div className="max-w-7xl mx-auto px-6 py-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 sm:py-8">
           <div className="flex flex-col lg:flex-row gap-12">
             {/* Blog Posts Grid */}
             <div className="lg:flex-1">
               {/* View Toggle & Results Info */}
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-8">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-4 sm:mb-8">
                 <div>
                   <h2 className="text-2xl font-bold text-ink mb-2">
                     {activeCategory === "All" ? "All Stories" : activeCategory}
@@ -715,7 +715,7 @@ export default function Blogs() {
                   </p>
                 </div>
 
-                <div className="flex items-center gap-2 mt-4 sm:mt-0">
+                <div className="hidden sm:flex items-center gap-2 mt-4 sm:mt-0">
                   <span className="text-sm text-slate-600">View:</span>
                   <div className="flex bg-white rounded-lg p-1 shadow-sm">
                     <button
@@ -739,7 +739,7 @@ export default function Blogs() {
               {/* Posts Grid */}
               {paginatedPosts.length > 0 ? (
                 <motion.div
-                  className={`grid gap-8 ${viewMode === "grid"
+                  className={`grid gap-3 sm:gap-8 ${viewMode === "grid"
                     ? "grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
                     : "grid-cols-1"
                     }`}
@@ -761,7 +761,7 @@ export default function Blogs() {
                     <Search className="w-12 h-12 text-slate-400" />
                   </div>
                   <h3 className="text-xl font-semibold text-ink mb-2">No stories found</h3>
-                  <p className="text-slate-600 mb-6">
+                  <p className="hidden sm:block text-slate-600 mb-6">
                     Try adjusting your search or browse different categories
                   </p>
                   <button
