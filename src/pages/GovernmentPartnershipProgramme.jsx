@@ -71,7 +71,7 @@ function FadeIn({ children, delay = 0, className = "" }) {
 
 function Tag({ children, light = false }) {
     return (
-        <span className={`inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-[11px] font-bold tracking-[0.2em] uppercase ${
+        <span className={`inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-bold tracking-[0.2em] uppercase ${
             light
                 ? "border border-white/25 bg-white/10 text-white"
                 : "border border-brand-red/20 bg-brand-red/8 text-brand-red"
@@ -150,7 +150,7 @@ function AboutSection() {
                                     </div>
                                     <div>
                                         <p className="text-xs font-extrabold text-[#1A1A1A]">11 State Partners</p>
-                                        <p className="text-[11px] text-[#1A1A1A]/55">Active MOUs across India</p>
+                                        <p className="text-xs text-[#1A1A1A]/55">Active MOUs across India</p>
                                     </div>
                                 </div>
                             </div>

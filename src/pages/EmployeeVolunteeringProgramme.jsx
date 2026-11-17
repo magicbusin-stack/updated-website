@@ -43,7 +43,7 @@ function FadeUp({ children, delay = 0, className = "" }) {
 
 function SectionTag({ children }) {
     return (
-        <span className="inline-flex items-center gap-2 rounded-full border border-brand-black/15 bg-brand-yellow px-4 py-1.5 text-[11px] font-bold tracking-[0.2em] uppercase text-brand-black mb-4">
+        <span className="inline-flex items-center gap-2 rounded-full border border-brand-black/15 bg-brand-yellow px-4 py-1.5 text-xs font-bold tracking-[0.2em] uppercase text-brand-black mb-4">
             {children}
         </span>
     );
@@ -243,7 +243,7 @@ function VolunteeringOpportunitiesSection() {
                                             backgroundColor: active.accentLight,
                                             color: active.accent,
                                         }}
-                                        className="inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-[11px] font-bold uppercase tracking-[0.18em]"
+                                        className="inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-bold uppercase tracking-[0.18em]"
                                     >
                                         <active.Icon className="w-3 h-3" />
                                         {active.tag}

@@ -86,7 +86,7 @@ export default function GovernmentPartners() {
               
               {/* Left Column: Branding and Title */}
               <div className="lg:sticky lg:top-24">
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-bold tracking-wider text-brand-red bg-brand-red/5 border border-brand-red/10 uppercase mb-5">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold tracking-wider text-brand-red bg-brand-red/5 border border-brand-red/10 uppercase mb-5">
                   <span className="w-1.5 h-1.5 rounded-full bg-brand-red animate-pulse" />
                   State & National Alignment
                 </span>
@@ -220,7 +220,7 @@ export default function GovernmentPartners() {
                   <span className="font-bold text-xs md:text-sm text-slate-700 group-hover:text-white transition-colors">
                     {p.label}
                   </span>
-                  <div className="flex items-center gap-1 text-[10px] font-bold text-brand-red group-hover:text-brand-yellow tracking-wider uppercase">
+                  <div className="flex items-center gap-1 text-xs font-bold text-brand-red group-hover:text-brand-yellow tracking-wider uppercase">
                     <span>Learn More</span>
                     <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
                   </div>

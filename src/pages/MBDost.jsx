@@ -114,7 +114,7 @@ function AboutSection() {
                         <div className="inline-flex items-center gap-2 rounded-full border px-4 py-1.5 mb-6"
                             style={{ borderColor: `${DOST_GREEN}30`, backgroundColor: `${DOST_GREEN}12` }}>
                             <MessageCircle className="w-3.5 h-3.5" style={{ color: DOST_GREEN }} />
-                            <span className="text-[11px] font-bold uppercase tracking-[0.22em]" style={{ color: DOST_GREEN }}>About MB Dost</span>
+                            <span className="text-xs font-bold uppercase tracking-[0.22em]" style={{ color: DOST_GREEN }}>About MB Dost</span>
                         </div>
                         <h2 className="text-4xl md:text-5xl font-extrabold text-white leading-[1.1] mb-6">
                             What is{" "}
@@ -161,11 +161,11 @@ function AboutSection() {
                                         style={{ backgroundColor: DOST_GREEN, color: DOST_DARK }}>MB</div>
                                     <div>
                                         <p className="text-white font-bold text-sm leading-tight">MB Dost</p>
-                                        <p className="text-white/40 text-[11px]">In-House Learning Companion</p>
+                                        <p className="text-white/40 text-xs">In-House Learning Companion</p>
                                     </div>
                                     <div className="ml-auto flex items-center gap-1">
                                         <div className="w-2 h-2 rounded-full animate-pulse" style={{ backgroundColor: DOST_GREEN }} />
-                                        <span className="text-[10px] font-semibold" style={{ color: DOST_GREEN }}>Online</span>
+                                        <span className="text-xs font-semibold" style={{ color: DOST_GREEN }}>Online</span>
                                     </div>
                                 </div>
                                 <div className="px-4 py-5 space-y-3 min-h-[320px]"
@@ -191,7 +191,7 @@ function AboutSection() {
                                 transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}
                             >
                                 <p className="text-xl font-black" style={{ color: DOST_DARK }}>WhatsApp</p>
-                                <p className="text-[10px] font-bold" style={{ color: `${DOST_DARK}99` }}>Powered</p>
+                                <p className="text-xs font-bold" style={{ color: `${DOST_DARK}99` }}>Powered</p>
                             </motion.div>
                         </div>
                     </FadeIn>
@@ -223,7 +223,7 @@ function BenefitsSection() {
                 <FadeUp className="mb-16 text-center">
                     <div className="inline-flex items-center gap-2 rounded-full border border-[#111]/10 bg-[#F5F5F0] px-4 py-1.5 mb-5">
                         <Star className="w-3.5 h-3.5" style={{ color: DOST_GREEN }} />
-                        <span className="text-[11px] font-bold uppercase tracking-[0.22em] text-[#111]/50">Why MB Dost</span>
+                        <span className="text-xs font-bold uppercase tracking-[0.22em] text-[#111]/50">Why MB Dost</span>
                     </div>
                     <h2 className="text-4xl md:text-5xl font-extrabold text-[#111] leading-tight">
                         Benefits of <span style={{ color: DOST_GREEN }}>MB Dost</span>
@@ -287,7 +287,7 @@ function DemoSection() {
                     <div className="inline-flex items-center gap-2 rounded-full border px-4 py-1.5 mb-5"
                         style={{ borderColor: `${DOST_GREEN}25`, backgroundColor: `${DOST_GREEN}10` }}>
                         <Video className="w-3.5 h-3.5" style={{ color: DOST_GREEN }} />
-                        <span className="text-[11px] font-bold uppercase tracking-[0.22em]" style={{ color: DOST_GREEN }}>Live Demo</span>
+                        <span className="text-xs font-bold uppercase tracking-[0.22em]" style={{ color: DOST_GREEN }}>Live Demo</span>
                     </div>
                     <h2 className="text-4xl md:text-5xl font-extrabold text-white leading-tight">
                         Watch a <span style={{ color: DOST_GREEN }}>Demo</span>
@@ -415,7 +415,7 @@ function TestimonialsSection() {
                 <FadeUp className="mb-16 text-center">
                     <div className="inline-flex items-center gap-2 rounded-full border border-[#111]/10 bg-white px-4 py-1.5 mb-5">
                         <Quote className="w-3.5 h-3.5 text-[#111]/40" />
-                        <span className="text-[11px] font-bold uppercase tracking-[0.22em] text-[#111]/50">Voices</span>
+                        <span className="text-xs font-bold uppercase tracking-[0.22em] text-[#111]/50">Voices</span>
                     </div>
                     <h2 className="text-4xl md:text-5xl font-extrabold text-[#111] leading-tight">Testimonials</h2>
                 </FadeUp>
@@ -445,7 +445,7 @@ function TestimonialsSection() {
                                     </div>
                                     <div>
                                         <p className="font-extrabold text-[#111] text-sm">{t.name}</p>
-                                        <p className="text-[11px] text-[#111]/40 mt-0.5">{t.centre}</p>
+                                        <p className="text-xs text-[#111]/40 mt-0.5">{t.centre}</p>
                                     </div>
                                     <div className="ml-auto w-8 h-8 rounded-full flex items-center justify-center"
                                         style={{ backgroundColor: `${DOST_GREEN}15` }}>
@@ -478,7 +478,7 @@ function TestimonialsSection() {
                                 >
                                     <div className="shrink-0 w-6 h-6 rounded-full flex items-center justify-center mt-0.5"
                                         style={{ backgroundColor: `${DOST_GREEN}20` }}>
-                                        <span className="text-[10px] font-black" style={{ color: DOST_GREEN }}>
+                                        <span className="text-xs font-black" style={{ color: DOST_GREEN }}>
                                             {String(i + 1).padStart(2, "0")}
                                         </span>
                                     </div>
@@ -509,7 +509,7 @@ function ContactSection() {
                     <div className="inline-flex items-center gap-2 rounded-full border px-4 py-1.5 mb-5"
                         style={{ borderColor: `${DOST_GREEN}25`, backgroundColor: `${DOST_GREEN}10` }}>
                         <Mail className="w-3.5 h-3.5" style={{ color: DOST_GREEN }} />
-                        <span className="text-[11px] font-bold uppercase tracking-[0.22em]" style={{ color: DOST_GREEN }}>Contact</span>
+                        <span className="text-xs font-bold uppercase tracking-[0.22em]" style={{ color: DOST_GREEN }}>Contact</span>
                     </div>
                     <h2 className="text-4xl md:text-5xl font-extrabold text-white leading-tight">
                         Get in Touch for <span style={{ color: DOST_GREEN }}>Enquiries</span>
@@ -534,7 +534,7 @@ function ContactSection() {
                             <Mail className="w-7 h-7" style={{ color: DOST_DARK }} />
                         </div>
                         <div className="flex-1 relative">
-                            <p className="text-[10px] font-bold uppercase tracking-widest text-white/30 mb-1">Email Us</p>
+                            <p className="text-xs font-bold uppercase tracking-widest text-white/30 mb-1">Email Us</p>
                             <p className="text-xl font-extrabold text-white mb-3">Magic Bus India Foundation</p>
                             <div className="inline-flex items-center gap-2 font-bold text-sm" style={{ color: DOST_GREEN }}>
                                 <Mail className="w-4 h-4" />

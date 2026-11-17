@@ -35,7 +35,7 @@ function FadeUp({ children, delay = 0, className = "" }) {
 
 function SectionTag({ children }) {
     return (
-        <span className="inline-flex items-center gap-2 rounded-full border border-brand-black/15 bg-brand-yellow px-4 py-1.5 text-[11px] font-bold tracking-[0.2em] uppercase text-brand-black mb-4">
+        <span className="inline-flex items-center gap-2 rounded-full border border-brand-black/15 bg-brand-yellow px-4 py-1.5 text-xs font-bold tracking-[0.2em] uppercase text-brand-black mb-4">
             {children}
         </span>
     );
@@ -226,7 +226,7 @@ export default function YouthForChangeFellowshipProgramme() {
                                             whileHover={{ x: 4 }}
                                             className="relative rounded-2xl border border-gray-200 bg-[#FAFAF8] p-5 pl-12"
                                         >
-                                            <div className="absolute left-4 top-5 flex h-6 w-6 items-center justify-center rounded-full bg-brand-red text-[11px] font-bold text-white">
+                                            <div className="absolute left-4 top-5 flex h-6 w-6 items-center justify-center rounded-full bg-brand-red text-xs font-bold text-white">
                                                 {i + 1}
                                             </div>
                                             {i !== programmePhases.length - 1 && (

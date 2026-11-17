@@ -174,7 +174,7 @@ export default function GetInvolvedSection() {
                   </motion.div>
 
                   {/* Title */}
-                  <h3 className="mb-1 sm:mb-3 text-[9px] leading-tight sm:text-lg font-dosis font-bold text-white">{card.title}</h3>
+                  <h3 className="mb-1 sm:mb-3 text-xs leading-tight sm:text-lg font-dosis font-bold text-white">{card.title}</h3>
 
                   {/* Description */}
                   <p className="hidden sm:block text-sm text-white/85 mb-6">

@@ -28,7 +28,7 @@ function FadeUp({ children, delay = 0, className = "" }) {
 function SectionTag({ children, dark = false }) {
     return (
         <span
-            className={`inline-flex items-center gap-2 rounded-full border px-4 py-1.5 text-[11px] font-bold uppercase tracking-[0.2em] ${
+            className={`inline-flex items-center gap-2 rounded-full border px-4 py-1.5 text-xs font-bold uppercase tracking-[0.2em] ${
                 dark
                     ? "border-white/25 bg-white/10 text-white"
                     : "border-brand-black/10 bg-brand-yellow/20 text-brand-black"

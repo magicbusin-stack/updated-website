@@ -294,7 +294,7 @@ export default function DonateNow() {
                       <span className={`block text-2xl font-black tracking-tight ${st.red ? "text-brand-red" : "text-gray-900"}`}>
                         {st.value}
                       </span>
-                      <span className="text-[11px] font-medium text-gray-500">{st.label}</span>
+                      <span className="text-xs font-medium text-gray-500">{st.label}</span>
                     </div>
                   ))}
                 </div>

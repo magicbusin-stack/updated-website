@@ -263,7 +263,7 @@ function SkylinePillar({ value, suffix, label, height, color, index, isInView, i
           {count.toLocaleString("en-IN")}
         </span>
         {suffix && (
-          <span className="text-ink/35 text-[10px] md:text-xs ml-0.5 font-bold">{suffix}</span>
+          <span className="text-ink/35 text-xs md:text-xs ml-0.5 font-bold">{suffix}</span>
         )}
       </motion.div>
 
@@ -299,7 +299,7 @@ function SkylinePillar({ value, suffix, label, height, color, index, isInView, i
 
       {/* Label */}
       <motion.p
-        className="mt-1.5 text-center text-[9px] md:text-[10px] font-semibold uppercase tracking-[0.1em] leading-tight transition-colors duration-200"
+        className="mt-1.5 text-center text-xs md:text-xs font-semibold uppercase tracking-[0.1em] leading-tight transition-colors duration-200"
         style={{ color: isActive ? color : isDimmed ? "rgba(26,26,26,0.25)" : "rgba(26,26,26,0.45)" }}
         initial={{ opacity: 0 }}
         animate={isInView ? { opacity: 1 } : { opacity: 0 }}

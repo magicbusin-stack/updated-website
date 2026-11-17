@@ -162,7 +162,7 @@ export default function HeroCarousel() {
                   {...textItem(0.1)}
                   initial={textItem(0.1).initial}
                   animate={textItem(0.1).animate}
-                  className="inline-flex items-center gap-1.5 sm:gap-2 text-[10px] sm:text-xs font-semibold uppercase tracking-widest text-brand-red mb-1.5 sm:mb-3"
+                  className="inline-flex items-center gap-1.5 sm:gap-2 text-xs sm:text-xs font-semibold uppercase tracking-widest text-brand-red mb-1.5 sm:mb-3"
                 >
                   <span className="h-1.5 w-1.5 rounded-full bg-brand-red inline-block" />
                   {slides[i].eyebrow}

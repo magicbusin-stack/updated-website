@@ -24,6 +24,13 @@
   --font-headline: "Dosis", ui-sans-serif, system-ui, sans-serif;
   --font-copy: "Work Sans", ui-sans-serif, system-ui, sans-serif;
 
+  /* === Text size floor (same readable sizes on every page) ===
+     Tailwind's text-xs was 12px and text-sm 14px: now 13px and 15px. */
+  --text-xs: 0.8125rem;
+  --text-xs--line-height: 1.25rem;
+  --text-sm: 0.9375rem;
+  --text-sm--line-height: 1.5rem;
+
   /* === Border radius === */
   --radius-card: 16px;
   --radius-btn: 10px;

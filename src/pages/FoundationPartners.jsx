@@ -274,7 +274,7 @@ export default function FoundationPartners() {
                   <span className="font-bold text-xs md:text-sm text-slate-700 group-hover:text-white transition-colors">
                     {p.label}
                   </span>
-                  <div className="flex items-center gap-1 text-[10px] font-bold text-brand-red group-hover:text-brand-yellow tracking-wider uppercase">
+                  <div className="flex items-center gap-1 text-xs font-bold text-brand-red group-hover:text-brand-yellow tracking-wider uppercase">
                     <span>Learn More</span>
                     <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
                   </div>

@@ -67,7 +67,7 @@ function FadeIn({ children, delay = 0, className = "" }) {
 function SectionTag({ children, dark = false }) {
     return (
         <span
-            className={`inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-[11px] font-bold tracking-[0.2em] uppercase mb-4 ${
+            className={`inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-bold tracking-[0.2em] uppercase mb-4 ${
                 dark
                     ? "border border-brand-yellow/20 bg-brand-yellow/10 text-brand-yellow"
                     : "border border-brand-black/15 bg-brand-yellow text-brand-black"
@@ -507,7 +507,7 @@ function SectorsSection() {
                         {["Sector", "Roles Available"].map((col) => (
                             <p
                                 key={col}
-                                className="text-[11px] font-bold uppercase tracking-[0.18em] text-[#1A1A1A]/35"
+                                className="text-xs font-bold uppercase tracking-[0.18em] text-[#1A1A1A]/35"
                             >
                                 {col}
                             </p>
@@ -837,7 +837,7 @@ function SuccessStoriesSection() {
                             <article className="h-full rounded-2xl border border-gray-200 bg-[#F7F7F5] p-6 flex flex-col">
                                 <div className="flex items-center justify-between gap-3">
                                     <h3 className="text-xl font-extrabold text-[#1A1A1A]">{item.name}</h3>
-                                    <span className="shrink-0 rounded-full bg-brand-yellow px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-brand-black">
+                                    <span className="shrink-0 rounded-full bg-brand-yellow px-3 py-1 text-xs font-bold uppercase tracking-wider text-brand-black">
                                         {item.city}
                                     </span>
                                 </div>

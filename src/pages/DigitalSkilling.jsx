@@ -75,7 +75,7 @@ function AboutSection() {
                         {/* Eyebrow */}
                         <div className="inline-flex items-center gap-2 rounded-full bg-[#0F0F23] px-4 py-1.5 mb-6">
                             <span className="h-1.5 w-1.5 rounded-full bg-brand-yellow animate-pulse" />
-                            <span className="text-[11px] font-bold uppercase tracking-[0.22em] text-brand-yellow">
+                            <span className="text-xs font-bold uppercase tracking-[0.22em] text-brand-yellow">
                                 About Magic Bus Digital Programmes
                             </span>
                         </div>
@@ -225,7 +225,7 @@ function FeaturesSection() {
                 <FadeUp className="mb-16 text-center">
                     <div className="inline-flex items-center gap-2 rounded-full border border-brand-yellow/25 bg-brand-yellow/10 px-4 py-1.5 mb-5">
                         <Zap className="w-3.5 h-3.5 text-brand-yellow" />
-                        <span className="text-[11px] font-bold uppercase tracking-[0.22em] text-brand-yellow">
+                        <span className="text-xs font-bold uppercase tracking-[0.22em] text-brand-yellow">
                             Programme Features
                         </span>
                     </div>
@@ -331,7 +331,7 @@ function ProgrammeDetailsSection() {
                 <FadeUp className="mb-16">
                     <div className="inline-flex items-center gap-2 rounded-full border border-[#0F0F23]/10 bg-white px-4 py-1.5 mb-5">
                         <Monitor className="w-3.5 h-3.5 text-brand-red" />
-                        <span className="text-[11px] font-bold uppercase tracking-[0.22em] text-[#0F0F23]/60">
+                        <span className="text-xs font-bold uppercase tracking-[0.22em] text-[#0F0F23]/60">
                             Programme Details
                         </span>
                     </div>
@@ -373,7 +373,7 @@ function ProgrammeDetailsSection() {
                                 transition={{ type: "spring", stiffness: 250, damping: 22 }}
                             >
                                 {prog.featured && (
-                                    <div className={`absolute top-0 left-0 right-0 ${prog.accentBg} text-white text-[10px] font-black uppercase tracking-[0.2em] text-center py-1.5`}>
+                                    <div className={`absolute top-0 left-0 right-0 ${prog.accentBg} text-white text-xs font-black uppercase tracking-[0.2em] text-center py-1.5`}>
                                         Most Popular
                                     </div>
                                 )}
@@ -406,12 +406,12 @@ function ProgrammeDetailsSection() {
                                     {/* Skills */}
                                     {prog.skills && (
                                         <div>
-                                            <p className="text-[10px] font-bold uppercase tracking-widest text-[#0F0F23]/30 mb-3">Skills Covered</p>
+                                            <p className="text-xs font-bold uppercase tracking-widest text-[#0F0F23]/30 mb-3">Skills Covered</p>
                                             <div className="flex flex-wrap gap-2">
                                                 {prog.skills.map((s) => (
                                                     <span
                                                         key={s}
-                                                        className="rounded-full bg-[#F5F5F0] border border-gray-200 px-3 py-1 text-[11px] font-semibold text-[#0F0F23]/65"
+                                                        className="rounded-full bg-[#F5F5F0] border border-gray-200 px-3 py-1 text-xs font-semibold text-[#0F0F23]/65"
                                                     >
                                                         {s}
                                                     </span>
@@ -461,7 +461,7 @@ function ProgrammeDetailsSection() {
                                         {prog.skills && (
                                             <div className="flex flex-wrap gap-2">
                                                 {prog.skills.map((s) => (
-                                                    <span key={s} className="rounded-full bg-[#F5F5F0] px-3 py-1 text-[11px] font-semibold text-[#0F0F23]/65">
+                                                    <span key={s} className="rounded-full bg-[#F5F5F0] px-3 py-1 text-xs font-semibold text-[#0F0F23]/65">
                                                         {s}
                                                     </span>
                                                 ))}
@@ -479,7 +479,7 @@ function ProgrammeDetailsSection() {
                   <div className="overflow-x-auto">
                     <div className="min-w-[640px] rounded-2xl overflow-hidden border border-gray-200 bg-white shadow-sm">
                         <div className="grid grid-cols-4 bg-[#0F0F23]">
-                            <div className="p-4 text-[10px] font-bold uppercase tracking-widest text-white/30">Programme Framework</div>
+                            <div className="p-4 text-xs font-bold uppercase tracking-widest text-white/30">Programme Framework</div>
                             {programmes.map((p) => (
                                 <div key={p.name} className="p-4 flex items-center gap-2">
                                     <div className={`w-2 h-2 rounded-full ${p.accentBg}`} />
@@ -533,7 +533,7 @@ function OutreachImpactSection() {
                 <FadeUp className="mb-16 text-center">
                     <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 mb-5">
                         <Wifi className="w-3.5 h-3.5 text-brand-yellow" />
-                        <span className="text-[11px] font-bold uppercase tracking-[0.22em] text-white/60">
+                        <span className="text-xs font-bold uppercase tracking-[0.22em] text-white/60">
                             Outreach & Impact
                         </span>
                     </div>
@@ -607,7 +607,7 @@ function ContactSection() {
                 <FadeUp className="text-center mb-12">
                     <div className="inline-flex items-center gap-2 rounded-full border border-[#0F0F23]/10 bg-white px-4 py-1.5 mb-5">
                         <Mail className="w-3.5 h-3.5 text-brand-red" />
-                        <span className="text-[11px] font-bold uppercase tracking-[0.22em] text-[#0F0F23]/60">
+                        <span className="text-xs font-bold uppercase tracking-[0.22em] text-[#0F0F23]/60">
                             Contact Details
                         </span>
                     </div>
@@ -636,7 +636,7 @@ function ContactSection() {
 
                         {/* Details */}
                         <div className="flex-1 relative">
-                            <p className="text-[10px] font-bold uppercase tracking-widest text-white/30 mb-1">Director</p>
+                            <p className="text-xs font-bold uppercase tracking-widest text-white/30 mb-1">Director</p>
                             <p className="text-xl font-extrabold text-white group-hover:text-brand-yellow transition-colors">
                                 Programme Design &amp; Development
                             </p>

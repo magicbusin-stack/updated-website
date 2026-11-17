@@ -238,7 +238,7 @@ export default function CorporatePartners() {
                 
                 {/* Left Text */}
                 <div className="text-center lg:text-left max-w-xl">
-                  <span className="inline-block bg-brand-black/10 text-brand-black text-[10px] font-extrabold uppercase tracking-[0.2em] px-3 py-1 rounded-full mb-3">
+                  <span className="inline-block bg-brand-black/10 text-brand-black text-xs font-extrabold uppercase tracking-[0.2em] px-3 py-1 rounded-full mb-3">
                     Corporate Engagement
                   </span>
                   <h3 className="text-2xl md:text-4xl font-extrabold tracking-tight">
@@ -255,14 +255,14 @@ export default function CorporatePartners() {
                   {/* Email Box */}
                   <div className="bg-white/95 backdrop-blur px-5 py-4 rounded-2xl shadow-sm border border-black/5 flex flex-col justify-between gap-3 text-left">
                     <div>
-                      <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider block">Email Contact</span>
+                      <span className="text-xs text-slate-400 font-bold uppercase tracking-wider block">Email Contact</span>
                       <a href="mailto:csr@magicbusindia.org" className="text-sm font-bold text-slate-800 hover:text-brand-red transition-colors block mt-1">
                         csr@magicbusindia.org
                       </a>
                     </div>
                     <button
                       onClick={handleCopyEmail}
-                      className="inline-flex items-center justify-center gap-1.5 text-[10px] font-bold text-brand-red hover:underline"
+                      className="inline-flex items-center justify-center gap-1.5 text-xs font-bold text-brand-red hover:underline"
                     >
                       {copiedEmail ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
                       {copiedEmail ? "Copied!" : "Copy Email"}
@@ -272,14 +272,14 @@ export default function CorporatePartners() {
                   {/* Phone Box */}
                   <div className="bg-white/95 backdrop-blur px-5 py-4 rounded-2xl shadow-sm border border-black/5 flex flex-col justify-between gap-3 text-left">
                     <div>
-                      <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider block">Inquiry Phone</span>
+                      <span className="text-xs text-slate-400 font-bold uppercase tracking-wider block">Inquiry Phone</span>
                       <a href="tel:+918976720830" className="text-sm font-bold text-slate-800 hover:text-brand-red transition-colors block mt-1">
                         +91 89767 20830
                       </a>
                     </div>
                     <button
                       onClick={handleCopyPhone}
-                      className="inline-flex items-center justify-center gap-1.5 text-[10px] font-bold text-brand-red hover:underline"
+                      className="inline-flex items-center justify-center gap-1.5 text-xs font-bold text-brand-red hover:underline"
                     >
                       {copiedPhone ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
                       {copiedPhone ? "Copied!" : "Copy Number"}
@@ -419,7 +419,7 @@ export default function CorporatePartners() {
                   <span className="font-bold text-xs md:text-sm text-slate-700 group-hover:text-white transition-colors">
                     {p.label}
                   </span>
-                  <div className="flex items-center gap-1 text-[10px] font-bold text-brand-red group-hover:text-brand-yellow tracking-wider uppercase">
+                  <div className="flex items-center gap-1 text-xs font-bold text-brand-red group-hover:text-brand-yellow tracking-wider uppercase">
                     <span>Learn More</span>
                     <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
                   </div>

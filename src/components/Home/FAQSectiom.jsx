@@ -50,7 +50,7 @@ export default function FAQSection({
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-6 md:mb-10">
-          <span className="inline-flex items-center gap-2 rounded-full border border-brand-black/20 bg-brand-yellow px-4 py-1.5 text-[11px] font-semibold tracking-[0.18em] text-brand-black uppercase">
+          <span className="inline-flex items-center gap-2 rounded-full border border-brand-black/20 bg-brand-yellow px-4 py-1.5 text-xs font-semibold tracking-[0.18em] text-brand-black uppercase">
             <HelpCircle className="w-4 h-4" />
             FAQs
           </span>

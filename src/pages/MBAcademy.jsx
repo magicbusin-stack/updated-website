@@ -21,7 +21,7 @@ function FadeUp({ children, delay = 0, className = "" }) {
 
 function SectionTag({ children }) {
     return (
-        <span className="inline-flex items-center gap-2 rounded-full border border-brand-black/15 bg-brand-yellow px-4 py-1.5 text-[11px] font-bold tracking-[0.2em] uppercase text-brand-black mb-4">
+        <span className="inline-flex items-center gap-2 rounded-full border border-brand-black/15 bg-brand-yellow px-4 py-1.5 text-xs font-bold tracking-[0.2em] uppercase text-brand-black mb-4">
             {children}
         </span>
     );
@@ -86,7 +86,7 @@ function AboutSection() {
                                 animate={{ y: [0, -6, 0] }}
                                 transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}>
                                 <p className="text-xl font-black leading-none">LMS</p>
-                                <p className="text-[10px] font-bold uppercase tracking-wider opacity-80">Online Platform</p>
+                                <p className="text-xs font-bold uppercase tracking-wider opacity-80">Online Platform</p>
                             </motion.div>
                         </div>
                     </FadeUp>
@@ -197,7 +197,7 @@ function ReviewCard({ review, delay }) {
                     </div>
                     <div>
                         <p className="text-sm font-extrabold text-[#1A1A1A]">{review.name}</p>
-                        <p className="text-[11px] text-[#1A1A1A]/45 font-semibold">{review.role}</p>
+                        <p className="text-xs text-[#1A1A1A]/45 font-semibold">{review.role}</p>
                     </div>
                 </div>
             </motion.div>
@@ -265,7 +265,7 @@ function ContactSection() {
                             <Mail className="w-6 h-6 text-white" />
                         </div>
                         <div className="text-left flex-1">
-                            <p className="text-[10px] font-bold uppercase tracking-widest text-white/30 mb-0.5">Email ID</p>
+                            <p className="text-xs font-bold uppercase tracking-widest text-white/30 mb-0.5">Email ID</p>
                             <p className="text-white font-bold">info@magicbusindia.org</p>
                         </div>
                         <ArrowRight className="w-5 h-5 text-brand-yellow opacity-0 group-hover:opacity-100 transition-opacity" />

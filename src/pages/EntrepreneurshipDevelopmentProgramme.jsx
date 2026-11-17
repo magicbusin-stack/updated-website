@@ -91,7 +91,7 @@ function NeedSection() {
                     <FadeUp>
                         <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 mb-6">
                             <Target className="w-3.5 h-3.5 text-brand-yellow" />
-                            <span className="text-[11px] font-bold uppercase tracking-[0.22em] text-white/50">The Need</span>
+                            <span className="text-xs font-bold uppercase tracking-[0.22em] text-white/50">The Need</span>
                         </div>
                         <h2 className="text-3xl md:text-4xl font-extrabold text-white leading-[1.15] mb-6">
                             Demographic{" "}
@@ -161,7 +161,7 @@ function AboutSection() {
                     <FadeUp>
                         <div className="inline-flex items-center gap-2 rounded-full bg-[#111111] px-4 py-1.5 mb-6">
                             <span className="h-1.5 w-1.5 rounded-full bg-brand-yellow animate-pulse" />
-                            <span className="text-[11px] font-bold uppercase tracking-[0.22em] text-brand-yellow">Economic Empowerment Programme</span>
+                            <span className="text-xs font-bold uppercase tracking-[0.22em] text-brand-yellow">Economic Empowerment Programme</span>
                         </div>
 
                         <h2 className="text-3xl md:text-4xl font-extrabold text-[#111111] leading-[1.15] mb-8">
@@ -235,16 +235,16 @@ function AboutSection() {
                             <Award className="w-5 h-5 text-[#D97706]" />
                             <div>
                                 <p className="text-xs font-bold text-[#111111]">Millennium Alliance Award — FICCI</p>
-                                <p className="text-[11px] text-[#111111]/50">Agreement No. MA/R4/2017/0024</p>
+                                <p className="text-xs text-[#111111]/50">Agreement No. MA/R4/2017/0024</p>
                             </div>
                         </div>
 
                         {/* Funding partners */}
                         <div>
-                            <p className="text-[10px] font-bold uppercase tracking-widest text-[#111111]/30 mb-3">Key Funding Partners</p>
+                            <p className="text-xs font-bold uppercase tracking-widest text-[#111111]/30 mb-3">Key Funding Partners</p>
                             <div className="flex flex-wrap gap-2">
                                 {fundingPartners.map((p) => (
-                                    <span key={p} className="rounded-full border border-[#111111]/10 bg-white px-3 py-1 text-[11px] font-semibold text-[#111111]/60 shadow-sm">
+                                    <span key={p} className="rounded-full border border-[#111111]/10 bg-white px-3 py-1 text-xs font-semibold text-[#111111]/60 shadow-sm">
                                         {p}
                                     </span>
                                 ))}
@@ -353,7 +353,7 @@ function FeaturesSection() {
                 <FadeUp className="mb-16 text-center">
                     <div className="inline-flex items-center gap-2 rounded-full border border-brand-yellow/20 bg-brand-yellow/10 px-4 py-1.5 mb-5">
                         <Star className="w-3.5 h-3.5 text-brand-yellow" />
-                        <span className="text-[11px] font-bold uppercase tracking-[0.22em] text-brand-yellow">Programme Features</span>
+                        <span className="text-xs font-bold uppercase tracking-[0.22em] text-brand-yellow">Programme Features</span>
                     </div>
                     <h2 className="text-4xl md:text-5xl font-extrabold text-white leading-tight">
                         Key Features of the{" "}
@@ -408,7 +408,7 @@ function StructureSection() {
                 <FadeUp className="mb-16">
                     <div className="inline-flex items-center gap-2 rounded-full border border-[#111111]/10 bg-white px-4 py-1.5 mb-5">
                         <TrendingUp className="w-3.5 h-3.5 text-brand-red" />
-                        <span className="text-[11px] font-bold uppercase tracking-[0.22em] text-[#111111]/50">Programme Structure</span>
+                        <span className="text-xs font-bold uppercase tracking-[0.22em] text-[#111111]/50">Programme Structure</span>
                     </div>
                     <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
                         <h2 className="text-4xl md:text-5xl font-extrabold text-[#111111] leading-tight max-w-2xl">
@@ -473,7 +473,7 @@ function ComponentsSection() {
                 <FadeUp>
                     <div className="inline-flex items-center gap-2 rounded-full border border-[#111111]/10 bg-[#FDFBF7] px-4 py-1.5 mb-6">
                         <Lightbulb className="w-3.5 h-3.5 text-brand-red" />
-                        <span className="text-[11px] font-bold uppercase tracking-[0.22em] text-[#111111]/50">Core Components</span>
+                        <span className="text-xs font-bold uppercase tracking-[0.22em] text-[#111111]/50">Core Components</span>
                     </div>
                     <h2 className="text-4xl md:text-5xl font-extrabold text-[#111111] leading-tight mb-10">
                         Components of <span className="text-brand-red">EDP</span>
@@ -506,7 +506,7 @@ function ComponentsSection() {
                         <div className="relative">
                             <div className="inline-flex items-center gap-2 rounded-full border border-brand-yellow/20 bg-brand-yellow/10 px-4 py-1.5 mb-5">
                                 <Heart className="w-3.5 h-3.5 text-brand-yellow" />
-                                <span className="text-[11px] font-bold uppercase tracking-[0.22em] text-brand-yellow">Peer Support</span>
+                                <span className="text-xs font-bold uppercase tracking-[0.22em] text-brand-yellow">Peer Support</span>
                             </div>
                             <h2 className="text-3xl md:text-4xl font-extrabold text-white leading-tight mb-5">
                                 Udhyam Sahayaks - Mentorship &amp; Handholding Support for Women Entrepreneurs
@@ -574,7 +574,7 @@ function EligibilitySection() {
                 <FadeUp className="mb-14">
                     <div className="inline-flex items-center gap-2 rounded-full border border-[#111111]/10 bg-white px-4 py-1.5 mb-5">
                         <CheckCircle2 className="w-3.5 h-3.5 text-brand-red" />
-                        <span className="text-[11px] font-bold uppercase tracking-[0.22em] text-[#111111]/50">Who Can Apply</span>
+                        <span className="text-xs font-bold uppercase tracking-[0.22em] text-[#111111]/50">Who Can Apply</span>
                     </div>
                     <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
                         <h2 className="text-4xl md:text-5xl font-extrabold text-[#111111] leading-tight">
@@ -601,12 +601,12 @@ function EligibilitySection() {
                                 <div className={`w-12 h-12 rounded-2xl ${item.color} flex items-center justify-center mb-5 group-hover:shadow-lg transition-shadow`}>
                                     <item.icon className={`w-6 h-6 ${item.textColor}`} />
                                 </div>
-                                <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#111111]/35 mb-2">{item.label}</p>
+                                <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#111111]/35 mb-2">{item.label}</p>
                                 <h3 className={`text-xl font-extrabold ${item.accentText} leading-tight mb-3`}>{item.value}</h3>
                                 <p className="text-xs text-[#111111]/50 leading-relaxed">{item.note}</p>
                                 <div className="mt-5 inline-flex items-center gap-1.5">
                                     <CheckCircle2 className={`w-3.5 h-3.5 ${item.accentText} opacity-50`} />
-                                    <span className="text-[10px] font-semibold text-[#111111]/35 uppercase tracking-wider">Required</span>
+                                    <span className="text-xs font-semibold text-[#111111]/35 uppercase tracking-wider">Required</span>
                                 </div>
                             </motion.div>
                         </FadeUp>
@@ -648,7 +648,7 @@ function OutreachImpactSection() {
                 <FadeUp className="mb-16 text-center">
                     <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 mb-5">
                         <TrendingUp className="w-3.5 h-3.5 text-brand-yellow" />
-                        <span className="text-[11px] font-bold uppercase tracking-[0.22em] text-white/50">Our Reach</span>
+                        <span className="text-xs font-bold uppercase tracking-[0.22em] text-white/50">Our Reach</span>
                     </div>
                     <h2 className="text-4xl md:text-5xl font-extrabold text-white leading-tight">
                         Outreach and Impact of our{" "}
@@ -774,7 +774,7 @@ function SuccessStoriesSection() {
                 <FadeUp className="mb-16 text-center">
                     <div className="inline-flex items-center gap-2 rounded-full border border-[#111111]/10 bg-white px-4 py-1.5 mb-5">
                         <Star className="w-3.5 h-3.5 text-[#D97706]" />
-                        <span className="text-[11px] font-bold uppercase tracking-[0.22em] text-[#111111]/50">Real Impact</span>
+                        <span className="text-xs font-bold uppercase tracking-[0.22em] text-[#111111]/50">Real Impact</span>
                     </div>
                     <h2 className="text-4xl md:text-5xl font-extrabold text-[#111111] leading-tight">
                         Success Stories of Transformation:{" "}
@@ -804,7 +804,7 @@ function SuccessStoriesSection() {
                                         />
                                         {/* sector tag at image bottom */}
                                         <div className="absolute bottom-0 left-0 right-0 px-3 py-2 bg-gradient-to-t from-[#111]/70 to-transparent">
-                                            <span className={`text-[9px] font-black uppercase tracking-[0.2em] text-white`}>
+                                            <span className={`text-xs font-black uppercase tracking-[0.2em] text-white`}>
                                                 {story.tag}
                                             </span>
                                         </div>
@@ -818,7 +818,7 @@ function SuccessStoriesSection() {
                                                 <h3 className="text-xl font-extrabold text-[#111111] leading-tight">{story.name}</h3>
                                                 <p className="text-xs text-[#111111]/45 mt-0.5">{story.location}</p>
                                             </div>
-                                            <span className={`shrink-0 inline-flex items-center rounded-full text-[10px] font-bold uppercase tracking-wider px-3 py-1 border ${story.accentBorder} ${story.accentText} bg-white`}>
+                                            <span className={`shrink-0 inline-flex items-center rounded-full text-xs font-bold uppercase tracking-wider px-3 py-1 border ${story.accentBorder} ${story.accentText} bg-white`}>
                                                 {story.enterprise}
                                             </span>
                                         </div>
@@ -860,7 +860,7 @@ function ContactSection() {
                 <FadeUp className="text-center mb-12">
                     <div className="inline-flex items-center gap-2 rounded-full border border-[#111111]/10 bg-white px-4 py-1.5 mb-5">
                         <Phone className="w-3.5 h-3.5 text-brand-red" />
-                        <span className="text-[11px] font-bold uppercase tracking-[0.22em] text-[#111111]/50">Contact Details</span>
+                        <span className="text-xs font-bold uppercase tracking-[0.22em] text-[#111111]/50">Contact Details</span>
                     </div>
                     <h2 className="text-4xl md:text-5xl font-extrabold text-[#111111] leading-tight">
                         Get in Touch with the <span className="text-brand-red">EDP and LRC Programme Teams</span>
@@ -883,7 +883,7 @@ function ContactSection() {
                                 <Mail className="w-6 h-6 text-[#111111]" />
                             </div>
                             <div className="relative">
-                                <p className="text-[10px] font-bold uppercase tracking-widest text-white/30 mb-1">EDP Programme</p>
+                                <p className="text-xs font-bold uppercase tracking-widest text-white/30 mb-1">EDP Programme</p>
                                 <p className="text-xl font-extrabold text-white group-hover:text-brand-yellow transition-colors">Pravina Kukade</p>
                                 <p className="mt-3 inline-flex items-center gap-2 text-brand-yellow font-bold text-sm break-all">
                                     <Mail className="w-4 h-4 shrink-0" />
@@ -904,7 +904,7 @@ function ContactSection() {
                                 <Mail className="w-6 h-6 text-[#111111]" />
                             </div>
                             <div className="relative">
-                                <p className="text-[10px] font-bold uppercase tracking-widest text-white/30 mb-1">LRC Programme</p>
+                                <p className="text-xs font-bold uppercase tracking-widest text-white/30 mb-1">LRC Programme</p>
                                 <p className="text-xl font-extrabold text-white group-hover:text-brand-yellow transition-colors">Livelihood Resource Centre</p>
                                 <p className="mt-3 inline-flex items-center gap-2 text-brand-yellow font-bold text-sm break-all">
                                     <Mail className="w-4 h-4 shrink-0" />

@@ -41,7 +41,7 @@ function FadeUp({ children, delay = 0, className = "" }) {
 
 function SectionTag({ children }) {
   return (
-    <span className="inline-flex items-center gap-2 rounded-full border border-brand-black/15 bg-brand-yellow px-4 py-1.5 text-[11px] font-bold tracking-[0.2em] uppercase text-brand-black mb-4">
+    <span className="inline-flex items-center gap-2 rounded-full border border-brand-black/15 bg-brand-yellow px-4 py-1.5 text-xs font-bold tracking-[0.2em] uppercase text-brand-black mb-4">
       {children}
     </span>
   );
@@ -187,7 +187,7 @@ export default function FAQ() {
                   {/* Background decoration */}
                   <div className="absolute -top-10 -right-10 w-36 h-36 rounded-full bg-brand-red/10 blur-2xl pointer-events-none" />
                   <div className="relative z-10">
-                    <span className="text-[10px] font-bold uppercase tracking-widest text-brand-yellow">Still Confused?</span>
+                    <span className="text-xs font-bold uppercase tracking-widest text-brand-yellow">Still Confused?</span>
                     <h4 className="text-xl font-extrabold mt-2 mb-3">Contact Support</h4>
                     <p className="text-white/60 text-xs leading-relaxed mb-6">
                       If you couldn't find the answer you were looking for, feel free to contact us.
@@ -276,11 +276,11 @@ export default function FAQ() {
                           >
                             <div className="flex-1">
                               <div className="flex flex-wrap items-center gap-2 mb-1.5">
-                                <span className="text-[10px] font-bold uppercase tracking-widest text-[#1A1A1A]/40">
+                                <span className="text-xs font-bold uppercase tracking-widest text-[#1A1A1A]/40">
                                   {faq.group}
                                 </span>
                                 <span className="w-1 h-1 rounded-full bg-[#1A1A1A]/20" />
-                                <span className="text-[10px] font-bold text-brand-red uppercase tracking-wider">
+                                <span className="text-xs font-bold text-brand-red uppercase tracking-wider">
                                   {faq.category}
                                 </span>
                               </div>

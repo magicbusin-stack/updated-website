@@ -39,7 +39,7 @@ function FadeUp({ children, delay = 0, className = "" }) {
 
 function SectionTag({ children }) {
     return (
-        <span className="inline-flex items-center gap-2 rounded-full border border-brand-black/15 bg-brand-yellow px-4 py-1.5 text-[11px] font-bold tracking-[0.2em] uppercase text-brand-black mb-4">
+        <span className="inline-flex items-center gap-2 rounded-full border border-brand-black/15 bg-brand-yellow px-4 py-1.5 text-xs font-bold tracking-[0.2em] uppercase text-brand-black mb-4">
             {children}
         </span>
     );
@@ -126,10 +126,10 @@ export default function LivelihoodProgramme() {
                                 <div className="relative rounded-[28px] border border-gray-200 bg-white p-7 md:p-8 shadow-sm">
                                     <div className="absolute -right-2 -top-2 h-10 w-10 rounded-full border border-gray-300 bg-white" />
                                     <div className="flex items-center gap-3 flex-wrap">
-                                        <span className="inline-flex items-center rounded-full bg-brand-yellow px-5 py-2 text-[11px] font-extrabold uppercase tracking-[0.2em] text-brand-black">
+                                        <span className="inline-flex items-center rounded-full bg-brand-yellow px-5 py-2 text-xs font-extrabold uppercase tracking-[0.2em] text-brand-black">
                                             Livelihood Programme
                                         </span>
-                                        <span className="inline-flex items-center gap-2 rounded-full border border-gray-300 bg-[#F7F7F5] px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-[#1A1A1A]/70">
+                                        <span className="inline-flex items-center gap-2 rounded-full border border-gray-300 bg-[#F7F7F5] px-3 py-1 text-xs font-bold uppercase tracking-wider text-[#1A1A1A]/70">
                                             <BriefcaseBusiness className="w-3.5 h-3.5 text-brand-red" />
                                             Employability + Entrepreneurship
                                         </span>
@@ -148,7 +148,7 @@ export default function LivelihoodProgramme() {
 
                             <FadeUp delay={0.06} className="lg:col-span-5 lg:mt-14">
                                 <div className="relative rounded-[28px] border border-[#184987] bg-gradient-to-br from-[#144A8B] to-[#1F5BA2] p-7 text-white shadow-lg">
-                                    <div className="absolute -left-3 top-8 rounded-full bg-brand-yellow px-4 py-1 text-[10px] font-extrabold uppercase tracking-[0.18em] text-brand-black">
+                                    <div className="absolute -left-3 top-8 rounded-full bg-brand-yellow px-4 py-1 text-xs font-extrabold uppercase tracking-[0.18em] text-brand-black">
                                         World of Work
                                     </div>
                                     <p className="mt-8 text-base md:text-lg leading-relaxed text-white/95">

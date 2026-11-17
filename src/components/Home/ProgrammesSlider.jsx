@@ -139,7 +139,7 @@ function ProgrammeCard({ slide }) {
           {/* Bottom content */}
           <div className="absolute bottom-0 left-0 p-3 sm:p-6 md:p-8 text-white">
             {subtitle && (
-              <p className="text-[10px] sm:text-sm font-light uppercase tracking-widest opacity-80">
+              <p className="text-xs sm:text-sm font-light uppercase tracking-widest opacity-80">
                 {subtitle}
               </p>
             )}
@@ -199,7 +199,7 @@ function ProgrammeCard({ slide }) {
               {tags?.map((tag) => (
                 <span
                   key={tag}
-                  className="text-[11px] font-semibold tracking-wide uppercase px-3 py-1.5 rounded-full bg-white/15 text-white/90 border border-white/20"
+                  className="text-xs font-semibold tracking-wide uppercase px-3 py-1.5 rounded-full bg-white/15 text-white/90 border border-white/20"
                 >
                   {tag}
                 </span>

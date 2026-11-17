@@ -233,8 +233,8 @@ function HeroSection() {
             title="Transforming Lives"
             subtitle="from Childhood to Livelihood"
             description="Helping young people from underserved communities complete education and build sustainable livelihoods since 1999."
-            subtitleClassName="mt-4 text-2xl md:text-3xl lg:text-4xl font-semibold text-white"
-            descriptionClassName="mt-7 max-w-3xl text-lg md:text-xl lg:text-2xl text-white/90 leading-relaxed"
+            subtitleClassName="mt-3 text-xl md:text-2xl font-semibold text-white"
+            descriptionClassName="mt-7 max-w-3xl text-lg sm:text-xl text-white/85 leading-relaxed"
             ctas={[
                 { to: "/donate", label: "Donate Now", variant: "primary", showArrow: true },
                 { to: "/partner", label: "Partner With Us" },
@@ -253,7 +253,7 @@ function InteractiveCard({ icon: Icon, hex, stat, label, desc }) {
             whileHover={{ y: -8 }}
             whileTap={{ scale: 0.98 }}
             transition={{ type: "spring", stiffness: 300, damping: 20 }}
-            className="group relative h-full cursor-default overflow-hidden rounded-2xl border border-gray-100 bg-white p-7 md:p-9 shadow-sm transition-shadow duration-300 hover:shadow-xl"
+            className="group relative h-full cursor-default overflow-hidden rounded-2xl border border-gray-100 bg-white p-7 md:p-8 shadow-sm transition-shadow duration-300 hover:shadow-xl"
         >
             <span
                 className="pointer-events-none absolute inset-x-0 bottom-0 h-0 opacity-[0.09] transition-all duration-500 group-hover:h-full"
@@ -270,14 +270,14 @@ function InteractiveCard({ icon: Icon, hex, stat, label, desc }) {
                     whileHover={{ rotate: [0, -10, 10, -5, 0], scale: 1.14 }}
                     transition={{ duration: 0.5 }}
                 >
-                    <Icon className="h-9 w-9" />
+                    <Icon className="h-8 w-8" />
                 </motion.div>
                 <div>
-                    <div className="mb-2 text-4xl md:text-5xl font-extrabold leading-tight text-brand-red transition-transform duration-300 origin-left group-hover:scale-105">
+                    <div className="mb-2 text-3xl md:text-4xl font-extrabold leading-tight text-brand-red transition-transform duration-300 origin-left group-hover:scale-105">
                         {stat}
                     </div>
-                    {label && <h3 className="mb-3 text-xl md:text-2xl font-bold text-[#1A1A1A]">{label}</h3>}
-                    <p className="text-base md:text-lg leading-relaxed text-[#1A1A1A]/75">{desc}</p>
+                    {label && <h3 className="mb-2 text-xl font-bold text-[#1A1A1A]">{label}</h3>}
+                    <p className="text-base leading-relaxed text-[#1A1A1A]/75">{desc}</p>
                 </div>
             </div>
         </motion.div>
@@ -314,13 +314,6 @@ const ABOUT_STYLES = `
 @keyframes abSweep{0%{transform:translateX(-130%) skewX(-18deg)}60%,100%{transform:translateX(230%) skewX(-18deg)}}
 @keyframes abIcon{0%,100%{transform:scale(1) rotate(0)}25%{transform:scale(1.15) rotate(-8deg)}75%{transform:scale(1.15) rotate(8deg)}}
 .ab-alert{animation:abRing 2.2s ease-out infinite}
-/* Big screens: scale the whole page up so it fills the width and text stays readable */
-.about-scale{--az:1}
-@media (min-width:1536px){.about-scale{--az:1.12;zoom:1.12}}
-@media (min-width:1792px){.about-scale{--az:1.25;zoom:1.25}}
-@media (min-width:2200px){.about-scale{--az:1.5;zoom:1.5}}
-.about-scale{--header-h:calc(93px / var(--az))}
-@media (max-width:1023px){.about-scale{--header-h:66px}}
 .ab-blink{animation:abBlink 1.6s ease-in-out infinite}
 .ab-sweep{position:absolute;inset:0;width:35%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.7),transparent);animation:abSweep 3.6s ease-in-out infinite;pointer-events:none}
 .ab-icon{animation:abIcon 1.8s ease-in-out infinite}
@@ -334,10 +327,10 @@ function ProblemStatement() {
             <div className="max-w-[1440px] mx-auto px-6 lg:px-12">
                 <FadeUp>
                     <SectionLabel icon={Target}>The Problem</SectionLabel>
-                    <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-[#1A1A1A] leading-[1.1] max-w-4xl">
+                    <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#1A1A1A] leading-[1.15] max-w-4xl">
                         Helping young people complete education and build livelihoods
                     </h2>
-                    <p className="mt-5 md:mt-6 text-lg md:text-xl lg:text-2xl text-[#1A1A1A]/75 max-w-4xl leading-relaxed">
+                    <p className="mt-5 md:mt-6 text-lg md:text-xl text-[#1A1A1A]/75 max-w-4xl leading-relaxed">
                         India has the biggest population of young people globally. However,
                         millions of adolescents and youth from underserved areas are at risk
                         of being left behind — dropping out of school, struggling at
@@ -348,7 +341,7 @@ function ProblemStatement() {
                 {/* Challenges */}
                 <div className="mt-8 md:mt-14">
                     <FadeUp delay={0.1}>
-                        <p className="mb-6 md:mb-8 flex items-center gap-4 text-xl md:text-2xl font-extrabold uppercase tracking-[0.12em] text-[#1A1A1A]"><span className="h-1.5 w-12 rounded-full bg-brand-red" />
+                        <p className="mb-6 md:mb-8 flex items-center gap-4 text-lg md:text-xl font-extrabold uppercase tracking-[0.12em] text-[#1A1A1A]"><span className="h-1.5 w-12 rounded-full bg-brand-red" />
                             Challenges India Faces Today
                         </p>
                     </FadeUp>
@@ -369,7 +362,7 @@ function ProblemStatement() {
                             <span className="ab-icon flex h-11 w-11 md:h-14 md:w-14 shrink-0 items-center justify-center rounded-full bg-brand-red text-white shadow-lg">
                                 <AlertTriangle className="h-7 w-7" />
                             </span>
-                            <p className="text-lg font-bold text-[#1A1A1A] md:text-3xl md:leading-snug">
+                            <p className="text-lg font-bold text-[#1A1A1A] md:text-2xl md:leading-snug">
                                 <span className="ab-blink font-extrabold text-brand-red">
                                     When gaps in education, life skills, and employability are not tackled,
                                 </span>
@@ -423,7 +416,7 @@ function WhyLifeSkills() {
                                     </div>
                                     <div>
                                         <p className="text-sm text-[#1A1A1A]/70 font-semibold uppercase tracking-wider">Research & Experience Show</p>
-                                        <p className="text-base md:text-lg font-bold text-[#1A1A1A]">Life skills increase chances of finishing education</p>
+                                        <p className="text-base font-bold text-[#1A1A1A]">Life skills increase chances of finishing education</p>
                                     </div>
                                 </div>
                             </div>
@@ -458,14 +451,14 @@ function WhyLifeSkills() {
                                             className="group flex h-full flex-col items-start gap-3 md:flex-row md:gap-4 rounded-2xl border border-gray-100 bg-white p-4 md:p-5 shadow-sm transition-shadow hover:shadow-lg"
                                         >
                                             <motion.span
-                                                className="flex h-12 w-12 md:h-14 md:w-14 shrink-0 items-center justify-center rounded-xl shadow-md"
+                                                className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl shadow-md"
                                                 style={{ background: b.hex, color: b.fg }}
                                                 whileHover={{ rotate: [0, -12, 12, 0], scale: 1.15 }}
                                                 transition={{ duration: 0.45 }}
                                             >
-                                                <b.icon className="h-6 w-6 md:h-7 md:w-7" />
+                                                <b.icon className="h-6 w-6" />
                                             </motion.span>
-                                            <span className="md:pt-1 text-base md:text-lg font-semibold leading-snug text-[#1A1A1A]">{b.text}</span>
+                                            <span className="md:pt-1 text-base font-semibold leading-snug text-[#1A1A1A]">{b.text}</span>
                                         </motion.div>
                                     </FadeUp>
                                 ))}
@@ -473,7 +466,7 @@ function WhyLifeSkills() {
 
                             <FadeUp delay={0.3}>
                                 <div className="mt-5 md:mt-8 rounded-xl bg-brand-red/5 border-l-4 border-brand-red p-3 md:p-4">
-                                    <p className="text-base md:text-lg leading-relaxed text-[#1A1A1A]/85 italic">
+                                    <p className="text-base leading-relaxed text-[#1A1A1A]/85 italic">
                                         "At Magic Bus, life skills are at the core of all our initiatives. We make
                                         sure education translates to enhanced capabilities, increased confidence,
                                         and sustainable livelihoods."
@@ -516,7 +509,7 @@ function StatBump({ value, suffix, label, count, delay = 0 }) {
             <div className="relative text-4xl font-extrabold leading-none tabular-nums text-brand-yellow sm:text-5xl md:text-6xl">
                 {count ? <AnimatedCounter value={value} suffix={suffix} /> : <>{value}{suffix}</>}
             </div>
-            <div className="relative mt-2 md:mt-3 text-base font-semibold text-white/85 sm:text-lg md:text-xl">{label}</div>
+            <div className="relative mt-2 md:mt-3 text-base font-semibold text-white/85 md:text-lg">{label}</div>
         </motion.div>
     );
 }
@@ -996,7 +989,7 @@ function OurStory() {
                         <div className="grid lg:grid-cols-5 gap-0">
                             <div className="relative z-10 lg:col-span-3 p-5 md:p-8 lg:p-9">
                                 <Quote className="w-10 h-10 text-white/35" />
-                                <p className="mt-3 md:mt-4 text-white text-lg md:text-3xl font-semibold leading-snug md:leading-tight max-w-3xl">
+                                <p className="mt-3 md:mt-4 text-white text-lg md:text-2xl font-semibold leading-snug md:leading-tight max-w-3xl">
                                     Magic Bus India Foundation began in 1999. Our founder noticed the
                                     transformative power of sport to change lives of young boys from underserved
                                     communities. This realisation started with simple rugby sessions that grew
@@ -1058,7 +1051,7 @@ function OurStory() {
                                     transition={{ duration: 0.4, ease: EASE }}
                                     onClick={() => setOpenIdx(openIdx === i ? null : i)}
                                     className={[
-                                        'relative cursor-pointer md:cursor-default rounded-xl border backdrop-blur-sm p-4 md:p-6',
+                                        'relative cursor-pointer md:cursor-default rounded-xl border backdrop-blur-sm p-4 md:p-5',
                                         'lg:w-[calc(50%-4rem)]',
                                         i >= PREVIEW_COUNT && !showAll ? 'hidden md:block' : '',
                                         alignRight ? 'lg:ml-auto' : 'lg:mr-auto',
@@ -1085,16 +1078,16 @@ function OurStory() {
                                             <p className="text-sm md:text-base font-bold uppercase tracking-[0.14em]" style={{ color: isVisited ? m.color : '#D1D5DB' }}>
                                                 {m.year}
                                             </p>
-                                            <h3 className="mt-1 text-lg md:text-xl lg:text-2xl font-bold text-white leading-snug">
+                                            <h3 className="mt-1 text-lg md:text-xl font-bold text-white leading-snug">
                                                 {m.title}
                                             </h3>
-                                            <p className={`${openIdx === i ? "block" : "hidden"} md:block mt-1.5 text-base md:text-lg text-white/80 leading-relaxed`}>
+                                            <p className={`${openIdx === i ? "block" : "hidden"} md:block mt-1.5 text-base text-white/80 leading-relaxed`}>
                                                 {m.desc}
                                             </p>
                                         </div>
                                         {m.impact && (
                                             <span
-                                                className="shrink-0 rounded-full px-3 py-1.5 text-sm md:text-base font-bold text-white"
+                                                className="shrink-0 rounded-full px-3 py-1.5 text-sm font-bold text-white"
                                                 style={{ background: m.color }}
                                             >
                                                 {m.impact}
@@ -1273,7 +1266,7 @@ function WhyMagicBus() {
                                         >
                                             <im.icon className="h-8 w-8" />
                                         </motion.span>
-                                        <span className="text-lg font-semibold text-[#1A1A1A] md:text-xl lg:text-2xl">{im.label}</span>
+                                        <span className="text-lg font-semibold text-[#1A1A1A] md:text-xl">{im.label}</span>
                                     </motion.li>
                                 ))}
                             </ul>
@@ -1415,8 +1408,8 @@ function VisionMissionValues() {
                                 >
                                     <v.icon className={`h-9 w-9 sm:h-11 sm:w-11 ${v.fg}`} />
                                 </motion.div>
-                                <h4 className="relative mb-2 text-xl font-extrabold text-white sm:text-2xl">{v.title}</h4>
-                                <p className="relative mt-auto text-base leading-relaxed text-white/80 sm:text-lg">{v.desc}</p>
+                                <h4 className="relative mb-2 text-xl font-extrabold text-white">{v.title}</h4>
+                                <p className="relative mt-auto text-base leading-relaxed text-white/80">{v.desc}</p>
                                 <span
                                     className="absolute bottom-0 left-0 h-1 w-0 transition-all duration-500 group-hover:w-full"
                                     style={{ background: v.hex }}
@@ -1436,7 +1429,6 @@ function VisionMissionValues() {
 export default function AboutUs() {
     return (
         <Layout>
-          <div className="about-scale">
             <HeroSection />
             <ProblemStatement />
             <WhyLifeSkills />
@@ -1451,7 +1443,6 @@ export default function AboutUs() {
                 title="Frequently Asked Questions"
                 subtitle="Clear answers about Magic Bus, our programmes, and how we create impact."
             />
-          </div>
         </Layout>
     );
 }

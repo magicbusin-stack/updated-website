@@ -177,7 +177,7 @@ export default function WorkWithUs() {
               
               {/* Left Column: Title */}
               <div>
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-bold tracking-wider text-brand-red bg-brand-red/5 border border-brand-red/10 uppercase mb-5">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold tracking-wider text-brand-red bg-brand-red/5 border border-brand-red/10 uppercase mb-5">
                   <span className="w-1.5 h-1.5 rounded-full bg-brand-red animate-pulse" />
                   Our People, Our Pride
                 </span>
@@ -275,8 +275,8 @@ export default function WorkWithUs() {
                         >
                           <div className="space-y-2">
                             <div className="flex flex-wrap gap-2 items-center">
-                              <span className="bg-slate-100 text-slate-600 text-[10px] font-bold uppercase px-2.5 py-0.5 rounded-full">{job.category}</span>
-                              <span className="bg-brand-red/5 text-brand-red text-[10px] font-bold uppercase px-2.5 py-0.5 rounded-full flex items-center gap-1">
+                              <span className="bg-slate-100 text-slate-600 text-xs font-bold uppercase px-2.5 py-0.5 rounded-full">{job.category}</span>
+                              <span className="bg-brand-red/5 text-brand-red text-xs font-bold uppercase px-2.5 py-0.5 rounded-full flex items-center gap-1">
                                 <MapPin className="w-3 h-3" />
                                 {job.location}
                               </span>
@@ -286,7 +286,7 @@ export default function WorkWithUs() {
                           </div>
 
                           <div className="flex items-center justify-between md:justify-end gap-6 border-t md:border-t-0 pt-4 md:pt-0">
-                            <div className="text-left md:text-right text-[11px] font-bold text-slate-400 uppercase tracking-widest">
+                            <div className="text-left md:text-right text-xs font-bold text-slate-400 uppercase tracking-widest">
                               <span>EXP: {job.experience}</span>
                               <span className="block mt-0.5">{job.type}</span>
                             </div>
@@ -356,7 +356,7 @@ export default function WorkWithUs() {
                       <Play className="w-6 h-6 fill-current translate-x-0.5" />
                     </button>
                     
-                    <span className="absolute bottom-3 right-3 bg-black/60 backdrop-blur text-[10px] text-white font-bold px-2 py-0.5 rounded">
+                    <span className="absolute bottom-3 right-3 bg-black/60 backdrop-blur text-xs text-white font-bold px-2 py-0.5 rounded">
                       {t.duration}
                     </span>
                   </div>
@@ -443,7 +443,7 @@ export default function WorkWithUs() {
               >
                 <div className="bg-slate-900 p-6 text-white flex justify-between items-center">
                   <div>
-                    <span className="text-[10px] font-extrabold uppercase tracking-widest text-brand-yellow">Position Application</span>
+                    <span className="text-xs font-extrabold uppercase tracking-widest text-brand-yellow">Position Application</span>
                     <h4 className="font-extrabold text-lg leading-tight mt-1">{appliedJob.title}</h4>
                     <p className="text-xs text-white/50 mt-0.5">{appliedJob.location} • {appliedJob.category}</p>
                   </div>
@@ -515,7 +515,7 @@ export default function WorkWithUs() {
                           <span className="text-xs text-slate-500 font-bold block">
                             {fileName ? fileName : "Upload Document (Max 5MB)"}
                           </span>
-                          <span className="text-[10px] text-slate-400 block mt-0.5">Supports PDF, DOC, DOCX</span>
+                          <span className="text-xs text-slate-400 block mt-0.5">Supports PDF, DOC, DOCX</span>
                         </div>
                       </div>
 

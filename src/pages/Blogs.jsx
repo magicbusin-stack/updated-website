@@ -430,7 +430,7 @@ function BlogCard({ post, index }) {
       </div>
 
       <div className="p-3 sm:p-6 min-w-0">
-        <span className="inline-block mb-1.5 sm:mb-3 px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full text-[11px] sm:text-xs font-semibold" style={{ background: c.bg, color: c.fg }}>
+        <span className="inline-block mb-1.5 sm:mb-3 px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full text-xs sm:text-xs font-semibold" style={{ background: c.bg, color: c.fg }}>
           {post.category}
         </span>
 

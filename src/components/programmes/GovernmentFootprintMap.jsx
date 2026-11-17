@@ -168,7 +168,7 @@ export default function GovernmentFootprintMap() {
               <span className="h-2.5 w-2.5 animate-pulse rounded-full" style={{ background: CORAL }} />
               12 System-Strengthening States
             </span>
-            <span className="hidden rounded bg-slate-100 px-2 py-1 text-[11px] font-bold uppercase tracking-wider text-slate-500 sm:inline">Interactive map</span>
+            <span className="hidden rounded bg-slate-100 px-2 py-1 text-xs font-bold uppercase tracking-wider text-slate-500 sm:inline">Interactive map</span>
           </div>
           <svg viewBox={`0 0 ${vw} ${vh}`} className="mx-auto h-auto w-full max-w-[680px]" role="group" aria-label="Map of India showing the 12 partner states">
             <defs>
@@ -253,7 +253,7 @@ export default function GovernmentFootprintMap() {
           <div>
             <div className="mb-2 inline-flex items-center gap-2 rounded-full border border-[#ffe4e6] bg-[#fff1f2] px-3 py-1">
               <span className="h-2 w-2 rounded-full bg-[#e11d48]" />
-              <span className="text-[11px] font-extrabold uppercase tracking-[0.06em] text-[#e11d48] lg:text-[10px]">Nationwide Reach in Education and Skilling</span>
+              <span className="text-xs font-extrabold uppercase tracking-[0.06em] text-[#e11d48] lg:text-xs">Nationwide Reach in Education and Skilling</span>
             </div>
             <h3 className="text-xl font-extrabold leading-tight tracking-tight text-[#0f2644] sm:text-2xl">Government Partnership: System Strengthening Model</h3>
           </div>
@@ -268,7 +268,7 @@ export default function GovernmentFootprintMap() {
                   <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg text-white shadow-[0_3px_8px_rgba(0,0,0,0.1)] lg:h-8 lg:w-8" style={{ background: c.iconBg }}>
                     <Icon d={c.d} />
                   </span>
-                  <span className="rounded-full bg-white/70 px-2 py-[3px] text-[10px] font-bold uppercase tracking-[0.05em] lg:px-1.5 lg:py-[2px] lg:text-[9px]" style={{ color: c.tagColor }}>
+                  <span className="rounded-full bg-white/70 px-2 py-[3px] text-xs font-bold uppercase tracking-[0.05em] lg:px-1.5 lg:py-[2px] lg:text-xs" style={{ color: c.tagColor }}>
                     {c.tag}
                   </span>
                 </div>

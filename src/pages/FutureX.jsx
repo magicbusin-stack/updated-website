@@ -126,7 +126,7 @@ function OrbitVisual() {
                 return (
                     <motion.span
                         key={ch.label}
-                        className="absolute text-[9px] font-bold uppercase tracking-[0.18em] whitespace-nowrap"
+                        className="absolute text-xs font-bold uppercase tracking-[0.18em] whitespace-nowrap"
                         style={{ left: cx + anchorX, top: cy + anchorY, color: "rgba(255,255,255,0.40)" }}
                         initial={{ opacity: 0 }}
                         whileInView={{ opacity: 1 }}
@@ -160,7 +160,7 @@ function AboutSection() {
                         <div className="inline-flex items-center gap-2 rounded-full border px-4 py-1.5 mb-6"
                             style={{ borderColor: `${FX_RED}40`, backgroundColor: `${FX_RED}12` }}>
                             <Sparkles className="w-3.5 h-3.5" style={{ color: FX_RED }} />
-                            <span className="text-[11px] font-bold uppercase tracking-[0.22em]"
+                            <span className="text-xs font-bold uppercase tracking-[0.22em]"
                                 style={{ color: FX_RED }}>Strategic Initiative</span>
                         </div>
 
@@ -195,7 +195,7 @@ function AboutSection() {
                                     transition={{ type: "spring", stiffness: 280, damping: 22 }}
                                 >
                                     <p className="text-white font-bold text-sm">{pill.label}</p>
-                                    <p className="text-white/35 text-[10px] font-semibold uppercase tracking-wider">{pill.sub}</p>
+                                    <p className="text-white/35 text-xs font-semibold uppercase tracking-wider">{pill.sub}</p>
                                 </motion.div>
                             ))}
                         </div>
@@ -212,7 +212,7 @@ function AboutSection() {
                                         className="flex items-center gap-2 rounded-xl border border-white/6 bg-white/4 px-3 py-2">
                                         <ch.icon className="w-3.5 h-3.5 shrink-0"
                                             style={{ color: i % 2 === 0 ? FX_RED : FX_YELLOW }} />
-                                        <span className="text-[11px] font-semibold text-white/55">{ch.label}</span>
+                                        <span className="text-xs font-semibold text-white/55">{ch.label}</span>
                                     </div>
                                 ))}
                             </div>
@@ -269,7 +269,7 @@ function BenefitsSection() {
                 <FadeUp className="mb-16 text-center">
                     <div className="inline-flex items-center gap-2 rounded-full border border-[#111]/10 bg-[#FFF8F8] px-4 py-1.5 mb-5">
                         <Zap className="w-3.5 h-3.5" style={{ color: FX_RED }} />
-                        <span className="text-[11px] font-bold uppercase tracking-[0.22em] text-[#111]/50">Why FutureX</span>
+                        <span className="text-xs font-bold uppercase tracking-[0.22em] text-[#111]/50">Why FutureX</span>
                     </div>
                     <h2 className="text-4xl md:text-5xl font-extrabold text-[#111] leading-tight">
                         Benefits of{" "}
@@ -327,7 +327,7 @@ function InActionSection() {
                             <div className="inline-flex items-center gap-2 rounded-full border px-4 py-1.5 mb-5"
                                 style={{ borderColor: `${FX_RED}35`, backgroundColor: `${FX_RED}12` }}>
                                 <TrendingUp className="w-3.5 h-3.5" style={{ color: FX_RED }} />
-                                <span className="text-[11px] font-bold uppercase tracking-[0.22em]"
+                                <span className="text-xs font-bold uppercase tracking-[0.22em]"
                                     style={{ color: FX_RED }}>Real Impact</span>
                             </div>
                             <h2 className="text-4xl md:text-5xl font-extrabold text-white leading-tight">
@@ -445,7 +445,7 @@ function TestimonialSection() {
                 <FadeUp className="mb-12 text-center">
                     <div className="inline-flex items-center gap-2 rounded-full border border-[#111]/10 bg-white px-4 py-1.5 mb-5">
                         <BookOpen className="w-3.5 h-3.5" style={{ color: FX_RED }} />
-                        <span className="text-[11px] font-bold uppercase tracking-[0.22em] text-[#111]/50">Voices</span>
+                        <span className="text-xs font-bold uppercase tracking-[0.22em] text-[#111]/50">Voices</span>
                     </div>
                     <h2 className="text-4xl md:text-5xl font-extrabold text-[#111] leading-tight">
                         Read <span style={{ color: FX_RED }}>Testimonial</span>
@@ -528,7 +528,7 @@ function ContactSection() {
                     <div className="inline-flex items-center gap-2 rounded-full border px-4 py-1.5 mb-5"
                         style={{ borderColor: `${FX_RED}30`, backgroundColor: `${FX_RED}12` }}>
                         <Mail className="w-3.5 h-3.5" style={{ color: FX_RED }} />
-                        <span className="text-[11px] font-bold uppercase tracking-[0.22em]"
+                        <span className="text-xs font-bold uppercase tracking-[0.22em]"
                             style={{ color: FX_RED }}>Contact</span>
                     </div>
                     <h2 className="text-4xl md:text-5xl font-extrabold text-white leading-tight">
@@ -556,7 +556,7 @@ function ContactSection() {
                         </div>
 
                         <div className="flex-1 relative">
-                            <p className="text-[10px] font-bold uppercase tracking-widest text-white/30 mb-1">Email Us</p>
+                            <p className="text-xs font-bold uppercase tracking-widest text-white/30 mb-1">Email Us</p>
                             <p className="text-xl font-extrabold text-white mb-2">Magic Bus India Foundation</p>
                             <div className="inline-flex items-center gap-2 font-bold text-sm" style={{ color: FX_RED }}>
                                 <Mail className="w-4 h-4" />

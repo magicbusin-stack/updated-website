@@ -56,7 +56,7 @@ function ProgramCard({ program, index }) {
             <div className="text-white scale-50 sm:scale-100">{program.icon}</div>
           </div>
           <div className="flex-1 bg-black/60 h-9 sm:h-16 flex items-center px-2 sm:px-5 rounded-br-lg min-w-0">
-            <h3 className="text-white font-dosis font-semibold text-[11px] sm:text-lg leading-none truncate">
+            <h3 className="text-white font-dosis font-semibold text-xs sm:text-lg leading-none truncate">
               {program.title}
             </h3>
           </div>

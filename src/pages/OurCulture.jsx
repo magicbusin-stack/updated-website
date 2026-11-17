@@ -43,7 +43,7 @@ function FadeIn({ children, delay = 0, className = "" }) {
 
 function SectionTag({ children, dark = false }) {
     return (
-        <span className={`inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-[11px] font-bold tracking-[0.2em] uppercase mb-4 ${dark ? "border border-brand-yellow/20 bg-brand-yellow/10 text-brand-yellow" : "border border-brand-black/15 bg-brand-yellow text-brand-black"
+        <span className={`inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-bold tracking-[0.2em] uppercase mb-4 ${dark ? "border border-brand-yellow/20 bg-brand-yellow/10 text-brand-yellow" : "border border-brand-black/15 bg-brand-yellow text-brand-black"
             }`}>
             {children}
         </span>
@@ -242,7 +242,7 @@ function AwardsSection() {
                                         <Award className="w-7 h-7 text-brand-black" />
                                     </div>
                                     <div className="flex-1">
-                                        <p className="text-[10px] font-bold tracking-[0.2em] uppercase text-brand-yellow/60 mb-1">Award #{i + 1}</p>
+                                        <p className="text-xs font-bold tracking-[0.2em] uppercase text-brand-yellow/60 mb-1">Award #{i + 1}</p>
                                         <h3 className="text-xl md:text-2xl font-extrabold text-white leading-snug">{a.title}</h3>
                                         <p className="text-sm text-white/50 mt-1">{a.sub}</p>
                                     </div>

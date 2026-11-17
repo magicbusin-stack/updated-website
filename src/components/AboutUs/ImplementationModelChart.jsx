@@ -28,7 +28,7 @@ function Box({ nodeId, reg, tone, level = "card", side, onActive, className = ""
 }
 
 const Title = ({ children, className = "text-base" }) => <h4 className={`font-bold leading-tight text-neutral-900 ${className}`}>{children}</h4>;
-const Sub = ({ children, className = "text-[11px] mt-1" }) => <p className={`leading-snug text-neutral-600 ${className}`}>{children}</p>;
+const Sub = ({ children, className = "text-xs mt-1" }) => <p className={`leading-snug text-neutral-600 ${className}`}>{children}</p>;
 
 export default function ImplementationModelChart({ onActive }) {
   const wrapRef = useRef(null);
@@ -254,7 +254,7 @@ export default function ImplementationModelChart({ onActive }) {
                 </D>
                 <D nodeId="employ" className="h-[160px] w-full p-3">
                   <Title className="mb-1 text-sm">Employability Education</Title>
-                  <Sub className="text-[11px]">Digital &amp; Financial Literacy, Career Awareness &amp; Functional English</Sub>
+                  <Sub className="text-xs">Digital &amp; Financial Literacy, Career Awareness &amp; Functional English</Sub>
                 </D>
               </div>
 
@@ -282,7 +282,7 @@ export default function ImplementationModelChart({ onActive }) {
                     <br />
                     Development
                   </h4>
-                  <p className="text-[11px] leading-relaxed text-neutral-600">
+                  <p className="text-xs leading-relaxed text-neutral-600">
                     Contextualised curriculum designed, training plan for govt. school teachers developed &amp; monitoring &amp; assessment
                     mechanisms facilitated
                   </p>

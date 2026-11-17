@@ -23,7 +23,7 @@ export default function SocialMedia({ items, className = "" }) {
             {item.icon}
           </span>
           <span
-            className="pointer-events-none absolute top-full mt-1 -translate-y-1 whitespace-nowrap text-[10px] font-semibold opacity-0 transition-all duration-300 ease-out group-hover:translate-y-0 group-hover:opacity-100"
+            className="pointer-events-none absolute top-full mt-1 -translate-y-1 whitespace-nowrap text-xs font-semibold opacity-0 transition-all duration-300 ease-out group-hover:translate-y-0 group-hover:opacity-100"
             style={{ color: item.color }}
           >
             {item.tooltip}

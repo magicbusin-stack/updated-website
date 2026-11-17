@@ -63,7 +63,7 @@ export default function PartnersCarousel() {
   return (
     <section className="py-16 bg-gray-50/40 overflow-hidden border-y border-slate-100">
       <div className="max-w-7xl mx-auto px-6 lg:px-12 mb-10 text-center md:text-left">
-        <span className="inline-block bg-brand-yellow/20 text-amber-800 font-bold text-[10px] uppercase tracking-[0.2em] px-3 py-1 rounded-full mb-3">
+        <span className="inline-block bg-brand-yellow/20 text-amber-800 font-bold text-xs uppercase tracking-[0.2em] px-3 py-1 rounded-full mb-3">
           Strategic Allies
         </span>
         <h3 className="text-2xl md:text-4xl font-extrabold text-slate-900 tracking-tight font-headline">

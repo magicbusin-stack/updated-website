@@ -122,7 +122,7 @@ export default function PoshPolicy() {
               
               {/* Left Column: Side Info */}
               <div className="lg:sticky lg:top-24 space-y-6">
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-bold tracking-wider text-brand-red bg-brand-red/5 border border-brand-red/10 uppercase">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold tracking-wider text-brand-red bg-brand-red/5 border border-brand-red/10 uppercase">
                   <span className="w-1.5 h-1.5 rounded-full bg-brand-red" />
                   Our Policy
                 </span>
@@ -196,7 +196,7 @@ export default function PoshPolicy() {
                     <p className="text-xs text-slate-500 leading-relaxed font-light">{def.desc}</p>
                   </div>
                   
-                  <div className="flex items-center gap-1 text-[10px] font-bold text-brand-red/60 mt-4 select-none">
+                  <div className="flex items-center gap-1 text-xs font-bold text-brand-red/60 mt-4 select-none">
                     <HelpCircle className="w-3.5 h-3.5" />
                     <span>Indicative Criteria</span>
                   </div>
@@ -298,7 +298,7 @@ export default function PoshPolicy() {
                         </div>
                         
                         <div className="text-center lg:text-left">
-                          <span className="text-[10px] font-extrabold uppercase tracking-widest text-slate-400">Regional Contact</span>
+                          <span className="text-xs font-extrabold uppercase tracking-widest text-slate-400">Regional Contact</span>
                           <h4 className="font-extrabold text-slate-950 text-lg leading-tight mt-1">{data.lead.name}</h4>
                           <p className="text-xs text-brand-red font-semibold mt-1">{data.lead.role}</p>
                         </div>
@@ -306,7 +306,7 @@ export default function PoshPolicy() {
 
                       {/* Contact trigger box */}
                       <div className="mt-8 pt-6 border-t border-slate-100 text-center lg:text-left">
-                        <span className="block text-[9px] font-extrabold uppercase tracking-widest text-slate-400 mb-2">Regional POSH Email</span>
+                        <span className="block text-xs font-extrabold uppercase tracking-widest text-slate-400 mb-2">Regional POSH Email</span>
                         <a
                           href={`mailto:${data.email}`}
                           className="font-black text-slate-900 hover:text-brand-red text-sm transition-colors tracking-tight block truncate mb-3"
@@ -348,7 +348,7 @@ export default function PoshPolicy() {
                             className="bg-white border border-slate-100 p-4 rounded-xl shadow-sm hover:border-brand-yellow/60 transition-colors"
                           >
                             <h5 className="font-bold text-slate-900 text-sm leading-tight">{mem.name}</h5>
-                            <p className="text-[11px] text-slate-400 mt-1">{mem.role}</p>
+                            <p className="text-xs text-slate-400 mt-1">{mem.role}</p>
                           </div>
                         ))}
                       </div>

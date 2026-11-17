@@ -138,7 +138,7 @@ export default function ChildProtectionPolicy() {
               
               {/* Left Column: Heading Accent */}
               <div>
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-bold tracking-wider text-brand-red bg-brand-red/5 border border-brand-red/10 uppercase mb-5">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold tracking-wider text-brand-red bg-brand-red/5 border border-brand-red/10 uppercase mb-5">
                   <span className="w-1.5 h-1.5 rounded-full bg-brand-red animate-pulse" />
                   Commitment to Ethics
                 </span>
@@ -253,7 +253,7 @@ export default function ChildProtectionPolicy() {
                     }`}
                   >
                     <div className="flex items-center gap-3">
-                      <span className={`w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-bold ${
+                      <span className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold ${
                         activeStrategy === pt.id ? "bg-brand-red text-white" : "bg-slate-200 text-slate-600"
                       }`}>
                         {pt.letter}
@@ -296,7 +296,7 @@ export default function ChildProtectionPolicy() {
                   })}
                 </AnimatePresence>
                 
-                <div className="pt-6 border-t border-slate-100 mt-6 flex justify-between items-center text-[11px] font-bold text-slate-400 uppercase tracking-widest">
+                <div className="pt-6 border-t border-slate-100 mt-6 flex justify-between items-center text-xs font-bold text-slate-400 uppercase tracking-widest">
                   <span>Magic Bus Safekeeping</span>
                   <span>Compliance active</span>
                 </div>

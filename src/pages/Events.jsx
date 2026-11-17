@@ -34,7 +34,7 @@ function FadeUp({ children, delay = 0, className = "" }) {
 
 function SectionTag({ children }) {
     return (
-        <span className="inline-flex items-center gap-2 rounded-full border border-brand-black/15 bg-brand-yellow px-4 py-1.5 text-[11px] font-bold tracking-[0.2em] uppercase text-brand-black mb-4">
+        <span className="inline-flex items-center gap-2 rounded-full border border-brand-black/15 bg-brand-yellow px-4 py-1.5 text-xs font-bold tracking-[0.2em] uppercase text-brand-black mb-4">
             {children}
         </span>
     );
@@ -224,7 +224,7 @@ function IntroSection() {
                                 transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
                             >
                                 <p className="text-xl font-black leading-none">6+</p>
-                                <p className="text-[10px] font-bold uppercase tracking-wider opacity-80">
+                                <p className="text-xs font-bold uppercase tracking-wider opacity-80">
                                     Photo Stories
                                 </p>
                             </motion.div>
@@ -261,7 +261,7 @@ function EventCard({ event, index, featured = false }) {
                         transition={{ duration: 0.5 }}
                     />
                     {/* Category chip */}
-                    <span className="absolute top-3 left-3 bg-brand-red text-white text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full">
+                    <span className="absolute top-3 left-3 bg-brand-red text-white text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full">
                         {event.category}
                     </span>
                 </div>
@@ -293,7 +293,7 @@ function EventCard({ event, index, featured = false }) {
                     </p>
 
                     <div className="mt-5 flex items-center justify-between">
-                        <span className="inline-flex items-center gap-1 rounded-full border border-[#E0E0E0] bg-[#F5F5F5] px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-[#1A1A1A]/50">
+                        <span className="inline-flex items-center gap-1 rounded-full border border-[#E0E0E0] bg-[#F5F5F5] px-3 py-1 text-xs font-bold uppercase tracking-wider text-[#1A1A1A]/50">
                             <Tag className="w-3 h-3" />
                             {event.tag}
                         </span>
@@ -435,7 +435,7 @@ function ContactSection() {
                             <Mail className="w-6 h-6 text-white" />
                         </div>
                         <div className="text-left flex-1">
-                            <p className="text-[10px] font-bold uppercase tracking-widest text-white/30 mb-0.5">Email ID</p>
+                            <p className="text-xs font-bold uppercase tracking-widest text-white/30 mb-0.5">Email ID</p>
                             <p className="text-white font-bold">info@magicbusindia.org</p>
                         </div>
                         <ArrowRight className="w-5 h-5 text-brand-yellow opacity-0 group-hover:opacity-100 transition-opacity" />

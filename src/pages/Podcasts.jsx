@@ -39,7 +39,7 @@ function FadeUp({ children, delay = 0, className = "" }) {
 
 function SectionTag({ children }) {
     return (
-        <span className="inline-flex items-center gap-2 rounded-full border border-brand-black/15 bg-brand-yellow px-4 py-1.5 text-[11px] font-bold tracking-[0.2em] uppercase text-brand-black mb-4">
+        <span className="inline-flex items-center gap-2 rounded-full border border-brand-black/15 bg-brand-yellow px-4 py-1.5 text-xs font-bold tracking-[0.2em] uppercase text-brand-black mb-4">
             {children}
         </span>
     );
@@ -263,7 +263,7 @@ function PodcastCard({ podcast, index }) {
 
                         {/* Episode count chip */}
                         <div
-                            className="absolute bottom-4 left-4 rounded-full px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-white"
+                            className="absolute bottom-4 left-4 rounded-full px-3 py-1 text-xs font-bold uppercase tracking-widest text-white"
                             style={{ backgroundColor: `${podcast.color}CC` }}
                         >
                             {podcast.episodes}
@@ -274,7 +274,7 @@ function PodcastCard({ podcast, index }) {
                     <div className="flex flex-col flex-1 p-7 lg:p-10">
                         {/* Tag */}
                         <span
-                            className="inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-[10px] font-bold uppercase tracking-widest mb-4 w-fit"
+                            className="inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-bold uppercase tracking-widest mb-4 w-fit"
                             style={{ borderColor: `${podcast.color}40`, color: podcast.color, backgroundColor: `${podcast.color}0D` }}
                         >
                             <Mic className="w-3 h-3" />
@@ -296,7 +296,7 @@ function PodcastCard({ podcast, index }) {
                             {podcast.highlights.map((h) => (
                                 <span
                                     key={h}
-                                    className="rounded-full border border-[#E0E0E0] bg-[#F5F5F5] px-3 py-1 text-[11px] font-semibold text-[#1A1A1A]/60"
+                                    className="rounded-full border border-[#E0E0E0] bg-[#F5F5F5] px-3 py-1 text-xs font-semibold text-[#1A1A1A]/60"
                                 >
                                     {h}
                                 </span>
@@ -394,7 +394,7 @@ function ContactSection() {
                             <Mail className="w-6 h-6 text-white" />
                         </div>
                         <div className="text-left flex-1">
-                            <p className="text-[10px] font-bold uppercase tracking-widest text-white/30 mb-0.5">Email ID</p>
+                            <p className="text-xs font-bold uppercase tracking-widest text-white/30 mb-0.5">Email ID</p>
                             <p className="text-white font-bold">info@magicbusindia.org</p>
                         </div>
                         <ArrowRight className="w-5 h-5 text-brand-yellow opacity-0 group-hover:opacity-100 transition-opacity" />
