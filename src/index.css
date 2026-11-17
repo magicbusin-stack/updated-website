@@ -109,10 +109,6 @@ html {
 .marquee-right {
   animation-name: marquee-right;
 }
-.marquee-row:hover .marquee-track,
-.marquee-row:active .marquee-track {
-  animation-play-state: paused;
-}
 @keyframes marquee-left {
   from { transform: translateX(0); }
   to { transform: translateX(-50%); }

@@ -1,7 +1,7 @@
 import React from "react";
 
 /* Shows every partner logo at once as slowly moving rows (alternating directions) instead of a long grid.
-   - Hover (or touch-hold) on a row pauses it so a logo can be read.
+   - Rows keep moving all the time (they do not pause on hover).
    - Visitors who prefer reduced motion get a still, wrapped grid instead (see index.css).
    - A hidden list of names is kept for screen readers and search engines. */
 export default function LogoMarquee({ partners, rows = 3, secondsPerLogo = 4.5 }) {
