@@ -7,6 +7,7 @@ import Layout from "../components/Layout";
 import HeroBanner from "../components/HeroBanner";
 import PartnerHeadline from "../components/Corporate/PartnerHeadline";
 import BrandLogo from "../components/Corporate/BrandLogo";
+import { employmentPartners } from "../data/employmentPartners";
 
 const EASE_EXPO = [0.16, 1, 0.3, 1];
 
@@ -30,32 +31,8 @@ const cardVariants = {
   },
 };
 
-const EMPLOYER_PARTNERS = [
-  { name: "BigBasket" },
-  { name: "Blue Star Foundation" },
-  { name: "Burger King" },
-  { name: "Café Coffee Day" },
-  { name: "Chola" },
-  { name: "Costa Coffee" },
-  { name: "Croma" },
-  { name: "Eureka Forbes" },
-  { name: "H&M" },
-  { name: "Hamleys" },
-  { name: "HDB Financial Services" },
-  { name: "HyperCity" },
-  { name: "ICICI Lombard" },
-  { name: "Intelenet" },
-  { name: "KidZania" },
-  { name: "Lemon Tree Hotels" },
-  { name: "Marks & Spencer" },
-  { name: "McDonald's" },
-  { name: "OYO" },
-  { name: "Pantaloons" },
-  { name: "SBI" },
-  { name: "Starbucks Coffee" },
-  { name: "Taco Bell" },
-  { name: "WHSmith" },
-];
+// Partner list + logos live in src/data/employmentPartners.js (copied from the live Employment Partners page)
+const EMPLOYER_PARTNERS = employmentPartners;
 
 export default function EmploymentPartners() {
   const [copiedEmail, setCopiedEmail] = useState(false);
@@ -85,7 +62,7 @@ export default function EmploymentPartners() {
 
         {/* ===== 2) BREADCRUMB ===== */}
         <section className="py-4 bg-gray-50 border-b border-slate-100">
-          <div className="max-w-7xl mx-auto px-6 text-sm text-ink/60 flex items-center gap-2">
+          <div className="max-w-7xl mx-auto px-6 text-base text-ink/70 flex items-center gap-2">
             <Link to="/" className="hover:text-brand-red transition-colors font-medium">Home</Link>
             <span>/</span>
             <span className="text-ink font-semibold">Employment Partners</span>
@@ -106,7 +83,7 @@ export default function EmploymentPartners() {
               </div>
 
               {/* Right Column: Paragraph Text */}
-              <div className="space-y-8 text-slate-600 text-base md:text-lg leading-relaxed font-light mt-2">
+              <div className="space-y-8 text-slate-700 text-lg md:text-xl leading-relaxed mt-2">
                 <p className="first-letter:text-5xl first-letter:font-extrabold first-letter:text-brand-red first-letter:mr-3 first-letter:float-left first-letter:h-12">
                   Magic Bus employment partners are crucial in helping achieve the mission of providing life skills to youth and enabling them to secure job opportunities. They offer various job opportunities to the youth who have completed Magic Bus' employability training programmes. The partnership also ensures that the training programmes align with the current job market trends and requirements.
                 </p>
@@ -125,10 +102,10 @@ export default function EmploymentPartners() {
             
             {/* Header */}
             <div className="text-center mb-16">
-              <h3 className="text-2xl md:text-3xl font-extrabold text-slate-900 tracking-tight">
+              <h3 className="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight">
                 Corporate Employment Network
               </h3>
-              <p className="text-slate-500 text-sm mt-2">
+              <p className="text-slate-600 text-lg mt-2">
                 Active placements and partnerships across {EMPLOYER_PARTNERS.length} major brands
               </p>
             </div>
@@ -138,18 +115,18 @@ export default function EmploymentPartners() {
               variants={containerVariants}
               initial="hidden"
               animate="visible"
-              className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-5"
+              className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"
             >
               {EMPLOYER_PARTNERS.map((partner) => (
                 <motion.div
                   key={partner.name}
                   variants={cardVariants}
                   whileHover={{ y: -4, scale: 1.02 }}
-                  className="bg-white border border-slate-200/60 rounded-2xl p-6 flex items-center justify-center min-h-[120px] shadow-sm hover:shadow-md hover:border-brand-yellow transition-all duration-300 relative group cursor-pointer"
+                  className="bg-white border border-slate-200/60 rounded-2xl p-5 sm:p-6 flex items-center justify-center min-h-[230px] shadow-sm hover:shadow-md hover:border-brand-yellow transition-all duration-300 relative group cursor-pointer"
                 >
                   <div className="absolute top-0 right-0 w-2.5 h-2.5 rounded-bl-xl bg-brand-yellow opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                   
-                  <BrandLogo name={partner.name} />
+                  <BrandLogo name={partner.name} logo={partner.logo} showName />
                 </motion.div>
               ))}
             </motion.div>
@@ -160,19 +137,19 @@ export default function EmploymentPartners() {
         {/* ===== 5) INTERACTIVE CONTACT YELLOW STRIP ===== */}
         <section className="bg-brand-yellow py-10 text-center text-slate-900">
           <div className="max-w-4xl mx-auto px-6">
-            <h4 className="text-sm uppercase font-bold tracking-widest text-slate-800">To know more, email us at</h4>
+            <h4 className="text-base uppercase font-bold tracking-widest text-slate-800">To know more, email us at</h4>
             <div className="mt-3 flex flex-col sm:flex-row items-center justify-center gap-4">
               <a
                 href="mailto:emp-partner@magicbusindia.org"
-                className="text-xl sm:text-3xl font-black text-slate-950 hover:text-brand-red transition-colors tracking-tight"
+                className="text-2xl sm:text-4xl font-black text-slate-950 hover:text-brand-red transition-colors tracking-tight"
               >
                 emp-partner@magicbusindia.org
               </a>
               <button
                 onClick={handleCopyEmail}
-                className="inline-flex items-center gap-1.5 px-4 py-2 bg-white/20 hover:bg-white/30 backdrop-blur rounded-full text-xs font-bold transition-all"
+                className="inline-flex items-center gap-1.5 px-5 py-2.5 bg-white/25 hover:bg-white/40 backdrop-blur rounded-full text-base font-bold transition-all"
               >
-                {copiedEmail ? <Check className="w-3.5 h-3.5 text-green-700" /> : <Copy className="w-3.5 h-3.5" />}
+                {copiedEmail ? <Check className="w-4 h-4 text-green-700" /> : <Copy className="w-4 h-4" />}
                 {copiedEmail ? "Copied!" : "Copy Email"}
               </button>
             </div>
@@ -182,13 +159,13 @@ export default function EmploymentPartners() {
         {/* ===== 6) CROSS NAVIGATION OTHER PARTNERS ===== */}
         <section className="py-20 bg-white">
           <div className="max-w-6xl mx-auto px-6 lg:px-12 text-center">
-            <span className="inline-block bg-brand-green/10 text-brand-green font-bold text-xs uppercase tracking-widest px-3 py-1 rounded-full mb-3">
+            <span className="inline-block bg-brand-green/10 text-brand-green font-bold text-sm uppercase tracking-widest px-4 py-1.5 rounded-full mb-3">
               Ecosystem Connect
             </span>
             <h3 className="text-2xl md:text-4xl font-extrabold text-slate-900 tracking-tight">
               Other Partners
             </h3>
-            <p className="text-slate-500 text-sm mt-2 max-w-lg mx-auto">
+            <p className="text-slate-600 text-lg mt-2 max-w-xl mx-auto">
               Explore how we collaborate across various domains to achieve holistic community growth and empowerment.
             </p>
 
@@ -203,13 +180,13 @@ export default function EmploymentPartners() {
                 <Link
                   key={idx}
                   to={p.path}
-                  className="group relative overflow-hidden bg-gray-50 hover:bg-slate-900 border border-slate-200/60 hover:border-slate-900 p-6 rounded-2xl flex flex-col justify-between items-center text-center h-32 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+                  className="group relative overflow-hidden bg-gray-50 hover:bg-slate-900 border border-slate-200/60 hover:border-slate-900 p-6 rounded-2xl flex flex-col justify-between items-center text-center h-36 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
                 >
                   <span className="w-1.5 h-1.5 rounded-full bg-brand-yellow group-hover:scale-150 transition-transform" />
-                  <span className="font-bold text-xs md:text-sm text-slate-700 group-hover:text-white transition-colors">
+                  <span className="font-bold text-base md:text-lg text-slate-700 group-hover:text-white transition-colors">
                     {p.label}
                   </span>
-                  <div className="flex items-center gap-1 text-xs font-bold text-brand-red group-hover:text-brand-yellow tracking-wider uppercase">
+                  <div className="flex items-center gap-1 text-sm font-bold text-brand-red group-hover:text-brand-yellow tracking-wider uppercase">
                     <span>Learn More</span>
                     <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
                   </div>
