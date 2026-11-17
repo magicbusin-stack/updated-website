@@ -78,7 +78,7 @@ export default function FAQSection({
 
           {/* Categories */}
           <div className="flex items-center gap-2 min-w-0">
-            <span className="hidden md:inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-ink/70">
+            <span className="hidden md:inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-ink/70">
               <Filter className="w-4 h-4" />
               {categoriesLabel}
             </span>
@@ -132,7 +132,7 @@ export default function FAQSection({
                         {item.question}
                       </h3>
                       {item.category && (
-                        <span className="hidden sm:inline-block text-xs font-semibold rounded-full border border-brand-black/10 bg-brand-yellow/70 text-brand-black px-2 py-0.5">
+                        <span className="hidden sm:inline-block text-sm font-semibold rounded-full border border-brand-black/10 bg-brand-yellow/70 text-brand-black px-3 py-1">
                           {item.category}
                         </span>
                       )}
