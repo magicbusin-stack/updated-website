@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import Layout from "../components/Layout";
 import HeroBanner from "../components/HeroBanner";
 import BrandLogo from "../components/Corporate/BrandLogo";
+import { foundationPartners } from "../data/foundationPartners";
 
 const EASE_EXPO = [0.16, 1, 0.3, 1];
 
@@ -29,24 +30,8 @@ const cardVariants = {
   },
 };
 
-const FOUNDATION_PARTNERS = [
-  { name: "Azim Premji Foundation", category: "Social & Education" },
-  { name: "BioUrja", category: "Energy & Development" },
-  { name: "Bernard Lewis Charitable Trust", category: "Philanthropy" },
-  { name: "CAF (Charities Aid Foundation)", category: "Philanthropy" },
-  { name: "Dhanam Foundation", category: "Social & Education" },
-  { name: "echidna giving", category: "Philanthropy" },
-  { name: "FIFA Foundation", category: "Sports for Development" },
-  { name: "Google.org", category: "Technology & Grant" },
-  { name: "The Hans Foundation", category: "Social & Education" },
-  { name: "Laureus", category: "Sports for Development" },
-  { name: "Life Skills Collaborative", category: "Social & Education" },
-  { name: "Manchester City", category: "Sports for Development" },
-  { name: "Michael & Susan Dell Foundation", category: "Philanthropy" },
-  { name: "THE EXTRA MILE", category: "Philanthropy" },
-  { name: "Wimbledon Foundation", category: "Sports for Development" },
-  { name: "World Resources Institute", category: "Energy & Development" },
-];
+// Partner list + logos live in src/data/foundationPartners.js (copied from the live Foundation Partners page)
+const FOUNDATION_PARTNERS = foundationPartners;
 
 const CATEGORIES = [
   "All",
@@ -97,7 +82,7 @@ export default function FoundationPartners() {
 
         {/* ===== 2) BREADCRUMB ===== */}
         <section className="py-4 bg-gray-50 border-b border-slate-100">
-          <div className="max-w-7xl mx-auto px-6 text-sm text-ink/60 flex items-center gap-2">
+          <div className="max-w-7xl mx-auto px-6 text-base text-ink/70 flex items-center gap-2">
             <Link to="/" className="hover:text-brand-red transition-colors font-medium">Home</Link>
             <span>/</span>
             <span className="text-ink font-semibold">Foundation Partners</span>
@@ -108,7 +93,7 @@ export default function FoundationPartners() {
         <section className="py-20 bg-white">
           <div className="max-w-7xl mx-auto px-6 lg:px-12">
             <div className="text-center max-w-3xl mx-auto">
-              <span className="inline-block bg-brand-red/10 text-brand-red font-bold text-xs uppercase tracking-widest px-3 py-1 rounded-full mb-4">
+              <span className="inline-block bg-brand-red/10 text-brand-red font-bold text-sm uppercase tracking-widest px-4 py-1.5 rounded-full mb-4">
                 Foundations & Institutions
               </span>
               <h2 className="text-3xl md:text-5xl font-extrabold text-slate-900 tracking-tight font-headline">
@@ -116,11 +101,11 @@ export default function FoundationPartners() {
               </h2>
               <div className="mt-6 h-1 w-20 bg-brand-yellow rounded-full mx-auto" />
               
-              <div className="mt-8 space-y-6 text-[#1A1A1A]/85 text-base md:text-lg leading-relaxed font-light">
+              <div className="mt-8 space-y-6 text-[#1A1A1A]/90 text-lg md:text-xl leading-relaxed">
                 <p>
                   Our work is significantly supported by our foundation and institution partners, who provide crucial assistance in various ways including funding, capacity-building support, networking, recognition and credibility. With their support, we are able to enhance our impact and fulfill our mission of creating positive change in the world.
                 </p>
-                <p className="border-t border-slate-100 pt-6 font-semibold text-slate-800 text-lg italic">
+                <p className="border-t border-slate-100 pt-6 font-semibold text-slate-800 text-xl italic">
                   We recognize and acknowledge their contributions. Without this support, we would not be able to achieve the level of success we have today.
                 </p>
               </div>
@@ -135,10 +120,10 @@ export default function FoundationPartners() {
             {/* Header & Search */}
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
               <div>
-                <h3 className="text-2xl md:text-3xl font-extrabold text-slate-900 tracking-tight">
+                <h3 className="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight">
                   Our Institution Network
                 </h3>
-                <p className="text-slate-500 text-sm mt-2">
+                <p className="text-slate-600 text-lg mt-2">
                   Showing {filteredPartners.length} of {FOUNDATION_PARTNERS.length} institutions
                 </p>
               </div>
@@ -150,9 +135,9 @@ export default function FoundationPartners() {
                   placeholder="Search partners..."
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
-                  className="w-full bg-white border border-slate-200/80 rounded-2xl pl-11 pr-4 py-3 text-sm focus:outline-none focus:ring-4 focus:ring-brand-yellow/20 focus:border-brand-yellow transition-all shadow-sm"
+                  className="w-full bg-white border border-slate-200/80 rounded-2xl pl-11 pr-4 py-3.5 text-base focus:outline-none focus:ring-4 focus:ring-brand-yellow/20 focus:border-brand-yellow transition-all shadow-sm"
                 />
-                <Search className="absolute left-4 top-3.5 w-4 h-4 text-slate-400" />
+                <Search className="absolute left-4 top-4 w-5 h-5 text-slate-400" />
               </div>
             </div>
 
@@ -162,7 +147,7 @@ export default function FoundationPartners() {
                 <button
                   key={cat}
                   onClick={() => setActiveCategory(cat)}
-                  className={`px-4 py-2 rounded-xl text-xs font-bold transition-all whitespace-nowrap border ${
+                  className={`px-5 py-2.5 rounded-xl text-base font-bold transition-all whitespace-nowrap border ${
                     activeCategory === cat
                       ? "bg-slate-900 border-slate-900 text-white shadow-md shadow-slate-900/10 scale-105"
                       : "bg-white border-slate-200/80 text-slate-600 hover:bg-slate-50"
@@ -188,11 +173,11 @@ export default function FoundationPartners() {
                     variants={cardVariants}
                     layout
                     whileHover={{ y: -4, scale: 1.02 }}
-                    className="bg-white border border-slate-200/60 rounded-2xl p-6 flex items-center justify-center min-h-[110px] shadow-sm hover:shadow-md hover:border-brand-yellow transition-all duration-300 relative group cursor-pointer"
+                    className="bg-white border border-slate-200/60 rounded-2xl p-6 flex items-center justify-center min-h-[230px] shadow-sm hover:shadow-md hover:border-brand-yellow transition-all duration-300 relative group cursor-pointer"
                   >
                     <div className="absolute top-0 right-0 w-2.5 h-2.5 rounded-bl-xl bg-brand-yellow opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                     
-                    <BrandLogo name={partner.name} />
+                    <BrandLogo name={partner.name} logo={partner.logo} showName />
                   </motion.div>
                 ))}
               </AnimatePresence>
@@ -208,11 +193,11 @@ export default function FoundationPartners() {
                 <div className="w-12 h-12 bg-slate-50 border border-slate-100 rounded-full flex items-center justify-center mx-auto mb-4">
                   <Search className="w-5 h-5 text-slate-400" />
                 </div>
-                <h4 className="text-slate-800 font-bold text-base">No partners found</h4>
-                <p className="text-slate-400 text-xs mt-1">Try resetting your filters or modifying your search query.</p>
+                <h4 className="text-slate-800 font-bold text-xl">No partners found</h4>
+                <p className="text-slate-500 text-base mt-1">Try resetting your filters or modifying your search query.</p>
                 <button
                   onClick={() => { setSearch(""); setActiveCategory("All"); }}
-                  className="mt-4 px-4 py-2 bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs rounded-xl"
+                  className="mt-4 px-4 py-2 bg-slate-900 hover:bg-slate-800 text-white font-bold text-base rounded-xl"
                 >
                   Reset Filters
                 </button>
@@ -225,19 +210,19 @@ export default function FoundationPartners() {
         {/* ===== 5) INTERACTIVE CONTACT YELLOW STRIP ===== */}
         <section className="bg-brand-yellow py-10 text-center text-slate-900">
           <div className="max-w-4xl mx-auto px-6">
-            <h4 className="text-sm uppercase font-bold tracking-widest text-slate-800">To know more, email us at</h4>
+            <h4 className="text-base uppercase font-bold tracking-widest text-slate-800">To know more, email us at</h4>
             <div className="mt-3 flex flex-col sm:flex-row items-center justify-center gap-4">
               <a
                 href="mailto:institutional@magicbusindia.org"
-                className="text-xl sm:text-3xl font-black text-slate-950 hover:text-brand-red transition-colors tracking-tight"
+                className="text-2xl sm:text-4xl font-black text-slate-950 hover:text-brand-red transition-colors tracking-tight"
               >
                 institutional@magicbusindia.org
               </a>
               <button
                 onClick={handleCopyEmail}
-                className="inline-flex items-center gap-1.5 px-4 py-2 bg-white/20 hover:bg-white/30 backdrop-blur rounded-full text-xs font-bold transition-all"
+                className="inline-flex items-center gap-1.5 px-5 py-2.5 bg-white/25 hover:bg-white/40 backdrop-blur rounded-full text-base font-bold transition-all"
               >
-                {copiedEmail ? <Check className="w-3.5 h-3.5 text-green-700" /> : <Copy className="w-3.5 h-3.5" />}
+                {copiedEmail ? <Check className="w-4 h-4 text-green-700" /> : <Copy className="w-4 h-4" />}
                 {copiedEmail ? "Copied!" : "Copy Email"}
               </button>
             </div>
@@ -247,13 +232,13 @@ export default function FoundationPartners() {
         {/* ===== 6) CROSS NAVIGATION OTHER PARTNERS ===== */}
         <section className="py-20 bg-white">
           <div className="max-w-6xl mx-auto px-6 lg:px-12 text-center">
-            <span className="inline-block bg-brand-green/10 text-brand-green font-bold text-xs uppercase tracking-widest px-3 py-1 rounded-full mb-3">
+            <span className="inline-block bg-brand-green/10 text-brand-green font-bold text-sm uppercase tracking-widest px-4 py-1.5 rounded-full mb-3">
               Ecosystem Connect
             </span>
             <h3 className="text-2xl md:text-4xl font-extrabold text-slate-900 tracking-tight">
               Other Partners
             </h3>
-            <p className="text-slate-500 text-sm mt-2 max-w-lg mx-auto">
+            <p className="text-slate-600 text-lg mt-2 max-w-xl mx-auto">
               Explore how we collaborate across various domains to achieve holistic community growth and empowerment.
             </p>
 
@@ -268,13 +253,13 @@ export default function FoundationPartners() {
                 <Link
                   key={idx}
                   to={p.path}
-                  className="group relative overflow-hidden bg-gray-50 hover:bg-slate-900 border border-slate-200/60 hover:border-slate-900 p-6 rounded-2xl flex flex-col justify-between items-center text-center h-32 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+                  className="group relative overflow-hidden bg-gray-50 hover:bg-slate-900 border border-slate-200/60 hover:border-slate-900 p-6 rounded-2xl flex flex-col justify-between items-center text-center h-36 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
                 >
                   <span className="w-1.5 h-1.5 rounded-full bg-brand-yellow group-hover:scale-150 transition-transform" />
-                  <span className="font-bold text-xs md:text-sm text-slate-700 group-hover:text-white transition-colors">
+                  <span className="font-bold text-base md:text-lg text-slate-700 group-hover:text-white transition-colors">
                     {p.label}
                   </span>
-                  <div className="flex items-center gap-1 text-xs font-bold text-brand-red group-hover:text-brand-yellow tracking-wider uppercase">
+                  <div className="flex items-center gap-1 text-sm font-bold text-brand-red group-hover:text-brand-yellow tracking-wider uppercase">
                     <span>Learn More</span>
                     <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
                   </div>

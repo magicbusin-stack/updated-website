@@ -278,7 +278,7 @@ export default function CorporatePartners() {
                     {/* Corner accent that lights up on hover */}
                     <div className="absolute top-0 right-0 w-2.5 h-2.5 rounded-bl-xl bg-brand-yellow opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                     
-                    <BrandLogo name={partner.name} showName />
+                    <BrandLogo name={partner.name} logo={partner.logo} showName />
                   </motion.div>
                 ))}
               </AnimatePresence>
