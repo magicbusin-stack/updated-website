@@ -12,6 +12,7 @@ import {
   Target,
   Award,
   CheckCircle,
+  Sparkles,
   Calendar,
   HardDrive,
   Clock,
@@ -209,6 +210,27 @@ function ImpactStats() {
 }
 
 /* ------------------------------ report cards ------------------------------ */
+/* A highlight that starts with a figure ("95% skill improvement") shows the figure big and the words under it;
+   a highlight without a figure gets a tick instead. */
+function Highlight({ text }) {
+  const m = text.match(/^(\S*\d\S*)\s+(.+)$/);
+  return (
+    <li className="flex items-center gap-3 rounded-xl border border-brand-yellow/50 bg-white p-4 shadow-sm transition duration-200 hover:-translate-y-0.5 hover:shadow-md sm:flex-col sm:items-start sm:gap-1">
+      {m ? (
+        <>
+          <span className="text-3xl font-black leading-none text-brand-red sm:text-4xl">{m[1]}</span>
+          <span className="text-lg font-semibold leading-snug text-ink">{m[2]}</span>
+        </>
+      ) : (
+        <>
+          <CheckCircle className="h-8 w-8 shrink-0 text-brand-green sm:h-9 sm:w-9" />
+          <span className="text-lg font-semibold leading-snug text-ink">{text}</span>
+        </>
+      )}
+    </li>
+  );
+}
+
 function ImpactReportCard({ report, index }) {
   const ready = report.downloadUrl && report.downloadUrl !== "#";
   const date = new Date(report.publishDate).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" });
@@ -243,14 +265,15 @@ function ImpactReportCard({ report, index }) {
         <p className="mt-3 text-lg leading-relaxed text-slate-600">{report.description}</p>
 
         {/* Key highlights */}
-        <div className="mt-6 rounded-2xl bg-slate-50 p-5">
-          <h4 className="text-base font-bold uppercase tracking-wide text-slate-700">Key highlights</h4>
-          <ul className="mt-3 space-y-2.5">
+        <div className="relative mt-6 overflow-hidden rounded-2xl border border-brand-yellow/60 bg-gradient-to-br from-brand-yellow/25 via-brand-yellow/10 to-white p-5">
+          <div className="pointer-events-none absolute -right-8 -top-8 h-24 w-24 rounded-full bg-brand-yellow/40 blur-2xl" />
+          <h4 className="relative flex items-center gap-2 text-lg font-extrabold uppercase tracking-wide text-brand-red">
+            <Sparkles className="h-5 w-5" />
+            Key highlights
+          </h4>
+          <ul className="relative mt-4 grid grid-cols-1 gap-3 sm:grid-cols-3">
             {report.highlights.map((h) => (
-              <li key={h} className="flex items-start gap-3 text-lg text-slate-700">
-                <CheckCircle className="mt-1 h-5 w-5 shrink-0 text-brand-green" />
-                <span>{h}</span>
-              </li>
+              <Highlight key={h} text={h} />
             ))}
           </ul>
         </div>
