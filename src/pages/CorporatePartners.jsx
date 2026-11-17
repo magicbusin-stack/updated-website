@@ -1,14 +1,13 @@
 // src/pages/CorporatePartners.jsx
-import React, { useState, useMemo } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Search, Mail, Phone, ExternalLink, ArrowRight, Check, Copy } from "lucide-react";
+import React, { useState } from "react";
+import { motion } from "framer-motion";
+import { ArrowRight, Check, Copy } from "lucide-react";
 import { Link } from "react-router-dom";
 import Layout from "../components/Layout";
 import HeroBanner from "../components/HeroBanner";
 import PartnerHeadline from "../components/Corporate/PartnerHeadline";
-import BrandLogo from "../components/Corporate/BrandLogo";
+import LogoMarquee from "../components/Corporate/LogoMarquee";
 import { corporatePartners } from "../data/corporatePartners";
-import PartnersCarousel from "../components/Corporate/PartnersCarousel";
 
 // Core scroll animation definitions
 const EASE_EXPO = [0.16, 1, 0.3, 1];
@@ -36,36 +35,9 @@ const cardVariants = {
 // Partner list + logos live in src/data/corporatePartners.js (copied from the live Corporate Partners page)
 const PARTNERS = corporatePartners;
 
-const CATEGORIES = [
-  "All",
-  "Tech & Consulting",
-  "Finance & Insurance",
-  "Retail & Consumer",
-  "Industrial & Manufacturing",
-  "Automotive & Engineering",
-  "Energy & Infrastructure",
-  "Aviation & Logistics",
-  "Media & Services",
-  "Social & Community"
-];
-
-
-
 export default function CorporatePartners() {
-  const [search, setSearch] = useState("");
-  const [activeCategory, setActiveCategory] = useState("All");
   const [copiedEmail, setCopiedEmail] = useState(false);
   const [copiedPhone, setCopiedPhone] = useState(false);
-
-  // Filter partners based on search input and selected category pill
-  const filteredPartners = useMemo(() => {
-    return PARTNERS.filter((partner) => {
-      const matchesSearch = partner.name.toLowerCase().includes(search.toLowerCase());
-      const matchesCategory =
-        activeCategory === "All" || partner.category === activeCategory;
-      return matchesSearch && matchesCategory;
-    });
-  }, [search, activeCategory]);
 
   const handleCopyEmail = () => {
     navigator.clipboard.writeText("csr@magicbusindia.org");
@@ -131,9 +103,6 @@ export default function CorporatePartners() {
             </div>
           </div>
         </section>
-
-        {/* ===== FEATURED PARTNERS CAROUSEL ===== */}
-        <PartnersCarousel />
 
         {/* ===== 4) CSR VOLUNTEERING FLOATING YELLOW CARD ===== */}
         <section className="py-8 bg-white">
@@ -207,99 +176,19 @@ export default function CorporatePartners() {
           </div>
         </section>
 
-        {/* ===== 5) PARTNERS SEARCH, FILTER & GRID SECTION ===== */}
-        <section className="py-20 bg-gray-50/50" id="partners-showcase">
+        {/* ===== 5) ALL PARTNER LOGOS (moving rows) ===== */}
+        <section className="py-20 bg-gray-50/50 border-y border-slate-100 overflow-hidden" id="partners-showcase">
           <div className="max-w-7xl mx-auto px-6 lg:px-12">
-            
-            {/* Header & Search */}
-            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
-              <div>
-                <h3 className="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight">
-                  Our Network of Change
-                </h3>
-                <p className="text-slate-600 text-lg mt-2">
-                  Showing {filteredPartners.length} of {PARTNERS.length} strategic partners
-                </p>
-              </div>
-
-              {/* Search Bar */}
-              <div className="relative w-full md:w-80">
-                <input
-                  type="text"
-                  placeholder="Search corporate partners..."
-                  value={search}
-                  onChange={(e) => setSearch(e.target.value)}
-                  className="w-full bg-white border border-slate-200/80 rounded-2xl pl-11 pr-4 py-3.5 text-base focus:outline-none focus:ring-4 focus:ring-brand-yellow/20 focus:border-brand-yellow transition-all shadow-sm"
-                />
-                <Search className="absolute left-4 top-4 w-5 h-5 text-slate-400" />
-              </div>
+            <div className="text-center mb-12">
+              <h3 className="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight">
+                Our Network of Change
+              </h3>
+              <p className="text-slate-600 text-lg mt-2">
+                Proudly supported by {PARTNERS.length} corporate partners
+              </p>
             </div>
-
-            {/* Category Filter Pills */}
-            <div className="flex flex-wrap gap-2 mb-10 pb-2 overflow-x-auto scrollbar-none">
-              {CATEGORIES.map((cat) => (
-                <button
-                  key={cat}
-                  onClick={() => setActiveCategory(cat)}
-                  className={`px-5 py-2.5 rounded-xl text-base font-bold transition-all whitespace-nowrap border ${
-                    activeCategory === cat
-                      ? "bg-slate-900 border-slate-900 text-white shadow-md shadow-slate-900/10 scale-105"
-                      : "bg-white border-slate-200/80 text-slate-600 hover:bg-slate-50"
-                  }`}
-                >
-                  {cat}
-                </button>
-              ))}
-            </div>
-
-            {/* Partners Grid */}
-            <motion.div
-              variants={containerVariants}
-              initial="hidden"
-              animate="visible"
-              key={`${activeCategory}-${search}`} // Force re-render of animations when filters change
-              className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5"
-            >
-              <AnimatePresence mode="popLayout">
-                {filteredPartners.map((partner) => (
-                  <motion.div
-                    key={partner.name}
-                    variants={cardVariants}
-                    layout
-                    whileHover={{ y: -4, scale: 1.02 }}
-                    className="bg-white border border-slate-200/60 rounded-2xl p-5 flex items-center justify-center min-h-[190px] shadow-sm hover:shadow-md hover:border-brand-yellow transition-all duration-300 relative group cursor-pointer"
-                  >
-                    {/* Corner accent that lights up on hover */}
-                    <div className="absolute top-0 right-0 w-2.5 h-2.5 rounded-bl-xl bg-brand-yellow opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                    
-                    <BrandLogo name={partner.name} logo={partner.logo} showName />
-                  </motion.div>
-                ))}
-              </AnimatePresence>
-            </motion.div>
-
-            {/* Empty State */}
-            {filteredPartners.length === 0 && (
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                className="text-center py-20 bg-white border border-dashed border-slate-200 rounded-3xl"
-              >
-                <div className="w-12 h-12 bg-slate-50 border border-slate-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Search className="w-5 h-5 text-slate-400" />
-                </div>
-                <h4 className="text-slate-800 font-bold text-xl">No partners found</h4>
-                <p className="text-slate-500 text-base mt-1">Try resetting your filters or modifying your search query.</p>
-                <button
-                  onClick={() => { setSearch(""); setActiveCategory("All"); }}
-                  className="mt-4 px-4 py-2 bg-slate-900 hover:bg-slate-800 text-white font-bold text-base rounded-xl"
-                >
-                  Reset Filters
-                </button>
-              </motion.div>
-            )}
-
           </div>
+          <LogoMarquee partners={PARTNERS} rows={4} />
         </section>
 
         {/* ===== 6) EXPLORE OTHER PARTNERS SECTION ===== */}

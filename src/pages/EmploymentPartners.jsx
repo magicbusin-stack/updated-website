@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import Layout from "../components/Layout";
 import HeroBanner from "../components/HeroBanner";
 import PartnerHeadline from "../components/Corporate/PartnerHeadline";
-import BrandLogo from "../components/Corporate/BrandLogo";
+import LogoMarquee from "../components/Corporate/LogoMarquee";
 import { employmentPartners } from "../data/employmentPartners";
 
 const EASE_EXPO = [0.16, 1, 0.3, 1];
@@ -96,12 +96,10 @@ export default function EmploymentPartners() {
           </div>
         </section>
 
-        {/* ===== 4) GRID SHOWCASE ===== */}
-        <section className="py-20 bg-gray-50/50 border-y border-slate-100" id="employer-showcase">
+        {/* ===== 4) ALL PARTNER LOGOS (moving rows) ===== */}
+        <section className="py-20 bg-gray-50/50 border-y border-slate-100 overflow-hidden" id="employer-showcase">
           <div className="max-w-7xl mx-auto px-6 lg:px-12">
-            
-            {/* Header */}
-            <div className="text-center mb-16">
+            <div className="text-center mb-12">
               <h3 className="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight">
                 Corporate Employment Network
               </h3>
@@ -109,29 +107,8 @@ export default function EmploymentPartners() {
                 Active placements and partnerships across {EMPLOYER_PARTNERS.length} major brands
               </p>
             </div>
-
-            {/* Partners Grid */}
-            <motion.div
-              variants={containerVariants}
-              initial="hidden"
-              animate="visible"
-              className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"
-            >
-              {EMPLOYER_PARTNERS.map((partner) => (
-                <motion.div
-                  key={partner.name}
-                  variants={cardVariants}
-                  whileHover={{ y: -4, scale: 1.02 }}
-                  className="bg-white border border-slate-200/60 rounded-2xl p-5 sm:p-6 flex items-center justify-center min-h-[230px] shadow-sm hover:shadow-md hover:border-brand-yellow transition-all duration-300 relative group cursor-pointer"
-                >
-                  <div className="absolute top-0 right-0 w-2.5 h-2.5 rounded-bl-xl bg-brand-yellow opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  
-                  <BrandLogo name={partner.name} logo={partner.logo} showName />
-                </motion.div>
-              ))}
-            </motion.div>
-
           </div>
+          <LogoMarquee partners={EMPLOYER_PARTNERS} rows={3} />
         </section>
 
         {/* ===== 5) INTERACTIVE CONTACT YELLOW STRIP ===== */}
