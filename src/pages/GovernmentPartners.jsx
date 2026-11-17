@@ -158,7 +158,7 @@ export default function GovernmentPartners() {
                     </div>
                     <div className="leading-tight">
                       <span className="block text-[8px] font-bold text-slate-400 uppercase tracking-[0.18em]">Government of</span>
-                      <span className="block text-[13px] font-black text-slate-800 tracking-tight mt-0.5">{partner.name}</span>
+                      <span className="block text-xs font-black text-slate-800 tracking-tight mt-0.5">{partner.name}</span>
                     </div>
                   </div>
                 </motion.div>

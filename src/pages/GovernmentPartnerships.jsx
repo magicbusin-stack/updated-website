@@ -441,7 +441,7 @@ function VoicesSection() {
                         </span>
                       </div>
                     </div>
-                    <blockquote className={`font-semibold leading-relaxed text-slate-900 ${v.hindi ? "text-[17px] leading-[1.75]" : "text-lg"}`}>“{v.quote}”</blockquote>
+                    <blockquote className={`font-semibold leading-relaxed text-slate-900 ${v.hindi ? "text-lg leading-[1.75]" : "text-lg"}`}>“{v.quote}”</blockquote>
                   </div>
                   <figcaption className="relative z-10 mt-8 flex items-center justify-between border-t pt-5" style={{ borderColor: t.line }}>
                     <p className="pr-2 text-sm font-bold leading-snug tracking-tight text-slate-900">— {v.who}</p>

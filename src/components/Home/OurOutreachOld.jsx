@@ -78,7 +78,7 @@ export function ImpactChart({ size = 520, segments, centerImage }) {
                 transition={{ duration: 1, delay: i * 0.1 }}
               />
 
-              <text className="text-[14px] font-bold fill-slate-800 uppercase">
+              <text className="text-xs font-bold fill-slate-800 uppercase">
                 <textPath href={`#path-${q.id}`} startOffset="50%" textAnchor="middle">
                   {d.label}
                 </textPath>

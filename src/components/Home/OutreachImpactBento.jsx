@@ -82,7 +82,7 @@ const StoryCard = ({ tag, title, body, img, className = "", cta = { text: "Read 
       )}
       <h3 className="text-lg md:text-2xl font-bold leading-snug">{title}</h3>
       {body && (
-        <p className="mt-2 text-sm md:text-[15px] text-white/85 leading-relaxed max-w-prose">{body}</p>
+        <p className="mt-2 text-sm md:text-sm text-white/85 leading-relaxed max-w-prose">{body}</p>
       )}
 
       <motion.a

@@ -63,7 +63,7 @@ function Tag({ icon: Icon, children, tone = "red" }) {
         forest: "bg-[#E3EFEC] text-[#1B3B36]",
     };
     return (
-        <span className={`inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-[13px] font-bold uppercase tracking-[0.06em] ${tones[tone]}`}>
+        <span className={`inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-bold uppercase tracking-[0.06em] ${tones[tone]}`}>
             {Icon && <Icon className="h-4 w-4" />}
             {children}
         </span>
@@ -84,7 +84,7 @@ function Hero() {
                             initial={{ opacity: 0, y: 16 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.5, ease: EASE }}
-                            className="mb-5 inline-flex items-center gap-2 rounded-full bg-[#FFDDB5]/60 px-4 py-1.5 text-[13px] font-bold uppercase tracking-[0.06em] text-[#643F00]"
+                            className="mb-5 inline-flex items-center gap-2 rounded-full bg-[#FFDDB5]/60 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.06em] text-[#643F00]"
                         >
                             <span className="h-2 w-2 rounded-full bg-[#835400]" />
                             Magic Bus India Foundation
@@ -149,16 +149,16 @@ function Hero() {
                             />
                             <div className="absolute inset-0 bg-gradient-to-t from-[#313030]/80 via-transparent to-transparent" />
                             <div className="absolute inset-x-4 bottom-4 rounded-lg bg-[#FBFBFA]/95 p-4 shadow-lg backdrop-blur-md sm:inset-x-6 sm:bottom-6">
-                                <span className="text-[13px] font-bold uppercase tracking-[0.06em]" style={{ color: CRIMSON }}>
+                                <span className="text-xs font-bold uppercase tracking-[0.06em]" style={{ color: CRIMSON }}>
                                     Where it began
                                 </span>
                                 <p className="wa-display text-lg font-bold leading-snug sm:text-xl">Bombay Gymkhana, Mumbai, 1999</p>
-                                <p className="mt-1 text-sm leading-relaxed text-[#4A4A48] sm:text-[15px]">
+                                <p className="mt-1 text-sm leading-relaxed text-[#4A4A48] sm:text-sm">
                                     A game of rugby, and a group of boys watching from outside, became Magic Bus.
                                 </p>
                             </div>
                         </div>
-                        <div className="absolute -left-2 -top-4 flex items-center gap-2 rounded-full bg-[#835400] px-4 py-2 text-[13px] font-bold uppercase tracking-[0.06em] text-white shadow-md sm:-left-4">
+                        <div className="absolute -left-2 -top-4 flex items-center gap-2 rounded-full bg-[#835400] px-4 py-2 text-xs font-bold uppercase tracking-[0.06em] text-white shadow-md sm:-left-4">
                             <PartyPopper className="h-4 w-4" />
                             26+ Years of Magic
                         </div>
@@ -285,7 +285,7 @@ function HistorySection() {
                         <Tag icon={History} tone="sun">Our History</Tag>
                         <h2 className="wa-display mt-4 text-3xl font-bold leading-tight sm:text-4xl lg:text-[40px] lg:leading-[48px]">Over 26 Years of Magic</h2>
                     </div>
-                    <span className="inline-flex w-fit items-center gap-2 rounded-full border border-[#E5E5DF] bg-white px-4 py-2 text-[13px] font-bold uppercase tracking-[0.06em] text-[#4A4A48]">
+                    <span className="inline-flex w-fit items-center gap-2 rounded-full border border-[#E5E5DF] bg-white px-4 py-2 text-xs font-bold uppercase tracking-[0.06em] text-[#4A4A48]">
                         <span className="h-2 w-2 rounded-full bg-[#C41A1F]" />
                         Origin: Bombay Gymkhana, 1999
                     </span>
@@ -296,7 +296,7 @@ function HistorySection() {
                     <div className="flex flex-col gap-5 lg:col-span-7">
                         <FadeUp>
                             <div className="rounded-lg border border-[#E5E5DF] bg-white p-6 sm:p-8">
-                                <span className="text-[13px] font-bold uppercase tracking-[0.06em]" style={{ color: CRIMSON }}>
+                                <span className="text-xs font-bold uppercase tracking-[0.06em]" style={{ color: CRIMSON }}>
                                     How it began
                                 </span>
                                 <h3 className="wa-display mt-2 text-2xl font-bold leading-snug sm:text-[28px] sm:leading-9">From a Saturday Rugby Match to a National Movement</h3>
@@ -321,7 +321,7 @@ function HistorySection() {
                         <FadeUp delay={0.08}>
                             <div className="flex items-center justify-between gap-4 rounded-lg p-5 text-white sm:p-6" style={{ background: FOREST }}>
                                 <div>
-                                    <span className="text-[13px] font-bold uppercase tracking-[0.06em] text-[#F9A825]">Where we work</span>
+                                    <span className="text-xs font-bold uppercase tracking-[0.06em] text-[#F9A825]">Where we work</span>
                                     <p className="wa-display mt-1 text-xl font-bold sm:text-2xl">India, Nepal &amp; Bangladesh</p>
                                 </div>
                                 <Globe2 className="h-10 w-10 shrink-0 text-white/40" />
@@ -335,7 +335,7 @@ function HistorySection() {
                             <div className="grid grid-cols-2 gap-3">
                                 <div className="relative col-span-2 aspect-[16/9] overflow-hidden rounded-lg border border-[#E5E5DF] bg-[#EFEDE6]">
                                     <img src="/history_2002.png" alt="An early Magic Bus session" className="h-full w-full object-cover object-center" />
-                                    <span className="absolute bottom-3 left-3 rounded bg-[#1A1A1A]/80 px-2.5 py-1 text-[13px] font-bold uppercase tracking-[0.06em] text-white">From the archive</span>
+                                    <span className="absolute bottom-3 left-3 rounded bg-[#1A1A1A]/80 px-2.5 py-1 text-xs font-bold uppercase tracking-[0.06em] text-white">From the archive</span>
                                 </div>
                                 <div className="aspect-[4/3] overflow-hidden rounded-lg border border-[#E5E5DF] bg-[#EFEDE6]">
                                     <img src="/history1-1.jpg" alt="Early coaching sessions on the field" className="h-full w-full object-cover" />
@@ -363,7 +363,7 @@ function HistorySection() {
                                     </span>
                                     <span>
                                         <span className="block text-lg font-bold">Matthew Spacie</span>
-                                        <span className="block text-[15px] text-white/80">Founder, Magic Bus India Foundation</span>
+                                        <span className="block text-sm text-white/80">Founder, Magic Bus India Foundation</span>
                                     </span>
                                 </figcaption>
                             </figure>
@@ -473,7 +473,7 @@ function WorkInAction() {
                             <article className="group flex h-full flex-col overflow-hidden rounded-lg border border-[#E5E5DF] bg-white transition hover:-translate-y-1 hover:shadow-[0_8px_24px_-4px_rgba(26,26,26,0.1)]">
                                 <div className="relative aspect-[4/3] overflow-hidden bg-[#EFEDE6]">
                                     <img src={w.img} alt={w.alt} loading="lazy" className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
-                                    <span className="absolute left-3 top-3 rounded-full bg-[#F9A825] px-3 py-1 text-[13px] font-bold uppercase tracking-[0.06em] text-[#1A1A1A] shadow">{w.chip}</span>
+                                    <span className="absolute left-3 top-3 rounded-full bg-[#F9A825] px-3 py-1 text-xs font-bold uppercase tracking-[0.06em] text-[#1A1A1A] shadow">{w.chip}</span>
                                 </div>
                                 <div className="flex flex-1 flex-col justify-between gap-4 p-5">
                                     <div>
@@ -503,7 +503,7 @@ function AnnualReportCTA() {
                         <div className="pointer-events-none absolute -right-16 -top-16 h-64 w-64 rounded-full bg-white/5" />
                         <div className="pointer-events-none absolute -bottom-20 -left-20 h-80 w-80 rounded-full bg-white/5" />
                         <div className="relative z-10">
-                            <span className="inline-flex items-center gap-2 rounded-full bg-[#F9A825] px-4 py-1.5 text-[13px] font-bold uppercase tracking-[0.06em] text-[#1A1A1A]">
+                            <span className="inline-flex items-center gap-2 rounded-full bg-[#F9A825] px-4 py-1.5 text-xs font-bold uppercase tracking-[0.06em] text-[#1A1A1A]">
                                 <BookOpen className="h-4 w-4" />
                                 Learn More About Us
                             </span>

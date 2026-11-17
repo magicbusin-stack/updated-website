@@ -190,7 +190,7 @@ function ProgrammeCard({ slide }) {
             <div className="hidden sm:block w-12 h-[3px] rounded-full bg-white/40 mb-5" />
 
             {/* Summary */}
-            <p className="hidden sm:block text-white/85 text-[14px] md:text-[15px] leading-relaxed max-w-[90%] mb-6">
+            <p className="hidden sm:block text-white/85 text-xs md:text-sm leading-relaxed max-w-[90%] mb-6">
               {summary}
             </p>
 

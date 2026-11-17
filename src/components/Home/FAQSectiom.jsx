@@ -128,7 +128,7 @@ export default function FAQSection({
                   />
                   <div className="flex-1">
                     <div className="flex items-center gap-3">
-                      <h3 className="text-[15px] md:text-lg font-semibold text-ink">
+                      <h3 className="text-sm md:text-lg font-semibold text-ink">
                         {item.question}
                       </h3>
                       {item.category && (
@@ -145,7 +145,7 @@ export default function FAQSection({
                           exit={{ height: 0, opacity: 0 }}
                           transition={{ duration: 0.25 }}
                         >
-                          <div className="pt-3 pr-2 text-[15px] leading-relaxed text-ink/80">
+                          <div className="pt-3 pr-2 text-sm leading-relaxed text-ink/80">
                             {typeof item.answer === "string" ? (
                               <p>{item.answer}</p>
                             ) : (

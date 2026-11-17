@@ -206,7 +206,7 @@ export const contactFAQ = [
     question: "Magic Bus India Foundation – Regional Offices",
     category: "Contact",
     answer: (
-      <div className="grid md:grid-cols-2 gap-8 text-[15px] leading-relaxed">
+      <div className="grid md:grid-cols-2 gap-8 text-sm leading-relaxed">
         {/* Delhi/NCR */}
         <div>
           <h4 className="font-semibold">
@@ -332,7 +332,7 @@ export const contactFAQ = [
       "Magic Bus India Foundation – Centre for Learning & Development",
     category: "Contact",
     answer: (
-      <div className="space-y-3 text-[15px] leading-relaxed">
+      <div className="space-y-3 text-sm leading-relaxed">
         <div className="text-ink/80 space-y-1">
           <p>Village Aasrewadi at Post Chowk, Taluka Khalapur,</p>
           <p>District Raigad,</p>
@@ -364,7 +364,7 @@ export const contactFAQ = [
     question: "Magic Bus India Foundation – Global Entities",
     category: "Global",
     answer: (
-      <div className="grid md:grid-cols-2 gap-8 text-[15px] leading-relaxed">
+      <div className="grid md:grid-cols-2 gap-8 text-sm leading-relaxed">
         {/* Global */}
         <div>
           <h5 className="font-semibold">Magic Bus Foundation – Global</h5>
@@ -516,7 +516,7 @@ export const contactFAQ = [
       "For Partnership Enquiry with Magic Bus India Foundation",
     category: "Partnerships",
     answer: (
-      <div className="grid sm:grid-cols-2 gap-x-10 gap-y-3 text-[15px]">
+      <div className="grid sm:grid-cols-2 gap-x-10 gap-y-3 text-sm">
         <p>
           <span className="font-semibold">CSR & Employee Volunteering Partnerships</span>
           <span className="mx-2">:</span>

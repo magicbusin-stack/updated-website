@@ -70,7 +70,7 @@ function FadeIn({ children, delay = 0, className = "" }) {
 */
 function SectionLabel({ children, icon: Icon }) {
     return (
-        <span className="inline-flex items-center gap-2 rounded-full border border-brand-black/20 bg-brand-yellow px-4 py-1.5 text-[13px] font-bold tracking-[0.16em] text-brand-black uppercase mb-6">
+        <span className="inline-flex items-center gap-2 rounded-full border border-brand-black/20 bg-brand-yellow px-4 py-1.5 text-xs font-bold tracking-[0.16em] text-brand-black uppercase mb-6">
             {Icon && <Icon className="w-3.5 h-3.5" />}
             {children}
         </span>
@@ -113,7 +113,7 @@ function AnimatedCounter({ value, suffix = "", duration = 2 }) {
 
 function SectionTag({ children }) {
     return (
-        <span className="inline-flex items-center gap-2 rounded-full border border-brand-black/15 bg-brand-yellow px-4 py-1.5 text-[13px] font-bold tracking-[0.16em] uppercase text-brand-black mb-4">
+        <span className="inline-flex items-center gap-2 rounded-full border border-brand-black/15 bg-brand-yellow px-4 py-1.5 text-xs font-bold tracking-[0.16em] uppercase text-brand-black mb-4">
             {children}
         </span>
     );

@@ -748,7 +748,7 @@ export default function BrandLogo({ name }) {
         {initials}
       </div>
       <div className="text-left min-w-0">
-        <span className="block font-sans font-bold text-[13px] text-slate-800 truncate leading-snug">
+        <span className="block font-sans font-bold text-[15px] text-slate-800 truncate leading-snug">
           {name}
         </span>
         <div className="flex items-center gap-1.5 mt-0.5">

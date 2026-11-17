@@ -123,11 +123,11 @@ function AboutSection() {
                                 <span className="absolute -bottom-1 left-0 right-0 h-0.5 rounded-full" style={{ backgroundColor: DOST_GREEN }} />
                             </span>
                         </h2>
-                        <p className="text-[16px] text-white/60 leading-relaxed mb-4">
+                        <p className="text-base text-white/60 leading-relaxed mb-4">
                             MB Dost is a <span className="text-white font-semibold">WhatsApp-based chatbot</span> developed by Magic Bus India Foundation for the Livelihood{" "}
                             <span className="text-white font-semibold">FutureX Programme</span>. It provides easy access to self-learning modules and continuous learning support.
                         </p>
-                        <p className="text-[16px] text-white/60 leading-relaxed mb-10">
+                        <p className="text-base text-white/60 leading-relaxed mb-10">
                             MB Dost acts as a <span className="text-white font-semibold">digital learning companion</span>, enabling participants to strengthen their understanding, practice key concepts, and stay engaged beyond classroom sessions.
                         </p>
                         <div className="space-y-5">
@@ -482,7 +482,7 @@ function TestimonialsSection() {
                                             {String(i + 1).padStart(2, "0")}
                                         </span>
                                     </div>
-                                    <p className="text-white/65 text-[15px] leading-relaxed italic flex-1">"{q}"</p>
+                                    <p className="text-white/65 text-sm leading-relaxed italic flex-1">"{q}"</p>
                                 </motion.div>
                             ))}
                         </div>

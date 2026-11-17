@@ -27,7 +27,7 @@ function FadeUp({ children, delay = 0, className = "" }) {
 
 function SectionTag({ children }) {
     return (
-        <span className="inline-flex items-center gap-2 rounded-full border border-brand-black/10 bg-brand-yellow/25 px-4 py-1.5 text-[13px] font-bold uppercase tracking-[0.16em] text-brand-black">
+        <span className="inline-flex items-center gap-2 rounded-full border border-brand-black/10 bg-brand-yellow/25 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.16em] text-brand-black">
             <span className="h-1.5 w-1.5 rounded-full bg-brand-red" />
             {children}
         </span>

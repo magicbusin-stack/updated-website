@@ -250,7 +250,7 @@ function ProgrammeDetailsSection() {
                         <h2 className="text-4xl md:text-5xl font-extrabold text-[#1A1A1A] leading-tight">
                             Youth Skilling Programme <span className="text-brand-red">highlights</span>
                         </h2>
-                        <p className="text-[#1A1A1A]/70 max-w-xs text-sm leading-relaxed">
+                        <p className="text-[#1A1A1A]/75 max-w-sm text-base leading-relaxed">
                             Four defining features that shape the programme's reach and effectiveness.
                         </p>
                     </div>
@@ -288,14 +288,14 @@ function ProgrammeDetailsSection() {
                                     >
                                         <item.icon className="w-5 h-5 text-white" />
                                     </div>
-                                    <h3 className="font-extrabold text-[#1A1A1A] text-xl leading-snug">
+                                    <h3 className="font-extrabold text-[#1A1A1A] text-xl md:text-2xl leading-snug">
                                         {item.title}
                                     </h3>
                                 </div>
 
                                 {/* Description */}
                                 <div className="flex items-center py-8 md:px-8 md:border-l border-gray-200">
-                                    <p className="border-l-4 border-transparent pl-4 text-base md:text-[17px] leading-7 text-[#1A1A1A]/80 transition-all duration-300 group-hover:translate-x-1 group-hover:text-[#1A1A1A] group-hover:border-brand-yellow">
+                                    <p className="border-l-4 border-transparent pl-4 text-lg md:text-xl leading-8 text-[#1A1A1A]/85 transition-all duration-300 group-hover:translate-x-1 group-hover:text-[#1A1A1A] group-hover:border-brand-yellow">
                                         {item.desc}
                                     </p>
                                 </div>
@@ -495,7 +495,7 @@ function SectorsSection() {
                         <h2 className="text-4xl md:text-5xl font-extrabold text-[#1A1A1A] leading-tight">
                             Opportunities for Youth: <span className="text-brand-red">Entry-Level Jobs and Sectors</span>
                         </h2>
-                        <p className="text-[#1A1A1A]/70 max-w-xs text-sm leading-relaxed">
+                        <p className="text-[#1A1A1A]/75 max-w-sm text-base leading-relaxed">
                             Trained youth are connected to employers across five key formal-sector industries.
                         </p>
                     </div>
@@ -507,7 +507,7 @@ function SectorsSection() {
                         {["Sector", "Roles Available"].map((col) => (
                             <p
                                 key={col}
-                                className="text-xs font-bold uppercase tracking-[0.18em] text-[#1A1A1A]/55"
+                                className="text-sm font-bold uppercase tracking-[0.18em] text-[#1A1A1A]/65"
                             >
                                 {col}
                             </p>
@@ -531,7 +531,7 @@ function SectorsSection() {
                                         <item.icon className={`w-6 h-6 ${item.textColor}`} />
                                     </div>
                                     <div>
-                                        <h3 className="font-extrabold text-[#1A1A1A] text-xl">{item.sector}</h3>
+                                        <h3 className="font-extrabold text-[#1A1A1A] text-xl md:text-2xl">{item.sector}</h3>
                                     </div>
                                 </div>
                                 {/* Col 2: roles */}
@@ -540,7 +540,7 @@ function SectorsSection() {
                                         <p className="text-xs font-bold uppercase tracking-widest text-[#1A1A1A]/55 mb-1 md:hidden">
                                             Roles
                                         </p>
-                                        <p className="text-base font-semibold text-[#1A1A1A]/75 leading-relaxed">
+                                        <p className="text-lg md:text-xl font-semibold text-[#1A1A1A]/85 leading-relaxed">
                                             {item.roles}
                                         </p>
                                     </div>

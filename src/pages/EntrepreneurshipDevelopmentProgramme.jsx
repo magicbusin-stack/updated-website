@@ -175,17 +175,17 @@ function AboutSection() {
                         <div className="space-y-8 mb-8">
                             <div>
                                 <h3 className="text-xl font-extrabold text-[#111111] mb-3">Entrepreneurship Development Programme</h3>
-                                <p className="text-[16px] text-[#111111]/65 leading-relaxed mb-3">
+                                <p className="text-base text-[#111111]/65 leading-relaxed mb-3">
                                     Launched in <span className="font-bold text-[#111111]">2019</span>, Magic Bus’s Entrepreneurship Development
                                     Programme (EDP) enables aspiring entrepreneurs from underserved communities—particularly youth and
                                     women—to establish, strengthen and sustain micro and nano-enterprises as pathways to economic independence.
                                 </p>
-                                <p className="text-[16px] text-[#111111]/65 leading-relaxed mb-3">
+                                <p className="text-base text-[#111111]/65 leading-relaxed mb-3">
                                     The programme builds rural women’s capabilities, confidence and agency required to run a business
                                     successfully, including entrepreneurship skills, financial and digital literacy, business planning,
                                     market understanding, leadership, access to finance, and linkages with government schemes, mentors and markets.
                                 </p>
-                                <p className="text-[16px] text-[#111111]/65 leading-relaxed">
+                                <p className="text-base text-[#111111]/65 leading-relaxed">
                                     EDP participants have gone on to establish and grow enterprises across sectors such as retail,
                                     services, manufacturing, food processing and other local value chains, creating sustainable
                                     livelihoods for themselves while also contributing to employment generation and stronger local economies.
@@ -194,14 +194,14 @@ function AboutSection() {
 
                             <div>
                                 <h3 className="text-xl font-extrabold text-[#111111] mb-3">Livelihood Resource Centre Model</h3>
-                                <p className="text-[16px] text-[#111111]/65 leading-relaxed mb-3">
+                                <p className="text-base text-[#111111]/65 leading-relaxed mb-3">
                                     Magic Bus’s Livelihood Resource Centres (LRCs) serve as community-based hubs that connect rural and
                                     peri-urban youth and women from underserved communities to sustainable livelihood opportunities. The
                                     centres provide access to life skills and employability training, digital literacy, job placement
                                     support, entrepreneurship development, self-employment incubation, and linkages to government
                                     livelihood schemes, local employers, MSMEs and producer networks.
                                 </p>
-                                <p className="text-[16px] text-[#111111]/65 leading-relaxed">
+                                <p className="text-base text-[#111111]/65 leading-relaxed">
                                     By bringing livelihood services closer to communities, LRCs help participants move beyond training
                                     towards actual economic opportunities through wage employment, self-employment and enterprise
                                     development. The model strengthens local livelihood ecosystems by combining community outreach,
@@ -214,7 +214,7 @@ function AboutSection() {
                                 <h3 className="text-xl font-extrabold text-[#111111] mb-3">
                                     Udyam-Setu Hub for urban professionalization and formalization
                                 </h3>
-                                <p className="text-[16px] text-[#111111]/65 leading-relaxed">
+                                <p className="text-base text-[#111111]/65 leading-relaxed">
                                     Udyam-Setu Hub is Magic Bus’s urban livelihood platform for professionalizing self-employment and
                                     formalizing informal entrepreneurship and gig work. It helps workers and micro-entrepreneurs
                                     strengthen business practices, digital and financial capabilities, customer reach and high rating,
@@ -224,7 +224,7 @@ function AboutSection() {
                             </div>
                         </div>
 
-                        <p className="text-[16px] text-[#111111]/65 leading-relaxed mb-6">
+                        <p className="text-base text-[#111111]/65 leading-relaxed mb-6">
                             We received the{" "}
                             <span className="font-bold text-[#111111]">Millennium Alliance Award launched by FICCI</span>{" "}
                             to implement EDP in 3 states — Maharashtra, Karnataka and Rajasthan.
@@ -437,7 +437,7 @@ function StructureSection() {
                                 <div className={`inline-flex items-center justify-center w-9 h-9 rounded-full ${step.color} text-white text-xs font-black mb-4`}>
                                     {step.num}
                                 </div>
-                                <h3 className={`font-extrabold text-[#111111] text-[15px] leading-snug mb-2`}>{step.label}</h3>
+                                <h3 className={`font-extrabold text-[#111111] text-sm leading-snug mb-2`}>{step.label}</h3>
                                 {step.desc && <p className="text-xs text-[#111111]/50 leading-relaxed">{step.desc}</p>}
                                 {/* Connector arrow (hidden on last items of each row) */}
                                 {(i + 1) % 3 !== 0 && i < 8 && (

@@ -145,7 +145,7 @@ function IntroSection() {
                                     </div>
                                     <div>
                                         <p className="text-sm font-extrabold text-[#1A1A1A] leading-tight">Great Place to Work</p>
-                                        <p className="text-[13px] text-[#1A1A1A]/70 leading-tight mt-1">Certified 6 years in a row</p>
+                                        <p className="text-xs text-[#1A1A1A]/70 leading-tight mt-1">Certified 6 years in a row</p>
                                     </div>
                                 </div>
                             </div>

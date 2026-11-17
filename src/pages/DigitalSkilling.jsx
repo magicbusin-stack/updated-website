@@ -89,17 +89,17 @@ function AboutSection() {
                             Programmes
                         </h2>
 
-                        <p className="text-[17px] text-[#1A1A1A]/65 leading-relaxed mb-5">
+                        <p className="text-lg text-[#1A1A1A]/65 leading-relaxed mb-5">
                             To secure and sustain rewarding employment in today's AI-driven job scenario, youth must be equipped
                             with the right 21st century job skills, digital skills and AI literacy. Magic Bus digital programmes
                             provide youth from underserved communities with technical skilling in AI, data and web design and the
                             opportunity to secure white collar jobs.
                         </p>
-                        <p className="text-[17px] text-[#1A1A1A]/65 leading-relaxed mb-5">
+                        <p className="text-lg text-[#1A1A1A]/65 leading-relaxed mb-5">
                             We place them on the pathway towards tech career growth through free job placement support, and ensure
                             they retain in the jobs through life skills and employability training.
                         </p>
-                        <p className="text-[17px] text-[#1A1A1A]/65 leading-relaxed mb-8">
+                        <p className="text-lg text-[#1A1A1A]/65 leading-relaxed mb-8">
                             Key programmes are AI-Connect with Work (AI-CWW), STEM AI-CWW, Data Annotation, AI-Powered Data
                             Analytics and Web Design.
                         </p>

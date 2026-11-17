@@ -287,7 +287,7 @@ function InterventionBlock({ data, color, cols }) {
                 </span>
                 <p className="font-bold leading-snug text-[#0F172A]">{name}</p>
               </div>
-              <p className="mt-3 text-sm leading-relaxed text-slate-600 md:text-[15px]">{text}</p>
+              <p className="mt-3 text-sm leading-relaxed text-slate-600 md:text-sm">{text}</p>
             </div>
           ))}
         </div>

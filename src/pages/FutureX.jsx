@@ -169,13 +169,13 @@ function AboutSection() {
                             <span style={{ color: FX_RED }}>FutureX?</span>
                         </h2>
 
-                        <p className="text-[16px] text-white/60 leading-relaxed mb-5">
+                        <p className="text-base text-white/60 leading-relaxed mb-5">
                             FutureX is an innovative strategic initiative of{" "}
                             <span className="text-white font-semibold">Magic Bus India Foundation</span>{" "}
                             built for delivering life and employability skills to youth from underserved communities
                             by leveraging technology.
                         </p>
-                        <p className="text-[16px] text-white/60 leading-relaxed mb-10">
+                        <p className="text-base text-white/60 leading-relaxed mb-10">
                             This programme is a strategic partnership between Magic Bus and{" "}
                             <span className="text-white font-semibold">Michael Susan Dell Foundation (MSDF)</span>.
                         </p>

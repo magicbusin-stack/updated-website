@@ -95,7 +95,7 @@ function injectStyles() {
       text-align: center;
     }
     .info-card-text {
-      font-size: 1.15rem;
+      font-size: 1.35rem;
       font-weight: bold;
       letter-spacing: -0.01em;
       line-height: 1.3;
@@ -125,7 +125,7 @@ function injectStyles() {
       clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
     }
     .info-card-description {
-      font-size: 0.85rem;
+      font-size: 1.05rem;
       color: #c9c9c9;
       margin: 0;
     }
