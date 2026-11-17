@@ -128,7 +128,7 @@ function AboutSection() {
                             About Skilling for Undergraduates{" "}
                             <span className="text-brand-red">Programme</span>
                         </h2>
-                        <p className="mt-5 text-base text-[#1A1A1A]/65 leading-relaxed">
+                        <p className="mt-5 text-base text-[#1A1A1A]/80 leading-relaxed">
                             Magic Bus India Foundation’s Youth Skilling Programme equips undergraduate youth from underserved
                             communities with 21st-century life and employability skills through a structured two-month job-oriented
                             programme. Practical, application-based experiential learning builds job-ready skills and strengthens
@@ -138,7 +138,7 @@ function AboutSection() {
                             code-based certification, enabling them to earn up to 11 academic credits that may be used toward higher
                             education under the credit framework envisaged in NEP 2020.
                         </p>
-                        <p className="mt-4 text-base text-[#1A1A1A]/65 leading-relaxed">
+                        <p className="mt-4 text-base text-[#1A1A1A]/80 leading-relaxed">
                             The Youth Skilling Programme helps young people build the confidence, skills and workplace readiness needed
                             to transition successfully into formal employment. Post-placement support further helps youth adapt to the
                             workplace, retain employment and progress towards sustainable livelihoods.
@@ -157,8 +157,8 @@ function AboutSection() {
                                         >
                                             {st.num}
                                         </div>
-                                        <div className="mt-1.5 text-xs font-bold uppercase tracking-[0.2em] text-[#1A1A1A]/35">{st.unit}</div>
-                                        <div className="mt-1 text-xs leading-snug text-[#1A1A1A]/55">{st.label}</div>
+                                        <div className="mt-1.5 text-xs font-bold uppercase tracking-[0.2em] text-[#1A1A1A]/55">{st.unit}</div>
+                                        <div className="mt-1 text-xs leading-snug text-[#1A1A1A]/75">{st.label}</div>
                                     </div>
                                 </div>
                             ))}
@@ -180,7 +180,7 @@ function AboutSection() {
                                         <Star className="w-4 h-4 text-brand-black" />
                                     </div>
                                     <div>
-                                        <p className="text-xs text-[#1A1A1A]/50 font-medium uppercase tracking-wider">
+                                        <p className="text-xs text-[#1A1A1A]/70 font-medium uppercase tracking-wider">
                                             Connecting Youth to
                                         </p>
                                         <p className="text-sm font-bold text-[#1A1A1A]">
@@ -250,7 +250,7 @@ function ProgrammeDetailsSection() {
                         <h2 className="text-4xl md:text-5xl font-extrabold text-[#1A1A1A] leading-tight">
                             Youth Skilling Programme <span className="text-brand-red">highlights</span>
                         </h2>
-                        <p className="text-[#1A1A1A]/50 max-w-xs text-sm leading-relaxed">
+                        <p className="text-[#1A1A1A]/70 max-w-xs text-sm leading-relaxed">
                             Four defining features that shape the programme's reach and effectiveness.
                         </p>
                     </div>
@@ -275,7 +275,7 @@ function ProgrammeDetailsSection() {
                                         <div className={`text-6xl md:text-7xl font-black leading-none ${item.accentColor} select-none`}>
                                             {item.stat}
                                         </div>
-                                        <div className="text-xs font-bold uppercase tracking-[0.2em] text-[#1A1A1A]/35 mt-1">
+                                        <div className="text-xs font-bold uppercase tracking-[0.2em] text-[#1A1A1A]/55 mt-1">
                                             {item.unit}
                                         </div>
                                     </div>
@@ -370,7 +370,7 @@ function StructureSection() {
                             Youth Skilling Programme{" "}
                             <span className="text-brand-yellow">Structure</span>
                         </h2>
-                        <p className="text-white/45 max-w-sm text-sm leading-relaxed">
+                        <p className="text-white/70 max-w-sm text-sm leading-relaxed">
                             A six-step journey from first contact to long-term employment support.
                         </p>
                     </div>
@@ -399,7 +399,7 @@ function StructureSection() {
                                         )}
                                     </div>
                                     <h3 className="font-extrabold text-white text-xl mb-2">{step.label}</h3>
-                                    <p className="text-sm text-white/50 leading-relaxed">{step.desc}</p>
+                                    <p className="text-sm text-white/75 leading-relaxed">{step.desc}</p>
                                 </div>
                             </_MOTION.div>
                         </FadeUp>
@@ -495,7 +495,7 @@ function SectorsSection() {
                         <h2 className="text-4xl md:text-5xl font-extrabold text-[#1A1A1A] leading-tight">
                             Opportunities for Youth: <span className="text-brand-red">Entry-Level Jobs and Sectors</span>
                         </h2>
-                        <p className="text-[#1A1A1A]/50 max-w-xs text-sm leading-relaxed">
+                        <p className="text-[#1A1A1A]/70 max-w-xs text-sm leading-relaxed">
                             Trained youth are connected to employers across five key formal-sector industries.
                         </p>
                     </div>
@@ -507,7 +507,7 @@ function SectorsSection() {
                         {["Sector", "Roles Available"].map((col) => (
                             <p
                                 key={col}
-                                className="text-xs font-bold uppercase tracking-[0.18em] text-[#1A1A1A]/35"
+                                className="text-xs font-bold uppercase tracking-[0.18em] text-[#1A1A1A]/55"
                             >
                                 {col}
                             </p>
@@ -537,7 +537,7 @@ function SectorsSection() {
                                 {/* Col 2: roles */}
                                 <div className="flex items-center py-6 md:px-6 md:border-l border-gray-200">
                                     <div>
-                                        <p className="text-xs font-bold uppercase tracking-widest text-[#1A1A1A]/35 mb-1 md:hidden">
+                                        <p className="text-xs font-bold uppercase tracking-widest text-[#1A1A1A]/55 mb-1 md:hidden">
                                             Roles
                                         </p>
                                         <p className="text-base font-semibold text-[#1A1A1A]/75 leading-relaxed">
@@ -610,7 +610,7 @@ function EligibilitySection() {
                         <h2 className="text-4xl md:text-5xl font-extrabold text-[#1A1A1A] leading-tight">
                             Eligibility Criteria for the <span className="text-brand-red">Youth Skilling Programme</span>
                         </h2>
-                        <p className="text-[#1A1A1A]/50 max-w-xs text-sm leading-relaxed">
+                        <p className="text-[#1A1A1A]/70 max-w-xs text-sm leading-relaxed">
                             Designed for youth from underserved backgrounds seeking their first formal employment.
                         </p>
                     </div>
@@ -641,7 +641,7 @@ function EligibilitySection() {
                                     <h3 className="font-black text-[#1A1A1A] text-xl md:text-2xl min-w-[120px]">
                                         {item.title}
                                     </h3>
-                                    <p className="text-base text-[#1A1A1A]/55 leading-relaxed mt-1 md:mt-0 flex-1">
+                                    <p className="text-base text-[#1A1A1A]/75 leading-relaxed mt-1 md:mt-0 flex-1">
                                         {item.value}
                                     </p>
                                 </div>
@@ -679,7 +679,7 @@ function PartnershipsSection() {
                     <h2 className="text-4xl md:text-5xl font-extrabold text-[#1A1A1A] leading-tight">
                         Our Strategic <span className="text-brand-red">Partnerships</span>
                     </h2>
-                    <p className="mt-4 text-[#1A1A1A]/50 max-w-md mx-auto text-sm leading-relaxed">
+                    <p className="mt-4 text-[#1A1A1A]/70 max-w-md mx-auto text-sm leading-relaxed">
                         We collaborate with leading employers and organisations to create real job opportunities for trained youth.
                     </p>
                 </FadeUp>
@@ -720,7 +720,7 @@ function ContactSection() {
                     <h2 className="text-4xl md:text-5xl font-extrabold text-white leading-tight">
                         Let's Connect About the <span className="text-brand-yellow">Youth Skilling Programme</span>
                     </h2>
-                    <p className="mt-4 text-white/50 max-w-md mx-auto leading-relaxed">
+                    <p className="mt-4 text-white/75 max-w-md mx-auto leading-relaxed">
                         Interested in partnering, enrolling, or learning more about the programme? Reach out directly.
                     </p>
                 </FadeUp>
@@ -735,7 +735,7 @@ function ContactSection() {
                             <Mail className="w-6 h-6 text-brand-black" />
                         </div>
                         <div className="flex-1">
-                            <p className="text-xs font-bold uppercase tracking-widest text-white/40 mb-1">
+                            <p className="text-xs font-bold uppercase tracking-widest text-white/65 mb-1">
                                 Programme Point of Contact
                             </p>
                             <p className="font-extrabold text-xl text-white group-hover:text-brand-yellow transition-colors">
@@ -773,14 +773,14 @@ function ImpactSection() {
                     <h2 className="text-4xl md:text-5xl font-extrabold text-[#1A1A1A] leading-tight">
                         Outreach and <span className="text-brand-red">Impact</span>
                     </h2>
-                    <p className="mt-3 text-sm text-[#1A1A1A]/50">Cumulative enrolment as on August 2026</p>
+                    <p className="mt-3 text-sm text-[#1A1A1A]/70">Cumulative enrolment as on August 2026</p>
                 </FadeUp>
                 <div className="grid sm:grid-cols-3 gap-4">
                     {stats.map((st, i) => (
                         <FadeUp key={st.label} delay={0.06 * i}>
                             <div className="rounded-2xl border border-gray-200 bg-white p-7 h-full">
                                 <p className="text-4xl md:text-5xl font-black text-brand-red">{st.num}</p>
-                                <p className="mt-2 text-sm font-semibold text-[#1A1A1A]/65">{st.label}</p>
+                                <p className="mt-2 text-sm font-semibold text-[#1A1A1A]/80">{st.label}</p>
                             </div>
                         </FadeUp>
                     ))}

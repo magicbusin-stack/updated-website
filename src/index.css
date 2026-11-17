@@ -26,10 +26,20 @@
 
   /* === Text size floor (same readable sizes on every page) ===
      Tailwind's text-xs was 12px and text-sm 14px: now 13px and 15px. */
-  --text-xs: 0.8125rem;
-  --text-xs--line-height: 1.25rem;
-  --text-sm: 0.9375rem;
-  --text-sm--line-height: 1.5rem;
+  /* Site-wide text scale (medium, readable): small labels 14px, small text 16px, body 18px */
+  --text-xs: 0.875rem;
+  --text-xs--line-height: 1.375rem;
+  --text-sm: 1rem;
+  --text-sm--line-height: 1.625rem;
+  --text-base: 1.125rem;
+  --text-base--line-height: 1.75rem;
+  --text-lg: 1.1875rem;
+  --text-lg--line-height: 1.8rem;
+  --text-xl: 1.375rem;
+  --text-xl--line-height: 1.9rem;
+
+  /* Wider page container (was 80rem / 1280px) so wide screens don't leave empty side space */
+  --container-7xl: 90rem;
 
   /* === Border radius === */
   --radius-card: 16px;
