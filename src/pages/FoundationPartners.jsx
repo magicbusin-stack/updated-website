@@ -5,6 +5,7 @@ import { Search, Mail, Check, Copy, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import Layout from "../components/Layout";
 import HeroBanner from "../components/HeroBanner";
+import PartnerHeadline from "../components/Corporate/PartnerHeadline";
 import BrandLogo from "../components/Corporate/BrandLogo";
 import { foundationPartners } from "../data/foundationPartners";
 
@@ -92,16 +93,10 @@ export default function FoundationPartners() {
         {/* ===== 3) EDITORIAL CONTENT INTRO ===== */}
         <section className="py-20 bg-white">
           <div className="max-w-7xl mx-auto px-6 lg:px-12">
-            <div className="text-center max-w-3xl mx-auto">
-              <span className="inline-block bg-brand-red/10 text-brand-red font-bold text-sm uppercase tracking-widest px-4 py-1.5 rounded-full mb-4">
-                Foundations & Institutions
-              </span>
-              <h2 className="text-3xl md:text-5xl font-extrabold text-slate-900 tracking-tight font-headline">
-                Our Foundation and Institutions Partners
-              </h2>
-              <div className="mt-6 h-1 w-20 bg-brand-yellow rounded-full mx-auto" />
+            <div className="text-center max-w-5xl mx-auto">
+              <PartnerHeadline align="center" chip="Foundations & Institutions" line1="Our Foundation & Institutions" line2="Partners" />
               
-              <div className="mt-8 space-y-6 text-[#1A1A1A]/90 text-lg md:text-xl leading-relaxed">
+              <div className="mx-auto mt-10 max-w-3xl space-y-6 text-[#1A1A1A]/90 text-lg md:text-xl leading-relaxed">
                 <p>
                   Our work is significantly supported by our foundation and institution partners, who provide crucial assistance in various ways including funding, capacity-building support, networking, recognition and credibility. With their support, we are able to enhance our impact and fulfill our mission of creating positive change in the world.
                 </p>

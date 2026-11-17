@@ -5,6 +5,7 @@ import { Search, Mail, Phone, ExternalLink, ArrowRight, Check, Copy } from "luci
 import { Link } from "react-router-dom";
 import Layout from "../components/Layout";
 import HeroBanner from "../components/HeroBanner";
+import PartnerHeadline from "../components/Corporate/PartnerHeadline";
 import BrandLogo from "../components/Corporate/BrandLogo";
 import { corporatePartners } from "../data/corporatePartners";
 import PartnersCarousel from "../components/Corporate/PartnersCarousel";
@@ -111,14 +112,7 @@ export default function CorporatePartners() {
               
               {/* Left Title Column */}
               <div className="lg:col-span-5">
-                <span className="inline-block bg-brand-red/10 text-brand-red font-bold text-sm uppercase tracking-widest px-4 py-1.5 rounded-full mb-4">
-                  Shared Values
-                </span>
-                <h2 className="text-3xl md:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
-                  Our Corporate <br />
-                  <span className="bg-gradient-to-r from-brand-red to-brand-yellow bg-clip-text text-transparent">Partnerships</span>
-                </h2>
-                <div className="mt-6 h-1 w-20 bg-brand-yellow rounded-full" />
+                <PartnerHeadline chip="Shared Values" line1="Our Corporate" line2="Partnerships" />
               </div>
 
               {/* Right Paragraphs Column */}

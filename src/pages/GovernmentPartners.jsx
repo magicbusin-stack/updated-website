@@ -5,6 +5,7 @@ import { Check, Copy, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import Layout from "../components/Layout";
 import HeroBanner from "../components/HeroBanner";
+import PartnerHeadline from "../components/Corporate/PartnerHeadline";
 
 const EASE_EXPO = [0.16, 1, 0.3, 1];
 
@@ -86,22 +87,7 @@ export default function GovernmentPartners() {
               
               {/* Left Column: Branding and Title */}
               <div className="lg:sticky lg:top-24">
-                <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sm font-bold tracking-wider text-brand-red bg-brand-red/5 border border-brand-red/10 uppercase mb-5">
-                  <span className="w-1.5 h-1.5 rounded-full bg-brand-red animate-pulse" />
-                  State & National Alignment
-                </span>
-                
-                <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-[1.15]">
-                  Our Government <br />
-                  <span className="relative inline-block">
-                    Partners
-                    <span className="absolute -bottom-2 left-0 right-0 h-1.5 bg-brand-yellow rounded-full" />
-                  </span>
-                </h2>
-                
-                <p className="mt-6 text-slate-600 text-lg font-medium leading-relaxed max-w-md">
-                  Collaborating with state education systems to build sustainable, high-impact life skills models.
-                </p>
+                <PartnerHeadline chip="State & National Alignment" line1="Our Government" line2="Partners" sub="Collaborating with state education systems to build sustainable, high-impact life skills models." />
               </div>
 
               {/* Right Column: Paragraph Text */}
