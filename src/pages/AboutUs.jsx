@@ -70,7 +70,7 @@ function FadeIn({ children, delay = 0, className = "" }) {
 */
 function SectionLabel({ children, icon: Icon }) {
     return (
-        <span className="inline-flex items-center gap-2 rounded-full border border-brand-black/20 bg-brand-yellow px-4 py-1.5 text-[11px] font-semibold tracking-[0.18em] text-brand-black uppercase mb-6">
+        <span className="inline-flex items-center gap-2 rounded-full border border-brand-black/20 bg-brand-yellow px-4 py-1.5 text-[13px] font-bold tracking-[0.16em] text-brand-black uppercase mb-6">
             {Icon && <Icon className="w-3.5 h-3.5" />}
             {children}
         </span>
@@ -113,7 +113,7 @@ function AnimatedCounter({ value, suffix = "", duration = 2 }) {
 
 function SectionTag({ children }) {
     return (
-        <span className="inline-flex items-center gap-2 rounded-full border border-brand-black/15 bg-brand-yellow px-4 py-1.5 text-[11px] font-bold tracking-[0.2em] uppercase text-brand-black mb-4">
+        <span className="inline-flex items-center gap-2 rounded-full border border-brand-black/15 bg-brand-yellow px-4 py-1.5 text-[13px] font-bold tracking-[0.16em] uppercase text-brand-black mb-4">
             {children}
         </span>
     );
@@ -123,10 +123,10 @@ function SectionTag({ children }) {
 function VisionMission() {
     return (
         <section className="py-10 md:py-20 bg-[#F7F7F5]">
-            <div className="max-w-7xl mx-auto px-6 lg:px-12">
+            <div className="max-w-[1440px] mx-auto px-6 lg:px-12">
                 <FadeUp className="text-center mb-8 md:mb-14">
                     <SectionTag>Purpose</SectionTag>
-                    <h2 className="text-3xl md:text-4xl font-extrabold text-[#1A1A1A]">
+                    <h2 className="text-4xl md:text-5xl font-extrabold text-[#1A1A1A]">
                         What Drives Us Every Day
                     </h2>
                 </FadeUp>
@@ -139,12 +139,12 @@ function VisionMission() {
                             <div className="relative z-10">
                                 <div className="inline-flex items-center gap-2 bg-brand-red rounded-xl px-3.5 py-2 mb-4 md:mb-6">
                                     <Target className="w-4.5 h-4.5 text-white" />
-                                    <span className="text-xs font-bold uppercase tracking-widest text-white">Our Vision</span>
+                                    <span className="text-sm font-bold uppercase tracking-widest text-white">Our Vision</span>
                                 </div>
-                                <h2 className="text-2xl md:text-3xl font-extrabold text-white leading-snug mb-4">
+                                <h2 className="text-3xl md:text-4xl font-extrabold text-white leading-snug mb-4">
                                     Breaking the Cycle of Poverty
                                 </h2>
-                                <p className="text-white/70 leading-relaxed text-base">
+                                <p className="text-white/85 leading-relaxed text-lg md:text-xl">
                                     A world where young people break out of poverty to lead fulfilling,
                                     rewarding lives and contribute positively to their communities.
                                 </p>
@@ -159,12 +159,12 @@ function VisionMission() {
                             <div className="relative z-10">
                                 <div className="inline-flex items-center gap-2 bg-brand-yellow rounded-xl px-3.5 py-2 mb-4 md:mb-6">
                                     <Zap className="w-4.5 h-4.5 text-brand-black" />
-                                    <span className="text-xs font-bold uppercase tracking-widest text-brand-black">Our Mission</span>
+                                    <span className="text-sm font-bold uppercase tracking-widest text-brand-black">Our Mission</span>
                                 </div>
-                                <h2 className="text-2xl md:text-3xl font-extrabold text-[#1A1A1A] leading-snug mb-4">
+                                <h2 className="text-3xl md:text-4xl font-extrabold text-[#1A1A1A] leading-snug mb-4">
                                     Equipping for Adulthood
                                 </h2>
-                                <p className="text-[#1A1A1A]/70 leading-relaxed text-base">
+                                <p className="text-[#1A1A1A]/80 leading-relaxed text-lg md:text-xl">
                                     To equip vulnerable young people with life skills that enable them
                                     to thrive in the transition to adulthood.
                                 </p>
@@ -233,6 +233,8 @@ function HeroSection() {
             title="Transforming Lives"
             subtitle="from Childhood to Livelihood"
             description="Helping young people from underserved communities complete education and build sustainable livelihoods since 1999."
+            subtitleClassName="mt-4 text-2xl md:text-3xl lg:text-4xl font-semibold text-white"
+            descriptionClassName="mt-7 max-w-3xl text-lg md:text-xl lg:text-2xl text-white/90 leading-relaxed"
             ctas={[
                 { to: "/donate", label: "Donate Now", variant: "primary", showArrow: true },
                 { to: "/partner", label: "Partner With Us" },
@@ -251,7 +253,7 @@ function InteractiveCard({ icon: Icon, hex, stat, label, desc }) {
             whileHover={{ y: -8 }}
             whileTap={{ scale: 0.98 }}
             transition={{ type: "spring", stiffness: 300, damping: 20 }}
-            className="group relative h-full cursor-default overflow-hidden rounded-2xl border border-gray-100 bg-white p-7 shadow-sm transition-shadow duration-300 hover:shadow-xl"
+            className="group relative h-full cursor-default overflow-hidden rounded-2xl border border-gray-100 bg-white p-7 md:p-9 shadow-sm transition-shadow duration-300 hover:shadow-xl"
         >
             <span
                 className="pointer-events-none absolute inset-x-0 bottom-0 h-0 opacity-[0.09] transition-all duration-500 group-hover:h-full"
@@ -263,19 +265,19 @@ function InteractiveCard({ icon: Icon, hex, stat, label, desc }) {
             />
             <div className="relative flex h-full flex-col gap-4">
                 <motion.div
-                    className="inline-flex w-fit rounded-2xl p-3.5 text-white shadow-md"
+                    className="inline-flex w-fit rounded-2xl p-4 text-white shadow-md"
                     style={{ background: hex }}
                     whileHover={{ rotate: [0, -10, 10, -5, 0], scale: 1.14 }}
                     transition={{ duration: 0.5 }}
                 >
-                    <Icon className="h-7 w-7" />
+                    <Icon className="h-9 w-9" />
                 </motion.div>
                 <div>
-                    <div className="mb-1 text-2xl font-extrabold text-brand-red transition-transform duration-300 origin-left group-hover:scale-105">
+                    <div className="mb-2 text-4xl md:text-5xl font-extrabold leading-tight text-brand-red transition-transform duration-300 origin-left group-hover:scale-105">
                         {stat}
                     </div>
-                    {label && <h3 className="mb-2 text-base font-bold text-[#1A1A1A]">{label}</h3>}
-                    <p className="text-sm leading-relaxed text-[#1A1A1A]/65">{desc}</p>
+                    {label && <h3 className="mb-3 text-xl md:text-2xl font-bold text-[#1A1A1A]">{label}</h3>}
+                    <p className="text-base md:text-lg leading-relaxed text-[#1A1A1A]/75">{desc}</p>
                 </div>
             </div>
         </motion.div>
@@ -312,6 +314,13 @@ const ABOUT_STYLES = `
 @keyframes abSweep{0%{transform:translateX(-130%) skewX(-18deg)}60%,100%{transform:translateX(230%) skewX(-18deg)}}
 @keyframes abIcon{0%,100%{transform:scale(1) rotate(0)}25%{transform:scale(1.15) rotate(-8deg)}75%{transform:scale(1.15) rotate(8deg)}}
 .ab-alert{animation:abRing 2.2s ease-out infinite}
+/* Big screens: scale the whole page up so it fills the width and text stays readable */
+.about-scale{--az:1}
+@media (min-width:1536px){.about-scale{--az:1.12;zoom:1.12}}
+@media (min-width:1792px){.about-scale{--az:1.25;zoom:1.25}}
+@media (min-width:2200px){.about-scale{--az:1.5;zoom:1.5}}
+.about-scale{--header-h:calc(93px / var(--az))}
+@media (max-width:1023px){.about-scale{--header-h:66px}}
 .ab-blink{animation:abBlink 1.6s ease-in-out infinite}
 .ab-sweep{position:absolute;inset:0;width:35%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.7),transparent);animation:abSweep 3.6s ease-in-out infinite;pointer-events:none}
 .ab-icon{animation:abIcon 1.8s ease-in-out infinite}
@@ -322,13 +331,13 @@ function ProblemStatement() {
     return (
         <section className="py-10 md:py-20 bg-white">
             <style>{ABOUT_STYLES}</style>
-            <div className="max-w-7xl mx-auto px-6 lg:px-12">
+            <div className="max-w-[1440px] mx-auto px-6 lg:px-12">
                 <FadeUp>
                     <SectionLabel icon={Target}>The Problem</SectionLabel>
-                    <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold text-[#1A1A1A] leading-tight max-w-3xl">
+                    <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-[#1A1A1A] leading-[1.1] max-w-4xl">
                         Helping young people complete education and build livelihoods
                     </h2>
-                    <p className="mt-4 md:mt-5 text-base md:text-lg text-[#1A1A1A]/70 max-w-3xl leading-relaxed">
+                    <p className="mt-5 md:mt-6 text-lg md:text-xl lg:text-2xl text-[#1A1A1A]/75 max-w-4xl leading-relaxed">
                         India has the biggest population of young people globally. However,
                         millions of adolescents and youth from underserved areas are at risk
                         of being left behind — dropping out of school, struggling at
@@ -339,13 +348,13 @@ function ProblemStatement() {
                 {/* Challenges */}
                 <div className="mt-8 md:mt-14">
                     <FadeUp delay={0.1}>
-                        <p className="text-xs font-semibold uppercase tracking-widest text-[#1A1A1A]/50 mb-4 md:mb-6">
+                        <p className="mb-6 md:mb-8 flex items-center gap-4 text-xl md:text-2xl font-extrabold uppercase tracking-[0.12em] text-[#1A1A1A]"><span className="h-1.5 w-12 rounded-full bg-brand-red" />
                             Challenges India Faces Today
                         </p>
                     </FadeUp>
                     <div className="flex md:grid md:grid-cols-3 gap-4 md:gap-6 overflow-x-auto snap-x snap-mandatory -mx-6 px-6 md:mx-0 md:px-0 pb-3 md:pb-0 [scrollbar-width:none]">
                         {challenges.map((c, i) => (
-                            <FadeUp key={c.label} delay={0.1 + i * 0.1} margin="0px" className="w-[82%] shrink-0 snap-start md:w-auto md:shrink">
+                            <FadeUp key={c.label} delay={0.1 + i * 0.1} margin="0px" className="w-[85%] shrink-0 snap-start md:w-auto md:shrink">
                                 <InteractiveCard icon={c.icon} hex={c.hex} stat={c.stat} label={c.label} desc={c.desc} />
                             </FadeUp>
                         ))}
@@ -360,7 +369,7 @@ function ProblemStatement() {
                             <span className="ab-icon flex h-11 w-11 md:h-14 md:w-14 shrink-0 items-center justify-center rounded-full bg-brand-red text-white shadow-lg">
                                 <AlertTriangle className="h-7 w-7" />
                             </span>
-                            <p className="text-base font-bold text-[#1A1A1A] md:text-2xl md:leading-snug">
+                            <p className="text-lg font-bold text-[#1A1A1A] md:text-3xl md:leading-snug">
                                 <span className="ab-blink font-extrabold text-brand-red">
                                     When gaps in education, life skills, and employability are not tackled,
                                 </span>
@@ -395,7 +404,7 @@ const Mark = ({ children }) => (
 function WhyLifeSkills() {
     return (
         <section className="py-10 md:py-20 bg-[#F7F7F5]">
-            <div className="max-w-7xl mx-auto px-6 lg:px-12">
+            <div className="max-w-[1440px] mx-auto px-6 lg:px-12">
                 <div className="grid lg:grid-cols-2 gap-8 lg:gap-20 items-center">
                     {/* Left: image */}
                     <FadeIn className="order-2 lg:order-1">
@@ -413,8 +422,8 @@ function WhyLifeSkills() {
                                         <Star className="w-5 h-5 text-brand-black" />
                                     </div>
                                     <div>
-                                        <p className="text-xs text-[#1A1A1A]/60 font-medium uppercase tracking-wider">Research & Experience Show</p>
-                                        <p className="text-sm font-bold text-[#1A1A1A]">Life skills increase chances of finishing education</p>
+                                        <p className="text-sm text-[#1A1A1A]/70 font-semibold uppercase tracking-wider">Research & Experience Show</p>
+                                        <p className="text-base md:text-lg font-bold text-[#1A1A1A]">Life skills increase chances of finishing education</p>
                                     </div>
                                 </div>
                             </div>
@@ -425,38 +434,38 @@ function WhyLifeSkills() {
                     <div className="order-1 lg:order-2">
                         <FadeUp>
                             <SectionLabel icon={Lightbulb}>Life Skills</SectionLabel>
-                            <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#1A1A1A] leading-tight">
+                            <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#1A1A1A] leading-[1.1]">
                                 Why Life Skills Education Is Needed
                             </h2>
-                            <p className="mt-4 text-base text-[#1A1A1A]/75 leading-relaxed">
+                            <p className="mt-5 text-lg md:text-xl text-[#1A1A1A]/80 leading-relaxed">
                                 Academic education alone may not be sufficient to help young minds overcome
                                 poverty. Adolescents from underserved communities often deal with challenges
                                 beyond academics — <Mark>low confidence</Mark>, <Mark>absence of role models</Mark>,{" "}
                                 <Mark>decision-making struggles</Mark>, and <Mark>limited exposure</Mark>.
                             </p>
-                            <p className="mt-3 text-base text-[#1A1A1A]/75 leading-relaxed">
+                            <p className="mt-4 text-lg md:text-xl text-[#1A1A1A]/80 leading-relaxed">
                                 In the absence of life skills, even students who come to school struggle
                                 to handle the challenges of higher education or their workplace.
                             </p>
 
-                            <p className="mt-5 md:mt-7 text-base md:text-lg font-extrabold text-[#1A1A1A]">With life skills education, young people can:</p>
+                            <p className="mt-6 md:mt-8 text-xl md:text-2xl font-extrabold text-[#1A1A1A]">With life skills education, young people can:</p>
                             <div className="mt-4 grid grid-cols-2 gap-2.5 md:gap-3">
                                 {lifeSkillBenefits.map((b, i) => (
                                     <FadeUp delay={0.06 * (i + 1)} key={b.text}>
                                         <motion.div
                                             whileHover={{ y: -5 }}
                                             whileTap={{ scale: 0.98 }}
-                                            className="group flex h-full flex-col items-start gap-2 md:flex-row md:gap-3 rounded-2xl border border-gray-100 bg-white p-3 md:p-4 shadow-sm transition-shadow hover:shadow-lg"
+                                            className="group flex h-full flex-col items-start gap-3 md:flex-row md:gap-4 rounded-2xl border border-gray-100 bg-white p-4 md:p-5 shadow-sm transition-shadow hover:shadow-lg"
                                         >
                                             <motion.span
-                                                className="flex h-10 w-10 md:h-11 md:w-11 shrink-0 items-center justify-center rounded-xl shadow-md"
+                                                className="flex h-12 w-12 md:h-14 md:w-14 shrink-0 items-center justify-center rounded-xl shadow-md"
                                                 style={{ background: b.hex, color: b.fg }}
                                                 whileHover={{ rotate: [0, -12, 12, 0], scale: 1.15 }}
                                                 transition={{ duration: 0.45 }}
                                             >
-                                                <b.icon className="h-5 w-5" />
+                                                <b.icon className="h-6 w-6 md:h-7 md:w-7" />
                                             </motion.span>
-                                            <span className="md:pt-0.5 text-xs md:text-sm font-semibold leading-snug text-[#1A1A1A]">{b.text}</span>
+                                            <span className="md:pt-1 text-base md:text-lg font-semibold leading-snug text-[#1A1A1A]">{b.text}</span>
                                         </motion.div>
                                     </FadeUp>
                                 ))}
@@ -464,7 +473,7 @@ function WhyLifeSkills() {
 
                             <FadeUp delay={0.3}>
                                 <div className="mt-5 md:mt-8 rounded-xl bg-brand-red/5 border-l-4 border-brand-red p-3 md:p-4">
-                                    <p className="text-sm leading-relaxed text-[#1A1A1A]/80 italic">
+                                    <p className="text-base md:text-lg leading-relaxed text-[#1A1A1A]/85 italic">
                                         "At Magic Bus, life skills are at the core of all our initiatives. We make
                                         sure education translates to enhanced capabilities, increased confidence,
                                         and sustainable livelihoods."
@@ -507,7 +516,7 @@ function StatBump({ value, suffix, label, count, delay = 0 }) {
             <div className="relative text-4xl font-extrabold leading-none tabular-nums text-brand-yellow sm:text-5xl md:text-6xl">
                 {count ? <AnimatedCounter value={value} suffix={suffix} /> : <>{value}{suffix}</>}
             </div>
-            <div className="relative mt-2 md:mt-3 text-xs font-semibold text-white/75 sm:text-sm md:text-base">{label}</div>
+            <div className="relative mt-2 md:mt-3 text-base font-semibold text-white/85 sm:text-lg md:text-xl">{label}</div>
         </motion.div>
     );
 }
@@ -520,26 +529,26 @@ function WhoWeAre() {
             <div className="pointer-events-none absolute -bottom-32 -right-32 w-80 h-80 rounded-full bg-brand-yellow/15 blur-3xl" />
 
 
-            <div className="max-w-7xl mx-auto px-6 lg:px-12 relative z-10">
+            <div className="max-w-[1440px] mx-auto px-6 lg:px-12 relative z-10">
                 <SectionLabel>Who We Are</SectionLabel>
                 <div className="grid lg:grid-cols-2 gap-8 lg:gap-20 items-center">
                     <div>
                         <FadeUp>
-                            <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold leading-tight text-white">
+                            <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold leading-[1.1] text-white">
                                 One of India's Top NGOs in{" "}
                                 <span className="text-brand-yellow">Life Skills & Livelihoods</span>
                             </h2>
-                            <p className="mt-5 text-white/70 leading-relaxed">
+                            <p className="mt-6 text-lg md:text-xl text-white/85 leading-relaxed">
                                 Established in Mumbai in 1999, Magic Bus India Foundation works in the areas
                                 of life skills education, employability skilling, and livelihoods. We support
                                 adolescents and youth from underserved communities at crucial stages of
                                 transformation  from their school days to their career phase.
                             </p>
-                            <p className="mt-4 text-white/70 leading-relaxed">
+                            <p className="mt-5 text-lg md:text-xl text-white/85 leading-relaxed">
                                 We work towards making sure challenging circumstances at birth do not
                                 determine their life outcomes.
                             </p>
-                            <p className="mt-4 text-white/70 leading-relaxed">
+                            <p className="mt-5 text-lg md:text-xl text-white/85 leading-relaxed">
                                 Our uniqueness arises from our{" "}
                                 <span className="text-brand-yellow font-semibold">ecosystem approach</span>.
                                 We engage with families, communities, schools, employers, and local institutions
@@ -572,7 +581,7 @@ function WhoWeAre() {
                     <FadeUp delay={0.3} className="mt-5 md:mt-8 text-center">
                         <Link
                             to="/who-we-are"
-                            className="inline-flex items-center gap-2 rounded-full bg-brand-yellow px-6 py-3 text-sm font-bold text-brand-black hover:bg-brand-yellow/90 transition-colors"
+                            className="inline-flex items-center gap-2 rounded-full bg-brand-yellow px-8 py-4 text-base md:text-lg font-bold text-brand-black hover:bg-brand-yellow/90 transition-colors"
                         >
                             Know More <ArrowRight className="w-4 h-4" />
                         </Link>
@@ -610,13 +619,13 @@ const whatWeDo = [
 function WhatWeDo() {
     return (
         <section className="py-10 md:py-20 bg-white">
-            <div className="max-w-7xl mx-auto px-6 lg:px-12">
+            <div className="max-w-[1440px] mx-auto px-6 lg:px-12">
                 <FadeUp>
                     <SectionLabel icon={TrendingUp}>What We Do</SectionLabel>
-                    <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#1A1A1A] leading-tight max-w-2xl">
+                    <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#1A1A1A] leading-[1.1] max-w-4xl">
                         From Classrooms to Careers — an Integrated Approach
                     </h2>
-                    <p className="mt-4 text-[#1A1A1A]/70 max-w-2xl leading-relaxed">
+                    <p className="mt-5 text-lg md:text-xl text-[#1A1A1A]/75 max-w-4xl leading-relaxed">
                         Our work aims to achieve long-term goals, ensuring that progress made in classrooms
                         transitions to actual economic independence.
                     </p>
@@ -624,7 +633,7 @@ function WhatWeDo() {
 
                 <div className="mt-8 md:mt-14 flex md:grid md:grid-cols-3 gap-4 md:gap-6 overflow-x-auto snap-x snap-mandatory -mx-6 px-6 md:mx-0 md:px-0 pb-3 md:pb-0 [scrollbar-width:none]">
                     {whatWeDo.map((item, i) => (
-                        <FadeUp key={item.title} delay={0.1 + i * 0.1} margin="0px" className="w-[82%] shrink-0 snap-start md:w-auto md:shrink">
+                        <FadeUp key={item.title} delay={0.1 + i * 0.1} margin="0px" className="w-[85%] shrink-0 snap-start md:w-auto md:shrink">
                             <InteractiveCard icon={item.icon} hex={item.hex} stat={item.title} desc={item.desc} />
                         </FadeUp>
                     ))}
@@ -973,10 +982,10 @@ function OurStory() {
             <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-12 relative z-10">
                 <FadeUp className="text-center mb-6 md:mb-14">
                     <SectionLabel icon={Quote}>Our Story</SectionLabel>
-                    <h2 className="text-3xl md:text-4xl font-extrabold text-white">
+                    <h2 className="text-4xl md:text-5xl font-extrabold text-white">
                         The Magic Bus Journey
                     </h2>
-                    <p className="mt-4 text-sm md:text-base text-white/60 max-w-2xl mx-auto leading-relaxed">
+                    <p className="mt-5 text-lg md:text-xl text-white/75 max-w-3xl mx-auto leading-relaxed">
                         A timeline of key milestones from our foundation in 1999 to scaling impact across India.
                     </p>
                 </FadeUp>
@@ -987,14 +996,14 @@ function OurStory() {
                         <div className="grid lg:grid-cols-5 gap-0">
                             <div className="relative z-10 lg:col-span-3 p-5 md:p-8 lg:p-9">
                                 <Quote className="w-10 h-10 text-white/35" />
-                                <p className="mt-3 md:mt-4 text-white text-base md:text-2xl font-semibold leading-snug md:leading-tight max-w-2xl">
+                                <p className="mt-3 md:mt-4 text-white text-lg md:text-3xl font-semibold leading-snug md:leading-tight max-w-3xl">
                                     Magic Bus India Foundation began in 1999. Our founder noticed the
                                     transformative power of sport to change lives of young boys from underserved
                                     communities. This realisation started with simple rugby sessions that grew
                                     into activity-based camps shaping confidence, discipline, and aspiration.
                                 </p>
                                 <div className="mt-6 w-40 h-px bg-white/30" />
-                                <p className="mt-4 text-white/65 text-xs md:text-sm font-bold tracking-[0.18em] uppercase">
+                                <p className="mt-4 text-white/80 text-sm md:text-base font-bold tracking-[0.16em] uppercase">
                                     Magic Bus Story
                                 </p>
                             </div>
@@ -1049,7 +1058,7 @@ function OurStory() {
                                     transition={{ duration: 0.4, ease: EASE }}
                                     onClick={() => setOpenIdx(openIdx === i ? null : i)}
                                     className={[
-                                        'relative cursor-pointer md:cursor-default rounded-xl border backdrop-blur-sm p-3 md:p-4',
+                                        'relative cursor-pointer md:cursor-default rounded-xl border backdrop-blur-sm p-4 md:p-6',
                                         'lg:w-[calc(50%-4rem)]',
                                         i >= PREVIEW_COUNT && !showAll ? 'hidden md:block' : '',
                                         alignRight ? 'lg:ml-auto' : 'lg:mr-auto',
@@ -1073,19 +1082,19 @@ function OurStory() {
 
                                     <div className="flex items-start justify-between gap-3">
                                         <div>
-                                            <p className="text-[10px] font-bold uppercase tracking-[0.16em]" style={{ color: isVisited ? m.color : '#9CA3AF' }}>
+                                            <p className="text-sm md:text-base font-bold uppercase tracking-[0.14em]" style={{ color: isVisited ? m.color : '#D1D5DB' }}>
                                                 {m.year}
                                             </p>
-                                            <h3 className="mt-1 text-sm md:text-base font-bold text-white leading-snug">
+                                            <h3 className="mt-1 text-lg md:text-xl lg:text-2xl font-bold text-white leading-snug">
                                                 {m.title}
                                             </h3>
-                                            <p className={`${openIdx === i ? "block" : "hidden"} md:block mt-1.5 text-[11px] md:text-xs text-white/65 leading-relaxed`}>
+                                            <p className={`${openIdx === i ? "block" : "hidden"} md:block mt-1.5 text-base md:text-lg text-white/80 leading-relaxed`}>
                                                 {m.desc}
                                             </p>
                                         </div>
                                         {m.impact && (
                                             <span
-                                                className="shrink-0 rounded-full px-2.5 py-1 text-[10px] font-bold text-white"
+                                                className="shrink-0 rounded-full px-3 py-1.5 text-sm md:text-base font-bold text-white"
                                                 style={{ background: m.color }}
                                             >
                                                 {m.impact}
@@ -1098,12 +1107,12 @@ function OurStory() {
 
                                     <div className={`${openIdx === i ? "flex" : "hidden"} md:flex mt-2.5 items-center gap-2`}>
                                         <span
-                                            className="text-[9px] font-semibold uppercase tracking-wider px-2 py-0.5 rounded-full border"
+                                            className="text-xs md:text-sm font-semibold uppercase tracking-wider px-3 py-1 rounded-full border"
                                             style={{ color: m.color, borderColor: `${m.color}66`, background: `${m.color}1A` }}
                                         >
                                             {m.tag}
                                         </span>
-                                        <span className="text-[9px] text-white/45 uppercase tracking-wider">
+                                        <span className="text-xs md:text-sm text-white/65 uppercase tracking-wider">
                                             {m.era}
                                         </span>
                                     </div>
@@ -1146,26 +1155,26 @@ function OurStory() {
                             />
                             <div className="flex-1 min-w-0">
                                 <div className="flex items-center gap-2 mb-1">
-                                    <span className="text-xs font-extrabold uppercase tracking-widest" style={{ color: milestones[activeIdx].color }}>
+                                    <span className="text-base font-extrabold uppercase tracking-widest" style={{ color: milestones[activeIdx].color }}>
                                         {milestones[activeIdx].year}
                                     </span>
                                     <span
-                                        className="text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full border"
+                                        className="text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full border"
                                         style={{ borderColor: `${milestones[activeIdx].color}45`, color: milestones[activeIdx].color }}
                                     >
                                         {milestones[activeIdx].tag}
                                     </span>
                                 </div>
-                                <p className="text-sm font-bold text-white truncate">{milestones[activeIdx].title}</p>
-                                <p className="text-xs text-white/45 leading-relaxed line-clamp-1 mt-0.5">{milestones[activeIdx].desc}</p>
+                                <p className="text-lg font-bold text-white truncate">{milestones[activeIdx].title}</p>
+                                <p className="text-base text-white/65 leading-relaxed line-clamp-1 mt-0.5">{milestones[activeIdx].desc}</p>
                             </div>
                             {milestones[activeIdx].impact && (
                                 <div
                                     className="shrink-0 rounded-xl px-4 py-2 text-center text-white"
                                     style={{ background: milestones[activeIdx].color }}
                                 >
-                                    <div className="text-xl font-extrabold leading-none">{milestones[activeIdx].impact}</div>
-                                    <div className="text-[9px] opacity-70 mt-0.5 font-semibold">outreach</div>
+                                    <div className="text-2xl font-extrabold leading-none">{milestones[activeIdx].impact}</div>
+                                    <div className="text-xs opacity-80 mt-0.5 font-semibold">outreach</div>
                                 </div>
                             )}
                             <div className="shrink-0 hidden lg:block">
@@ -1227,16 +1236,16 @@ function WhyMagicBus() {
     const navigate = useNavigate();
     return (
         <section className="py-10 md:py-20 bg-white">
-            <div className="max-w-7xl mx-auto px-6 lg:px-12">
+            <div className="max-w-[1440px] mx-auto px-6 lg:px-12">
                 <div className="grid lg:grid-cols-2 gap-8 lg:gap-20 items-center">
                     <div>
                         <FadeUp>
                             <SectionLabel icon={Zap}>Why Magic Bus?</SectionLabel>
-                            <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#1A1A1A] leading-tight">
+                            <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#1A1A1A] leading-[1.1]">
                                 Operating Across the Full Journey {" "}
                                 <span className="text-brand-red">Adolescence to Employment</span>
                             </h2>
-                            <p className="mt-5 text-[#1A1A1A]/70 leading-relaxed">
+                            <p className="mt-6 text-lg md:text-xl text-[#1A1A1A]/80 leading-relaxed">
                                 Magic Bus addresses the root causes of school dropouts and unemployment. Through
                                 timely intervention and structured support for young people, we help in:
                             </p>
@@ -1264,13 +1273,13 @@ function WhyMagicBus() {
                                         >
                                             <im.icon className="h-8 w-8" />
                                         </motion.span>
-                                        <span className="text-base font-semibold text-[#1A1A1A] md:text-lg">{im.label}</span>
+                                        <span className="text-lg font-semibold text-[#1A1A1A] md:text-xl lg:text-2xl">{im.label}</span>
                                     </motion.li>
                                 ))}
                             </ul>
 
                             <FadeUp delay={0.3}>
-                                <p className="mt-6 text-[#1A1A1A]/70 leading-relaxed text-sm">
+                                <p className="mt-8 text-[#1A1A1A]/80 leading-relaxed text-base md:text-lg">
                                     We are open to collaborating with donors and partners to create sustainable
                                     impact, scalable models, and outcomes in line with India's development priorities.
                                 </p>
@@ -1308,7 +1317,7 @@ function WhyMagicBus() {
                                 transition={{ delay: 0.4, duration: 0.5 }}
                             >
                                 <div className="text-2xl md:text-3xl font-extrabold text-brand-black">25+</div>
-                                <div className="text-xs font-semibold text-brand-black/70 mt-1">Years of transforming young lives across India</div>
+                                <div className="text-sm md:text-base font-semibold text-brand-black/80 mt-1">Years of transforming young lives across India</div>
                             </motion.div>
                         </div>
                     </FadeIn>
@@ -1373,14 +1382,14 @@ function VisionMissionValues() {
                 <div className="absolute bottom-0 right-1/4 w-80 h-80 rounded-full bg-brand-yellow/10 blur-3xl" />
             </div>
 
-            <div className="max-w-7xl mx-auto px-6 lg:px-12 relative z-10">
+            <div className="max-w-[1440px] mx-auto px-6 lg:px-12 relative z-10">
                 {/* Values */}
                 <FadeUp className="text-center mb-8 md:mb-12">
                     <SectionLabel>Our Values</SectionLabel>
-                    <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white mt-2">
+                    <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white mt-2">
                         The Values That Drive Us Forward
                     </h2>
-                    <p className="mt-3 text-white/55 max-w-xl mx-auto text-sm">
+                    <p className="mt-4 text-white/80 max-w-2xl mx-auto text-lg md:text-xl">
                         At Magic Bus, we abide by certain values that guide every decision and action we take.
                     </p>
                 </FadeUp>
@@ -1406,8 +1415,8 @@ function VisionMissionValues() {
                                 >
                                     <v.icon className={`h-9 w-9 sm:h-11 sm:w-11 ${v.fg}`} />
                                 </motion.div>
-                                <h4 className="relative mb-1.5 text-base font-extrabold text-white sm:text-xl">{v.title}</h4>
-                                <p className="relative mt-auto text-xs leading-relaxed text-white/60 sm:text-sm">{v.desc}</p>
+                                <h4 className="relative mb-2 text-xl font-extrabold text-white sm:text-2xl">{v.title}</h4>
+                                <p className="relative mt-auto text-base leading-relaxed text-white/80 sm:text-lg">{v.desc}</p>
                                 <span
                                     className="absolute bottom-0 left-0 h-1 w-0 transition-all duration-500 group-hover:w-full"
                                     style={{ background: v.hex }}
@@ -1427,6 +1436,7 @@ function VisionMissionValues() {
 export default function AboutUs() {
     return (
         <Layout>
+          <div className="about-scale">
             <HeroSection />
             <ProblemStatement />
             <WhyLifeSkills />
@@ -1441,6 +1451,7 @@ export default function AboutUs() {
                 title="Frequently Asked Questions"
                 subtitle="Clear answers about Magic Bus, our programmes, and how we create impact."
             />
+          </div>
         </Layout>
     );
 }
