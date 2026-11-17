@@ -27,7 +27,7 @@ function FadeUp({ children, delay = 0, className = "" }) {
 
 function SectionTag({ children }) {
     return (
-        <span className="inline-flex items-center gap-2 rounded-full border border-brand-black/15 bg-brand-yellow px-4 py-1.5 text-[11px] font-bold tracking-[0.2em] uppercase text-brand-black mb-4">
+        <span className="inline-flex items-center gap-2 rounded-full border border-brand-black/15 bg-brand-yellow px-4 py-1.5 text-[13px] font-bold tracking-[0.18em] uppercase text-brand-black mb-4">
             {children}
         </span>
     );
@@ -121,7 +121,7 @@ function TeamCard({ member, index, variant = "light", onOpen }) {
                     {/* Location badge */}
                     {member.location && (
                         <div className="absolute top-3 left-3">
-                            <span className="inline-flex items-center gap-1 rounded-full bg-black/50 backdrop-blur-sm px-2.5 py-1 text-xs font-semibold text-white">
+                            <span className="inline-flex items-center gap-1 rounded-full bg-black/60 backdrop-blur-sm px-3 py-1.5 text-sm font-semibold text-white">
                                 <MapPin className="w-2.5 h-2.5" />
                                 {member.location}
                             </span>
@@ -489,21 +489,24 @@ function IndiaTeamSection({ onOpen }) {
 }
 
 /* REGION BLOCK */
-function RegionBlock({ flag, country, members, startIndex }) {
+function RegionBlock({ code, country, members, startIndex }) {
     return (
         <div className="mb-14 last:mb-0">
-            <FadeUp className="flex items-center gap-4 mb-7">
-                <div className="flex items-center gap-3">
-                    <span className="text-3xl leading-none">{flag}</span>
+            <FadeUp className="flex items-center gap-4 mb-8">
+                <div className="flex items-center gap-4">
+                    {/* Country code badge: always readable (flag emoji do not show on Windows, only dark letters) */}
+                    <span className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-brand-yellow text-2xl font-extrabold tracking-wide text-brand-black shadow-lg">
+                        {code}
+                    </span>
                     <div>
-                        <p className="text-[10px] font-bold uppercase tracking-widest text-white/35 mb-0.5">Region</p>
-                        <h3 className="text-xl font-extrabold text-white">{country}</h3>
+                        <p className="mb-1 text-sm font-bold uppercase tracking-[0.18em] text-brand-yellow">Region</p>
+                        <h3 className="text-2xl font-extrabold leading-tight text-white sm:text-3xl">{country}</h3>
                     </div>
                 </div>
-                <div className="flex-1 h-px bg-white/10" />
+                <div className="h-px flex-1 bg-white/20" />
             </FadeUp>
 
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 gap-5">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {members.map((member, i) => (
                     <TeamCard
                         key={member.name}
@@ -532,10 +535,10 @@ function InternationalTeamSection() {
                         </div>
                         <div>
                             <SectionTag>International Team</SectionTag>
-                            <h2 className="text-3xl md:text-4xl font-extrabold text-white leading-tight">
+                            <h2 className="text-4xl md:text-5xl font-extrabold text-white leading-tight">
                                 Our Global Leadership
                             </h2>
-                            <p className="mt-3 text-white/55 max-w-2xl leading-relaxed">
+                            <p className="mt-4 text-lg md:text-xl text-white/80 max-w-3xl leading-relaxed">
                                 Magic Bus has some of the brightest minds from both corporate and
                                 non-profit sectors working towards empowering and changing lives of
                                 children around the world.
@@ -544,9 +547,9 @@ function InternationalTeamSection() {
                     </div>
                 </FadeUp>
 
-                <RegionBlock flag="🇬🇧" country="United Kingdom" members={internationalTeam.uk} startIndex={0} />
-                <RegionBlock flag="🇺🇸" country="United States" members={internationalTeam.usa} startIndex={2} />
-                <RegionBlock flag="🇸🇬" country="Singapore" members={internationalTeam.singapore} startIndex={3} />
+                <RegionBlock code="UK" country="United Kingdom" members={internationalTeam.uk} startIndex={0} />
+                <RegionBlock code="US" country="United States" members={internationalTeam.usa} startIndex={2} />
+                <RegionBlock code="SG" country="Singapore" members={internationalTeam.singapore} startIndex={3} />
             </div>
         </section>
     );
