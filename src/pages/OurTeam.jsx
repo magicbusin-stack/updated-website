@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import Layout from "../components/Layout";
 import { indiaTeam } from "../data/indiaTeam";
 import { OurTeamSchema, PersonSchema } from "../components/seo/TeamSchemas";
+import ReadMoreButton from "../components/ReadMoreButton";
 
 /* ─────────────────────────── helpers ─────────────────────────── */
 const EASE = [0.16, 1, 0.3, 1];
@@ -152,14 +153,7 @@ function TeamCard({ member, index, variant = "light", onOpen }) {
                         </p>
                     )}
                     {member.fullBio && onOpen && (
-                        <button
-                            type="button"
-                            onClick={() => onOpen(member)}
-                            className="mt-4 inline-flex w-fit items-center gap-2 rounded-full border border-brand-red/25 px-5 py-2 text-base font-bold text-brand-red transition-colors hover:bg-brand-red/5"
-                        >
-                            Read More
-                            <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-brand-yellow text-brand-black text-sm font-extrabold">+</span>
-                        </button>
+                        <ReadMoreButton onClick={() => onOpen(member)} />
                     )}
                 </div>
 
@@ -376,15 +370,7 @@ function LeadershipIntroSection({ onReadMore }) {
                                     <p className="text-base leading-relaxed text-[#1A1A1A]/75">
                                         {leader.shortBio}
                                     </p>
-                                    <button
-                                        onClick={() => onReadMore(leader)}
-                                        className="mt-6 inline-flex w-fit items-center gap-2 rounded-full border border-brand-red/25 px-4 py-2 text-sm font-bold text-brand-red hover:bg-brand-red/5 transition-colors"
-                                    >
-                                        Read More
-                                        <span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-brand-yellow text-brand-black font-extrabold">
-                                            +
-                                        </span>
-                                    </button>
+                                    <ReadMoreButton onClick={() => onReadMore(leader)} className="mt-6" />
                                 </div>
                             </motion.article>
                         </FadeUp>
