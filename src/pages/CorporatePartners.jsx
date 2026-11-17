@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import Layout from "../components/Layout";
 import HeroBanner from "../components/HeroBanner";
 import BrandLogo from "../components/Corporate/BrandLogo";
+import { corporatePartners } from "../data/corporatePartners";
 import PartnersCarousel from "../components/Corporate/PartnersCarousel";
 
 // Core scroll animation definitions
@@ -31,88 +32,8 @@ const cardVariants = {
   },
 };
 
-// Complete list of 79 corporate partners from the reference image
-const PARTNERS = [
-  { name: "Accenture", category: "Tech & Consulting" },
-  { name: "Adidas", category: "Retail & Consumer" },
-  { name: "Aditya Birla Capital", category: "Finance & Insurance" },
-  { name: "Amdocs", category: "Tech & Consulting" },
-  { name: "Ansell", category: "Retail & Consumer" },
-  { name: "Apollo Tyres", category: "Industrial & Manufacturing" },
-  { name: "Atos Prayas Foundation", category: "Tech & Consulting" },
-  { name: "Avery Dennison", category: "Industrial & Manufacturing" },
-  { name: "Bachi Shoes", category: "Retail & Consumer" },
-  { name: "Balsnehi Kadam", category: "Social & Community" },
-  { name: "Bajaj Finserv", category: "Finance & Insurance" },
-  { name: "Bank of America", category: "Finance & Insurance" },
-  { name: "Barclays", category: "Finance & Insurance" },
-  { name: "BC Web Wise", category: "Tech & Consulting" },
-  { name: "Beacon Trustee", category: "Finance & Insurance" },
-  { name: "Bharat Bijlee", category: "Industrial & Manufacturing" },
-  { name: "BioUrja", category: "Energy & Infrastructure" },
-  { name: "Bloomberg", category: "Media & Services" },
-  { name: "Blue Dart", category: "Aviation & Logistics" },
-  { name: "BMW", category: "Automotive & Engineering" },
-  { name: "Bosch", category: "Automotive & Engineering" },
-  { name: "British Airways", category: "Aviation & Logistics" },
-  { name: "Cargill", category: "Industrial & Manufacturing" },
-  { name: "Castrol", category: "Automotive & Engineering" },
-  { name: "Cleartrip", category: "Media & Services" },
-  { name: "Credit Suisse", category: "Finance & Insurance" },
-  { name: "DCM Shriram", category: "Industrial & Manufacturing" },
-  { name: "Decathlon", category: "Retail & Consumer" },
-  { name: "Deloitte", category: "Tech & Consulting" },
-  { name: "DBCPL", category: "Energy & Infrastructure" },
-  { name: "Emerson", category: "Industrial & Manufacturing" },
-  { name: "ESPN", category: "Media & Services" },
-  { name: "Etihad Airways", category: "Aviation & Logistics" },
-  { name: "EXL", category: "Tech & Consulting" },
-  { name: "Felsted", category: "Social & Community" },
-  { name: "FIFA", category: "Media & Services" },
-  { name: "Forbes Marshall", category: "Industrial & Manufacturing" },
-  { name: "Franklin Templeton", category: "Finance & Insurance" },
-  { name: "Godrej", category: "Retail & Consumer" },
-  { name: "Godrej Consumer", category: "Retail & Consumer" },
-  { name: "Hero We Care", category: "Automotive & Engineering" },
-  { name: "Hindalco", category: "Industrial & Manufacturing" },
-  { name: "HGS", category: "Tech & Consulting" },
-  { name: "ICAP", category: "Finance & Insurance" },
-  { name: "IL&FS", category: "Finance & Insurance" },
-  { name: "Info Edge", category: "Tech & Consulting" },
-  { name: "JM Financial", category: "Finance & Insurance" },
-  { name: "J.P. Morgan", category: "Finance & Insurance" },
-  { name: "JSW Foundation", category: "Industrial & Manufacturing" },
-  { name: "Jubilant FoodWorks", category: "Retail & Consumer" },
-  { name: "L&T", category: "Energy & Infrastructure" },
-  { name: "Legrand", category: "Industrial & Manufacturing" },
-  { name: "Incosare", category: "Media & Services" },
-  { name: "Marchesa", category: "Retail & Consumer" },
-  { name: "Marvell", category: "Tech & Consulting" },
-  { name: "Metro", category: "Retail & Consumer" },
-  { name: "Mondelēz", category: "Retail & Consumer" },
-  { name: "Mahindra", category: "Automotive & Engineering" },
-  { name: "Naturex", category: "Industrial & Manufacturing" },
-  { name: "Nestlé Healthy Kids", category: "Retail & Consumer" },
-  { name: "Nikon", category: "Retail & Consumer" },
-  { name: "NSE", category: "Finance & Insurance" },
-  { name: "Oracle", category: "Tech & Consulting" },
-  { name: "Prama", category: "Tech & Consulting" },
-  { name: "Prudential", category: "Finance & Insurance" },
-  { name: "Qualcomm", category: "Tech & Consulting" },
-  { name: "Societe Generale", category: "Finance & Insurance" },
-  { name: "Studiosus", category: "Aviation & Logistics" },
-  { name: "Tata AIG", category: "Finance & Insurance" },
-  { name: "Tata Capital", category: "Finance & Insurance" },
-  { name: "Tata Projects", category: "Energy & Infrastructure" },
-  { name: "Tesco", category: "Retail & Consumer" },
-  { name: "Toms", category: "Retail & Consumer" },
-  { name: "Vestas", category: "Energy & Infrastructure" },
-  { name: "Vodafone", category: "Tech & Consulting" },
-  { name: "Wells Fargo", category: "Finance & Insurance" },
-  { name: "Western Digital", category: "Tech & Consulting" },
-  { name: "Wipro", category: "Tech & Consulting" },
-  { name: "WPP India CSR Foundation", category: "Media & Services" },
-];
+// Partner list + logos live in src/data/corporatePartners.js (copied from the live Corporate Partners page)
+const PARTNERS = corporatePartners;
 
 const CATEGORIES = [
   "All",
@@ -176,7 +97,7 @@ export default function CorporatePartners() {
 
         {/* ===== 2) BREADCRUMB ===== */}
         <section className="py-4 bg-gray-50 border-b border-slate-100">
-          <div className="max-w-7xl mx-auto px-6 text-sm text-ink/60 flex items-center gap-2">
+          <div className="max-w-7xl mx-auto px-6 text-base text-ink/70 flex items-center gap-2">
             <Link to="/" className="hover:text-brand-red transition-colors font-medium">Home</Link>
             <span>/</span>
             <span className="text-ink font-semibold">Corporate Partners</span>
@@ -190,7 +111,7 @@ export default function CorporatePartners() {
               
               {/* Left Title Column */}
               <div className="lg:col-span-5">
-                <span className="inline-block bg-brand-red/10 text-brand-red font-bold text-xs uppercase tracking-widest px-3 py-1 rounded-full mb-4">
+                <span className="inline-block bg-brand-red/10 text-brand-red font-bold text-sm uppercase tracking-widest px-4 py-1.5 rounded-full mb-4">
                   Shared Values
                 </span>
                 <h2 className="text-3xl md:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
@@ -201,7 +122,7 @@ export default function CorporatePartners() {
               </div>
 
               {/* Right Paragraphs Column */}
-              <div className="lg:col-span-7 space-y-6 text-[#1A1A1A]/85 text-base md:text-lg leading-relaxed font-light">
+              <div className="lg:col-span-7 space-y-6 text-[#1A1A1A]/90 text-lg md:text-xl leading-relaxed">
                 <p>
                   At Magic Bus, partnerships play an essential role in reaching out to children and making a positive impact in the world. Our Corporate partners provide us with the necessary support, resources, and expertise to make a real difference in the communities we serve. 
                 </p>
@@ -238,13 +159,13 @@ export default function CorporatePartners() {
                 
                 {/* Left Text */}
                 <div className="text-center lg:text-left max-w-xl">
-                  <span className="inline-block bg-brand-black/10 text-brand-black text-xs font-extrabold uppercase tracking-[0.2em] px-3 py-1 rounded-full mb-3">
+                  <span className="inline-block bg-brand-black/10 text-brand-black text-sm font-extrabold uppercase tracking-[0.2em] px-4 py-1.5 rounded-full mb-3">
                     Corporate Engagement
                   </span>
                   <h3 className="text-2xl md:text-4xl font-extrabold tracking-tight">
                     CSR & Employee Volunteering Partnership
                   </h3>
-                  <p className="mt-3 text-slate-800 text-sm md:text-base leading-relaxed">
+                  <p className="mt-3 text-slate-800 text-lg leading-relaxed">
                     Collaborate with us to design meaningful volunteering programs, maximize CSR alignment, and empower youth.
                   </p>
                 </div>
@@ -255,16 +176,16 @@ export default function CorporatePartners() {
                   {/* Email Box */}
                   <div className="bg-white/95 backdrop-blur px-5 py-4 rounded-2xl shadow-sm border border-black/5 flex flex-col justify-between gap-3 text-left">
                     <div>
-                      <span className="text-xs text-slate-400 font-bold uppercase tracking-wider block">Email Contact</span>
-                      <a href="mailto:csr@magicbusindia.org" className="text-sm font-bold text-slate-800 hover:text-brand-red transition-colors block mt-1">
+                      <span className="text-sm text-slate-500 font-bold uppercase tracking-wider block">Email Contact</span>
+                      <a href="mailto:csr@magicbusindia.org" className="text-lg font-bold text-slate-800 hover:text-brand-red transition-colors block mt-1">
                         csr@magicbusindia.org
                       </a>
                     </div>
                     <button
                       onClick={handleCopyEmail}
-                      className="inline-flex items-center justify-center gap-1.5 text-xs font-bold text-brand-red hover:underline"
+                      className="inline-flex items-center justify-center gap-1.5 text-base font-bold text-brand-red hover:underline"
                     >
-                      {copiedEmail ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
+                      {copiedEmail ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
                       {copiedEmail ? "Copied!" : "Copy Email"}
                     </button>
                   </div>
@@ -272,16 +193,16 @@ export default function CorporatePartners() {
                   {/* Phone Box */}
                   <div className="bg-white/95 backdrop-blur px-5 py-4 rounded-2xl shadow-sm border border-black/5 flex flex-col justify-between gap-3 text-left">
                     <div>
-                      <span className="text-xs text-slate-400 font-bold uppercase tracking-wider block">Inquiry Phone</span>
-                      <a href="tel:+918976720830" className="text-sm font-bold text-slate-800 hover:text-brand-red transition-colors block mt-1">
+                      <span className="text-sm text-slate-500 font-bold uppercase tracking-wider block">Inquiry Phone</span>
+                      <a href="tel:+918976720830" className="text-lg font-bold text-slate-800 hover:text-brand-red transition-colors block mt-1">
                         +91 89767 20830
                       </a>
                     </div>
                     <button
                       onClick={handleCopyPhone}
-                      className="inline-flex items-center justify-center gap-1.5 text-xs font-bold text-brand-red hover:underline"
+                      className="inline-flex items-center justify-center gap-1.5 text-base font-bold text-brand-red hover:underline"
                     >
-                      {copiedPhone ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
+                      {copiedPhone ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
                       {copiedPhone ? "Copied!" : "Copy Number"}
                     </button>
                   </div>
@@ -299,10 +220,10 @@ export default function CorporatePartners() {
             {/* Header & Search */}
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
               <div>
-                <h3 className="text-2xl md:text-3xl font-extrabold text-slate-900 tracking-tight">
+                <h3 className="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight">
                   Our Network of Change
                 </h3>
-                <p className="text-slate-500 text-sm mt-2">
+                <p className="text-slate-600 text-lg mt-2">
                   Showing {filteredPartners.length} of {PARTNERS.length} strategic partners
                 </p>
               </div>
@@ -314,9 +235,9 @@ export default function CorporatePartners() {
                   placeholder="Search corporate partners..."
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
-                  className="w-full bg-white border border-slate-200/80 rounded-2xl pl-11 pr-4 py-3 text-sm focus:outline-none focus:ring-4 focus:ring-brand-yellow/20 focus:border-brand-yellow transition-all shadow-sm"
+                  className="w-full bg-white border border-slate-200/80 rounded-2xl pl-11 pr-4 py-3.5 text-base focus:outline-none focus:ring-4 focus:ring-brand-yellow/20 focus:border-brand-yellow transition-all shadow-sm"
                 />
-                <Search className="absolute left-4 top-3.5 w-4 h-4 text-slate-400" />
+                <Search className="absolute left-4 top-4 w-5 h-5 text-slate-400" />
               </div>
             </div>
 
@@ -326,7 +247,7 @@ export default function CorporatePartners() {
                 <button
                   key={cat}
                   onClick={() => setActiveCategory(cat)}
-                  className={`px-4 py-2 rounded-xl text-xs font-bold transition-all whitespace-nowrap border ${
+                  className={`px-5 py-2.5 rounded-xl text-base font-bold transition-all whitespace-nowrap border ${
                     activeCategory === cat
                       ? "bg-slate-900 border-slate-900 text-white shadow-md shadow-slate-900/10 scale-105"
                       : "bg-white border-slate-200/80 text-slate-600 hover:bg-slate-50"
@@ -343,7 +264,7 @@ export default function CorporatePartners() {
               initial="hidden"
               animate="visible"
               key={`${activeCategory}-${search}`} // Force re-render of animations when filters change
-              className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"
+              className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5"
             >
               <AnimatePresence mode="popLayout">
                 {filteredPartners.map((partner) => (
@@ -352,12 +273,12 @@ export default function CorporatePartners() {
                     variants={cardVariants}
                     layout
                     whileHover={{ y: -4, scale: 1.02 }}
-                    className="bg-white border border-slate-200/60 rounded-2xl p-5 flex items-center justify-center min-h-[96px] shadow-sm hover:shadow-md hover:border-brand-yellow transition-all duration-300 relative group cursor-pointer"
+                    className="bg-white border border-slate-200/60 rounded-2xl p-5 flex items-center justify-center min-h-[190px] shadow-sm hover:shadow-md hover:border-brand-yellow transition-all duration-300 relative group cursor-pointer"
                   >
                     {/* Corner accent that lights up on hover */}
                     <div className="absolute top-0 right-0 w-2.5 h-2.5 rounded-bl-xl bg-brand-yellow opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                     
-                    <BrandLogo name={partner.name} />
+                    <BrandLogo name={partner.name} showName />
                   </motion.div>
                 ))}
               </AnimatePresence>
@@ -373,11 +294,11 @@ export default function CorporatePartners() {
                 <div className="w-12 h-12 bg-slate-50 border border-slate-100 rounded-full flex items-center justify-center mx-auto mb-4">
                   <Search className="w-5 h-5 text-slate-400" />
                 </div>
-                <h4 className="text-slate-800 font-bold text-base">No partners found</h4>
-                <p className="text-slate-400 text-xs mt-1">Try resetting your filters or modifying your search query.</p>
+                <h4 className="text-slate-800 font-bold text-xl">No partners found</h4>
+                <p className="text-slate-500 text-base mt-1">Try resetting your filters or modifying your search query.</p>
                 <button
                   onClick={() => { setSearch(""); setActiveCategory("All"); }}
-                  className="mt-4 px-4 py-2 bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs rounded-xl"
+                  className="mt-4 px-4 py-2 bg-slate-900 hover:bg-slate-800 text-white font-bold text-base rounded-xl"
                 >
                   Reset Filters
                 </button>
@@ -391,13 +312,13 @@ export default function CorporatePartners() {
         <section className="py-20 bg-white border-t border-slate-100">
           <div className="max-w-6xl mx-auto px-6 lg:px-12 text-center">
             
-            <span className="inline-block bg-brand-green/10 text-brand-green font-bold text-xs uppercase tracking-widest px-3 py-1 rounded-full mb-3">
+            <span className="inline-block bg-brand-green/10 text-brand-green font-bold text-sm uppercase tracking-widest px-4 py-1.5 rounded-full mb-3">
               Ecosystem Connect
             </span>
             <h3 className="text-2xl md:text-4xl font-extrabold text-slate-900 tracking-tight">
               Other Partners
             </h3>
-            <p className="text-slate-500 text-sm mt-2 max-w-lg mx-auto">
+            <p className="text-slate-600 text-lg mt-2 max-w-xl mx-auto">
               Explore how we collaborate across various domains to achieve holistic community growth and empowerment.
             </p>
 
@@ -412,14 +333,14 @@ export default function CorporatePartners() {
                 <Link
                   key={idx}
                   to={p.path}
-                  className="group relative overflow-hidden bg-gray-50 hover:bg-slate-900 border border-slate-200/60 hover:border-slate-900 p-6 rounded-2xl flex flex-col justify-between items-center text-center h-32 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+                  className="group relative overflow-hidden bg-gray-50 hover:bg-slate-900 border border-slate-200/60 hover:border-slate-900 p-6 rounded-2xl flex flex-col justify-between items-center text-center h-36 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
                 >
                   {/* Subtle color highlight dot on hover */}
                   <span className="w-1.5 h-1.5 rounded-full bg-brand-yellow group-hover:scale-150 transition-transform" />
-                  <span className="font-bold text-xs md:text-sm text-slate-700 group-hover:text-white transition-colors">
+                  <span className="font-bold text-base md:text-lg text-slate-700 group-hover:text-white transition-colors">
                     {p.label}
                   </span>
-                  <div className="flex items-center gap-1 text-xs font-bold text-brand-red group-hover:text-brand-yellow tracking-wider uppercase">
+                  <div className="flex items-center gap-1 text-sm font-bold text-brand-red group-hover:text-brand-yellow tracking-wider uppercase">
                     <span>Learn More</span>
                     <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
                   </div>

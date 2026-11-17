@@ -1,8 +1,20 @@
 // src/components/Corporate/BrandLogo.jsx
 import React from "react";
+import { corporateLogoByName } from "../../data/corporatePartners";
 
-export default function BrandLogo({ name }) {
+export default function BrandLogo({ name, showName = false }) {
   const lowercaseName = name.toLowerCase();
+
+  // Real logo image (downloaded from the live Corporate Partners page) when we have one
+  const logo = corporateLogoByName[name];
+  if (logo) {
+    return (
+      <div className="flex h-full w-full flex-col items-center justify-center gap-2">
+        <img src={logo} alt={`${name} logo`} loading="lazy" className="max-h-24 w-full object-contain mix-blend-multiply" />
+        {showName && <span className="text-center text-base font-semibold leading-snug text-slate-700">{name}</span>}
+      </div>
+    );
+  }
 
   if (lowercaseName.startsWith("government of")) {
     const stateName = name.replace(/government of/i, "").trim();

@@ -49,7 +49,7 @@ function MarqueeRow({ items, direction = "left", speed = 25 }) {
         {duplicatedItems.map((item, index) => (
           <div
             key={index}
-            className="flex-shrink-0 bg-white border border-slate-200/50 hover:border-brand-yellow/80 hover:shadow-md transition-all duration-300 w-44 h-24 rounded-2xl flex items-center justify-center p-4 cursor-pointer hover:-translate-y-0.5"
+            className="flex-shrink-0 bg-white border border-slate-200/50 hover:border-brand-yellow/80 hover:shadow-md transition-all duration-300 w-60 h-36 rounded-2xl flex items-center justify-center p-4 cursor-pointer hover:-translate-y-0.5"
           >
             <BrandLogo name={item.name} />
           </div>
@@ -63,13 +63,13 @@ export default function PartnersCarousel() {
   return (
     <section className="py-16 bg-gray-50/40 overflow-hidden border-y border-slate-100">
       <div className="max-w-7xl mx-auto px-6 lg:px-12 mb-10 text-center md:text-left">
-        <span className="inline-block bg-brand-yellow/20 text-amber-800 font-bold text-xs uppercase tracking-[0.2em] px-3 py-1 rounded-full mb-3">
+        <span className="inline-block bg-brand-yellow/20 text-amber-800 font-bold text-sm uppercase tracking-[0.2em] px-4 py-1.5 rounded-full mb-3">
           Strategic Allies
         </span>
         <h3 className="text-2xl md:text-4xl font-extrabold text-slate-900 tracking-tight font-headline">
           Featured Partners in Focus
         </h3>
-        <p className="text-slate-500 text-sm md:text-base mt-2 max-w-2xl leading-relaxed">
+        <p className="text-slate-600 text-lg mt-2 max-w-2xl leading-relaxed">
           Leading organizations collaborating with us to build pathways out of poverty and drive institutional change.
         </p>
       </div>
