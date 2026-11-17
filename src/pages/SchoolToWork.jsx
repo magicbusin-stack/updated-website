@@ -61,7 +61,7 @@ function WhySection() {
               {GAPS.map(([title, text]) => (
                 <div key={title} className="rounded-3xl bg-[#9B1B1F] p-6 text-white shadow-md">
                   <p className="text-xl font-extrabold text-[#FFD21F]">{title}</p>
-                  <p className="mt-2 leading-snug text-white/95">{text}</p>
+                  <p className="mt-2 text-lg leading-snug text-white/95">{text}</p>
                 </div>
               ))}
             </div>
@@ -159,7 +159,7 @@ function PillarsSection() {
         </FadeUp>
 
         <FadeUp delay={0.05} className="mt-10">
-          <p className="text-xs font-bold uppercase tracking-[0.2em] text-brand-blue">Operational architecture</p>
+          <p className="text-sm font-bold uppercase tracking-[0.2em] text-brand-blue">Operational architecture</p>
           <h3 className="mt-1 text-2xl font-black text-[#0F172A] md:text-3xl">The 3 Pillars of Transformation</h3>
         </FadeUp>
 
@@ -170,19 +170,19 @@ function PillarsSection() {
                 <span className="flex h-11 w-11 items-center justify-center rounded-xl" style={{ background: p.tint, color: p.color }}>
                   <p.Icon className="h-5 w-5" />
                 </span>
-                <h4 className="mt-5 text-2xl font-extrabold text-[#0F172A]">
+                <h4 className="mt-5 text-2xl font-extrabold text-[#0F172A] md:text-3xl">
                   {p.n}. {p.title}
                 </h4>
-                <p className="mt-2 text-sm leading-relaxed text-slate-500">{p.text}</p>
+                <p className="mt-3 text-lg leading-relaxed text-slate-600">{p.text}</p>
                 <ul className="mt-5 flex-1 space-y-3">
                   {p.points.map((pt) => (
-                    <li key={pt} className="flex items-start gap-3 text-slate-700">
-                      <Check className="mt-1 h-4 w-4 shrink-0" style={{ color: p.color }} />
-                      <span className="leading-snug">{pt}</span>
+                    <li key={pt} className="flex items-start gap-3 text-lg text-slate-800">
+                      <Check className="mt-1.5 h-5 w-5 shrink-0" style={{ color: p.color }} />
+                      <span className="leading-relaxed">{pt}</span>
                     </li>
                   ))}
                 </ul>
-                <p className="mt-6 flex items-center gap-2 rounded-xl border px-4 py-3 text-sm font-semibold" style={{ background: p.soft, borderColor: p.tint, color: p.color }}>
+                <p className="mt-6 flex items-center gap-2 rounded-xl border px-4 py-3 text-base font-semibold" style={{ background: p.soft, borderColor: p.tint, color: p.color }}>
                   <Target className="h-4 w-4 shrink-0" />
                   {p.focus}
                 </p>
@@ -264,7 +264,7 @@ function EconomySection() {
                   <Icon className="h-5 w-5 shrink-0" />
                   {title}
                 </h3>
-                <p className="mt-3 leading-relaxed text-slate-600">{text}</p>
+                <p className="mt-3 text-lg leading-relaxed text-slate-700">{text}</p>
               </div>
             </FadeUp>
           ))}

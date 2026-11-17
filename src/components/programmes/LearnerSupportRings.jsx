@@ -82,7 +82,7 @@ export default function LearnerSupportRings() {
                 {...handlers(r.id)}
               >
                 <path d={ringPath(r.r1, r.r2)} fillRule="evenodd" fill={r.color} fillOpacity={on ? 1 : 0.88} stroke="#fff" strokeWidth={4} style={{ transition: "fill-opacity .25s ease" }} />
-                <text fontSize={r.id === "equip" ? 16 : r.id === "engage" ? 16.5 : 18} fontWeight={700} fill="#fff" textAnchor="middle" pointerEvents="none">
+                <text fontSize={r.id === "equip" ? 20 : r.id === "engage" ? 18.5 : 22} fontWeight={700} fill="#fff" textAnchor="middle" pointerEvents="none">
                   <textPath href={`#lsr-${r.id}`} startOffset="50%">
                     {r.title}
                   </textPath>
@@ -91,7 +91,7 @@ export default function LearnerSupportRings() {
             );
           })}
           <circle cx={C} cy={C} r={54} fill="#FFCC00" stroke="#fff" strokeWidth={4} />
-          <text x={C} y={C} textAnchor="middle" dominantBaseline="middle" fontSize={17} fontWeight={800} fill="#3A2A00">
+          <text x={C} y={C} textAnchor="middle" dominantBaseline="middle" fontSize={20} fontWeight={800} fill="#3A2A00">
             Learner
           </text>
         </svg>
@@ -108,19 +108,19 @@ export default function LearnerSupportRings() {
               style={{ borderColor: on ? r.color : "rgba(0,0,0,0.1)", boxShadow: on ? `0 10px 28px ${r.color}33` : undefined }}
             >
               <div className="flex items-center gap-3 px-5 py-3 text-white" style={{ background: r.color }}>
-                <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-white text-sm font-bold" style={{ color: r.color }}>
+                <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white text-base font-bold" style={{ color: r.color }}>
                   {i + 1}
                 </span>
-                <h4 className="text-lg font-bold leading-snug">{r.title}</h4>
+                <h4 className="text-xl font-bold leading-snug">{r.title}</h4>
               </div>
-              <div className="grid gap-3 p-4 sm:grid-cols-2">
+              <div className="grid gap-3 p-4 sm:grid-cols-2 lg:grid-cols-1 2xl:grid-cols-2">
                 <div className="rounded-xl bg-[#FDECEC] p-4">
-                  <p className="text-xs font-bold uppercase tracking-widest text-[#9B1B1F]">Gap</p>
-                  <p className="mt-1.5 text-sm leading-relaxed text-slate-800">{r.gap}</p>
+                  <p className="text-sm font-bold uppercase tracking-widest text-[#9B1B1F]">Gap</p>
+                  <p className="mt-1.5 text-lg leading-relaxed text-slate-800">{r.gap}</p>
                 </div>
                 <div className="rounded-xl bg-[#E8F6EE] p-4">
-                  <p className="text-xs font-bold uppercase tracking-widest text-[#166534]">Intervention</p>
-                  <p className="mt-1.5 text-sm leading-relaxed text-slate-800">{r.intervention}</p>
+                  <p className="text-sm font-bold uppercase tracking-widest text-[#166534]">Intervention</p>
+                  <p className="mt-1.5 text-lg leading-relaxed text-slate-800">{r.intervention}</p>
                 </div>
               </div>
             </div>

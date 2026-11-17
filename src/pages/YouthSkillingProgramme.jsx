@@ -157,8 +157,8 @@ function AboutSection() {
                                         >
                                             {st.num}
                                         </div>
-                                        <div className="mt-1.5 text-xs font-bold uppercase tracking-[0.2em] text-[#1A1A1A]/55">{st.unit}</div>
-                                        <div className="mt-1 text-xs leading-snug text-[#1A1A1A]/75">{st.label}</div>
+                                        <div className="mt-2 text-base font-bold uppercase tracking-[0.14em] text-[#1A1A1A]/70">{st.unit}</div>
+                                        <div className="mt-1 text-lg leading-snug text-[#1A1A1A]/80">{st.label}</div>
                                     </div>
                                 </div>
                             ))}
@@ -275,7 +275,7 @@ function ProgrammeDetailsSection() {
                                         <div className={`text-6xl md:text-7xl font-black leading-none ${item.accentColor} select-none`}>
                                             {item.stat}
                                         </div>
-                                        <div className="text-xs font-bold uppercase tracking-[0.2em] text-[#1A1A1A]/55 mt-1">
+                                        <div className="text-base font-bold uppercase tracking-[0.14em] text-[#1A1A1A]/70 mt-1.5">
                                             {item.unit}
                                         </div>
                                     </div>
