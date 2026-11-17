@@ -492,7 +492,7 @@ function IndiaTeamSection({ onOpen }) {
 function RegionBlock({ code, country, members, startIndex }) {
     return (
         <div className="mb-14 last:mb-0">
-            <FadeUp className="flex items-center gap-4 mb-8">
+            <FadeUp className="mb-8 flex items-center gap-4 border-b border-white/20 pb-5">
                 <div className="flex items-center gap-4">
                     {/* Country code badge: always readable (flag emoji do not show on Windows, only dark letters) */}
                     <span className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-brand-yellow text-2xl font-extrabold tracking-wide text-brand-black shadow-lg">
@@ -503,7 +503,6 @@ function RegionBlock({ code, country, members, startIndex }) {
                         <h3 className="text-2xl font-extrabold leading-tight text-white sm:text-3xl">{country}</h3>
                     </div>
                 </div>
-                <div className="h-px flex-1 bg-white/20" />
             </FadeUp>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
