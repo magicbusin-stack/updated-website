@@ -19,7 +19,9 @@ function SlideAdolescentsOutreach2() {
 <span className="block text-2xl sm:text-3xl font-black text-gray-950 uppercase tracking-tight leading-none mb-1">
             OVER
           </span>
-<div className="font-['Outfit','Inter',sans-serif] text-6xl sm:text-7xl xl:text-[84px] font-extrabold text-[#F8B200] tracking-tight leading-[0.9] my-1"><Ticker value="40 LAKHS" /></div>
+<div className="font-['Outfit','Inter',sans-serif] text-6xl sm:text-7xl xl:text-[84px] font-extrabold text-[#F8B200] tracking-tight leading-[0.9] my-1">
+            40 LAKHS
+          </div>
 <h3 className="text-xl sm:text-2xl font-black text-gray-950 uppercase tracking-tight leading-tight mt-2 mb-4">
             ADOLESCENTS EMPOWERED.
           </h3>
@@ -188,7 +190,9 @@ function SlideAdolescentsImpact2() {
 <span className="text-xs sm:text-sm md:text-base font-extrabold tracking-widest text-[#1e293b] uppercase mb-1">
             OVER
           </span>
-<h1 className="text-[clamp(3rem,5.5vw,4.75rem)] leading-[0.95] tracking-[-0.01em] font-extrabold text-[#f5b800] mb-2 uppercase"><Ticker value="40 LAKHS" /></h1>
+<h1 className="text-[clamp(3rem,5.5vw,4.75rem)] leading-[0.95] tracking-[-0.01em] font-extrabold text-[#f5b800] mb-2 uppercase">
+            40 LAKHS
+          </h1>
 <h3 className="text-base sm:text-lg md:text-xl font-black text-[#1e293b] tracking-tight uppercase mb-4">
             ADOLESCENTS EMPOWERED.
           </h3>
@@ -256,7 +260,9 @@ function SlideLivelihoodOutreach() {
 <span className="text-base sm:text-lg md:text-[19px] font-extrabold tracking-wider text-[#111e38] uppercase mb-1">
           OVER
         </span>
-<div className="text-[clamp(3.75rem,5.5vw,5.25rem)] leading-none tracking-[-0.02em] font-black text-[#f5b800] mb-2 select-none"><Ticker value="3.5 LAKHS" /></div>
+<div className="text-[clamp(3.75rem,5.5vw,5.25rem)] leading-none tracking-[-0.02em] font-black text-[#f5b800] mb-2 select-none">
+          3.5 LAKHS
+        </div>
 <h2 className="text-xl sm:text-2xl md:text-[26px] font-extrabold tracking-tight text-[#111e38] uppercase mb-4">
           YOUTH EMPOWERED.
         </h2>
@@ -388,7 +394,9 @@ function SlideLivelihoodImpact() {
 <span className="text-xl md:text-2xl font-black text-[#111827] uppercase tracking-wider mb-0 leading-tight">
           OVER
         </span>
-<div className="tracking-[-0.01em] text-5xl sm:text-6xl md:text-[76px] font-black text-[#f2b500] leading-none tracking-tight my-1"><Ticker value="3.5 LAKHS" /></div>
+<div className="tracking-[-0.01em] text-5xl sm:text-6xl md:text-[76px] font-black text-[#f2b500] leading-none tracking-tight my-1">
+          3.5 LAKHS
+        </div>
 <h2 className="text-2xl sm:text-3xl md:text-[34px] font-black text-[#111827] uppercase tracking-tight mt-1 mb-3 leading-tight">
           YOUTH EMPOWERED.
         </h2>
