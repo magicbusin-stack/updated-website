@@ -1,4 +1,5 @@
 import React from "react";
+import Ticker from "./OutreachTicker";
 
 /* "Our Outreach & Impact": the Adolescent and Livelihood stats pages, built from the six HTML files supplied by the team
    (1A/1B, 2A/2B and the two Livelihood pages) and the matching photos (cropped so no text is baked into the pictures).
@@ -18,9 +19,7 @@ function SlideAdolescentsOutreach2() {
 <span className="block text-2xl sm:text-3xl font-black text-gray-950 uppercase tracking-tight leading-none mb-1">
             OVER
           </span>
-<div className="font-['Outfit','Inter',sans-serif] text-6xl sm:text-7xl xl:text-[84px] font-extrabold text-[#F8B200] tracking-tight leading-[0.9] my-1">
-            40 LAKHS
-          </div>
+<div className="font-['Outfit','Inter',sans-serif] text-6xl sm:text-7xl xl:text-[84px] font-extrabold text-[#F8B200] tracking-tight leading-[0.9] my-1"><Ticker value="40 LAKHS" /></div>
 <h3 className="text-xl sm:text-2xl font-black text-gray-950 uppercase tracking-tight leading-tight mt-2 mb-4">
             ADOLESCENTS EMPOWERED.
           </h3>
@@ -53,9 +52,7 @@ function SlideAdolescentsOutreach2() {
 <path d="M29 40 C29 36 31 35 33 35 C35 35 37 36 37 40" strokeLinecap="round"></path>
 </svg>
 </div>
-<div className="text-3xl sm:text-4xl font-black text-gray-950 tracking-tight leading-none">
-              37,389
-            </div>
+<div className="text-3xl sm:text-4xl font-black text-gray-950 tracking-tight leading-none"><Ticker value="37,389" /></div>
 <div className="mt-2 text-sm sm:text-base font-normal text-gray-700 leading-snug">
               Teachers Trained
             </div>
@@ -77,9 +74,7 @@ function SlideAdolescentsOutreach2() {
 <path d="M29 40 C29 36 31 35 33 35 C35 35 37 36 37 40" strokeLinecap="round"></path>
 </svg>
 </div>
-<div className="text-3xl sm:text-4xl font-black text-gray-950 tracking-tight leading-none">
-              30,069
-            </div>
+<div className="text-3xl sm:text-4xl font-black text-gray-950 tracking-tight leading-none"><Ticker value="30,069" /></div>
 <div className="mt-2 text-sm sm:text-base font-normal text-gray-700 leading-snug">
               Schools
             </div>
@@ -101,9 +96,7 @@ function SlideAdolescentsOutreach2() {
 <path d="M29 40 C29 36 31 35 33 35 C35 35 37 36 37 40" strokeLinecap="round"></path>
 </svg>
 </div>
-<div className="text-3xl sm:text-4xl font-black text-gray-950 tracking-tight leading-none">
-              52%
-            </div>
+<div className="text-3xl sm:text-4xl font-black text-gray-950 tracking-tight leading-none"><Ticker value="52%" /></div>
 <div className="mt-2 text-sm sm:text-base font-normal text-gray-700 leading-snug">
               Girl Participants
             </div>
@@ -125,9 +118,7 @@ function SlideAdolescentsOutreach2() {
 <path d="M29 40 C29 36 31 35 33 35 C35 35 37 36 37 40" strokeLinecap="round"></path>
 </svg>
 </div>
-<div className="text-3xl sm:text-4xl font-black text-gray-950 tracking-tight leading-none">
-              11
-            </div>
+<div className="text-3xl sm:text-4xl font-black text-gray-950 tracking-tight leading-none"><Ticker value="11" /></div>
 <div className="mt-2 text-sm sm:text-base font-normal text-gray-700 leading-snug">
               Government<br className="hidden sm:inline"/> Partnerships
             </div>
@@ -149,9 +140,7 @@ function SlideAdolescentsOutreach2() {
 <path d="M29 40 C29 36 31 35 33 35 C35 35 37 36 37 40" strokeLinecap="round"></path>
 </svg>
 </div>
-<div className="text-3xl sm:text-4xl font-black text-gray-950 tracking-tight leading-none">
-              131
-            </div>
+<div className="text-3xl sm:text-4xl font-black text-gray-950 tracking-tight leading-none"><Ticker value="131" /></div>
 <div className="mt-2 text-sm sm:text-base font-normal text-gray-700 leading-snug">
               Aspirational<br className="hidden sm:inline"/> Blocks
             </div>
@@ -173,9 +162,7 @@ function SlideAdolescentsOutreach2() {
 <path d="M29 40 C29 36 31 35 33 35 C35 35 37 36 37 40" strokeLinecap="round"></path>
 </svg>
 </div>
-<div className="text-3xl sm:text-4xl font-black text-gray-950 tracking-tight leading-none">
-              343
-            </div>
+<div className="text-3xl sm:text-4xl font-black text-gray-950 tracking-tight leading-none"><Ticker value="343" /></div>
 <div className="mt-2 text-sm sm:text-base font-normal text-gray-700 leading-snug">
               Community<br className="hidden sm:inline"/> Learning Centres
             </div>
@@ -201,9 +188,7 @@ function SlideAdolescentsImpact2() {
 <span className="text-xs sm:text-sm md:text-base font-extrabold tracking-widest text-[#1e293b] uppercase mb-1">
             OVER
           </span>
-<h1 className="text-[clamp(3rem,5.5vw,4.75rem)] leading-[0.95] tracking-[-0.01em] font-extrabold text-[#f5b800] mb-2 uppercase">
-            40 LAKHS
-          </h1>
+<h1 className="text-[clamp(3rem,5.5vw,4.75rem)] leading-[0.95] tracking-[-0.01em] font-extrabold text-[#f5b800] mb-2 uppercase"><Ticker value="40 LAKHS" /></h1>
 <h3 className="text-base sm:text-lg md:text-xl font-black text-[#1e293b] tracking-tight uppercase mb-4">
             ADOLESCENTS EMPOWERED.
           </h3>
@@ -226,7 +211,7 @@ function SlideAdolescentsImpact2() {
 <div className="h-full bg-[#fca5a5]" style={{ width: "73%" }}></div>
 </div>
 <p className="text-sm sm:text-base text-[#1e293b] leading-snug">
-<span className="font-extrabold text-[#1e293b]">27%</span> increase in attendance and school regularity
+<span className="font-extrabold text-[#1e293b]"><Ticker value="27%" /></span> increase in attendance and school regularity
             </p>
 </div>
 <div className="flex flex-col space-y-3" data-purpose="metric-item">
@@ -235,7 +220,7 @@ function SlideAdolescentsImpact2() {
 <div className="h-full bg-[#fca5a5]" style={{ width: "66%" }}></div>
 </div>
 <p className="text-sm sm:text-base text-[#1e293b] leading-snug">
-<span className="font-extrabold text-[#1e293b]">34%</span> adolescents aspire to pursue graduation and higher studies
+<span className="font-extrabold text-[#1e293b]"><Ticker value="34%" /></span> adolescents aspire to pursue graduation and higher studies
             </p>
 </div>
 <div className="flex flex-col space-y-3" data-purpose="metric-item">
@@ -244,7 +229,7 @@ function SlideAdolescentsImpact2() {
 <div className="h-full bg-[#fca5a5]" style={{ width: "54%" }}></div>
 </div>
 <p className="text-sm sm:text-base text-[#1e293b] leading-snug">
-<span className="font-extrabold text-[#1e293b]">46%</span> improvement in perceived ability to withstand and recover from difficulties
+<span className="font-extrabold text-[#1e293b]"><Ticker value="46%" /></span> improvement in perceived ability to withstand and recover from difficulties
             </p>
 </div>
 <div className="flex flex-col space-y-3" data-purpose="metric-item">
@@ -253,7 +238,7 @@ function SlideAdolescentsImpact2() {
 <div className="h-full bg-[#fca5a5]" style={{ width: "80%" }}></div>
 </div>
 <p className="text-sm sm:text-base text-[#1e293b] leading-snug">
-<span className="font-extrabold text-[#1e293b]">20%</span> increase in perceived ability to act as required to achieve goals
+<span className="font-extrabold text-[#1e293b]"><Ticker value="20%" /></span> increase in perceived ability to act as required to achieve goals
             </p>
 </div>
 </div>
@@ -271,9 +256,7 @@ function SlideLivelihoodOutreach() {
 <span className="text-base sm:text-lg md:text-[19px] font-extrabold tracking-wider text-[#111e38] uppercase mb-1">
           OVER
         </span>
-<div className="text-[clamp(3.75rem,5.5vw,5.25rem)] leading-none tracking-[-0.02em] font-black text-[#f5b800] mb-2 select-none">
-          3.5 LAKHS
-        </div>
+<div className="text-[clamp(3.75rem,5.5vw,5.25rem)] leading-none tracking-[-0.02em] font-black text-[#f5b800] mb-2 select-none"><Ticker value="3.5 LAKHS" /></div>
 <h2 className="text-xl sm:text-2xl md:text-[26px] font-extrabold tracking-tight text-[#111e38] uppercase mb-4">
           YOUTH EMPOWERED.
         </h2>
@@ -303,9 +286,7 @@ function SlideLivelihoodOutreach() {
 </g>
 </svg>
 </div>
-<div className="text-[clamp(2rem,2.5vw,2.4rem)] leading-[1.1] font-bold text-[#111e38]">
-            1,626
-          </div>
+<div className="text-[clamp(2rem,2.5vw,2.4rem)] leading-[1.1] font-bold text-[#111e38]"><Ticker value="1,626" /></div>
 <p className="text-sm md:text-base font-normal text-[#334155]">
             Colleges
           </p>
@@ -331,9 +312,7 @@ function SlideLivelihoodOutreach() {
 </g>
 </svg>
 </div>
-<div className="text-[clamp(2rem,2.5vw,2.4rem)] leading-[1.1] font-bold text-[#111e38]">
-            116
-          </div>
+<div className="text-[clamp(2rem,2.5vw,2.4rem)] leading-[1.1] font-bold text-[#111e38]"><Ticker value="116" /></div>
 <p className="text-sm md:text-base font-normal text-[#334155]">
             Livelihood Centres
           </p>
@@ -359,9 +338,7 @@ function SlideLivelihoodOutreach() {
 </g>
 </svg>
 </div>
-<div className="text-[clamp(2rem,2.5vw,2.4rem)] leading-[1.1] font-bold text-[#111e38]">
-            60%
-          </div>
+<div className="text-[clamp(2rem,2.5vw,2.4rem)] leading-[1.1] font-bold text-[#111e38]"><Ticker value="60%" /></div>
 <p className="text-sm md:text-base font-normal text-[#334155] leading-snug">
             Young Women Participants in Overall Livelihood Programme
           </p>
@@ -387,9 +364,7 @@ function SlideLivelihoodOutreach() {
 </g>
 </svg>
 </div>
-<div className="text-[clamp(2rem,2.5vw,2.4rem)] leading-[1.1] font-bold text-[#111e38]">
-            69%
-          </div>
+<div className="text-[clamp(2rem,2.5vw,2.4rem)] leading-[1.1] font-bold text-[#111e38]"><Ticker value="69%" /></div>
 <p className="text-sm md:text-base font-normal text-[#334155] leading-snug">
             Young Women Participants in Skill Impact Bond Programme
           </p>
@@ -413,9 +388,7 @@ function SlideLivelihoodImpact() {
 <span className="text-xl md:text-2xl font-black text-[#111827] uppercase tracking-wider mb-0 leading-tight">
           OVER
         </span>
-<div className="tracking-[-0.01em] text-5xl sm:text-6xl md:text-[76px] font-black text-[#f2b500] leading-none tracking-tight my-1">
-          3.5 LAKHS
-        </div>
+<div className="tracking-[-0.01em] text-5xl sm:text-6xl md:text-[76px] font-black text-[#f2b500] leading-none tracking-tight my-1"><Ticker value="3.5 LAKHS" /></div>
 <h2 className="text-2xl sm:text-3xl md:text-[34px] font-black text-[#111827] uppercase tracking-tight mt-1 mb-3 leading-tight">
           YOUTH EMPOWERED.
         </h2>
@@ -442,9 +415,7 @@ function SlideLivelihoodImpact() {
 <path d="M28 33c0-2.2 1.8-4 4-4s4 1.8 4 4" strokeWidth="2"></path>
 </svg>
 </div>
-<p className="text-3xl md:text-[34px] font-black text-[#111827] leading-tight tracking-tight">
-            84%
-          </p>
+<p className="text-3xl md:text-[34px] font-black text-[#111827] leading-tight tracking-tight"><Ticker value="84%" /></p>
 <p className="text-sm md:text-[15px] font-medium text-gray-800 leading-snug mt-2">
             youth successfully placed<br className="hidden sm:inline"/> in sustainable jobs
           </p>
@@ -467,9 +438,7 @@ function SlideLivelihoodImpact() {
 <path d="M28 33c0-2.2 1.8-4 4-4s4 1.8 4 4" strokeWidth="2"></path>
 </svg>
 </div>
-<p className="text-3xl md:text-[34px] font-black text-[#111827] leading-tight tracking-tight">
-            ₹15,920/Mo.
-          </p>
+<p className="text-3xl md:text-[34px] font-black text-[#111827] leading-tight tracking-tight"><Ticker value="₹15,920/Mo." /></p>
 <p className="text-sm md:text-[15px] font-medium text-gray-800 leading-snug mt-2">
             Average salary for<br className="hidden sm:inline"/> placed youth
           </p>
@@ -492,9 +461,7 @@ function SlideLivelihoodImpact() {
 <path d="M28 33c0-2.2 1.8-4 4-4s4 1.8 4 4" strokeWidth="2"></path>
 </svg>
 </div>
-<p className="text-3xl md:text-[34px] font-black text-[#111827] leading-tight tracking-tight">
-            65%
-          </p>
+<p className="text-3xl md:text-[34px] font-black text-[#111827] leading-tight tracking-tight"><Ticker value="65%" /></p>
 <p className="text-sm md:text-[15px] font-medium text-gray-800 leading-snug mt-2">
             continued to stay employed for three months after joining
           </p>
@@ -517,9 +484,7 @@ function SlideLivelihoodImpact() {
 <path d="M28 33c0-2.2 1.8-4 4-4s4 1.8 4 4" strokeWidth="2"></path>
 </svg>
 </div>
-<p className="text-3xl md:text-[34px] font-black text-[#111827] leading-tight tracking-tight">
-            2,450+
-          </p>
+<p className="text-3xl md:text-[34px] font-black text-[#111827] leading-tight tracking-tight"><Ticker value="2,450+" /></p>
 <p className="text-sm md:text-[15px] font-medium text-gray-800 leading-snug mt-2">
             entrepreneurs created under Entrepreneurship Development Programme
           </p>

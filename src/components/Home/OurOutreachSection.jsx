@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { OUTREACH_SLIDES, FONTS_HREF } from "./OutreachSlides";
@@ -7,20 +7,16 @@ import { OUTREACH_SLIDES, FONTS_HREF } from "./OutreachSlides";
    Four slides (Adolescents Outreach, Adolescents Impact, Livelihood Outreach, Livelihood Impact), one at a time:
    - it moves to the next slide by itself every 4 seconds (restarting the 4 seconds after any manual change);
    - the arrows sit on the left and right of the stats so a slide can be read again;
-   - the stats and the photo fit on one screen together. */
+   - the stats and the whole photo (never cropped) share the screen as far as its height allows;
+   - the numbers count up each time a slide appears. */
 const AUTO_MS = 4000;
-
-// where the photo is anchored when it has to be trimmed to fit the screen
-const PHOTO_POSITION = {
-  "adolescents-outreach-2": "center 25%",
-  "adolescents-impact-2": "center 25%",
-  "livelihood-outreach": "center 30%",
-  "livelihood-impact": "center 30%",
-};
 
 export default function OurOutreachSection() {
   const [i, setI] = useState(0);
   const touchX = useRef(0);
+  const titleRef = useRef(null);
+  const statsRef = useRef(null);
+  const [photoMax, setPhotoMax] = useState(null); // tallest the photo may be so stats + photo share the screen
   const total = OUTREACH_SLIDES.length;
   const go = (n) => setI((n + total) % total);
   const slide = OUTREACH_SLIDES[i];
@@ -32,6 +28,28 @@ export default function OurOutreachSection() {
     const t = setTimeout(() => setI((p) => (p + 1) % total), AUTO_MS);
     return () => clearTimeout(t);
   }, [i, total]);
+
+  // Work out how tall the photo can be: whatever is left of the screen below the header, title and stats.
+  // The photo keeps its shape (never cropped); it is not made smaller than 300px, and on phones it is full width.
+  useLayoutEffect(() => {
+    const fit = () => {
+      if (window.innerWidth < 768 || !statsRef.current || !titleRef.current) {
+        setPhotoMax(null);
+        return;
+      }
+      const header = document.querySelector("nav")?.offsetHeight || 113;
+      const used = titleRef.current.offsetHeight + statsRef.current.offsetHeight + 24;
+      setPhotoMax(Math.round(Math.max(300, Math.min(window.innerHeight - header - used, 520))));
+    };
+    fit();
+    window.addEventListener("resize", fit);
+    const ro = typeof ResizeObserver !== "undefined" && statsRef.current ? new ResizeObserver(fit) : null;
+    if (ro) ro.observe(statsRef.current);
+    return () => {
+      window.removeEventListener("resize", fit);
+      if (ro) ro.disconnect();
+    };
+  }, [i]);
 
   const arrow =
     "absolute top-1/2 z-10 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border border-slate-300 bg-white/95 text-slate-700 shadow-sm transition hover:border-slate-500 hover:bg-white active:scale-95 md:h-11 md:w-11";
@@ -54,7 +72,7 @@ export default function OurOutreachSection() {
       {/* Fonts used by the designs (Inter, Montserrat, Open Sans, Outfit) */}
       <link rel="stylesheet" href={FONTS_HREF} precedence="default" />
 
-      <header className="px-4 text-center">
+      <header ref={titleRef} className="px-4 text-center">
         <h2
           id="our-outreach-heading"
           className="font-['Montserrat',system-ui,sans-serif] text-2xl font-extrabold tracking-tight text-[#0f1d38] sm:text-3xl md:text-[38px]"
@@ -77,7 +95,7 @@ export default function OurOutreachSection() {
           transition={{ duration: 0.3 }}
         >
           {/* Stats, with the arrows on its left and right */}
-          <div className="relative mx-auto w-full max-w-[1500px] px-11 py-4 sm:px-14 md:py-5 lg:px-20">
+          <div ref={statsRef} className="relative mx-auto w-full max-w-[1500px] px-11 py-4 sm:px-14 md:py-5 lg:px-20">
             <button type="button" onClick={() => go(i - 1)} aria-label="Previous slide" className={`${arrow} left-1 md:left-4`}>
               <ChevronLeft className="h-5 w-5" />
             </button>
@@ -87,13 +105,18 @@ export default function OurOutreachSection() {
             </button>
           </div>
 
-          {/* Photo fills the rest of the screen, so stats and photo are visible together */}
-          <div className="relative md:min-h-[200px] md:max-h-[460px] md:flex-1">
+          {/* Photo: shown whole (never cropped). It takes the height that is left on the screen and keeps its shape;
+              the soft fade on its left and right edges lets it sit on the white page when it is narrower than the screen. */}
+          <div className="flex justify-center overflow-hidden">
             <img
               src={slide.photo}
               alt={slide.alt}
-              className="block h-auto w-full md:absolute md:inset-0 md:h-full md:object-cover"
-              style={{ objectPosition: PHOTO_POSITION[slide.key] }}
+              className="block h-auto w-full max-w-full md:w-auto"
+              style={{
+                maxHeight: photoMax || undefined,
+                WebkitMaskImage: "linear-gradient(to right, transparent, #000 7%, #000 93%, transparent)",
+                maskImage: "linear-gradient(to right, transparent, #000 7%, #000 93%, transparent)",
+              }}
             />
           </div>
         </motion.article>
