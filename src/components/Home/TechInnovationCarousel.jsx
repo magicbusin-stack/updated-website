@@ -1,4 +1,5 @@
 import * as React from "react";
+import { createPortal } from "react-dom";
 import { AnimatePresence, animate, motion, useMotionValue, useTransform } from "framer-motion";
 
 function cn(...inputs) {
@@ -124,14 +125,16 @@ function DetailModal({ slide, onClose }) {
     };
   }, [slide, onClose]);
 
-  return (
+  // Rendered straight into <body> (not inside the carousel) so no other section can ever sit on top of it.
+  if (typeof document === "undefined") return null;
+  return createPortal(
     <AnimatePresence>
       {slide && (
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className="fixed inset-0 z-[60] flex items-center justify-center p-4"
+          className="fixed inset-0 z-[300] flex items-center justify-center p-4"
           onClick={onClose}
           role="dialog"
           aria-modal="true"
@@ -172,6 +175,7 @@ function DetailModal({ slide, onClose }) {
           </motion.div>
         </motion.div>
       )}
-    </AnimatePresence>
+    </AnimatePresence>,
+    document.body
   );
 }
