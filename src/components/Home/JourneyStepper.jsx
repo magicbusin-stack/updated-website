@@ -64,7 +64,7 @@ export default function JourneyZigzagAnimated() {
         >
           <motion.p
             variants={fadeUpSm}
-            className="uppercase tracking-[0.22em] text-xs font-bold text-gray-500 mb-3"
+            className="uppercase tracking-[0.2em] text-base md:text-xl font-extrabold text-gray-800 mb-3"
           >
             Our proven model
           </motion.p>

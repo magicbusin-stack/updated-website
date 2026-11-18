@@ -79,9 +79,9 @@ const GRADIENT_MAP = {
   "from-blue-400 via-purple-500 to-indigo-600":
     "linear-gradient(135deg, #E12228 0%, #FF9E04 100%)",
   "from-green-400 via-emerald-500 to-teal-600":
-    "linear-gradient(135deg, #E12228 0%, #FFCC04 100%)",
+    "linear-gradient(135deg, #E12228 0%, #FF9E04 100%)",
   "from-orange-400 via-red-500 to-pink-600":
-    "linear-gradient(135deg, #FF9E04 0%, #FFCC04 100%)",
+    "linear-gradient(135deg, #E12228 0%, #FF9E04 100%)",
   "from-purple-400 via-violet-500 to-indigo-600":
     "linear-gradient(135deg, #E12228 0%, #FF9E04 100%)",
 };
@@ -96,7 +96,7 @@ function ProgrammeCard({ slide }) {
       role="listitem"
       aria-label={title}
       tabIndex={0}
-      className="programme-card-outer h-[190px] sm:h-[300px] md:h-[420px] cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 rounded-xl"
+      className="programme-card-outer h-[400px] sm:h-[300px] md:h-[420px] cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 rounded-xl"
       style={{ perspective: "1200px" }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
@@ -160,24 +160,24 @@ function ProgrammeCard({ slide }) {
           {/* Content */}
           <div className="relative z-10 flex flex-col items-center justify-center h-full p-3 sm:p-6 md:p-8 text-center text-white">
             {/* Title */}
-            <h3 className="text-xs sm:text-[22px] md:text-[26px] font-extrabold leading-tight mb-1.5 sm:mb-4">
+            <h3 className="text-lg sm:text-[22px] md:text-[26px] font-extrabold leading-tight mb-2 sm:mb-4">
               {title}
             </h3>
 
             {/* Divider */}
-            <div className="hidden sm:block w-12 h-[3px] rounded-full bg-white/40 mb-5" />
+            <div className="w-10 sm:w-12 h-[3px] rounded-full bg-white/40 mb-3 sm:mb-5" />
 
             {/* Summary */}
-            <p className="hidden sm:block text-white/85 text-xs md:text-sm leading-relaxed max-w-[90%] mb-6">
+            <p className="text-white/95 text-sm md:text-base leading-snug sm:leading-relaxed max-w-[95%] sm:max-w-[90%] mb-3 sm:mb-6">
               {summary}
             </p>
 
             {/* Tags */}
-            <div className="hidden sm:flex gap-2 flex-wrap justify-center mb-6">
+            <div className="flex gap-1.5 sm:gap-2 flex-wrap justify-center mb-4 sm:mb-6">
               {tags?.map((tag) => (
                 <span
                   key={tag}
-                  className="text-xs font-semibold tracking-wide uppercase px-3 py-1.5 rounded-full bg-white/15 text-white/90 border border-white/20"
+                  className="text-xs font-semibold tracking-wide uppercase px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full bg-white/15 text-white/90 border border-white/20"
                 >
                   {tag}
                 </span>
@@ -185,7 +185,7 @@ function ProgrammeCard({ slide }) {
             </div>
 
             {/* CTA */}
-            <button className="px-3 py-1.5 text-xs sm:px-8 sm:py-3 sm:text-base bg-white text-gray-900 font-bold rounded-xl sm:rounded-2xl shadow-xl shadow-black/15 hover:shadow-2xl hover:scale-[1.03] active:scale-[0.98] transition-all duration-200">
+            <button className="px-5 py-2 text-sm sm:px-8 sm:py-3 sm:text-base bg-white text-gray-900 font-bold rounded-xl sm:rounded-2xl shadow-xl shadow-black/15 hover:shadow-2xl hover:scale-[1.03] active:scale-[0.98] transition-all duration-200">
               Learn More
             </button>
           </div>

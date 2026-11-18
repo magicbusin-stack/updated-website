@@ -140,9 +140,9 @@ export default function HeroCarousel() {
         </motion.div>
       </AnimatePresence>
 
-      {/* ── White text card (with the Donate button) — top-left of the hero ─────────── */}
-      <div className="absolute top-0 left-0 z-20 w-full pointer-events-none">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-16 pt-0">
+      {/* ── White text card (with the Donate button) — left side, vertically centred ─────────── */}
+      <div className="absolute inset-0 z-20 flex items-center pointer-events-none">
+        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-16">
           <AnimatePresence mode="wait">
             <motion.div
               key={`card-${i}`}
@@ -150,7 +150,7 @@ export default function HeroCarousel() {
               initial="initial"
               animate="animate"
               exit="exit"
-              className="inline-block bg-white border border-gray-200/70 rounded-b-xl sm:rounded-b-2xl px-4 py-4 sm:px-8 sm:py-7 max-w-[300px] sm:max-w-lg shadow-xl pointer-events-auto"
+              className="inline-block bg-white border border-gray-200/70 rounded-xl sm:rounded-2xl px-4 py-4 sm:px-8 sm:py-7 max-w-[300px] sm:max-w-lg shadow-xl pointer-events-auto"
             >
               {/* Eyebrow */}
               {slides[i].eyebrow && (

@@ -262,27 +262,6 @@ export default function TrustedOrganizations() {
           ))}
         </div>
 
-        {/* CTA */}
-        <motion.div
-          className="text-center mt-12"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={VIEWPORT_ONCE}
-          transition={{ duration: 0.6, ease: EASE_EXPO, delay: 0.3 }}
-        >
-          <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }} transition={{ type: "spring", stiffness: 300, damping: 18 }}>
-            <Link
-              to="/partner"
-              className="inline-flex items-center gap-2 rounded-full bg-ink text-brand-white px-5 py-3 font-semibold shadow hover:opacity-90 transition"
-            >
-              Partner With Us
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M5 12h14M13 5l7 7-7 7" />
-              </svg>
-            </Link>
-          </motion.div>
-        </motion.div>
-
       </div>
     </section>
   );

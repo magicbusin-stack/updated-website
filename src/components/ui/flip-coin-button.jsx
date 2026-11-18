@@ -254,7 +254,8 @@ const styles = `
 }
 
 .flipCoinButton.clicked .buttonText {
-  opacity: 0.25;
+  opacity: 0;
+  transition: opacity 90ms ease;
 }
 
 .flipCoinButton.clicked .fcbDriver {
