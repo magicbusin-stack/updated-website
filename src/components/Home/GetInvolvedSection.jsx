@@ -1,5 +1,5 @@
 import { motion, useReducedMotion } from "framer-motion";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import FlipCoinButton from "../ui/flip-coin-button";
 import {
   fadeUp,
@@ -8,7 +8,6 @@ import {
   staggerStd,
   staggerFast,
   VIEWPORT_ONCE,
-  EASE_EXPO,
 } from "../../hooks/useScrollAnimations";
 
 export default function GetInvolvedSection() {
@@ -228,21 +227,6 @@ export default function GetInvolvedSection() {
           </motion.div>
         </div>
 
-        <motion.div
-          className="mt-10 text-center"
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={VIEWPORT_ONCE}
-          transition={{ duration: 0.6, ease: EASE_EXPO, delay: 0.5 }}
-        >
-          <p className="text-sm text-white/80">
-            Want to do more?{" "}
-            <Link to="/contact" className="underline text-white">
-              Get in touch
-            </Link>
-            — we'd love to partner with you.
-          </p>
-        </motion.div>
       </div>
     </section>
   );
