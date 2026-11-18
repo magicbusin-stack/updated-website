@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-import { ChevronLeft, ChevronRight } from "lucide-react";
 import FlipCoinButton from "../ui/flip-coin-button";
 
 const EASE = [0.16, 1, 0.3, 1];
@@ -55,23 +54,20 @@ export default function HeroCarousel() {
 
   // Ken Burns effect on image
   const imgVariants = {
-    initial: { scale: 1.06 },
-    animate: {
-      scale: 1,
-      transition: { duration: 7, ease: "linear" },
-    },
+    initial: { scale: 1 },
+    animate: { scale: 1 },
   };
 
   // Text card animation
   const cardVariants = {
-    initial: { opacity: 0, y: 30 },
-    animate: { opacity: 1, y: 0, transition: { duration: 0.7, ease: EASE, delay: 0.2 } },
-    exit: { opacity: 0, y: 20, transition: { duration: 0.4, ease: EASE } },
+    initial: { opacity: 0, y: -10 },
+    animate: { opacity: 1, y: 0, transition: { duration: 0.5, ease: EASE, delay: 0.1 } },
+    exit: { opacity: 0, transition: { duration: 0.3, ease: EASE } },
   };
 
   const textItem = (delay) => ({
-    initial: { opacity: 0, y: 18 },
-    animate: { opacity: 1, y: 0, transition: { duration: 0.65, ease: EASE, delay } },
+    initial: { opacity: 0, y: 6 },
+    animate: { opacity: 1, y: 0, transition: { duration: 0.4, ease: EASE, delay: delay * 0.5 } },
   });
 
   return (
@@ -103,7 +99,7 @@ export default function HeroCarousel() {
           key={`bg-${slides[i].image}`}
           className="absolute inset-0"
           initial={{ opacity: 0 }}
-          animate={{ opacity: 1, transition: { duration: 0.9, ease: EASE } }}
+          animate={{ opacity: 1, transition: { duration: 1.1, ease: EASE } }}
           exit={{ opacity: 0, transition: { duration: 0.6, ease: EASE } }}
         >
           <motion.div
@@ -144,9 +140,9 @@ export default function HeroCarousel() {
         </motion.div>
       </AnimatePresence>
 
-      {/* ── White text card — bottom-left (BRAC style) ─────────── */}
-      <div className="absolute bottom-0 left-0 z-20 w-full pointer-events-none">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-16 pb-0">
+      {/* ── White text card (with the Donate button) — top-left of the hero ─────────── */}
+      <div className="absolute top-0 left-0 z-20 w-full pointer-events-none">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-16 pt-0">
           <AnimatePresence mode="wait">
             <motion.div
               key={`card-${i}`}
@@ -154,7 +150,7 @@ export default function HeroCarousel() {
               initial="initial"
               animate="animate"
               exit="exit"
-              className="inline-block bg-white border border-gray-200/70 rounded-t-xl sm:rounded-t-2xl px-3.5 py-3.5 sm:px-6 sm:py-5 max-w-[260px] sm:max-w-sm shadow-xl pointer-events-auto"
+              className="inline-block bg-white border border-gray-200/70 rounded-b-xl sm:rounded-b-2xl px-4 py-4 sm:px-8 sm:py-7 max-w-[300px] sm:max-w-lg shadow-xl pointer-events-auto"
             >
               {/* Eyebrow */}
               {slides[i].eyebrow && (
@@ -162,7 +158,7 @@ export default function HeroCarousel() {
                   {...textItem(0.1)}
                   initial={textItem(0.1).initial}
                   animate={textItem(0.1).animate}
-                  className="inline-flex items-center gap-1.5 sm:gap-2 text-xs sm:text-xs font-semibold uppercase tracking-widest text-brand-red mb-1.5 sm:mb-3"
+                  className="inline-flex items-center gap-1.5 sm:gap-2 text-sm sm:text-base font-semibold uppercase tracking-widest text-brand-red mb-2 sm:mb-3"
                 >
                   <span className="h-1.5 w-1.5 rounded-full bg-brand-red inline-block" />
                   {slides[i].eyebrow}
@@ -171,9 +167,9 @@ export default function HeroCarousel() {
 
               {/* Title */}
               <motion.h1
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0, transition: { duration: 0.65, ease: EASE, delay: 0.2 } }}
-                className="text-lg sm:text-3xl font-extrabold leading-tight text-[#1A1A1A] mb-1.5 sm:mb-3 uppercase tracking-tight"
+                initial={{ opacity: 0, y: 6 }}
+                animate={{ opacity: 1, y: 0, transition: { duration: 0.4, ease: EASE, delay: 0.1 } }}
+                className="text-2xl sm:text-4xl font-extrabold leading-tight text-[#1A1A1A] mb-2 sm:mb-3 uppercase tracking-tight"
               >
                 {slides[i].title}
               </motion.h1>
@@ -181,36 +177,33 @@ export default function HeroCarousel() {
               {/* Divider */}
               <motion.div
                 initial={{ scaleX: 0 }}
-                animate={{ scaleX: 1, transition: { duration: 0.5, ease: EASE, delay: 0.35 } }}
+                animate={{ scaleX: 1, transition: { duration: 0.4, ease: EASE, delay: 0.2 } }}
                 className="origin-left h-[2px] sm:h-[3px] w-8 sm:w-12 rounded-full bg-brand-red mb-1.5 sm:mb-3"
               />
 
               {/* Description */}
               <motion.p
-                initial={{ opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0, transition: { duration: 0.55, ease: EASE, delay: 0.4 } }}
-                className="text-xs sm:text-sm text-[#444] leading-relaxed mb-2.5 sm:mb-5 line-clamp-2 sm:line-clamp-none"
+                initial={{ opacity: 0, y: 6 }}
+                animate={{ opacity: 1, y: 0, transition: { duration: 0.4, ease: EASE, delay: 0.25 } }}
+                className="text-base sm:text-lg text-[#333] leading-relaxed mb-4 sm:mb-6 line-clamp-3 sm:line-clamp-none"
               >
                 {slides[i].desc}
               </motion.p>
 
               {/* CTA */}
               <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0, transition: { duration: 0.5, ease: EASE, delay: 0.5 } }}
+                initial={{ opacity: 0, y: 6 }}
+                animate={{ opacity: 1, y: 0, transition: { duration: 0.4, ease: EASE, delay: 0.3 } }}
                 className="flex flex-wrap items-center gap-2 sm:gap-3"
               >
-                <div className="shrink-0 overflow-visible w-[130px] h-[32px] sm:w-48 sm:h-12">
-                  <div className="origin-top-left scale-[0.68] sm:scale-100">
-                    <FlipCoinButton onFlipComplete={() => navigate(slides[i].cta.href)}>
-                      {slides[i].cta.label}
-                    </FlipCoinButton>
-                  </div>
+                <div className="shrink-0">
+                  <FlipCoinButton size="lg" onFlipComplete={() => navigate(slides[i].cta.href)}>
+                    {slides[i].cta.label}
+                  </FlipCoinButton>
                 </div>
                 <motion.button
-                  className="inline-flex w-auto px-4 sm:w-48 h-8 sm:h-12 items-center justify-center gap-2 rounded-full border-2 border-brand-red bg-brand-red/5 sm:px-4 text-xs sm:text-sm font-bold text-brand-red hover:bg-brand-red/10 active:bg-brand-red/15 transition-colors"
-                  whileHover={{ scale: 1.04 }}
-                  whileTap={{ scale: 0.97 }}
+                  className="inline-flex w-auto px-6 h-[2.9rem] sm:h-14 items-center justify-center gap-2 rounded-full border-2 border-brand-red bg-brand-red/5 text-base sm:text-lg font-bold text-brand-red hover:bg-brand-red/10 active:bg-brand-red/15 transition-colors"
+                  whileTap={{ scale: 0.98 }}
                 >
                   Learn More
                 </motion.button>
@@ -219,27 +212,6 @@ export default function HeroCarousel() {
           </AnimatePresence>
         </div>
       </div>
-
-      {/* ── Navigation Arrows ───────────────────────────────────── */}
-      <motion.button
-        onClick={prev}
-        aria-label="Previous slide"
-        className="absolute left-4 sm:left-6 top-1/2 z-30 -translate-y-1/2 rounded-full border border-white/30 bg-white/10 p-3 text-white backdrop-blur-md transition-all hover:bg-white/25"
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.9 }}
-      >
-        <ChevronLeft className="h-5 w-5" />
-      </motion.button>
-
-      <motion.button
-        onClick={next}
-        aria-label="Next slide"
-        className="absolute right-4 sm:right-6 top-1/2 z-30 -translate-y-1/2 rounded-full border border-white/30 bg-white/10 p-3 text-white backdrop-blur-md transition-all hover:bg-white/25"
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.9 }}
-      >
-        <ChevronRight className="h-5 w-5" />
-      </motion.button>
 
       {/* ── Progress Dots ───────────────────────────────────────── */}
       <div className="absolute bottom-6 right-8 z-30 flex items-center gap-2.5">

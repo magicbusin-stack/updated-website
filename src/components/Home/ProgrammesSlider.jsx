@@ -1,7 +1,6 @@
 import { useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import { fadeUp, fadeUpSm, staggerStd, VIEWPORT_ONCE } from "../../hooks/useScrollAnimations";
-import { Users, BriefcaseBusiness, Handshake, HandCoins } from "lucide-react";
 
 export default function ProgrammesSlider() {
   const baseSlides = useMemo(
@@ -9,44 +8,36 @@ export default function ProgrammesSlider() {
       {
         id: "adolescent-programme",
         title: "Adolescent Programme",
-        subtitle: "Ages 11–18",
         summary:
-          "Foundational life skills for ages 11–18, building confidence and core competencies.",
-        tags: ["Ages 11–18", "6 Months"],
-        Icon: Users,
+          "Foundational life skills that build confidence and core competencies.",
+        tags: ["6 Months"],
         image: "/ngo-images/1.JPG",
         gradient: "from-blue-400 via-purple-500 to-indigo-600",
       },
       {
         id: "youth-programme",
         title: "Youth Programme",
-        subtitle: "Youth & Livelihoods",
         summary:
           "Industry-aligned training that connects youth to sustainable jobs.",
         tags: ["95% Placement", "₹15K+"],
-        Icon: BriefcaseBusiness,
         image: "/ngo-images/2.JPG",
         gradient: "from-green-400 via-emerald-500 to-teal-600",
       },
       {
         id: "women-entrepreneurship",
         title: "Women Entrepreneurship",
-        subtitle: "Micro-Enterprise",
         summary:
           "Business and financial skills that help women build and sustain their own micro-enterprises.",
         tags: ["Women-led", "Financial Literacy"],
-        Icon: HandCoins,
         image: "/ngo-images/6.jpeg",
         gradient: "from-purple-400 via-violet-500 to-indigo-600",
       },
       {
         id: "employee-volunteering",
         title: "Employee Volunteering",
-        subtitle: "Corporate Partners",
         summary:
           "Corporate partnerships for high-impact, structured volunteering.",
         tags: ["500+ Companies", "Teams"],
-        Icon: Handshake,
         image: "/ngo-images/3.JPG",
         gradient: "from-orange-400 via-red-500 to-pink-600",
       },
@@ -64,9 +55,6 @@ export default function ProgrammesSlider() {
           whileInView="visible"
           viewport={VIEWPORT_ONCE}
         >
-          <motion.p variants={fadeUpSm} className="uppercase tracking-[0.22em] text-xs font-bold text-gray-500 mb-3">
-            Comprehensive Solutions
-          </motion.p>
           <motion.h2 variants={fadeUp} className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-6">
             CORE PROGRAMMES
           </motion.h2>
@@ -99,14 +87,14 @@ const GRADIENT_MAP = {
 };
 
 function ProgrammeCard({ slide }) {
-  const { image, gradient, Icon, title, subtitle, summary, tags } = slide;
+  const { image, gradient, title, summary, tags } = slide;
   const bgGradient = GRADIENT_MAP[gradient] || GRADIENT_MAP["from-blue-400 via-purple-500 to-indigo-600"];
   const [isHovered, setIsHovered] = useState(false);
 
   return (
     <div
       role="listitem"
-      aria-label={`${title}, ${subtitle}`}
+      aria-label={title}
       tabIndex={0}
       className="programme-card-outer h-[190px] sm:h-[300px] md:h-[420px] cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 rounded-xl"
       style={{ perspective: "1200px" }}
@@ -138,12 +126,7 @@ function ProgrammeCard({ slide }) {
 
           {/* Bottom content */}
           <div className="absolute bottom-0 left-0 p-3 sm:p-6 md:p-8 text-white">
-            {subtitle && (
-              <p className="text-xs sm:text-sm font-light uppercase tracking-widest opacity-80">
-                {subtitle}
-              </p>
-            )}
-            <h3 className="mt-0.5 sm:mt-1 text-sm sm:text-xl md:text-[24px] font-semibold leading-tight">{title}</h3>
+            <h3 className="text-base sm:text-2xl md:text-[28px] font-bold leading-tight">{title}</h3>
           </div>
         </div>
 
@@ -176,11 +159,6 @@ function ProgrammeCard({ slide }) {
 
           {/* Content */}
           <div className="relative z-10 flex flex-col items-center justify-center h-full p-3 sm:p-6 md:p-8 text-center text-white">
-            {/* Icon */}
-            <div className="w-8 h-8 sm:w-16 sm:h-16 rounded-lg sm:rounded-2xl bg-white/15 backdrop-blur-sm grid place-items-center mb-2 sm:mb-6 shadow-lg shadow-black/10">
-              <Icon className="w-4 h-4 sm:w-8 sm:h-8 text-white" />
-            </div>
-
             {/* Title */}
             <h3 className="text-xs sm:text-[22px] md:text-[26px] font-extrabold leading-tight mb-1.5 sm:mb-4">
               {title}

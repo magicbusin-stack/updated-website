@@ -6,7 +6,6 @@ import GetInvolvedSection from '../components/Home/GetInvolvedSection';
 import HeroCarousel from '../components/Home/HeroCarousel';
 import JourneyStepper from '../components/Home/JourneyStepper';
 import OurOutreachOld from '../components/Home/OurOutreachOld';
-import OutreachImpactBento from '../components/Home/OutreachImpactBento';
 import PartnersShowcase from '../components/Home/PartnersShowcase';
 import ProgrammesSlider from '../components/Home/ProgrammesSlider';
 import SuccessStories from '../components/Home/SuccessStories';
@@ -25,7 +24,6 @@ export default function Home() {
         <SuccessStories />
         <AIDigitalSection />
         <PartnersShowcase />
-        <OutreachImpactBento />
         <GetInvolvedSection />
         <FAQSection  items={homefaq} />
     </Layout>

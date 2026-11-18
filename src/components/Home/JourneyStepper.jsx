@@ -15,7 +15,7 @@ const steps = [
   {
     id: 1,
     title: "Strong Foundation",
-    desc: "Ages 11–18 — foundational development & life skills",
+    desc: "Foundational development & life skills",
     icon: Layers,
     grad: "from-orange-400 to-red-500",
   },
@@ -74,13 +74,6 @@ export default function JourneyZigzagAnimated() {
           >
             Childhood to Livelihood Journey
           </motion.h2>
-          <motion.p
-            variants={fadeUpSm}
-            className="text-gray-600 text-lg max-w-3xl mx-auto"
-          >
-            A clear, practical 5-step pathway that prepares young people for
-            meaningful careers and lifelong success.
-          </motion.p>
         </motion.div>
 
         <div className="relative">
@@ -171,25 +164,6 @@ export default function JourneyZigzagAnimated() {
             })}
           </motion.div>
 
-          {/* CTA */}
-          <motion.div
-            className="text-center mt-10"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={VIEWPORT_ONCE}
-            transition={{ duration: 0.6, ease: EASE_EXPO, delay: 0.4 }}
-          >
-            <motion.a
-              href="/our-approach"
-              whileHover={{ scale: 1.04, y: -2 }}
-              whileTap={{ scale: 0.97 }}
-              transition={{ type: "spring", stiffness: 300, damping: 18 }}
-              className="inline-flex items-center justify-center rounded-full px-8 py-4
-                         font-semibold bg-brand-red text-white shadow-lg"
-            >
-              Know Our Model
-            </motion.a>
-          </motion.div>
         </div>
       </div>
     </section>

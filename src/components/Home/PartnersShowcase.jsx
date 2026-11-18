@@ -33,6 +33,28 @@ const col4 = [
   { name: "Relaygo", src: "/partners/1 (10).jpg" },
 ];
 
+/* KEY PARTNERS: partners contributing Rs 10 crore and above. They get their own, much larger, highlighted row
+   above the moving logos. Add one line per partner, e.g.
+     { name: "Partner Name", src: "/partners/partner-name.png" },
+   The whole row stays hidden until at least one partner is listed here. */
+const KEY_PARTNERS = [];
+
+function KeyPartnerCard({ logo }) {
+  return (
+    <motion.div
+      whileHover={{ y: -6, scale: 1.02 }}
+      transition={{ type: "spring", stiffness: 300, damping: 20 }}
+      className="relative flex flex-col items-center justify-center gap-4 overflow-hidden rounded-3xl border-2 border-brand-yellow bg-white p-6 shadow-[0_18px_45px_rgba(255,204,4,0.35)] sm:p-8"
+    >
+      <span className="absolute right-4 top-4 rounded-full bg-brand-red px-3 py-1 text-sm font-extrabold tracking-wide text-white">₹10 Cr+</span>
+      <div className="grid h-28 w-full place-items-center sm:h-40">
+        <img src={logo.src} alt={logo.name} className="max-h-full max-w-full object-contain" loading="lazy" decoding="async" />
+      </div>
+      <p className="text-center text-lg font-extrabold text-ink sm:text-xl">{logo.name}</p>
+    </motion.div>
+  );
+}
+
 function LogoCard({ logo }) {
   const Img = (
     <motion.div
@@ -168,6 +190,28 @@ export default function TrustedOrganizations() {
             Strategic employers, corporates and ecosystem allies who power scale with us.
           </motion.p>
         </motion.div>
+
+        {/* Key partners: Rs 10 crore and above, shown larger and highlighted */}
+        {KEY_PARTNERS.length > 0 && (
+          <motion.div
+            className="mb-14"
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={VIEWPORT_ONCE}
+            transition={{ duration: 0.6, ease: EASE_EXPO }}
+          >
+            <div className="mb-6 text-center">
+              <span className="inline-flex items-center gap-2 rounded-full bg-brand-yellow px-5 py-2 text-base font-extrabold uppercase tracking-widest text-brand-black shadow">
+                Key partners · ₹10 crore and above
+              </span>
+            </div>
+            <div className="mx-auto grid max-w-5xl grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {KEY_PARTNERS.map((p) => (
+                <KeyPartnerCard key={p.name} logo={p} />
+              ))}
+            </div>
+          </motion.div>
+        )}
 
         {/* Desktop/tablet: 3 auto-scrolling marquee columns */}
         <motion.div

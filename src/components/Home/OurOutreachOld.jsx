@@ -414,22 +414,6 @@ export default function OutreachWithDonut() {
           ))}
         </div>
 
-        {/* CTA */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false }}
-          transition={{ duration: 0.5, delay: 0.4 }}
-          className="my-8 flex justify-center"
-        >
-          <button
-            className="px-8 py-3 text-sm md:text-base font-semibold rounded-full text-white bg-brand-red shadow-md hover:shadow-lg transition-transform duration-300 hover:scale-105 active:scale-95"
-            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          >
-            View Our Outreach
-          </button>
-        </motion.div>
-
         <motion.div
           className="text-center my-8"
           variants={staggerStd}

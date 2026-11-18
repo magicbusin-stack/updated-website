@@ -1,5 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 
+/* The site's Donate-style button.
+   - The little Magic Bus on the left still bobs and spins its wheels on hover (unchanged).
+   - The old coin-flip animation is gone. On click the Magic Bus now drives across the button, and then the page
+     redirects (via onFlipComplete, the prop name is kept so every existing use keeps working).
+   - size="lg" gives the bigger version used in the header. */
+
 function cn(...inputs) {
   return inputs
     .flatMap((input) => {
@@ -15,9 +21,9 @@ function cn(...inputs) {
     .join(" ");
 }
 
-function BusIcon() {
+function BusIcon({ className = "fcbBus" }) {
   return (
-    <svg className="fcbBus" viewBox="0 0 42 26" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <svg className={className} viewBox="0 0 42 26" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
       <path d="M4 11C4 7 7 4 11 4H27C30.5 4 33.5 6.5 35 10L37.5 15H4V11Z" fill="#FFCC04" />
       <path d="M29 6H33.8L35.8 11H29V6Z" fill="#38BDF8" />
       <rect x="22" y="6" width="5.5" height="5" rx="0.8" fill="#BAE6FD" />
@@ -40,134 +46,30 @@ function BusIcon() {
   );
 }
 
-const LANDING_MESSAGES = ["Empower Dreams", "Inspire Change", "Future Starts", "Empower Futures", "Together Forward"];
+const DRIVE_MS = 1000; // how long the bus takes to cross the button before the redirect
 
-export default function FlipCoinButton({ children, onFlipComplete, landingText }) {
+export default function FlipCoinButton({ children, onFlipComplete, size }) {
   const [clicked, setClicked] = useState(false);
-  const [shrinkLanding, setShrinkLanding] = useState(false);
-  const [coinLanded, setCoinLanded] = useState(false);
-  const [randomLandingText, setRandomLandingText] = useState(LANDING_MESSAGES[0]);
-  const coinRef = useRef(null);
-  const requestRef = useRef();
+  const timers = useRef([]);
+
+  useEffect(() => {
+    const list = timers.current;
+    return () => list.forEach(clearTimeout);
+  }, []);
 
   const handleClick = () => {
     if (clicked) return;
-
-    if (landingText === undefined) {
-      setRandomLandingText(LANDING_MESSAGES[Math.floor(Math.random() * LANDING_MESSAGES.length)]);
-    }
-
     setClicked(true);
-
-    // Wait to start flipping the coin because of the button tilt animation
-    setTimeout(() => {
-      if (coinRef.current) {
-        // Randomize the flipping speeds just for fun
-        coinRef.current.style.setProperty("--coin-side-rotation-count", `${Math.floor(Math.random() * 5) * 90}`);
-        coinRef.current.style.setProperty("--coin-max-flip-angle", `${(Math.floor(Math.random() * 4) + 3) * Math.PI}`);
-        flipCoin();
-      }
-    }, 50);
-  };
-
-  const flipCoin = () => {
-    if (!coinRef.current) return;
-
-    let moveLoopCount = 0;
-    const maxMoveLoopCount = 90; // The larger the number, the slower the animation
-    const sideRotationCount = Number.parseInt(
-      coinRef.current.style.getPropertyValue("--coin-side-rotation-count") || "0"
+    timers.current.push(
+      setTimeout(() => {
+        if (onFlipComplete) onFlipComplete();
+        timers.current.push(setTimeout(() => setClicked(false), 300));
+      }, DRIVE_MS)
     );
-    const maxFlipAngle = Number.parseFloat(coinRef.current.style.getPropertyValue("--coin-max-flip-angle") || "0");
-
-    const flipCoinLoop = () => {
-      if (!coinRef.current) return;
-
-      moveLoopCount++;
-      const percentageCompleted = moveLoopCount / maxMoveLoopCount;
-      const angle = -maxFlipAngle * Math.pow(percentageCompleted - 1, 2) + maxFlipAngle;
-
-      // Calculate the scale and position of the coin moving through the air
-      coinRef.current.style.setProperty("--coin-y-multiplier", `${-11 * Math.pow(percentageCompleted * 2 - 1, 4) + 11}`);
-      coinRef.current.style.setProperty("--coin-x-multiplier", `${percentageCompleted}`);
-      coinRef.current.style.setProperty("--coin-scale-multiplier", `${percentageCompleted * 0.6}`);
-      coinRef.current.style.setProperty("--coin-rotation-multiplier", `${percentageCompleted * sideRotationCount}`);
-
-      // Calculate the scale and position values for the different coin faces
-      coinRef.current.style.setProperty("--front-scale-multiplier", `${Math.max(Math.cos(angle), 0)}`);
-      coinRef.current.style.setProperty("--front-y-multiplier", `${Math.sin(angle)}`);
-
-      coinRef.current.style.setProperty("--middle-scale-multiplier", `${Math.abs(Math.cos(angle))}`);
-      coinRef.current.style.setProperty("--middle-y-multiplier", `${Math.cos((angle + Math.PI / 2) % Math.PI)}`);
-
-      coinRef.current.style.setProperty("--back-scale-multiplier", `${Math.max(Math.cos(angle - Math.PI), 0)}`);
-      coinRef.current.style.setProperty("--back-y-multiplier", `${Math.sin(angle - Math.PI)}`);
-
-      coinRef.current.style.setProperty(
-        "--shine-opacity-multiplier",
-        `${4 * Math.sin((angle + Math.PI / 2) % Math.PI) - 3.2}`
-      );
-      coinRef.current.style.setProperty(
-        "--shine-bg-multiplier",
-        `${-40 * (Math.cos((angle + Math.PI / 2) % Math.PI) - 0.5)}%`
-      );
-
-      // Repeat animation loop
-      if (moveLoopCount < maxMoveLoopCount) {
-        if (moveLoopCount === maxMoveLoopCount - 6) {
-          setShrinkLanding(true);
-        }
-        requestRef.current = requestAnimationFrame(flipCoinLoop);
-      } else {
-        setCoinLanded(true);
-        if (coinRef.current) {
-          coinRef.current.style.setProperty("opacity", "0");
-        }
-        setTimeout(() => {
-          setClicked(false);
-          setShrinkLanding(false);
-          setCoinLanded(false);
-          if (onFlipComplete) onFlipComplete();
-          setTimeout(() => {
-            resetCoin();
-          }, 300);
-        }, 1500);
-      }
-    };
-
-    requestRef.current = requestAnimationFrame(flipCoinLoop);
   };
-
-  const resetCoin = () => {
-    if (!coinRef.current) return;
-
-    coinRef.current.style.setProperty("--coin-x-multiplier", "0");
-    coinRef.current.style.setProperty("--coin-scale-multiplier", "0");
-    coinRef.current.style.setProperty("--coin-rotation-multiplier", "0");
-    coinRef.current.style.setProperty("--shine-opacity-multiplier", "0.4");
-    coinRef.current.style.setProperty("--shine-bg-multiplier", "50%");
-    coinRef.current.style.removeProperty("opacity");
-  };
-
-  useEffect(() => {
-    return () => {
-      if (requestRef.current) {
-        cancelAnimationFrame(requestRef.current);
-      }
-    };
-  }, []);
 
   return (
-    <button
-      type="button"
-      className={cn("flipCoinButton", {
-        clicked: clicked,
-        shrinkLanding: shrinkLanding,
-        coinLanded: coinLanded,
-      })}
-      data-landing-text={landingText ?? randomLandingText}
-      onClick={handleClick}
-    >
+    <button type="button" className={cn("flipCoinButton", { clicked, fcbLarge: size === "lg" })} onClick={handleClick}>
       <span className="buttonText">
         <span className="fcbBadge">
           <span className="fcbBadgeInner">
@@ -176,13 +78,11 @@ export default function FlipCoinButton({ children, onFlipComplete, landingText }
         </span>
         <span className="fcbLabel">{children}</span>
       </span>
-      <div className="coinWrapper">
-        <div className="coin" ref={coinRef}>
-          <div className="coinMiddle"></div>
-          <div className="coinBack"></div>
-          <div className="coinFront"></div>
-        </div>
-      </div>
+      <span className="fcbRoad" aria-hidden="true">
+        <span className="fcbDriver">
+          <BusIcon className="fcbDriverBus" />
+        </span>
+      </span>
     </button>
   );
 }
@@ -205,79 +105,31 @@ const styles = `
   outline: 0;
   position: relative;
   top: 0;
-  transition: transform 50ms ease-in-out;
+  transition: transform 80ms ease-in-out;
   width: clamp(10.5rem, 46vw, 12rem);
   -webkit-tap-highlight-color: transparent;
+}
+
+.flipCoinButton.fcbLarge {
+  font-size: clamp(1.05rem, 4vw, 1.25rem);
+  height: clamp(2.9rem, 10vw, 3.5rem);
+  width: clamp(11.5rem, 50vw, 14rem);
+}
+
+@media (min-width: 1024px) and (max-width: 1279px) {
+  .flipCoinButton.fcbLarge {
+    font-size: 1.05rem;
+    height: 3rem;
+    width: 11rem;
+  }
 }
 
 .flipCoinButton:active {
   transform: scale(0.97);
 }
 
-.flipCoinButton.clicked {
-  animation: 150ms ease-in-out 1 flipCoinShake;
-  pointer-events: none;
-}
-
-.flipCoinButton.clicked .buttonText {
-  opacity: 0;
-  transition: opacity 100ms linear 200ms;
-}
-
-.flipCoinButton.clicked::before {
-  height: 0.5rem;
-  width: 60%;
-}
-
-.flipCoinButton.clicked .coin {
-  transition: margin-bottom 1s linear 200ms;
-  margin-bottom: 0;
-  opacity: 1;
-}
-
-.flipCoinButton.shrinkLanding::before {
-  transition: width 200ms ease-in;
-  width: 0;
-}
-
-.flipCoinButton.coinLanded::after {
-  opacity: 1;
-  transform: scale(1);
-  transform-origin: 50% 50%;
-  animation: flipCoinLandGlow 1.1s ease-in-out infinite;
-}
-
-@keyframes flipCoinLandGlow {
-  0%, 100% {
-    box-shadow: 0 0 0 0 rgba(255, 204, 4, 0.7), 0 6px 16px rgba(0, 0, 0, 0.28);
-  }
-  50% {
-    box-shadow: 0 0 0 8px rgba(255, 204, 4, 0), 0 6px 16px rgba(0, 0, 0, 0.28);
-  }
-}
-
-.flipCoinButton.coinLanded .coinWrapper {
-  background: radial-gradient(circle at 35% 97%, rgba(3, 16, 50, 0.4) 0.04rem, transparent 0.04rem),
-    radial-gradient(circle at 45% 92%, rgba(3, 16, 50, 0.4) 0.04rem, transparent 0.02rem),
-    radial-gradient(circle at 55% 98%, rgba(3, 16, 50, 0.4) 0.04rem, transparent 0.04rem),
-    radial-gradient(circle at 65% 96%, rgba(3, 16, 50, 0.4) 0.06rem, transparent 0.06rem);
-  background-position: center bottom;
-  background-size: 100%;
-  bottom: -1rem;
-  opacity: 0;
-  transform: scale(2) translateY(-10px);
-}
-
-.buttonText {
-  color: #1a1a1a;
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-  white-space: nowrap;
-  opacity: 1;
-  position: relative;
-  transition: opacity 100ms linear 500ms;
-  z-index: 3;
+.flipCoinButton:focus-visible {
+  box-shadow: 0 0 0 3px rgba(225, 34, 40, 0.45);
 }
 
 .flipCoinButton::before {
@@ -290,177 +142,31 @@ const styles = `
   content: "";
   display: block;
   height: 100%;
-  left: 50%;
+  left: 0;
   position: absolute;
-  transform: translateX(-50%);
-  transition: height 250ms ease-in-out 400ms, width 250ms ease-in-out 300ms;
   width: 100%;
   z-index: 2;
-}
-
-.flipCoinButton::after {
-  align-items: center;
-  background: linear-gradient(180deg, #ffe033, #ffcc04);
-  border: 1px solid #e5b500;
-  box-sizing: border-box;
-  border-radius: 9999px;
-  top: 0;
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.28);
-  color: #1a1a1a;
-  content: attr(data-landing-text);
-  display: flex;
-  font-weight: 800;
-  height: 100%;
-  justify-content: center;
-  left: 0;
-  letter-spacing: 0.01em;
-  opacity: 0;
-  padding: 0 0.5rem;
-  pointer-events: none;
-  position: absolute;
-  text-align: center;
-  transform: scale(0);
-  transform-origin: 50% 50%;
-  transition: transform 200ms cubic-bezier(0, 0, 0.35, 1.43);
-  width: 100%;
-  z-index: 1;
-}
-
-.coinWrapper {
-  background: none;
-  bottom: 0;
-  height: 18rem;
-  left: 0;
-  opacity: 1;
-  overflow: hidden;
-  pointer-events: none;
-  position: absolute;
-  transform: none;
-  transform-origin: 50% 100%;
-  transition: opacity 200ms linear 100ms, transform 300ms ease-out;
-  width: 100%;
-}
-
-.coin {
-  --front-y-multiplier: 0;
-  --back-y-multiplier: 0;
-  --coin-y-multiplier: 0;
-  --coin-x-multiplier: 0;
-  --coin-scale-multiplier: 0;
-  --coin-rotation-multiplier: 0;
-  --shine-opacity-multiplier: 0.4;
-  --shine-bg-multiplier: 50%;
-  bottom: calc(var(--coin-y-multiplier) * 1rem - 3.5rem);
-  height: 3.5rem;
-  margin-bottom: 3.05rem;
-  position: absolute;
-  right: calc(var(--coin-x-multiplier) * 34% + 16%);
-  transform: translateX(50%) scale(calc(0.4 + var(--coin-scale-multiplier)))
-    rotate(calc(var(--coin-rotation-multiplier) * -1deg));
-  opacity: 0;
-  width: 3.5rem;
-  z-index: 3;
-}
-
-.coinFront,
-.coinMiddle,
-.coinBack,
-.coin::before,
-.coinFront::after,
-.coinBack::after {
-  border-radius: 50%;
-  box-sizing: border-box;
-  height: 100%;
-  left: 0;
-  position: absolute;
-  width: 100%;
-  z-index: 3;
-}
-
-.coinFront {
-  background: radial-gradient(circle at 50% 50%, transparent 50%, rgba(160, 130, 10, 0.4) 54%, #ffe680 54%),
-    linear-gradient(210deg, #ffcc04 32%, transparent 32%), linear-gradient(150deg, #ffcc04 32%, transparent 32%),
-    linear-gradient(to right, #ffcc04 22%, transparent 22%, transparent 78%, #ffcc04 78%),
-    linear-gradient(to bottom, #fffbe6 44%, transparent 44%, transparent 65%, #fffbe6 65%, #fffbe6 71%, #ffcc04 71%),
-    linear-gradient(
-      to right,
-      transparent 28%,
-      #fffbe6 28%,
-      #fffbe6 34%,
-      #ffcc04 34%,
-      #ffcc04 40%,
-      #fffbe6 40%,
-      #fffbe6 47%,
-      #ffcc04 47%,
-      #ffcc04 53%,
-      #fffbe6 53%,
-      #fffbe6 60%,
-      #ffcc04 60%,
-      #ffcc04 66%,
-      #fffbe6 66%,
-      #fffbe6 72%,
-      transparent 72%
-    );
-  background-color: #ffcc04;
-  background-size: 100% 100%;
-  transform: translateY(calc(var(--front-y-multiplier) * 0.3181818182rem / 2)) scaleY(var(--front-scale-multiplier));
-}
-
-.coinFront::after {
-  background: rgba(0, 0, 0, 0.15);
-  content: "";
-  opacity: var(--front-y-multiplier);
-}
-
-.coinMiddle {
-  background: #d1a900;
-  transform: translateY(calc(var(--middle-y-multiplier) * 0.3181818182rem / 2)) scaleY(var(--middle-scale-multiplier));
-}
-
-.coinBack {
-  background: radial-gradient(circle at 50% 50%, transparent 50%, rgba(160, 130, 10, 0.4) 54%, #ffe680 54%),
-    radial-gradient(circle at 50% 40%, #fffbe6 23%, transparent 23%),
-    radial-gradient(circle at 50% 100%, #fffbe6 35%, transparent 35%);
-  background-color: #ffcc04;
-  background-size: 100% 100%;
-  transform: translateY(calc(var(--back-y-multiplier) * 0.3181818182rem / 2)) scaleY(var(--back-scale-multiplier));
-}
-
-.coinBack::after {
-  background: rgba(0, 0, 0, 0.15);
-  content: "";
-  opacity: var(--back-y-multiplier);
-}
-
-.coin::before {
-  background: radial-gradient(circle at 25% 65%, transparent 50%, rgba(255, 255, 255, 0.9) 90%),
-    linear-gradient(
-      55deg,
-      transparent calc(var(--shine-bg-multiplier) + 0%),
-      #fff8dc calc(var(--shine-bg-multiplier) + 0%),
-      transparent calc(var(--shine-bg-multiplier) + 50%)
-    );
-  content: "";
-  opacity: var(--shine-opacity-multiplier);
-  transform: translateY(calc(var(--middle-y-multiplier) * 0.3181818182rem / -2)) scaleY(var(--middle-scale-multiplier))
-    rotate(calc(var(--coin-rotation-multiplier) * 1deg));
-  z-index: 10;
-}
-
-.coin::after {
-  background: #d1a900;
-  content: "";
-  height: 0.3181818182rem;
-  left: 0;
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 100%;
-  z-index: 2;
+  transition: background 150ms ease, box-shadow 150ms ease;
 }
 
 .flipCoinButton:hover::before {
   background: linear-gradient(180deg, #ffd700, #f5b800);
+  box-shadow: 0 4px 14px rgba(255, 204, 4, 0.55), 0 1px 2px rgba(0, 0, 0, 0.12);
+}
+
+.buttonText {
+  color: #1a1a1a;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  white-space: nowrap;
+  position: relative;
+  transition: opacity 250ms ease;
+  z-index: 3;
+}
+
+.fcbLabel {
+  color: #0f172a;
 }
 
 .fcbBadge {
@@ -474,6 +180,11 @@ const styles = `
   justify-content: center;
   padding: 2px;
   width: 2rem;
+}
+
+.fcbLarge .fcbBadge {
+  height: 2.4rem;
+  width: 2.4rem;
 }
 
 .fcbBadgeInner {
@@ -493,16 +204,76 @@ const styles = `
   width: 1.5rem;
 }
 
-.fcbLabel {
-  color: #0f172a;
+.fcbLarge .fcbBus {
+  height: 0.95rem;
+  width: 1.8rem;
 }
 
+/* Hover: the badge bus bobs and its wheels spin (unchanged) */
 .flipCoinButton:hover:not(.clicked) .fcbBus {
   animation: fcbBusDrive 0.4s ease-in-out infinite;
 }
 
-.flipCoinButton:hover:not(.clicked) .fcbWheel {
+.flipCoinButton:hover:not(.clicked) .fcbBadge .fcbWheel {
   animation: fcbWheelSpin 0.35s linear infinite;
+}
+
+/* Click: a bigger bus drives across the button, then the page redirects */
+.fcbRoad {
+  border-radius: 9999px;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  position: absolute;
+  z-index: 4;
+}
+
+.fcbDriver {
+  height: 2.1rem;
+  left: -4.5rem;
+  opacity: 0;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3.4rem;
+}
+
+.fcbLarge .fcbDriver {
+  height: 2.4rem;
+  width: 3.9rem;
+}
+
+.fcbDriverBus {
+  filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.35));
+  height: 100%;
+  width: 100%;
+}
+
+.flipCoinButton.clicked {
+  pointer-events: none;
+}
+
+.flipCoinButton.clicked .buttonText {
+  opacity: 0.25;
+}
+
+.flipCoinButton.clicked .fcbDriver {
+  animation: fcbDriveAcross ${DRIVE_MS}ms cubic-bezier(0.45, 0, 0.35, 1) forwards;
+}
+
+.flipCoinButton.clicked .fcbDriver .fcbWheel {
+  animation: fcbWheelSpin 0.2s linear infinite;
+}
+
+@keyframes fcbDriveAcross {
+  0% {
+    left: -4.5rem;
+    opacity: 1;
+  }
+  100% {
+    left: calc(100% + 1rem);
+    opacity: 1;
+  }
 }
 
 @media (max-width: 480px) {
@@ -516,6 +287,12 @@ const styles = `
   }
   .buttonText {
     gap: 0.45rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .flipCoinButton.clicked .fcbDriver {
+    animation-duration: 1ms;
   }
 }
 
@@ -534,18 +311,6 @@ const styles = `
   }
   to {
     transform: rotate(360deg);
-  }
-}
-
-@keyframes flipCoinShake {
-  0% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(0.94);
-  }
-  100% {
-    transform: scale(1);
   }
 }
 `;

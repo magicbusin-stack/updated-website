@@ -45,7 +45,7 @@ const getCarouselConfig = (width) => {
       distanceDivisor: 120,
       velocityDivisor: 500,
       sensitivity: 180,
-      xMultiplier: 90,
+      xMultiplier: 120,
       yMultiplier: 20,
       rotationMultiplier: 8,
       scaleReduction: 0.06,
@@ -56,7 +56,7 @@ const getCarouselConfig = (width) => {
       distanceDivisor: 160,
       velocityDivisor: 650,
       sensitivity: 220,
-      xMultiplier: 130,
+      xMultiplier: 210,
       yMultiplier: 30,
       rotationMultiplier: 10,
       scaleReduction: 0.09,
@@ -66,10 +66,10 @@ const getCarouselConfig = (width) => {
     distanceDivisor: 200,
     velocityDivisor: 800,
     sensitivity: 250,
-    xMultiplier: 170,
+    xMultiplier: 330,
     yMultiplier: 40,
     rotationMultiplier: 12,
-    scaleReduction: 0.12,
+    scaleReduction: 0.1,
   };
 };
 
@@ -114,8 +114,8 @@ export default function TechInnovationCarousel() {
   };
 
   return (
-    <div className="isolate relative flex flex-col items-center justify-center w-full py-10 bg-gray-900 overflow-hidden select-none">
-      <div className="relative w-full max-w-7xl h-80 sm:h-[28rem] lg:h-[32rem] flex items-center justify-center">
+    <div className="isolate relative flex flex-col items-center justify-center w-full py-12 bg-transparent overflow-hidden select-none">
+      <div className="relative w-full max-w-7xl h-[26rem] sm:h-[34rem] lg:h-[42rem] flex items-center justify-center">
         {/* Transparent Drag Surface */}
         <motion.div
           drag="x"
@@ -172,8 +172,8 @@ function Card({ slide, index, total, progress, config }) {
     <motion.div
       style={{ x, rotate, y, scale, opacity, zIndex }}
       className={cn(
-        "absolute rounded-2xl overflow-hidden bg-gray-800 group pointer-events-none",
-        "w-44 h-56 sm:w-56 sm:h-80 lg:w-64 lg:h-96"
+        "absolute rounded-3xl overflow-hidden bg-white group pointer-events-none",
+        "w-56 h-[21rem] sm:w-72 sm:h-[27rem] lg:w-[25rem] lg:h-[37.5rem] shadow-2xl ring-1 ring-black/5"
       )}
     >
       {image ? (

@@ -246,7 +246,7 @@ export default function NavbarWireframe() {
       className="fixed top-0 inset-x-0 z-50 w-full bg-white border-b border-gray-200 shadow-[0_2px_12px_rgba(15,23,42,0.08)] overflow-visible"
     >
         <div
-          className="relative mx-auto flex max-w-[1500px] items-center justify-between px-4 py-2 md:px-8"
+          className="relative mx-auto flex max-w-[1600px] items-center justify-between px-4 py-3 md:px-8 md:py-4"
         >
 
           {/* Left: Logo */}
@@ -254,7 +254,7 @@ export default function NavbarWireframe() {
             <img
               src="/Magic Bus Logo - Usage As Per Background-01.png"
               alt="Magic Bus Logo"
-              className="h-[48px] md:h-[76px] w-auto object-contain"
+              className="h-[58px] md:h-[80px] xl:h-[104px] w-auto object-contain"
             />
           </Link>
 
@@ -270,11 +270,11 @@ export default function NavbarWireframe() {
               <div className="hidden min-[1400px]:block h-8 w-px bg-gray-200" />
 
               <div className="shrink-0">
-                <FlipCoinButton onFlipComplete={() => navigate("/donate")}>Donate</FlipCoinButton>
+                <FlipCoinButton size="lg" onFlipComplete={() => navigate("/donate")}>Donate</FlipCoinButton>
               </div>
 
               <button
-                className="lg:hidden w-10 h-10 grid place-items-center rounded-full border border-gray-200"
+                className="lg:hidden w-12 h-12 grid place-items-center rounded-full border border-gray-200"
                 onClick={() => setMobileOpen(!mobileOpen)}
                 aria-label="Toggle menu"
               >
@@ -293,7 +293,7 @@ export default function NavbarWireframe() {
                 <MotionNavigationMenuList highlightClassName="bg-brand-yellow/20 rounded-lg">
                   {NAVIGATION_ITEMS.map((item) => (
                     <MotionNavigationMenuItem key={item.key} value={item.key}>
-                      <MotionNavigationMenuTrigger className="text-[15px] xl:text-[17px] font-medium text-slate-700 hover:text-brand-red data-[state=open]:text-brand-red">
+                      <MotionNavigationMenuTrigger className="text-[15.5px] min-[1150px]:text-[17px] xl:text-[20px] font-semibold text-slate-700 hover:text-brand-red data-[state=open]:text-brand-red">
                         {item.label}
                       </MotionNavigationMenuTrigger>
                       <MotionNavigationMenuContent highlightClassName="bg-brand-yellow/15 rounded-lg">
@@ -304,18 +304,18 @@ export default function NavbarWireframe() {
                                 {group.path ? (
                                   <MenuLink
                                     to={group.path}
-                                    className="!flex-row items-center justify-between text-base font-bold text-slate-800 hover:text-brand-red"
+                                    className="!flex-row items-center justify-between text-lg font-bold text-slate-800 hover:text-brand-red"
                                   >
                                     {group.title}
                                   </MenuLink>
                                 ) : (
-                                  <div className="px-2 py-2 text-base font-bold text-slate-800">{group.title}</div>
+                                  <div className="px-2 py-2 text-lg font-bold text-slate-800">{group.title}</div>
                                 )}
 
                                 <div className="space-y-1.5">
                                   {group.items && group.items.length > 0 ? (
                                     group.items.map((subItem, si) => (
-                                      <MenuLink key={si} to={subItem.path} className="text-[15px] leading-snug py-2 text-slate-600">
+                                      <MenuLink key={si} to={subItem.path} className="text-[17px] leading-snug py-2.5 text-slate-600">
                                         {subItem.label}
                                       </MenuLink>
                                     ))
@@ -327,9 +327,9 @@ export default function NavbarWireframe() {
                             ))}
                           </div>
                         ) : (
-                          <div className="w-72 space-y-1.5">
+                          <div className="w-80 space-y-1.5">
                             {item.items.map((subItem, subIndex) => (
-                              <MenuLink key={subIndex} to={subItem.path} className="text-[15px] leading-snug py-2 text-slate-700">
+                              <MenuLink key={subIndex} to={subItem.path} className="text-[17px] leading-snug py-2.5 text-slate-700">
                                 {subItem.label}
                               </MenuLink>
                             ))}
@@ -352,7 +352,7 @@ export default function NavbarWireframe() {
                 <div className="space-y-2">
                   {NAVIGATION_ITEMS.map((item) => (
                     <details key={item.key} className="group">
-                      <summary className="flex items-center justify-between py-2 text-sm font-medium text-slate-700 cursor-pointer">
+                      <summary className="flex items-center justify-between py-2.5 text-lg font-semibold text-slate-700 cursor-pointer">
                         {item.label}
                         <ChevronDown className="w-4 h-4 text-brand-red group-open:rotate-180 transition-transform" />
                       </summary>
@@ -373,13 +373,13 @@ export default function NavbarWireframe() {
                                 <div className="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-2">{group.title}</div>
                               )}
                               {group.items.map((subItem, si) => (
-                                <Link key={si} to={subItem.path} className="block py-1 text-sm text-slate-600 hover:text-brand-red" onClick={() => setMobileOpen(false)}>{subItem.label}</Link>
+                                <Link key={si} to={subItem.path} className="block py-1.5 text-base text-slate-600 hover:text-brand-red" onClick={() => setMobileOpen(false)}>{subItem.label}</Link>
                               ))}
                             </div>
                           ))
                         ) : (
                           item.items.map((subItem, si) => (
-                            <Link key={si} to={subItem.path} className="block py-1 text-sm text-slate-600 hover:text-brand-red" onClick={() => setMobileOpen(false)}>{subItem.label}</Link>
+                            <Link key={si} to={subItem.path} className="block py-1.5 text-base text-slate-600 hover:text-brand-red" onClick={() => setMobileOpen(false)}>{subItem.label}</Link>
                           ))
                         )}
                       </div>
