@@ -70,7 +70,6 @@ export default function TechInnovationCarousel() {
           <Card key={slide.title} slide={slide} index={i} total={total} progress={scrollProgress} config={config} onOpen={() => setSelected(slide)} />
         ))}
       </div>
-      <p className="pb-2 text-base text-slate-500">Click a card to see what it does</p>
 
       <DetailModal slide={selected} onClose={() => setSelected(null)} />
     </div>

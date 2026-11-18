@@ -213,36 +213,6 @@ export default function HeroCarousel() {
         </div>
       </div>
 
-      {/* ── Progress Dots ───────────────────────────────────────── */}
-      <div className="absolute bottom-6 right-8 z-30 flex items-center gap-2.5">
-        {slides.map((_, idx) => (
-          <motion.button
-            key={idx}
-            onClick={() => {
-              setDir(idx > i ? 1 : -1);
-              setI(idx);
-            }}
-            aria-label={`Go to slide ${idx + 1}`}
-            whileHover={{ scale: 1.2 }}
-            className="p-2.5 -m-2.5"
-          >
-            <div
-              className={`relative h-2 overflow-hidden rounded-full transition-all duration-500 ${
-                idx === i ? "w-10 bg-white" : "w-2 bg-white/40"
-              }`}
-            >
-              {idx === i && (
-                <motion.div
-                  className="absolute inset-0 bg-brand-red"
-                  initial={{ x: "-100%" }}
-                  animate={{ x: "100%" }}
-                  transition={{ duration: 6.5, ease: "linear", repeat: Infinity }}
-                />
-              )}
-            </div>
-          </motion.button>
-        ))}
-      </div>
     </section>
   );
 }
