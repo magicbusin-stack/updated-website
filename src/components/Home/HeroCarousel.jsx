@@ -142,7 +142,8 @@ export default function HeroCarousel() {
 
       {/* ── White text card (with the Donate button) — left side, vertically centred ─────────── */}
       <div className="absolute inset-0 z-20 flex items-center pointer-events-none">
-        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-16">
+        {/* Same container and side padding as the header, so the card's left edge lines up with the logo */}
+        <div className="w-full max-w-[1600px] mx-auto px-4 md:px-8">
           <AnimatePresence mode="wait">
             <motion.div
               key={`card-${i}`}
