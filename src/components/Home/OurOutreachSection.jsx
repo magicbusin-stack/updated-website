@@ -65,11 +65,12 @@ export default function OurOutreachSection() {
       </header>
 
       {/* Stats, with the arrows on its left and right (the arrows never move or fade) */}
-      <div className="relative mx-auto w-full max-w-[1500px] px-11 py-4 sm:px-14 md:py-5 lg:px-20" data-slide={slide.key}>
-        <button type="button" onClick={() => go(i - 1)} aria-label="Previous slide" className={`${arrow} left-1 md:left-4`}>
+      <div className="relative w-full" data-slide={slide.key}>
+        <button type="button" onClick={() => go(i - 1)} aria-label="Previous slide" className={`${arrow} left-1 md:left-2`}>
           <ChevronLeft className="h-5 w-5" />
         </button>
 
+        <div className="mx-auto w-full max-w-[1500px] px-11 py-4 sm:px-14 md:py-5 lg:px-20">
         <AnimatePresence mode="wait" initial={false}>
           <motion.div key={photo} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }}>
             {/* The programme's slides sit on top of each other; only the current one is visible. Same-programme
@@ -102,8 +103,9 @@ export default function OurOutreachSection() {
             </div>
           </motion.div>
         </AnimatePresence>
+        </div>
 
-        <button type="button" onClick={() => go(i + 1)} aria-label="Next slide" className={`${arrow} right-1 md:right-4`}>
+        <button type="button" onClick={() => go(i + 1)} aria-label="Next slide" className={`${arrow} right-1 md:right-2`}>
           <ChevronRight className="h-5 w-5" />
         </button>
       </div>
