@@ -122,8 +122,8 @@ export default function OurOutreachSection() {
         />
       </AnimatePresence>
 
-      {/* Source line: under the photo, so the stats and the photo can be seen together */}
-      <p className="mx-auto w-full max-w-[1500px] px-4 py-3 text-[13px] text-slate-500 sm:px-6 lg:px-20">{DATA_LINE}</p>
+      {/* Source line: centred under the photo, so the stats and the photo can be seen together */}
+      <p className="mx-auto w-full max-w-[1500px] px-4 py-4 text-center text-[14px] font-bold text-slate-700 sm:px-6 lg:px-20">{DATA_LINE}</p>
     </section>
   );
 }
