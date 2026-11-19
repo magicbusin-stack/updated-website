@@ -254,7 +254,7 @@ export default function NavbarWireframe() {
             <img
               src="/Magic Bus Logo - Usage As Per Background-01.png"
               alt="Magic Bus Logo"
-              className="h-[58px] md:h-[80px] xl:h-[104px] w-auto object-contain"
+              className="h-[66px] md:h-[88px] xl:h-[124px] w-auto object-contain"
             />
           </Link>
 
@@ -388,16 +388,6 @@ export default function NavbarWireframe() {
                 </div>
 
                 <div className="pt-4 border-t border-slate-200 space-y-2">
-                  <div className="flex justify-center">
-                    <FlipCoinButton
-                      onFlipComplete={() => {
-                        setMobileOpen(false);
-                        navigate("/donate");
-                      }}
-                    >
-                      Donate Now
-                    </FlipCoinButton>
-                  </div>
                   <div className="flex gap-2">
                     <Link to="/contact" className="flex-1 px-4 py-2 border border-slate-300 text-slate-700 text-center text-sm font-medium rounded-lg" onClick={() => setMobileOpen(false)}>Contact Us</Link>
                     <Link to="/partner" className="flex-1 px-4 py-2 border border-slate-300 text-slate-700 text-center text-sm font-medium rounded-lg" onClick={() => setMobileOpen(false)}>Partner</Link>
