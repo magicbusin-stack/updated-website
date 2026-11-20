@@ -103,19 +103,19 @@ function ProgramModelSvg() {
         );
     };
     return (
-        <svg viewBox="0 0 820 800" className="h-auto w-full" role="img" aria-label="Program model: three pathways, skill and transit to sustainable employment, nano enterprises and self-employment, supported by mentoring and 21st century life skills">
+        <svg viewBox="0 0 860 800" className="h-auto w-full" role="img" aria-label="Program model: three pathways, skill and transit to sustainable employment, nano enterprises and self-employment, supported by mentoring and 21st century life skills">
             {/* Mentoring circle (behind the puzzle) */}
-            <circle cx="660" cy="410" r="152" fill={C.pink} />
-            <g textAnchor="middle" fill={C.ink} fontSize="21" fontWeight="700">
-                <text x="700" y="320">Mentoring and</text>
-                <text x="700" y="346">Handholding</text>
-                <Handshake x={672} y={358} width={56} height={56} strokeWidth={1.6} />
-                <Brain x={674} y={420} width={52} height={52} strokeWidth={1.6} />
-                <text x="700" y="496">
-                    21<tspan fontSize="13" dy="-8">st</tspan>
-                    <tspan dy="8"> century</tspan>
+            <circle cx="680" cy="410" r="168" fill={C.pink} />
+            <g textAnchor="middle" fill={C.ink} fontSize="19" fontWeight="700">
+                <text x="696" y="316">Mentoring and</text>
+                <text x="696" y="341">Handholding</text>
+                <Handshake x={670} y={354} width={52} height={52} strokeWidth={1.6} />
+                <Brain x={671} y={416} width={50} height={50} strokeWidth={1.6} />
+                <text x="696" y="494">
+                    21<tspan fontSize="12" dy="-7">st</tspan>
+                    <tspan dy="7"> century</tspan>
                 </text>
-                <text x="700" y="521">life skills</text>
+                <text x="696" y="518">life skills</text>
             </g>
 
             {/* Puzzle pieces */}
