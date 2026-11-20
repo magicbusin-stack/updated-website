@@ -26,6 +26,7 @@ import FAQSection from "../components/Home/FAQSectiom";
 import FaqSchema from "../components/seo/FaqSchema";
 import usePageMeta from "../hooks/usePageMeta";
 import FrameworkWheel from "../components/programmes/FrameworkWheel";
+import LogoMarquee from "../components/Corporate/LogoMarquee";
 import { YOUTH_FRAMEWORK } from "../components/programmes/frameworkWheelData";
 
 /* ─────────────────────────── animation helpers ─────────────────────────── */
@@ -491,23 +492,18 @@ function SectorsSection() {
             <div className="max-w-7xl mx-auto px-6 lg:px-12">
                 <FadeUp className="mb-14">
                     <SectionTag>Sectors and Roles</SectionTag>
-                    <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
-                        <h2 className="text-4xl md:text-5xl font-extrabold text-[#1A1A1A] leading-tight">
-                            Opportunities for Youth: <span className="text-brand-red">Entry-Level Jobs and Sectors</span>
-                        </h2>
-                        <p className="text-[#1A1A1A]/75 max-w-sm text-base leading-relaxed">
-                            Trained youth are connected to employers across five key formal-sector industries.
-                        </p>
-                    </div>
+                    <h2 className="text-4xl md:text-5xl font-extrabold text-[#1A1A1A] leading-tight">
+                        Opportunities for Youth: <span className="text-brand-red">Entry-Level Jobs and Sectors</span>
+                    </h2>
                 </FadeUp>
 
                 {/* Table header */}
                 <FadeUp delay={0.05}>
-                    <div className="hidden md:grid grid-cols-2 gap-1 mb-2 px-2">
-                        {["Sector", "Roles Available"].map((col) => (
+                    <div className="hidden md:grid grid-cols-2 mb-2">
+                        {["Sector", "Roles Available"].map((col, ci) => (
                             <p
                                 key={col}
-                                className="text-sm font-bold uppercase tracking-[0.18em] text-[#1A1A1A]/65"
+                                className={`text-sm font-bold uppercase tracking-[0.18em] text-[#1A1A1A]/65 ${ci === 0 ? "pl-5" : "px-6"}`}
                             >
                                 {col}
                             </p>
@@ -519,33 +515,42 @@ function SectorsSection() {
                 <div className="divide-y divide-gray-200 border-t border-gray-200">
                     {sectors.map((item, i) => (
                         <FadeUp key={item.sector} delay={0.08 * i}>
-                            <_MOTION.div
-                                className="group grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-0 items-stretch cursor-default overflow-hidden"
-                                whileHover={{ backgroundColor: "rgba(0,0,0,0.015)" }}
-                            >
+                            {/* Hover (or keyboard focus) is quiet: the row turns white, a thin bar in the sector colour
+                                slides in on the left, the icon lifts a little and the role pills get a soft outline. */}
+                            <div className="group relative grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-0 items-stretch overflow-hidden transition-colors duration-300 hover:bg-white focus-within:bg-white">
+                                <span
+                                    aria-hidden="true"
+                                    className={`absolute left-0 top-0 h-full w-1 origin-top scale-y-0 ${item.color} transition-transform duration-300 group-hover:scale-y-100 group-focus-within:scale-y-100`}
+                                />
                                 {/* Col 1: sector name + icon */}
-                                <div className="flex items-center gap-4 py-6 md:pr-6">
+                                <div className="flex items-center gap-4 pt-6 pb-2 pl-3 md:py-6 md:pl-5 md:pr-6">
                                     <div
-                                        className={`${item.color} rounded-xl w-12 h-12 flex items-center justify-center shrink-0 group-hover:shadow-md transition-shadow`}
+                                        className={`${item.color} rounded-xl w-12 h-12 flex items-center justify-center shrink-0 transition duration-300 group-hover:-translate-y-0.5 group-hover:shadow-md`}
                                     >
                                         <item.icon className={`w-6 h-6 ${item.textColor}`} />
                                     </div>
+                                    <h3 className="font-extrabold text-[#1A1A1A] text-xl md:text-2xl">{item.sector}</h3>
+                                </div>
+                                {/* Col 2: roles, as small pills */}
+                                <div className="flex items-center pb-6 pl-3 md:py-6 md:px-6 md:border-l border-gray-200">
                                     <div>
-                                        <h3 className="font-extrabold text-[#1A1A1A] text-xl md:text-2xl">{item.sector}</h3>
+                                        <p className="text-xs font-bold uppercase tracking-widest text-[#1A1A1A]/55 mb-2 md:hidden">
+                                            Roles available
+                                        </p>
+                                        <ul className="flex flex-wrap gap-2">
+                                            {item.roles.split(", ").map((role) => (
+                                                <li
+                                                    key={role}
+                                                    tabIndex={0}
+                                                    className="rounded-full border border-gray-300/80 bg-white px-4 py-1.5 text-base md:text-lg font-medium text-[#1A1A1A]/85 transition-colors duration-200 hover:border-[#1A1A1A]/40 hover:text-[#1A1A1A] focus-visible:border-[#1A1A1A]/40 focus-visible:outline-none"
+                                                >
+                                                    {role}
+                                                </li>
+                                            ))}
+                                        </ul>
                                     </div>
                                 </div>
-                                {/* Col 2: roles */}
-                                <div className="flex items-center py-6 md:px-6 md:border-l border-gray-200">
-                                    <div>
-                                        <p className="text-xs font-bold uppercase tracking-widest text-[#1A1A1A]/55 mb-1 md:hidden">
-                                            Roles
-                                        </p>
-                                        <p className="text-lg md:text-xl font-semibold text-[#1A1A1A]/85 leading-relaxed">
-                                            {item.roles}
-                                        </p>
-                                    </div>
-                                </div>
-                            </_MOTION.div>
+                            </div>
                         </FadeUp>
                     ))}
                 </div>
@@ -606,50 +611,44 @@ function EligibilitySection() {
             <div className="max-w-7xl mx-auto px-6 lg:px-12">
                 <FadeUp className="mb-14">
                     <SectionTag>Eligibility</SectionTag>
-                    <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
-                        <h2 className="text-4xl md:text-5xl font-extrabold text-[#1A1A1A] leading-tight">
-                            Eligibility Criteria for the <span className="text-brand-red">Youth Skilling Programme</span>
-                        </h2>
-                        <p className="text-[#1A1A1A]/70 max-w-xs text-sm leading-relaxed">
-                            Designed for youth from underserved backgrounds seeking their first formal employment.
-                        </p>
-                    </div>
+                    <h2 className="text-4xl md:text-5xl font-extrabold text-[#1A1A1A] leading-tight">
+                        Eligibility Criteria for the <span className="text-brand-red">Youth Skilling Programme</span>
+                    </h2>
                 </FadeUp>
 
                 {/* Editorial strip rows */}
                 <div className="divide-y divide-gray-100 border-t border-gray-100">
                     {eligibility.map((item, i) => (
                         <FadeUp key={item.title} delay={0.07 * i}>
-                            <_MOTION.div
-                                className="group flex items-stretch overflow-hidden cursor-default"
-                                whileHover={{ backgroundColor: "rgba(0,0,0,0.015)" }}
-                            >
-                                {/* Number */}
-                                <div className="shrink-0 w-14 flex items-center justify-center">
-                                    <span className="text-4xl font-black text-[#1A1A1A]/8 group-hover:text-[#1A1A1A]/15 transition-colors select-none">
+                            {/* Same quiet hover as the Sectors table: the row turns soft grey, the colour block widens a little
+                                and a tick appears. */}
+                            <div className="group flex items-stretch overflow-hidden transition-colors duration-300 hover:bg-[#F7F7F5] focus-within:bg-[#F7F7F5]">
+                                {/* Number (hidden on small phones to leave room for the text) */}
+                                <div className="hidden sm:flex shrink-0 w-14 items-center justify-center">
+                                    <span className="text-4xl font-black text-[#1A1A1A]/10 group-hover:text-[#1A1A1A]/20 transition-colors select-none">
                                         {String(i + 1).padStart(2, "0")}
                                     </span>
                                 </div>
                                 {/* Colour icon */}
                                 <div
-                                    className={`shrink-0 w-14 group-hover:w-20 flex items-center justify-center ${item.color} transition-all duration-300`}
+                                    className={`shrink-0 w-12 sm:w-14 sm:group-hover:w-20 flex items-center justify-center ${item.color} transition-all duration-300`}
                                 >
-                                    <item.icon className={`w-5 h-5 ${item.textColor}`} />
+                                    <item.icon className={`w-5 h-5 sm:w-6 sm:h-6 ${item.textColor}`} />
                                 </div>
                                 {/* Content */}
-                                <div className="flex-1 py-6 px-6 flex flex-col md:flex-row md:items-center md:gap-16">
-                                    <h3 className="font-black text-[#1A1A1A] text-xl md:text-2xl min-w-[120px]">
+                                <div className="flex-1 min-w-0 py-5 sm:py-6 px-4 sm:px-6 flex flex-col md:flex-row md:items-center md:gap-16">
+                                    <h3 className="font-black text-[#1A1A1A] text-xl md:text-2xl md:w-48 md:shrink-0">
                                         {item.title}
                                     </h3>
-                                    <p className="text-base text-[#1A1A1A]/75 leading-relaxed mt-1 md:mt-0 flex-1">
+                                    <p className="text-lg md:text-2xl font-medium text-[#1A1A1A]/85 leading-snug mt-1 md:mt-0 flex-1">
                                         {item.value}
                                     </p>
                                 </div>
                                 {/* Check reveal */}
-                                <div className="shrink-0 flex items-center pr-6 opacity-0 group-hover:opacity-100 transition-opacity">
-                                    <CheckCircle2 className="w-4 h-4 text-brand-red" />
+                                <div className="hidden sm:flex shrink-0 items-center pr-6 opacity-0 group-hover:opacity-100 transition-opacity">
+                                    <CheckCircle2 className="w-5 h-5 text-brand-red" />
                                 </div>
-                            </_MOTION.div>
+                            </div>
                         </FadeUp>
                     ))}
                 </div>
@@ -661,13 +660,14 @@ function EligibilitySection() {
 /* ══════════════════════════════════════════════════════════════
    SECTION 7 — STRATEGIC PARTNERSHIPS
 ══════════════════════════════════════════════════════════════ */
+/* Names are the ones printed on each logo image. */
 const partnerLogos = [
-    "/partners/1 (13).jpg",
-    "/partners/1 (14).jpg",
-    "/partners/1 (15).jpg",
-    "/partners/1 (16).jpg",
-    "/partners/1 (17).jpg",
-    "/partners/1 (18).jpg",
+    { name: "Azim Premji Foundation", logo: "/partners/1 (13).jpg" },
+    { name: "Bloomberg", logo: "/partners/1 (14).jpg" },
+    { name: "Bank of America", logo: "/partners/1 (15).jpg" },
+    { name: "Bosch", logo: "/partners/1 (16).jpg" },
+    { name: "Decathlon", logo: "/partners/1 (17).jpg" },
+    { name: "Deloitte", logo: "/partners/1 (18).jpg" },
 ];
 
 function PartnershipsSection() {
@@ -684,22 +684,8 @@ function PartnershipsSection() {
                     </p>
                 </FadeUp>
 
-                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-                    {partnerLogos.map((logo, i) => (
-                        <FadeUp key={logo} delay={0.04 * i}>
-                            <_MOTION.div
-                                className="rounded-2xl border border-gray-200 bg-white p-4 h-24 flex items-center justify-center hover:shadow-lg hover:border-brand-red/20 transition-all duration-300 group"
-                                whileHover={{ y: -4 }}
-                            >
-                                <img
-                                    src={logo}
-                                    alt="Strategic partner logo"
-                                    className="max-h-12 w-auto object-contain transition-opacity group-hover:opacity-90"
-                                />
-                            </_MOTION.div>
-                        </FadeUp>
-                    ))}
-                </div>
+                {/* Same big, slowly moving logo row as the Partner pages */}
+                <LogoMarquee partners={partnerLogos} rows={1} />
             </div>
         </section>
     );
