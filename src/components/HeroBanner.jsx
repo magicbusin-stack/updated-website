@@ -160,14 +160,17 @@ function HeroBanner({
                             initial={{ opacity: 0, y: 16 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.7, duration: 0.6, ease: EASE }}
-                            className="mt-10 flex flex-wrap gap-2 md:gap-0"
+                            className="mt-10 flex flex-wrap gap-x-0 gap-y-6"
                         >
-                            {stats.map((s, i) => (
-                                <div key={s.label} className="flex items-center gap-3 pr-6 mr-6 border-r border-white/10 last:border-0">
-                                    <div className="text-2xl font-extrabold text-brand-yellow">{s.num ?? s.value}</div>
-                                    <div className="text-xs text-white/40 font-medium leading-tight max-w-[80px]">{s.label}</div>
-                                </div>
-                            ))}
+                            {stats.map((s, i) => {
+                                const num = String(s.num ?? s.value);
+                                return (
+                                    <div key={s.label} className="flex w-full items-center gap-4 md:w-auto md:pr-8 md:mr-8 md:border-r border-white/20 md:last:border-0 md:last:mr-0 md:last:pr-0">
+                                        <div className={`font-extrabold leading-tight text-brand-yellow ${num.length > 8 ? "text-2xl md:text-3xl max-w-[260px]" : "text-4xl md:text-5xl"}`}>{num}</div>
+                                        <div className="text-base md:text-lg text-white/85 font-medium leading-snug max-w-[240px]">{s.label}</div>
+                                    </div>
+                                );
+                            })}
                         </motion.div>
                     )}
 

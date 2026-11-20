@@ -89,17 +89,17 @@ function AboutSection() {
                             Programmes
                         </h2>
 
-                        <p className="text-lg text-[#1A1A1A]/65 leading-relaxed mb-5">
+                        <p className="text-lg text-[#1A1A1A]/80 leading-relaxed mb-5">
                             To secure and sustain rewarding employment in today's AI-driven job scenario, youth must be equipped
                             with the right 21st century job skills, digital skills and AI literacy. Magic Bus digital programmes
                             provide youth from underserved communities with technical skilling in AI, data and web design and the
                             opportunity to secure white collar jobs.
                         </p>
-                        <p className="text-lg text-[#1A1A1A]/65 leading-relaxed mb-5">
+                        <p className="text-lg text-[#1A1A1A]/80 leading-relaxed mb-5">
                             We place them on the pathway towards tech career growth through free job placement support, and ensure
                             they retain in the jobs through life skills and employability training.
                         </p>
-                        <p className="text-lg text-[#1A1A1A]/65 leading-relaxed mb-8">
+                        <p className="text-lg text-[#1A1A1A]/80 leading-relaxed mb-8">
                             Key programmes are AI-Connect with Work (AI-CWW), STEM AI-CWW, Data Annotation, AI-Powered Data
                             Analytics and Web Design.
                         </p>
@@ -115,8 +115,8 @@ function AboutSection() {
                                     key={label}
                                     className="flex items-center gap-2 rounded-full border border-[#0F0F23]/10 bg-[#F5F5F0] px-4 py-2"
                                 >
-                                    <Icon className="w-3.5 h-3.5 text-brand-red" />
-                                    <span className="text-xs font-semibold text-[#1A1A1A]">{label}</span>
+                                    <Icon className="w-4 h-4 text-brand-red" />
+                                    <span className="text-sm font-semibold text-[#1A1A1A]">{label}</span>
                                 </div>
                             ))}
                         </div>
@@ -147,8 +147,8 @@ function AboutSection() {
                                 viewport={{ once: true }}
                                 transition={{ delay: 0.35, duration: 0.5, ease: EASE }}
                             >
-                                <p className="text-3xl font-black text-brand-yellow">3</p>
-                                <p className="text-xs text-white/60 mt-0.5 font-medium">Digital Programmes</p>
+                                <p className="text-4xl font-black text-brand-yellow">3</p>
+                                <p className="text-sm text-white/80 mt-0.5 font-medium">Digital Programmes</p>
                             </motion.div>
 
                             {/* Floating badge — bottom left */}
@@ -159,8 +159,8 @@ function AboutSection() {
                                 viewport={{ once: true }}
                                 transition={{ delay: 0.4, duration: 0.5, ease: EASE }}
                             >
-                                <p className="text-2xl font-black text-[#0F0F23]">100%</p>
-                                <p className="text-xs text-[#0F0F23]/60 font-semibold mt-0.5">Free Placement Support</p>
+                                <p className="text-3xl font-black text-[#0F0F23]">100%</p>
+                                <p className="text-sm text-[#0F0F23]/75 font-semibold mt-0.5">Free Placement Support</p>
                             </motion.div>
 
                             {/* Small AI sticker */}
@@ -252,8 +252,8 @@ function FeaturesSection() {
                                     <f.icon className={`w-6 h-6 ${f.iconColor}`} />
                                 </div>
 
-                                <h3 className="text-xl font-extrabold text-white mb-3 leading-snug">{f.title}</h3>
-                                <p className="text-sm text-white/50 leading-relaxed">{f.desc}</p>
+                                <h3 className="text-xl md:text-2xl font-extrabold text-white mb-3 leading-snug">{f.title}</h3>
+                                <p className="text-base text-white/75 leading-relaxed">{f.desc}</p>
 
                                 {/* Hover arrow */}
                                 <div className="mt-6 opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1.5">
@@ -277,7 +277,7 @@ const programmes = [
     {
         name: "Fundamentals of AI tools + STEM AI-CWW",
         icon: Bot,
-        accentColor: "text-brand-yellow",
+        accentColor: "text-[#A16207]",
         accentBg: "bg-brand-yellow",
         borderColor: "border-brand-yellow",
         duration: "60 hours",
@@ -336,11 +336,11 @@ function ProgrammeDetailsSection() {
                         </span>
                     </div>
                     <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-5">
-                        <h2 className="text-4xl md:text-5xl font-extrabold text-[#0F0F23] leading-tight max-w-lg">
+                        <h2 className="text-4xl md:text-5xl font-extrabold text-[#0F0F23] leading-tight max-w-4xl">
                             Our Digital Programmes{" "}
                             <span className="text-brand-red">at a Glance: AI, Data Analytics and Web Design Courses</span>
                         </h2>
-                        <p className="text-[#0F0F23]/50 text-sm leading-relaxed max-w-xs">
+                        <p className="text-[#0F0F23]/75 text-base leading-relaxed max-w-sm">
                             Three distinct tracks — each designed to unlock white collar career pathways.
                         </p>
                     </div>
@@ -352,10 +352,10 @@ function ProgrammeDetailsSection() {
                         <button
                             key={p.name}
                             onClick={() => setActive(i)}
-                            className={`shrink-0 px-4 py-2 rounded-full text-xs font-bold transition-all ${
+                            className={`shrink-0 px-4 py-2.5 rounded-full text-sm font-bold transition-all ${
                                 active === i
                                     ? "bg-[#0F0F23] text-white"
-                                    : "bg-white border border-gray-200 text-[#0F0F23]/60"
+                                    : "bg-white border border-gray-200 text-[#0F0F23]/75"
                             }`}
                         >
                             {p.name}
@@ -366,14 +366,14 @@ function ProgrammeDetailsSection() {
                 {/* Desktop 3-column cards */}
                 <div className="hidden lg:grid grid-cols-3 gap-5">
                     {programmes.map((prog, i) => (
-                        <FadeUp key={prog.name} delay={0.07 * i}>
+                        <FadeUp key={prog.name} delay={0.07 * i} className="h-full">
                             <motion.div
                                 className={`relative rounded-3xl bg-white border-2 ${prog.featured ? prog.borderColor : "border-transparent"} overflow-hidden shadow-sm h-full`}
                                 whileHover={{ y: -6, boxShadow: "0 20px 60px rgba(0,0,0,0.10)" }}
                                 transition={{ type: "spring", stiffness: 250, damping: 22 }}
                             >
                                 {prog.featured && (
-                                    <div className={`absolute top-0 left-0 right-0 ${prog.accentBg} text-white text-xs font-black uppercase tracking-[0.2em] text-center py-1.5`}>
+                                    <div className={`absolute top-0 left-0 right-0 ${prog.accentBg} text-white text-sm font-black uppercase tracking-[0.2em] text-center py-2`}>
                                         Most Popular
                                     </div>
                                 )}
@@ -383,9 +383,9 @@ function ProgrammeDetailsSection() {
                                     <div className={`w-12 h-12 rounded-xl ${prog.accentBg} flex items-center justify-center mb-5`}>
                                         <prog.icon className="w-6 h-6 text-white" />
                                     </div>
-                                    <h3 className="text-xl font-extrabold text-[#0F0F23] leading-snug mb-1">{prog.name}</h3>
+                                    <h3 className="text-2xl font-extrabold text-[#0F0F23] leading-snug mb-1">{prog.name}</h3>
                                     {prog.highlight ? (
-                                        <p className={`text-xs font-semibold ${prog.accentColor} mb-6`}>{prog.highlight}</p>
+                                        <p className={`text-base font-semibold ${prog.accentColor} mb-6`}>{prog.highlight}</p>
                                     ) : (
                                         <div className="mb-6" />
                                     )}
@@ -394,11 +394,11 @@ function ProgrammeDetailsSection() {
                                     <div className="space-y-3 mb-7 border-t border-gray-100 pt-5">
                                         {rows.map(({ label, key, icon: Icon }) => (
                                             <div key={key} className="flex items-center justify-between gap-4">
-                                                <div className="flex items-center gap-2 text-[#0F0F23]/40">
-                                                    <Icon className="w-3.5 h-3.5 shrink-0" />
-                                                    <span className="text-xs font-medium">{label}</span>
+                                                <div className="flex items-center gap-2 text-[#0F0F23]/65">
+                                                    <Icon className="w-4 h-4 shrink-0" />
+                                                    <span className="text-base font-medium">{label}</span>
                                                 </div>
-                                                <span className="text-xs font-bold text-[#0F0F23] text-right">{prog[key]}</span>
+                                                <span className="text-base font-bold text-[#0F0F23] text-right">{prog[key]}</span>
                                             </div>
                                         ))}
                                     </div>
@@ -406,12 +406,12 @@ function ProgrammeDetailsSection() {
                                     {/* Skills */}
                                     {prog.skills && (
                                         <div>
-                                            <p className="text-xs font-bold uppercase tracking-widest text-[#0F0F23]/30 mb-3">Skills Covered</p>
+                                            <p className="text-sm font-bold uppercase tracking-widest text-[#0F0F23]/60 mb-3">Skills Covered</p>
                                             <div className="flex flex-wrap gap-2">
                                                 {prog.skills.map((s) => (
                                                     <span
                                                         key={s}
-                                                        className="rounded-full bg-[#F5F5F0] border border-gray-200 px-3 py-1 text-xs font-semibold text-[#0F0F23]/65"
+                                                        className="rounded-full bg-[#F5F5F0] border border-gray-200 px-3.5 py-1.5 text-sm font-semibold text-[#0F0F23]/80"
                                                     >
                                                         {s}
                                                     </span>
@@ -443,25 +443,25 @@ function ProgrammeDetailsSection() {
                                         <div className={`w-12 h-12 rounded-xl ${prog.accentBg} flex items-center justify-center mb-5`}>
                                             <prog.icon className="w-6 h-6 text-white" />
                                         </div>
-                                        <h3 className="text-xl font-extrabold text-[#0F0F23] mb-1">{prog.name}</h3>
+                                        <h3 className="text-2xl font-extrabold text-[#0F0F23] mb-1">{prog.name}</h3>
                                         {prog.highlight && (
-                                            <p className={`text-xs font-semibold ${prog.accentColor} mb-6`}>{prog.highlight}</p>
+                                            <p className={`text-base font-semibold ${prog.accentColor} mb-6`}>{prog.highlight}</p>
                                         )}
                                         <div className="space-y-3 border-t border-gray-100 pt-5 mb-6">
                                             {rows.map(({ label, key, icon: Icon }) => (
                                                 <div key={key} className="flex items-center justify-between">
-                                                    <div className="flex items-center gap-2 text-[#0F0F23]/40">
-                                                        <Icon className="w-3.5 h-3.5" />
-                                                        <span className="text-xs font-medium">{label}</span>
+                                                    <div className="flex items-center gap-2 text-[#0F0F23]/65">
+                                                        <Icon className="w-4 h-4" />
+                                                        <span className="text-base font-medium">{label}</span>
                                                     </div>
-                                                    <span className="text-xs font-bold text-[#0F0F23]">{prog[key]}</span>
+                                                    <span className="text-base font-bold text-[#0F0F23] text-right">{prog[key]}</span>
                                                 </div>
                                             ))}
                                         </div>
                                         {prog.skills && (
                                             <div className="flex flex-wrap gap-2">
                                                 {prog.skills.map((s) => (
-                                                    <span key={s} className="rounded-full bg-[#F5F5F0] px-3 py-1 text-xs font-semibold text-[#0F0F23]/65">
+                                                    <span key={s} className="rounded-full bg-[#F5F5F0] px-3.5 py-1.5 text-sm font-semibold text-[#0F0F23]/80">
                                                         {s}
                                                     </span>
                                                 ))}
@@ -477,13 +477,13 @@ function ProgrammeDetailsSection() {
                 {/* Full comparison table */}
                 <FadeUp delay={0.15} className="mt-12">
                   <div className="overflow-x-auto">
-                    <div className="min-w-[640px] rounded-2xl overflow-hidden border border-gray-200 bg-white shadow-sm">
+                    <div className="min-w-[720px] rounded-2xl overflow-hidden border border-gray-200 bg-white shadow-sm">
                         <div className="grid grid-cols-4 bg-[#0F0F23]">
-                            <div className="p-4 text-xs font-bold uppercase tracking-widest text-white/30">Programme Framework</div>
+                            <div className="p-5 text-sm md:text-base font-bold uppercase tracking-widest text-white/75">Programme Framework</div>
                             {programmes.map((p) => (
-                                <div key={p.name} className="p-4 flex items-center gap-2">
-                                    <div className={`w-2 h-2 rounded-full ${p.accentBg}`} />
-                                    <span className="text-xs font-bold text-white leading-tight">{p.name}</span>
+                                <div key={p.name} className="p-5 flex items-center gap-3">
+                                    <div className={`w-2.5 h-2.5 shrink-0 rounded-full ${p.accentBg}`} />
+                                    <span className="text-base md:text-lg font-bold text-white leading-tight">{p.name}</span>
                                 </div>
                             ))}
                         </div>
@@ -492,13 +492,13 @@ function ProgrammeDetailsSection() {
                                 key={key}
                                 className={`grid grid-cols-4 ${ri % 2 === 0 ? "bg-white" : "bg-[#F5F5F0]"}`}
                             >
-                                <div className="p-4 flex items-center gap-2 text-[#0F0F23]/50">
-                                    <Icon className="w-3.5 h-3.5 shrink-0" />
-                                    <span className="text-xs font-medium">{label}</span>
+                                <div className="p-5 flex items-center gap-2 text-[#0F0F23]/70">
+                                    <Icon className="w-4 h-4 shrink-0" />
+                                    <span className="text-base font-medium">{label}</span>
                                 </div>
                                 {programmes.map((p) => (
-                                    <div key={p.name} className="p-4 flex items-center">
-                                        <span className="text-xs font-bold text-[#0F0F23]">{p[key]}</span>
+                                    <div key={p.name} className="p-5 flex items-center">
+                                        <span className="text-base md:text-lg font-bold text-[#0F0F23]">{p[key]}</span>
                                     </div>
                                 ))}
                             </div>
@@ -546,18 +546,18 @@ function OutreachImpactSection() {
                 {/* Bento-style grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-12">
                     {impactStats.map((stat, i) => (
-                        <FadeUp key={stat.label} delay={0.07 * i}>
+                        <FadeUp key={stat.label} delay={0.07 * i} className="h-full">
                             <motion.div
-                                className="group rounded-2xl border border-white/8 bg-white/5 p-7 relative overflow-hidden cursor-default"
+                                className="group h-full rounded-2xl border border-white/8 bg-white/5 p-7 relative overflow-hidden cursor-default"
                                 whileHover={{ borderColor: "rgba(255,255,255,0.2)", y: -4 }}
                                 transition={{ type: "spring", stiffness: 280, damping: 22 }}
                             >
                                 {/* Subtle glow on hover */}
                                 <div className="absolute inset-0 bg-gradient-to-br from-brand-yellow/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
                                 <div className="relative">
-                                    <div className="text-4xl font-black text-brand-yellow mb-2">{stat.num}</div>
-                                    <div className="text-sm font-bold text-white mb-1">{stat.label}</div>
-                                    <div className="text-xs text-white/40 leading-relaxed">{stat.sub}</div>
+                                    <div className="text-4xl xl:text-5xl font-black text-brand-yellow mb-3">{stat.num}</div>
+                                    <div className="text-lg font-bold text-white mb-1">{stat.label}</div>
+                                    <div className="text-base text-white/70 leading-relaxed">{stat.sub}</div>
                                 </div>
                             </motion.div>
                         </FadeUp>
@@ -575,13 +575,13 @@ function OutreachImpactSection() {
                         <div className="absolute inset-0 bg-gradient-to-r from-[#0F0F23]/90 via-[#0F0F23]/50 to-transparent" />
                         <div className="absolute inset-0 flex items-center px-10 md:px-16">
                             <div className="max-w-lg">
-                                <p className="text-white/50 text-xs font-bold uppercase tracking-widest mb-3">Our Reach</p>
+                                <p className="text-white/80 text-sm font-bold uppercase tracking-widest mb-3">Our Reach</p>
                                 <p className="text-white font-extrabold text-3xl md:text-4xl leading-tight">
                                     Equipping youth with{" "}
                                     <span className="text-brand-yellow">21st century skills</span>{" "}
                                     for the digital economy
                                 </p>
-                                <p className="mt-4 text-white/55 text-sm leading-relaxed max-w-sm">
+                                <p className="mt-4 text-white/80 text-base leading-relaxed max-w-md">
                                     Through our digital programmes, underserved youth gain access to technical skills
                                     that open doors to white collar careers.
                                 </p>
@@ -614,7 +614,7 @@ function ContactSection() {
                     <h2 className="text-4xl md:text-5xl font-extrabold text-[#0F0F23] leading-tight">
                         Let's Connect About <span className="text-brand-red">Digital Programmes</span>
                     </h2>
-                    <p className="mt-4 text-[#0F0F23]/50 max-w-md mx-auto leading-relaxed">
+                    <p className="mt-4 text-[#0F0F23]/75 max-w-md mx-auto leading-relaxed">
                         Interested in the Digital Programmes? Reach out to our Director, Programme Design & Development directly.
                     </p>
                 </FadeUp>
@@ -636,11 +636,11 @@ function ContactSection() {
 
                         {/* Details */}
                         <div className="flex-1 relative">
-                            <p className="text-xs font-bold uppercase tracking-widest text-white/30 mb-1">Director</p>
+                            <p className="text-sm font-bold uppercase tracking-widest text-white/65 mb-1">Director</p>
                             <p className="text-xl font-extrabold text-white group-hover:text-brand-yellow transition-colors">
                                 Programme Design &amp; Development
                             </p>
-                            <div className="mt-4 inline-flex items-center gap-2 text-brand-yellow font-bold text-sm">
+                            <div className="mt-4 inline-flex items-center gap-2 text-brand-yellow font-bold text-base">
                                 <Mail className="w-4 h-4" />
                                 pdlivelihood@magicbusindia.org
                             </div>
