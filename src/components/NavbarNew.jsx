@@ -246,7 +246,7 @@ export default function NavbarWireframe() {
       className="fixed top-0 inset-x-0 z-50 w-full bg-white border-b border-gray-200 shadow-[0_2px_12px_rgba(15,23,42,0.08)] overflow-visible"
     >
         <div
-          className="relative mx-auto flex max-w-[1600px] items-center justify-between px-4 py-3 md:px-8 md:py-4"
+          className="relative mx-auto flex max-w-[104rem] items-center justify-between px-4 py-3 md:px-8 md:py-4"
         >
 
           {/* Left: Logo */}

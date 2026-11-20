@@ -57,12 +57,12 @@ const PIECES = [
     { title: "Skill and transit to self-employment", age: "18-45 years of age", pct: "10-15%", bg: C.yellow, fg: C.ink },
 ];
 
-/* ---------- the small coloured label under/over the puzzle ---------- */
+/* ---------- the small coloured label next to the puzzle ---------- */
 function Tag({ x, y, w, text, bg, fg = "#fff" }) {
     return (
         <g>
-            <rect x={x} y={y} width={w} height={34} rx={4} fill={bg} />
-            <text x={x + w / 2} y={y + 23} textAnchor="middle" fontSize="17" fontWeight="700" fill={fg}>
+            <rect x={x} y={y} width={w} height={36} rx={5} fill={bg} />
+            <text x={x + w / 2} y={y + 25} textAnchor="middle" fontSize="18" fontWeight="700" fill={fg}>
                 {text}
             </text>
         </g>
@@ -70,10 +70,10 @@ function Tag({ x, y, w, text, bg, fg = "#fff" }) {
 }
 
 /* ---------- donut sector path ---------- */
-const CX = 270;
-const CY = 372;
-const R = 250;
-const HOLE = 70;
+const CX = 285;
+const CY = 410;
+const R = 270;
+const HOLE = 66;
 const rad = (d) => (d * Math.PI) / 180;
 const pt = (r, d) => [CX + r * Math.cos(rad(d)), CY + r * Math.sin(rad(d))];
 function sector(a0, a1) {
@@ -86,28 +86,36 @@ function sector(a0, a1) {
     return `M ${x0} ${y0} A ${R} ${R} 0 ${large} 1 ${x1} ${y1} L ${x2} ${y2} A ${HOLE} ${HOLE} 0 ${large} 0 ${x3} ${y3} Z`;
 }
 
+/* Layout rules for this drawing (so nothing overlaps):
+   - the three pieces are big, the text sits well inside each piece, never touching the hub or the edge
+   - the percentage badges sit on the seams between the pieces, away from all text
+   - every callout (label + icon) sits outside the circle, with clear space around it */
 function ProgramModelSvg() {
-    const badge = (d, text, bg, fg = "#fff") => {
-        const [x, y] = pt(205, d);
+    const badge = (d, rr, text, bg, fg = "#fff") => {
+        const [x, y] = pt(rr, d);
         return (
             <g>
-                <rect x={x - 46} y={y - 18} width={92} height={36} rx={8} fill={bg} stroke="#fff" strokeWidth={2.5} />
-                <text x={x} y={y + 7} textAnchor="middle" fontSize="19" fontWeight="800" fill={fg}>
+                <rect x={x - 50} y={y - 20} width={100} height={40} rx={9} fill={bg} stroke="#fff" strokeWidth={3} />
+                <text x={x} y={y + 7} textAnchor="middle" fontSize="21" fontWeight="800" fill={fg}>
                     {text}
                 </text>
             </g>
         );
     };
     return (
-        <svg viewBox="0 0 760 730" className="h-auto w-full" role="img" aria-label="Program model: three pathways, skill and transit to sustainable employment, nano enterprises and self-employment, supported by mentoring and 21st century life skills">
+        <svg viewBox="0 0 820 800" className="h-auto w-full" role="img" aria-label="Program model: three pathways, skill and transit to sustainable employment, nano enterprises and self-employment, supported by mentoring and 21st century life skills">
             {/* Mentoring circle (behind the puzzle) */}
-            <circle cx="605" cy="372" r="150" fill={C.pink} />
-            <g textAnchor="middle" fill={C.ink}>
-                <text x="648" y="296" fontSize="20" fontWeight="700">Mentoring and</text>
-                <text x="648" y="321" fontSize="20" fontWeight="700">Handholding</text>
-                <Handshake x={620} y={333} width={56} height={56} strokeWidth={1.6} />
-                <Brain x={620} y={405} width={52} height={52} strokeWidth={1.6} />
-                <text x="648" y="480" fontSize="20" fontWeight="700">21<tspan fontSize="12" dy="-8">st</tspan><tspan dy="8"> century life skills</tspan></text>
+            <circle cx="660" cy="410" r="152" fill={C.pink} />
+            <g textAnchor="middle" fill={C.ink} fontSize="21" fontWeight="700">
+                <text x="700" y="320">Mentoring and</text>
+                <text x="700" y="346">Handholding</text>
+                <Handshake x={672} y={358} width={56} height={56} strokeWidth={1.6} />
+                <Brain x={674} y={420} width={52} height={52} strokeWidth={1.6} />
+                <text x="700" y="496">
+                    21<tspan fontSize="13" dy="-8">st</tspan>
+                    <tspan dy="8"> century</tspan>
+                </text>
+                <text x="700" y="521">life skills</text>
             </g>
 
             {/* Puzzle pieces */}
@@ -115,61 +123,58 @@ function ProgramModelSvg() {
             <path d={sector(318, 78)} fill={C.red} stroke="#fff" strokeWidth="5" strokeLinejoin="round" />
             <path d={sector(78, 200)} fill={C.yellow} stroke="#fff" strokeWidth="5" strokeLinejoin="round" />
 
-            {/* Piece text */}
+            {/* Piece text: grey (top), red (right), yellow (bottom-left) */}
             <g textAnchor="middle" fill="#fff" fontWeight="700">
-                <text x="238" y="222" fontSize="22">Skill and transit to</text>
-                <text x="238" y="249" fontSize="22">sustainable</text>
-                <text x="238" y="276" fontSize="22">Employment</text>
-                <text x="238" y="303" fontSize="16" fontWeight="500" fill="#E5E7E6">(18-25 years of age)</text>
+                <text x="245" y="214" fontSize="22">Skill and transit to</text>
+                <text x="245" y="241" fontSize="22">sustainable</text>
+                <text x="245" y="268" fontSize="22">Employment</text>
+                <text x="245" y="296" fontSize="16" fontWeight="500" fill="#E5E7E6">(18-25 years of age)</text>
 
-                <text x="431" y="345" fontSize="20">Skill and transit</text>
-                <text x="431" y="371" fontSize="20">to setting nano</text>
-                <text x="431" y="397" fontSize="20">enterprises</text>
-                <text x="431" y="422" fontSize="16" fontWeight="500" fill="#FFE4E8">(18-45 years of age)</text>
+                <text x="452" y="372" fontSize="21">Skill and transit</text>
+                <text x="452" y="398" fontSize="21">to setting nano</text>
+                <text x="452" y="424" fontSize="21">enterprises</text>
+                <text x="452" y="452" fontSize="16" fontWeight="500" fill="#FFE4E8">(18-45 years of age)</text>
 
                 <g fill={C.ink}>
-                    <text x="150" y="478" fontSize="22">Skill and transit to</text>
-                    <text x="150" y="505" fontSize="22">self-employment</text>
-                    <text x="150" y="530" fontSize="16" fontWeight="500">(18-45 years of age)</text>
+                    <text x="168" y="532" fontSize="22">Skill and transit to</text>
+                    <text x="168" y="559" fontSize="22">self-employment</text>
+                    <text x="168" y="587" fontSize="16" fontWeight="500">(18-45 years of age)</text>
                 </g>
             </g>
 
-            {/* Percentages */}
-            {badge(318, "30-35%", C.grey)}
-            {badge(78, "50-60%", C.red)}
-            {badge(200, "10-15%", C.yellow, C.ink)}
+            {/* Percentages (on the seams) */}
+            {badge(318, 250, "30-35%", C.grey)}
+            {badge(78, 250, "50-60%", C.red)}
+            {badge(200, 215, "10-15%", C.yellow, C.ink)}
 
             {/* Magic Bus logo hub */}
             <circle cx={CX} cy={CY} r={HOLE - 2} fill="#fff" />
-            <image href="/logo-header.png" x={CX - 52} y={CY - 52} width="104" height="104" preserveAspectRatio="xMidYMid meet" />
+            <image href="/logo-header.png" x={CX - 54} y={CY - 54} width="108" height="108" preserveAspectRatio="xMidYMid meet" />
 
-            {/* Dashed links from the callouts */}
-            <g stroke={C.red} strokeWidth="2" strokeDasharray="5 5" fill="none">
-                <path d="M 92 150 L 150 215" />
-                <path d="M 470 150 L 395 250" />
-                <path d="M 90 700 L 120 560" />
-            </g>
-
-            {/* Callouts */}
+            {/* Callouts, all outside the circle */}
             <g>
-                <rect x="14" y="6" width="226" height="52" rx="4" fill={C.grey} />
-                <text x="127" y="28" textAnchor="middle" fontSize="17" fontWeight="700" fill="#fff">21<tspan fontSize="11" dy="-6">st</tspan><tspan dy="6"> century</tspan></text>
-                <text x="127" y="49" textAnchor="middle" fontSize="17" fontWeight="700" fill="#fff">employability skills</text>
-                <Lightbulb x={68} y={72} width={48} height={48} strokeWidth={1.6} color={C.ink} />
+                <rect x="10" y="8" width="236" height="58" rx="5" fill={C.grey} />
+                <text x="128" y="31" textAnchor="middle" fontSize="18" fontWeight="700" fill="#fff">
+                    21<tspan fontSize="11" dy="-7">st</tspan>
+                    <tspan dy="7"> century</tspan>
+                </text>
+                <text x="128" y="54" textAnchor="middle" fontSize="18" fontWeight="700" fill="#fff">employability skills</text>
+                <Lightbulb x={104} y={76} width={48} height={48} strokeWidth={1.6} color={C.ink} />
 
-                <Tag x={285} y={8} w={150} text="Job Placement" bg={C.grey} />
-                <Briefcase x={343} y={50} width={48} height={48} strokeWidth={1.6} color={C.ink} />
+                <Tag x={310} y={8} w={170} text="Job Placement" bg={C.grey} />
+                <Briefcase x={371} y={52} width={48} height={48} strokeWidth={1.6} color={C.ink} />
 
-                <Tag x={455} y={98} w={140} text="EDP Training" bg={C.red} />
-                <Presentation x={502} y={140} width={46} height={46} strokeWidth={1.6} color={C.ink} />
+                <Tag x={560} y={100} w={160} text="EDP Training" bg={C.red} />
+                <Presentation x={617} y={144} width={46} height={46} strokeWidth={1.6} color={C.ink} />
 
-                <Store x={420} y={560} width={50} height={50} strokeWidth={1.6} color={C.ink} />
-                <Tag x={390} y={616} w={170} text="Enterprise Setup" bg={C.red} />
+                <Store x={500} y={702} width={50} height={50} strokeWidth={1.6} color={C.ink} />
+                <Tag x={440} y={758} w={190} text="Enterprise Setup" bg={C.red} />
 
-                <Laptop x={72} y={640} width={46} height={46} strokeWidth={1.6} color={C.ink} />
-                <Tag x={14} y={690} w={170} text="Self Employment" bg={C.yellow} fg="#fff" />
-                <Presentation x={252} y={620} width={46} height={46} strokeWidth={1.6} color={C.ink} />
-                <Tag x={205} y={672} w={140} text="EDP Training" bg={C.yellow} fg="#fff" />
+                <Laptop x={80} y={702} width={46} height={46} strokeWidth={1.6} color={C.ink} />
+                <Tag x={14} y={758} w={190} text="Self Employment" bg={C.yellow} fg="#fff" />
+
+                <Presentation x={290} y={702} width={46} height={46} strokeWidth={1.6} color={C.ink} />
+                <Tag x={232} y={758} w={160} text="EDP Training" bg={C.yellow} fg="#fff" />
             </g>
         </svg>
     );
@@ -195,10 +200,10 @@ export default function LrcFramework() {
     return (
         <section
             aria-label="Components of the Livelihood Resource Centre model"
-            className="w-full rounded-3xl border border-gray-200 bg-white p-5 shadow-sm md:p-8"
+            className="w-full rounded-3xl border border-gray-200 bg-white p-5 shadow-sm md:p-6"
         >
             {/* ================= WIDE SCREENS: full infographic ================= */}
-            <div className="hidden xl:grid grid-cols-[3.25rem_minmax(0,7fr)_minmax(0,2.3fr)_minmax(0,3.7fr)_4.5rem] gap-x-3 gap-y-6">
+            <div className="hidden xl:grid grid-cols-[3rem_minmax(0,7.8fr)_minmax(0,2.3fr)_minmax(0,3.6fr)_4rem] gap-x-2 gap-y-5">
                 <div />
                 <Banner bg={C.banner} color={C.redDark} clip={clipStart}>
                     Program Model
@@ -244,11 +249,11 @@ export default function LrcFramework() {
                 </div>
 
                 {/* Outcomes */}
-                <div className="flex flex-col gap-3">
+                <div className="flex flex-col justify-center gap-4">
                     {OUTCOMES.map(({ label, Icon, bg }) => (
                         <article
                             key={label}
-                            className="flex min-h-[92px] flex-1 items-center gap-3 py-2 pl-9 pr-3 transition-transform duration-200 hover:translate-x-1"
+                            className="flex min-h-[110px] items-center gap-3 py-2 pl-9 pr-3 transition-transform duration-200 hover:translate-x-1"
                             style={{ background: bg, clipPath: clipCard }}
                         >
                             <Icon className="h-10 w-10 shrink-0 text-stone-800" strokeWidth={1.6} />
