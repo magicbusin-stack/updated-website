@@ -70,7 +70,7 @@ export default function OurOutreachSection() {
           <ChevronLeft className="h-5 w-5" />
         </button>
 
-        <div className="mx-auto w-full max-w-[104rem] px-11 py-4 sm:px-14 md:py-5 lg:px-20">
+        <div className="mx-auto w-full max-w-[1600px] px-11 py-4 sm:px-14 md:py-5 lg:px-20">
         <AnimatePresence mode="wait" initial={false}>
           <motion.div key={photo} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }}>
             {/* The programme's slides sit on top of each other; only the current one is visible. Same-programme
@@ -125,7 +125,7 @@ export default function OurOutreachSection() {
       </AnimatePresence>
 
       {/* Source line: centred under the photo, so the stats and the photo can be seen together */}
-      <p className="mx-auto w-full max-w-[104rem] px-4 py-4 text-center text-[14px] font-bold text-slate-700 sm:px-6 lg:px-20">{DATA_LINE}</p>
+      <p className="mx-auto w-full max-w-[1600px] px-4 py-4 text-center text-[14px] font-bold text-slate-700 sm:px-6 lg:px-20">{DATA_LINE}</p>
     </section>
   );
 }

@@ -77,7 +77,7 @@ function Hero() {
             <div className="pointer-events-none absolute -top-40 right-0 h-[520px] w-[520px] rounded-full bg-[#C41A1F]/5 blur-3xl" />
             <div className="pointer-events-none absolute bottom-0 left-[-10%] h-[380px] w-[380px] rounded-full bg-[#F9A825]/10 blur-2xl" />
 
-            <div className="relative z-10 mx-auto max-w-[104rem] px-5 py-12 sm:px-8 md:py-20">
+            <div className="relative z-10 mx-auto max-w-[1600px] px-5 py-12 sm:px-8 md:py-20">
                 <div className="grid items-center gap-10 lg:grid-cols-12 lg:gap-12">
                     <div className="flex flex-col items-start lg:col-span-7">
                         <motion.div
@@ -201,7 +201,7 @@ const STATS = [
 function Foundation() {
     return (
         <section className="bg-white py-12 md:py-24">
-            <div className="mx-auto max-w-[104rem] px-5 sm:px-8">
+            <div className="mx-auto max-w-[1600px] px-5 sm:px-8">
                 <FadeUp className="mb-10 max-w-3xl md:mb-14">
                     <Tag icon={Flag}>Our Foundation</Tag>
                     <h2 className="wa-display mt-4 text-3xl font-bold leading-tight sm:text-4xl lg:text-[40px] lg:leading-[48px]">
@@ -279,7 +279,7 @@ function Foundation() {
 function HistorySection() {
     return (
         <section className="bg-[#FBFBFA] py-12 md:py-24">
-            <div className="mx-auto max-w-[104rem] px-5 sm:px-8">
+            <div className="mx-auto max-w-[1600px] px-5 sm:px-8">
                 <FadeUp className="mb-10 flex flex-col justify-between gap-4 md:mb-14 md:flex-row md:items-end">
                     <div>
                         <Tag icon={History} tone="sun">Our History</Tag>
@@ -379,7 +379,7 @@ function HistorySection() {
 function Milestones() {
     return (
         <section className="bg-white py-12 md:py-24">
-            <div className="mx-auto max-w-[104rem] px-5 sm:px-8">
+            <div className="mx-auto max-w-[1600px] px-5 sm:px-8">
                 <FadeUp className="mx-auto mb-8 max-w-3xl text-center md:mb-12">
                     <Tag icon={Clapperboard} tone="forest">Our Milestones</Tag>
                     <h2 className="wa-display mt-4 text-3xl font-bold leading-tight sm:text-4xl lg:text-[40px] lg:leading-[48px]">Over Two Decades of Commitment</h2>
@@ -456,7 +456,7 @@ const WORK = [
 function WorkInAction() {
     return (
         <section className="bg-[#FBFBFA] py-12 md:py-24">
-            <div className="mx-auto max-w-[104rem] px-5 sm:px-8">
+            <div className="mx-auto max-w-[1600px] px-5 sm:px-8">
                 <FadeUp className="mb-10 flex flex-col justify-between gap-4 md:mb-14 md:flex-row md:items-end">
                     <div>
                         <Tag icon={Eye}>Programmes in focus</Tag>
@@ -497,7 +497,7 @@ function WorkInAction() {
 function AnnualReportCTA() {
     return (
         <section className="bg-white py-12 md:py-24">
-            <div className="mx-auto max-w-[104rem] px-5 sm:px-8">
+            <div className="mx-auto max-w-[1600px] px-5 sm:px-8">
                 <FadeUp>
                     <div className="relative overflow-hidden rounded-lg bg-gradient-to-br from-[#C41A1F] via-[#B01519] to-[#8F1015] p-8 text-center text-white sm:p-12 md:p-16">
                         <div className="pointer-events-none absolute -right-16 -top-16 h-64 w-64 rounded-full bg-white/5" />

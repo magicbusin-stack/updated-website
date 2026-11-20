@@ -39,8 +39,8 @@
   --text-xl--line-height: 1.9rem;
 
   /* Wider page containers (were 72rem / 80rem), same 1600px as the header, so wide screens do not leave empty side space */
-  --container-7xl: 104rem;
-  --container-6xl: 104rem;
+  --container-7xl: 100rem;
+  --container-6xl: 100rem;
 
   /* === Border radius === */
   --radius-card: 16px;
@@ -76,12 +76,6 @@ html {
   scroll-padding-top: calc(var(--header-h, 96px) + 8px);
 }
 
-/* Big monitors: everything is sized in rem, so growing the root size makes text, spacing AND the page width
-   grow together (about 7 percent side margin on any screen) instead of a small page floating in empty space.
-   Up to about 1780px wide nothing changes (16px). */
-html {
-  font-size: max(16px, 0.9vw);
-}
 
 /* default header height (the header measures itself and overrides this) so pages don't jump on load */
 :root {
