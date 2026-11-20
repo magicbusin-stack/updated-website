@@ -123,7 +123,7 @@ function SectionTag({ children }) {
 function VisionMission() {
     return (
         <section className="py-10 md:py-20 bg-[#F7F7F5]">
-            <div className="max-w-[1440px] mx-auto px-6 lg:px-12">
+            <div className="max-w-[1600px] mx-auto px-6 lg:px-12">
                 <FadeUp className="text-center mb-8 md:mb-14">
                     <SectionTag>Purpose</SectionTag>
                     <h2 className="text-4xl md:text-5xl font-extrabold text-[#1A1A1A]">
@@ -324,7 +324,7 @@ function ProblemStatement() {
     return (
         <section className="py-10 md:py-20 bg-white">
             <style>{ABOUT_STYLES}</style>
-            <div className="max-w-[1440px] mx-auto px-6 lg:px-12">
+            <div className="max-w-[1600px] mx-auto px-6 lg:px-12">
                 <FadeUp>
                     <SectionLabel icon={Target}>The Problem</SectionLabel>
                     <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#1A1A1A] leading-[1.15] max-w-4xl">
@@ -397,7 +397,7 @@ const Mark = ({ children }) => (
 function WhyLifeSkills() {
     return (
         <section className="py-10 md:py-20 bg-[#F7F7F5]">
-            <div className="max-w-[1440px] mx-auto px-6 lg:px-12">
+            <div className="max-w-[1600px] mx-auto px-6 lg:px-12">
                 <div className="grid lg:grid-cols-2 gap-8 lg:gap-20 items-center">
                     {/* Left: image */}
                     <FadeIn className="order-2 lg:order-1">
@@ -522,7 +522,7 @@ function WhoWeAre() {
             <div className="pointer-events-none absolute -bottom-32 -right-32 w-80 h-80 rounded-full bg-brand-yellow/15 blur-3xl" />
 
 
-            <div className="max-w-[1440px] mx-auto px-6 lg:px-12 relative z-10">
+            <div className="max-w-[1600px] mx-auto px-6 lg:px-12 relative z-10">
                 <SectionLabel>Who We Are</SectionLabel>
                 <div className="grid lg:grid-cols-2 gap-8 lg:gap-20 items-center">
                     <div>
@@ -612,7 +612,7 @@ const whatWeDo = [
 function WhatWeDo() {
     return (
         <section className="py-10 md:py-20 bg-white">
-            <div className="max-w-[1440px] mx-auto px-6 lg:px-12">
+            <div className="max-w-[1600px] mx-auto px-6 lg:px-12">
                 <FadeUp>
                     <SectionLabel icon={TrendingUp}>What We Do</SectionLabel>
                     <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#1A1A1A] leading-[1.1] max-w-4xl">
@@ -1229,7 +1229,7 @@ function WhyMagicBus() {
     const navigate = useNavigate();
     return (
         <section className="py-10 md:py-20 bg-white">
-            <div className="max-w-[1440px] mx-auto px-6 lg:px-12">
+            <div className="max-w-[1600px] mx-auto px-6 lg:px-12">
                 <div className="grid lg:grid-cols-2 gap-8 lg:gap-20 items-center">
                     <div>
                         <FadeUp>
@@ -1375,7 +1375,7 @@ function VisionMissionValues() {
                 <div className="absolute bottom-0 right-1/4 w-80 h-80 rounded-full bg-brand-yellow/10 blur-3xl" />
             </div>
 
-            <div className="max-w-[1440px] mx-auto px-6 lg:px-12 relative z-10">
+            <div className="max-w-[1600px] mx-auto px-6 lg:px-12 relative z-10">
                 {/* Values */}
                 <FadeUp className="text-center mb-8 md:mb-12">
                     <SectionLabel>Our Values</SectionLabel>

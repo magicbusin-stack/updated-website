@@ -253,7 +253,7 @@ function ApproachSection() {
 function LifeSkillsFrameworkSection() {
   return (
     <section className="bg-[#F6F8FB] py-16 sm:py-20">
-      <div className="mx-auto max-w-[1500px] px-4 lg:px-8">
+      <div className="mx-auto max-w-[1600px] px-4 lg:px-8">
         <FadeUp className="max-w-4xl">
           <SectionTag>Life Skills Framework</SectionTag>
           <h2 className="mt-5 text-3xl font-black text-[#0F172A] md:text-4xl">Our Life Skills Framework</h2>

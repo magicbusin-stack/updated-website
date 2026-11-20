@@ -38,8 +38,9 @@
   --text-xl: 1.375rem;
   --text-xl--line-height: 1.9rem;
 
-  /* Wider page container (was 80rem / 1280px) so wide screens don't leave empty side space */
-  --container-7xl: 90rem;
+  /* Wider page containers (were 72rem / 80rem), same 1600px as the header, so wide screens do not leave empty side space */
+  --container-7xl: 100rem;
+  --container-6xl: 100rem;
 
   /* === Border radius === */
   --radius-card: 16px;
