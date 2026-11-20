@@ -114,7 +114,7 @@ function HeroBanner({
                             className="mt-8 flex flex-wrap gap-4"
                         >
                             {ctas.map((cta, i) => {
-                                const ctaClass = `inline-flex w-48 h-12 items-center justify-center gap-2 rounded-full px-4 text-sm font-bold transition ${
+                                const ctaClass = `inline-flex min-w-56 min-h-14 items-center justify-center gap-2 rounded-full px-8 py-3 text-center text-base font-bold leading-tight transition ${
                                     cta.variant === "primary"
                                         ? "bg-brand-red text-white shadow-lg hover:bg-brand-red/90 hover:shadow-xl hover:shadow-brand-red/25"
                                         : "border-2 border-white/30 bg-white/5 text-white backdrop-blur-sm hover:bg-white/10 hover:border-white/50"

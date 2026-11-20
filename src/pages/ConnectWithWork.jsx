@@ -91,7 +91,7 @@ function AboutSection() {
                             About the Connect With Work{" "}
                             <span className="text-brand-red">Programme</span>
                         </h2>
-                        <p className="mt-5 text-base text-[#1A1A1A]/65 leading-relaxed">
+                        <p className="mt-5 text-base text-[#1A1A1A]/80 leading-relaxed">
                             Magic Bus India Foundation’s Connect With Work (CWW) programme equips graduated youth from
                             underserved households with essential 21st-century life and employability skills through a
                             free, college-based intervention using a job readiness bootcamp model. Delivered primarily in
@@ -101,18 +101,26 @@ function AboutSection() {
                             continuity and early career progression.
                         </p>
 
-                        {/* Quick stat strip */}
-                        <div className="mt-8 flex flex-wrap gap-8 border-t border-gray-100 pt-6">
+                        {/* Quick stats: same style as the Youth Skilling page */}
+                        <div className="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-x-6 gap-y-6 border-t border-gray-100 pt-6">
                             {[
-                                { num: "7–8", label: "Days Course" },
-                                { num: "Tier II/III", label: "Colleges" },
-                                { num: "Grey Collar", label: "Jobs Connected" },
+                                { num: "7–8", unit: "Days", label: "Job readiness course", bar: "bg-brand-red", accent: "text-brand-red" },
+                                { num: "Tier II/III", unit: "Colleges", label: "Where it is delivered", bar: "bg-brand-green", accent: "text-brand-green" },
+                                { num: "Grey Collar", unit: "Jobs", label: "Roles connected to", bar: "bg-brand-blue", accent: "text-brand-blue" },
                             ].map((s) => (
-                                <div key={s.label}>
-                                    <p className="text-2xl font-extrabold text-brand-red">{s.num}</p>
-                                    <p className="text-xs text-[#1A1A1A]/50 leading-tight mt-0.5 max-w-[90px]">
-                                        {s.label}
-                                    </p>
+                                <div key={s.unit} className="flex items-stretch gap-3">
+                                    <div className={`w-1.5 shrink-0 self-stretch rounded-full ${s.bar}`} />
+                                    <div>
+                                        <div
+                                            className={`font-black leading-none select-none ${s.accent} ${
+                                                s.num.length > 4 ? "text-3xl md:text-4xl" : "text-5xl md:text-6xl"
+                                            }`}
+                                        >
+                                            {s.num}
+                                        </div>
+                                        <div className="mt-2 text-base font-bold uppercase tracking-[0.14em] text-[#1A1A1A]/70">{s.unit}</div>
+                                        <div className="mt-1 text-lg leading-snug text-[#1A1A1A]/80">{s.label}</div>
+                                    </div>
                                 </div>
                             ))}
                         </div>
@@ -133,7 +141,7 @@ function AboutSection() {
                                         <GraduationCap className="w-4 h-4 text-brand-black" />
                                     </div>
                                     <div>
-                                        <p className="text-xs text-[#1A1A1A]/50 font-medium uppercase tracking-wider">
+                                        <p className="text-xs text-[#1A1A1A]/70 font-medium uppercase tracking-wider">
                                             Connecting Graduates to
                                         </p>
                                         <p className="text-sm font-bold text-[#1A1A1A]">
@@ -202,7 +210,7 @@ function FeaturesSection() {
                         <h2 className="text-4xl md:text-5xl font-extrabold text-[#1A1A1A] leading-tight">
                             Connect With Work Programme <span className="text-brand-red">Features</span>
                         </h2>
-                        <p className="text-[#1A1A1A]/50 max-w-xs text-sm leading-relaxed">
+                        <p className="text-[#1A1A1A]/75 max-w-sm text-base leading-relaxed">
                             Four defining pillars that make CWW accessible, effective, and impactful.
                         </p>
                     </div>
@@ -213,7 +221,7 @@ function FeaturesSection() {
                     {features.map((item, i) => (
                         <FadeUp key={item.title} delay={0.07 * i}>
                             <motion.div
-                                className="group grid grid-cols-1 md:grid-cols-[200px_1fr_1fr] gap-0 items-stretch cursor-default overflow-hidden"
+                                className="group grid grid-cols-1 md:grid-cols-[200px_minmax(0,0.9fr)_minmax(0,1.5fr)] gap-0 items-stretch cursor-default overflow-hidden"
                                 whileHover={{ backgroundColor: "rgba(255,255,255,0.8)" }}
                                 transition={{ duration: 0.2 }}
                             >
@@ -223,10 +231,10 @@ function FeaturesSection() {
                                         className={`shrink-0 w-1.5 group-hover:w-3 self-stretch ${item.barColor} transition-all duration-300 rounded-full`}
                                     />
                                     <div>
-                                        <div className={`text-5xl md:text-6xl font-black leading-none ${item.accentColor} select-none`}>
+                                        <div className={`text-6xl md:text-7xl font-black leading-none ${item.accentColor} select-none`}>
                                             {item.stat}
                                         </div>
-                                        <div className="text-xs font-bold uppercase tracking-[0.2em] text-[#1A1A1A]/35 mt-1">
+                                        <div className="text-base font-bold uppercase tracking-[0.14em] text-[#1A1A1A]/70 mt-1.5">
                                             {item.unit}
                                         </div>
                                     </div>
@@ -239,14 +247,16 @@ function FeaturesSection() {
                                     >
                                         <item.icon className="w-5 h-5 text-white" />
                                     </div>
-                                    <h3 className="font-extrabold text-[#1A1A1A] text-xl leading-snug">
+                                    <h3 className="font-extrabold text-[#1A1A1A] text-xl md:text-2xl leading-snug">
                                         {item.title}
                                     </h3>
                                 </div>
 
                                 {/* Description */}
                                 <div className="flex items-center py-8 md:px-8 md:border-l border-gray-200">
-                                    <p className="text-sm text-[#1A1A1A]/55 leading-relaxed">{item.desc}</p>
+                                    <p className="border-l-4 border-transparent pl-4 text-lg md:text-xl leading-8 text-[#1A1A1A]/85 transition-all duration-300 group-hover:translate-x-1 group-hover:text-[#1A1A1A] group-hover:border-brand-yellow">
+                                        {item.desc}
+                                    </p>
                                 </div>
                             </motion.div>
                         </FadeUp>
@@ -319,9 +329,6 @@ function StructureSection() {
                             Connect With Work Programme{" "}
                             <span className="text-brand-yellow">Structure</span>
                         </h2>
-                        <p className="text-white/45 max-w-sm text-sm leading-relaxed">
-                            A six-step journey from campus to career — designed for speed and impact.
-                        </p>
                     </div>
                 </FadeUp>
 
@@ -347,8 +354,8 @@ function StructureSection() {
                                             <ChevronRight className="w-4 h-4 text-white/20 group-hover:text-brand-yellow/50 transition-colors hidden lg:block" />
                                         )}
                                     </div>
-                                    <h3 className="font-extrabold text-white text-lg mb-2 leading-snug">{step.label}</h3>
-                                    <p className="text-sm text-white/50 leading-relaxed">{step.desc}</p>
+                                    <h3 className="font-extrabold text-white text-xl mb-2 leading-snug">{step.label}</h3>
+                                    <p className="text-sm text-white/75 leading-relaxed">{step.desc}</p>
                                 </div>
                             </motion.div>
                         </FadeUp>
@@ -386,7 +393,7 @@ function CoreComponentsSection() {
                         Components of{" "}
                         <span className="text-brand-red">CWW Programme: Life and Employability Skills for Graduates</span>
                     </h2>
-                    <p className="mt-4 text-base text-[#1A1A1A]/60 leading-relaxed max-w-2xl">
+                    <p className="mt-4 text-base text-[#1A1A1A]/75 leading-relaxed max-w-2xl">
                         The CWW programme is built around interconnected components that together
                         form a holistic pathway from education to sustainable employment.
                     </p>
@@ -449,9 +456,6 @@ function SectorsSection() {
                         <h2 className="text-4xl md:text-5xl font-extrabold text-[#1A1A1A] leading-tight">
                             Sectors and Roles: <span className="text-brand-red">Entry-Level Jobs for Graduates</span>
                         </h2>
-                        <p className="text-[#1A1A1A]/50 max-w-xs text-sm leading-relaxed">
-                            Trained graduates are connected across five key industries with entry-level roles.
-                        </p>
                     </div>
                 </FadeUp>
 
@@ -461,7 +465,7 @@ function SectorsSection() {
                         {["Sector", "Roles Available"].map((col) => (
                             <p
                                 key={col}
-                                className="text-xs font-bold uppercase tracking-[0.18em] text-[#1A1A1A]/35"
+                                className="text-xs font-bold uppercase tracking-[0.18em] text-[#1A1A1A]/60"
                             >
                                 {col}
                             </p>
@@ -491,10 +495,10 @@ function SectorsSection() {
                                 {/* Col 2: roles */}
                                 <div className="flex items-center py-6 md:px-6 md:border-l border-gray-200">
                                     <div>
-                                        <p className="text-xs font-bold uppercase tracking-widest text-[#1A1A1A]/35 mb-1 md:hidden">
+                                        <p className="text-xs font-bold uppercase tracking-widest text-[#1A1A1A]/60 mb-1 md:hidden">
                                             Roles
                                         </p>
-                                        <p className="text-base font-semibold text-[#1A1A1A]/75 leading-relaxed">
+                                        <p className="text-lg md:text-xl font-medium text-[#1A1A1A]/85 leading-relaxed">
                                             {item.roles}
                                         </p>
                                     </div>
@@ -594,9 +598,6 @@ function EligibilitySection() {
                         <h2 className="text-4xl md:text-5xl font-extrabold text-[#1A1A1A] leading-tight">
                             Eligibility Criteria for <span className="text-brand-red">Connect With Work</span>
                         </h2>
-                        <p className="text-[#1A1A1A]/50 max-w-xs text-sm leading-relaxed">
-                            Designed for graduate youth from underserved households seeking their first formal employment.
-                        </p>
                     </div>
                 </FadeUp>
 
@@ -620,7 +621,7 @@ function EligibilitySection() {
                                 </div>
 
                                 {/* Label */}
-                                <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#1A1A1A]/40 mb-2">
+                                <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#1A1A1A]/65 mb-2">
                                     {item.label}
                                 </p>
 
@@ -631,7 +632,7 @@ function EligibilitySection() {
 
                                 {/* Note */}
                                 {item.note && (
-                                    <p className="text-sm text-[#1A1A1A]/55 leading-relaxed">
+                                    <p className="text-base text-[#1A1A1A]/75 leading-relaxed">
                                         {item.note}
                                     </p>
                                 )}
@@ -639,7 +640,7 @@ function EligibilitySection() {
                                 {/* Check badge */}
                                 <div className="mt-6 inline-flex items-center gap-1.5">
                                     <CheckCircle2 className={`w-4 h-4 ${item.accentText} opacity-60`} />
-                                    <span className="text-xs font-semibold text-[#1A1A1A]/40 uppercase tracking-wider">Required</span>
+                                    <span className="text-xs font-semibold text-[#1A1A1A]/60 uppercase tracking-wider">Required</span>
                                 </div>
                             </motion.div>
                         </FadeUp>
@@ -660,7 +661,7 @@ function EligibilitySection() {
                                     Empowering graduates from{" "}
                                     <span className="text-brand-yellow">underserved households</span>
                                 </p>
-                                <p className="mt-2 text-white/60 text-sm leading-relaxed">
+                                <p className="mt-2 text-white/80 text-sm leading-relaxed">
                                     Tier II and III college graduates building sustainable livelihoods through CWW.
                                 </p>
                             </div>
@@ -688,7 +689,7 @@ function ContactSection() {
                         Get in Touch with Us About{" "}
                         <span className="text-brand-yellow">Connect With Work</span>
                     </h2>
-                    <p className="mt-4 text-white/50 max-w-md mx-auto leading-relaxed">
+                    <p className="mt-4 text-white/75 max-w-md mx-auto leading-relaxed">
                         Interested in partnering, enrolling graduates, or learning more about the CWW programme? Reach out directly.
                     </p>
                 </FadeUp>
@@ -703,7 +704,7 @@ function ContactSection() {
                             <Mail className="w-6 h-6 text-brand-black" />
                         </div>
                         <div className="flex-1">
-                            <p className="text-xs font-bold uppercase tracking-widest text-white/40 mb-1">
+                            <p className="text-xs font-bold uppercase tracking-widest text-white/65 mb-1">
                                 Programme Point of Contact
                             </p>
                             <p className="font-extrabold text-xl text-white group-hover:text-brand-yellow transition-colors">
@@ -741,14 +742,14 @@ function ImpactSection() {
                     <h2 className="text-4xl md:text-5xl font-extrabold text-[#1A1A1A] leading-tight">
                         Outreach and <span className="text-brand-red">Impact</span>
                     </h2>
-                    <p className="mt-3 text-sm text-[#1A1A1A]/50">Cumulative enrolment as on August 2026</p>
+                    <p className="mt-3 text-sm text-[#1A1A1A]/70">Cumulative enrolment as on August 2026</p>
                 </FadeUp>
                 <div className="grid sm:grid-cols-3 gap-4">
                     {stats.map((st, i) => (
                         <FadeUp key={st.label} delay={0.06 * i}>
                             <div className="rounded-2xl border border-gray-200 bg-white p-7 h-full">
                                 <p className="text-4xl md:text-5xl font-black text-brand-red">{st.num}</p>
-                                <p className="mt-2 text-sm font-semibold text-[#1A1A1A]/65">{st.label}</p>
+                                <p className="mt-2 text-base font-semibold text-[#1A1A1A]/80">{st.label}</p>
                             </div>
                         </FadeUp>
                     ))}
