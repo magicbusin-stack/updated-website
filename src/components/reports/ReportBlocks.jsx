@@ -1,8 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
-import { CheckCircle, Clock, Download, Eye, FileText, HardDrive, Sparkles } from "lucide-react";
+import { Clock, Download, Eye, FileText } from "lucide-react";
 
-/* Shared building blocks for the report pages (Gender Journey, FLFPR ...), same look as the Impact Reports page. */
+/* Shared building blocks for ALL the downloadable-report pages (Annual Reports, Impact Reports, Gender Journey, FLFPR):
+   the same stats band and the same report card everywhere, so the pages never drift apart. */
 
 /* Counts up from 0 when it scrolls into view (a still number for visitors who prefer reduced motion). */
 export function CountUp({ prefix = "", to, decimals = 0, suffix = "" }) {
@@ -91,95 +92,139 @@ export function StatsBand({ eyebrow = "Our impact at a glance", stats }) {
   );
 }
 
-/* A highlight that starts with a figure ("95% skill improvement") shows the figure big and the words under it;
-   one without a figure gets a tick instead. */
-function HighlightTile({ text }) {
+/* ------------------------------ the report card ------------------------------ */
+
+/* A highlight that starts with a figure ("95% skill improvement") shows the figure in bold red. */
+function Bullet({ text }) {
   const m = text.match(/^(\S*\d\S*)\s+(.+)$/);
   return (
-    <li className="flex items-center gap-3 rounded-xl border border-brand-yellow/50 bg-white p-4 shadow-sm transition duration-200 hover:-translate-y-0.5 hover:shadow-md sm:flex-col sm:items-start sm:gap-1">
-      {m ? (
-        <>
-          <span className="text-3xl font-black leading-none text-brand-red sm:text-4xl">{m[1]}</span>
-          <span className="text-lg font-semibold leading-snug text-ink">{m[2]}</span>
-        </>
-      ) : (
-        <>
-          <CheckCircle className="h-8 w-8 shrink-0 text-brand-green sm:h-9 sm:w-9" />
-          <span className="text-lg font-semibold leading-snug text-ink">{text}</span>
-        </>
-      )}
+    <li className="flex items-start gap-2 text-sm leading-snug text-slate-600">
+      <span className="mt-[7px] h-1.5 w-1.5 shrink-0 rounded-full bg-brand-red" />
+      <span>
+        {m ? (
+          <>
+            <strong className="font-bold text-brand-red">{m[1]}</strong> {m[2]}
+          </>
+        ) : (
+          text
+        )}
+      </span>
     </li>
   );
 }
 
-/* The yellow "Key highlights" panel. columns: tailwind grid classes for the tiles. */
-export function HighlightsBox({ title = "Key highlights", items, columns = "sm:grid-cols-3" }) {
-  return (
-    <div className="relative mt-6 overflow-hidden rounded-2xl border border-brand-yellow/60 bg-gradient-to-br from-brand-yellow/25 via-brand-yellow/10 to-white p-5">
-      <div className="pointer-events-none absolute -right-8 -top-8 h-24 w-24 rounded-full bg-brand-yellow/40 blur-2xl" />
-      <h4 className="relative flex items-center gap-2 text-lg font-extrabold uppercase tracking-wide text-brand-red">
-        <Sparkles className="h-5 w-5" />
-        {title}
-      </h4>
-      <ul className={`relative mt-4 grid grid-cols-1 gap-3 ${columns}`}>
-        {items.map((h) => (
-          <HighlightTile key={h} text={h} />
-        ))}
-      </ul>
-    </div>
-  );
-}
+const MAX_HIGHLIGHTS = 4;
 
-/* Pages / size / format tiles */
-export function ReportFacts({ pages, fileSize }) {
+/* The one card used on every report page.
+   report: { title, year, description, fileSize, pages, downloadUrl, featured, publishDate }
+   kind: the small label under the year ("Annual Report", "Impact Assessment" ...)
+   tag: optional small red line under the title (a theme or subtitle)
+   highlights: list of short text lines
+   While downloadUrl is "#" the card shows "PDF coming soon" instead of buttons that do nothing.
+   To make it work: put the PDF in /public/reports/ and set downloadUrl to "/reports/<file>.pdf". */
+export function ReportCard({ report, kind, tag, highlights = [], index = 0 }) {
+  const ready = report.downloadUrl && report.downloadUrl !== "#";
+  const date = new Date(report.publishDate).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" });
+  const shown = highlights.slice(0, MAX_HIGHLIGHTS);
+  const more = highlights.length - shown.length;
+
   return (
-    <div className="mt-6 grid grid-cols-3 gap-3">
-      {[
-        { v: pages, l: "Pages", Icon: FileText },
-        { v: fileSize, l: "Size", Icon: HardDrive },
-        { v: "PDF", l: "Format", Icon: Download },
-      ].map((f) => (
-        <div key={f.l} className="rounded-2xl border border-slate-200 p-3 text-center">
-          <f.Icon className="mx-auto h-5 w-5 text-brand-red" />
-          <div className="mt-1 text-lg font-extrabold text-ink">{f.v}</div>
-          <div className="text-base text-slate-500">{f.l}</div>
+    <motion.article
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ delay: index * 0.08 }}
+      className="group flex flex-col overflow-hidden rounded-xl border border-slate-200 bg-white transition-all duration-300 hover:border-brand-red/30 hover:shadow-lg"
+    >
+      <div className="flex flex-1 flex-col p-6">
+        {/* Header */}
+        <div className="flex items-center gap-3">
+          <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-brand-red/10 text-brand-red">
+            <FileText className="h-6 w-6" />
+          </span>
+          <div className="min-w-0">
+            <div className="mb-1 flex flex-wrap items-center gap-2">
+              <span className="rounded-md bg-slate-100 px-2 py-1 text-xs font-medium text-slate-700">{report.year}</span>
+              {report.featured && <span className="rounded-md bg-brand-red px-2 py-1 text-xs font-medium text-white">Latest</span>}
+            </div>
+            <p className="text-xs text-slate-500">{kind}</p>
+          </div>
         </div>
-      ))}
-    </div>
+
+        {/* Title, tag, description */}
+        <h3 className="mt-4 mb-2 line-clamp-2 text-lg font-bold text-ink transition-colors group-hover:text-brand-red">{report.title}</h3>
+        {tag && (
+          <div className="mb-3">
+            <span className="inline-block rounded-md bg-brand-red/10 px-3 py-1 text-xs font-medium text-brand-red">{tag}</span>
+          </div>
+        )}
+        <p className="mb-4 line-clamp-4 text-sm text-slate-600">{report.description}</p>
+
+        {/* Key highlights */}
+        {shown.length > 0 && (
+          <div className="mb-4">
+            <h4 className="mb-2 text-xs font-semibold uppercase tracking-wide text-slate-700">Key highlights</h4>
+            <ul className="space-y-1.5">
+              {shown.map((h) => (
+                <Bullet key={h} text={h} />
+              ))}
+            </ul>
+            {more > 0 && <p className="mt-1.5 text-xs font-medium text-brand-red">+{more} more in the report</p>}
+          </div>
+        )}
+
+        {/* Facts + footer stay at the bottom, so they line up across neighbouring cards */}
+        <div className="mt-auto">
+          <div className="mb-4 grid grid-cols-3 gap-3">
+            {[
+              { v: report.pages, l: "Pages" },
+              { v: report.fileSize, l: "Size" },
+              { v: "PDF", l: "Format" },
+            ].map((f) => (
+              <div key={f.l} className="rounded-lg bg-slate-50 p-2 text-center">
+                <div className="text-sm font-bold text-ink">{f.v}</div>
+                <div className="text-xs text-slate-500">{f.l}</div>
+              </div>
+            ))}
+          </div>
+
+          <div className="flex items-center justify-between gap-3 border-t border-slate-100 pt-4">
+            <span className="text-xs text-slate-500">{date}</span>
+            {ready ? (
+              <div className="flex gap-2">
+                <a
+                  href={report.downloadUrl}
+                  download
+                  className="flex items-center gap-2 rounded-lg bg-brand-red px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-[#c41b20] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-brand-red/30"
+                >
+                  <Download className="h-4 w-4" />
+                  Download
+                </a>
+                <a
+                  href={report.downloadUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`View ${report.title}`}
+                  className="rounded-lg border border-slate-200 p-2 text-slate-600 transition-colors hover:bg-slate-50"
+                >
+                  <Eye className="h-4 w-4" />
+                </a>
+              </div>
+            ) : (
+              <span className="inline-flex items-center gap-2 rounded-lg border border-dashed border-slate-300 bg-slate-50 px-3 py-2 text-sm font-medium text-slate-500">
+                <Clock className="h-4 w-4" />
+                PDF coming soon
+              </span>
+            )}
+          </div>
+        </div>
+      </div>
+    </motion.article>
   );
 }
 
-/* Download + View buttons. While a report has no real PDF link (downloadUrl "#") it shows "PDF coming soon". */
-export function ReportActions({ url }) {
-  const ready = url && url !== "#";
-  return (
-    <div className="mt-auto flex flex-col gap-3 pt-6 sm:flex-row">
-      {ready ? (
-        <>
-          <a
-            href={url}
-            download
-            className="inline-flex flex-1 items-center justify-center gap-2 rounded-full bg-brand-red px-7 py-4 text-lg font-bold text-white shadow-md transition duration-200 hover:-translate-y-0.5 hover:bg-[#c41b20] hover:shadow-xl focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-brand-red/30 active:translate-y-0 active:scale-[0.98]"
-          >
-            <Download className="h-5 w-5" />
-            Download report
-          </a>
-          <a
-            href={url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center justify-center gap-2 rounded-full border-2 border-slate-200 px-7 py-4 text-lg font-bold text-ink transition hover:border-brand-red hover:text-brand-red active:scale-[0.98]"
-          >
-            <Eye className="h-5 w-5" />
-            View
-          </a>
-        </>
-      ) : (
-        <span className="inline-flex flex-1 items-center justify-center gap-2 rounded-full border-2 border-dashed border-slate-300 bg-slate-50 px-7 py-4 text-lg font-bold text-slate-500">
-          <Clock className="h-5 w-5" />
-          PDF coming soon
-        </span>
-      )}
-    </div>
-  );
+/* The grid the cards sit in: 3 across on a wide screen, or 2 across when there are 2 or 4 cards (so no lonely card on its own row). */
+export function ReportGrid({ count, children }) {
+  const cols = count === 2 || count === 4 ? "lg:grid-cols-2" : "lg:grid-cols-3";
+  return <div className={`grid grid-cols-1 gap-8 md:grid-cols-2 ${cols}`}>{children}</div>;
 }

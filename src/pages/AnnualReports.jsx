@@ -5,18 +5,8 @@ import Layout from "../components/Layout";
 import FAQSection from "../components/Home/FAQSectiom";
 import { annualReportsFAQ } from "../components/Home/faqItems";
 import FaqSchema from "../components/seo/FaqSchema";
-import {
-  FileText,
-  Download,
-  Calendar,
-  Eye,
-  BarChart3,
-  TrendingUp,
-  Users,
-  Target,
-  Award,
-  CheckCircle,
-} from "lucide-react";
+import { StatsBand, ReportCard, ReportGrid } from "../components/reports/ReportBlocks";
+import { FileText, Calendar, Users, CheckCircle } from "lucide-react";
 
 /**
  * Annual Reports Page
@@ -157,152 +147,16 @@ function AnnualReportsHero() {
   );
 }
 
+/* Same stats band as the Impact Reports and Gender Journey pages (numbers count up when they scroll into view) */
+const ANNUAL_STATS = [
+  { prefix: "", to: 15, decimals: 0, suffix: "+", label: "Years Documented", Icon: Calendar, color: "yellow" },
+  { prefix: "", to: 16, decimals: 0, suffix: "", label: "Annual Reports", Icon: FileText, color: "green" },
+  { prefix: "", to: 2.5, decimals: 1, suffix: "M+", label: "Lives Documented", Icon: Users, color: "red" },
+  { prefix: "", to: 100, decimals: 0, suffix: "%", label: "Transparency", Icon: CheckCircle, color: "blue" },
+];
+
 function AnnualReportsStats() {
-  const stats = [
-    { number: "15+", label: "Years Documented", icon: <Calendar className="w-8 h-8" /> },
-    { number: "16", label: "Annual Reports", icon: <FileText className="w-8 h-8" /> },
-    { number: "2.5M+", label: "Lives Documented", icon: <Users className="w-8 h-8" /> },
-    { number: "100%", label: "Transparency", icon: <CheckCircle className="w-8 h-8" /> },
-  ];
-
-  return (
-    <section className="py-16 bg-white">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-          {stats.map((stat, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
-              className="text-center"
-            >
-              <div className="w-16 h-16 bg-brand-red/10 rounded-full flex items-center justify-center mx-auto mb-4 text-brand-red">
-                {stat.icon}
-              </div>
-              <div className="text-3xl font-bold text-ink mb-2">{stat.number}</div>
-              <div className="text-slate-600 text-sm">{stat.label}</div>
-            </motion.div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function AnnualReportCard({ report, index }) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ delay: index * 0.1 }}
-      className="bg-white rounded-xl border border-slate-200 hover:border-brand-red/30 hover:shadow-lg transition-all duration-300 overflow-hidden group"
-    >
-      <div className="p-6">
-        {/* Header */}
-        <div className="flex items-start justify-between mb-4">
-          <div className="flex items-center gap-3">
-            <div className="w-12 h-12 bg-green-50 rounded-lg flex items-center justify-center">
-              <BarChart3 className="w-6 h-6 text-green-600" />
-            </div>
-            <div>
-              <div className="flex items-center gap-2 mb-1">
-                <span className="bg-slate-100 text-slate-700 px-2 py-1 rounded-md text-xs font-medium">
-                  {report.year}
-                </span>
-                {report.featured && (
-                  <span className="bg-brand-red text-white px-2 py-1 rounded-md text-xs font-medium">
-                    Latest
-                  </span>
-                )}
-              </div>
-              <p className="text-xs text-slate-500">Annual Report</p>
-            </div>
-          </div>
-        </div>
-
-        {/* Title & Theme */}
-        <h3 className="text-lg font-bold text-ink mb-2 line-clamp-2 group-hover:text-brand-red transition-colors">
-          {report.title}
-        </h3>
-        
-        <div className="mb-3">
-          <span className="inline-block bg-brand-red/10 text-brand-red px-3 py-1 rounded-md text-xs font-medium">
-            Theme: {report.theme}
-          </span>
-        </div>
-
-        {/* Description */}
-        <p className="text-slate-600 text-sm mb-4 line-clamp-3">
-          {report.description}
-        </p>
-
-        {/* Key Highlights */}
-        <div className="mb-4">
-          <h4 className="text-xs font-semibold text-slate-700 mb-2 uppercase tracking-wide">Key Highlights</h4>
-          <div className="space-y-1">
-            {report.highlights.slice(0, 2).map((highlight, idx) => (
-              <div key={idx} className="flex items-center gap-2">
-                <div className="w-1.5 h-1.5 bg-green-500 rounded-full"></div>
-                <span className="text-xs text-slate-600">{highlight}</span>
-              </div>
-            ))}
-            {report.highlights.length > 2 && (
-              <div className="text-xs text-green-600 font-medium">
-                +{report.highlights.length - 2} more achievements
-              </div>
-            )}
-          </div>
-        </div>
-
-        {/* Stats */}
-        <div className="grid grid-cols-[repeat(auto-fit,minmax(80px,1fr))] gap-3 mb-4">
-          <div className="text-center p-2 bg-slate-50 rounded-lg">
-            <div className="text-sm font-bold text-ink">{report.pages}</div>
-            <div className="text-xs text-slate-500">Pages</div>
-          </div>
-          <div className="text-center p-2 bg-slate-50 rounded-lg">
-            <div className="text-sm font-bold text-ink">{report.fileSize}</div>
-            <div className="text-xs text-slate-500">Size</div>
-          </div>
-          <div className="text-center p-2 bg-slate-50 rounded-lg">
-            <div className="text-sm font-bold text-ink">PDF</div>
-            <div className="text-xs text-slate-500">Format</div>
-          </div>
-        </div>
-
-        {/* Footer */}
-        <div className="flex items-center justify-between pt-4 border-t border-slate-100">
-          <span className="text-xs text-slate-500">
-            {new Date(report.publishDate).toLocaleDateString('en-GB', { 
-              day: 'numeric', 
-              month: 'short', 
-              year: 'numeric' 
-            })}
-          </span>
-          <div className="flex gap-2">
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="bg-brand-red text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-brand-red/90 transition-colors flex items-center gap-2"
-            >
-              <Download className="w-4 h-4" />
-              Download
-            </motion.button>
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="p-2 border border-slate-200 text-slate-600 rounded-lg hover:bg-slate-50 transition-colors"
-            >
-              <Eye className="w-4 h-4" />
-            </motion.button>
-          </div>
-        </div>
-      </div>
-    </motion.div>
-  );
+  return <StatsBand eyebrow="Our reports at a glance" stats={ANNUAL_STATS} />;
 }
 
 function YearFilter({ activeYear, setActiveYear }) {
@@ -395,11 +249,11 @@ export default function AnnualReports() {
               </p>
             </motion.div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <ReportGrid count={filteredReports.length}>
               {filteredReports.map((report, index) => (
-                <AnnualReportCard key={report.id} report={report} index={index} />
+                <ReportCard key={report.id} report={report} index={index} kind="Annual Report" tag={`Theme: ${report.theme}`} highlights={report.highlights} />
               ))}
-            </div>
+            </ReportGrid>
           </div>
         </section>
 

@@ -5,6 +5,7 @@ import Layout from "../components/Layout";
 import FAQSection from "../components/Home/FAQSectiom";
 import { flfprFAQ } from "../components/Home/faqItems";
 import FaqSchema from "../components/seo/FaqSchema";
+import { StatsBand, ReportCard, ReportGrid } from "../components/reports/ReportBlocks";
 import {
   FileText,
   Download,
@@ -153,178 +154,16 @@ function FLFPRHero() {
   );
 }
 
+/* Same stats band as the Impact Reports and Gender Journey pages (numbers count up when they scroll into view) */
+const FLFPR_STATS = [
+  { prefix: "", to: 32, decimals: 0, suffix: "%", label: "FLFPR Increase", Icon: TrendingUp, color: "yellow" },
+  { prefix: "", to: 78, decimals: 0, suffix: "%", label: "Employment Rate", Icon: Briefcase, color: "green" },
+  { prefix: "", to: 3.2, decimals: 1, suffix: "K+", label: "Women Studied", Icon: Users, color: "red" },
+  { prefix: "", to: 12, decimals: 0, suffix: "", label: "States Covered", Icon: Target, color: "blue" },
+];
+
 function FLFPRStats() {
-  const stats = [
-    { number: "32%", label: "FLFPR Increase", icon: <TrendingUp className="w-8 h-8" /> },
-    { number: "78%", label: "Employment Rate", icon: <Briefcase className="w-8 h-8" /> },
-    { number: "3.2K+", label: "Women Studied", icon: <Users className="w-8 h-8" /> },
-    { number: "12", label: "States Covered", icon: <Target className="w-8 h-8" /> },
-  ];
-
-  return (
-    <section className="py-16 bg-gradient-to-br from-red-50 to-yellow-50">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-          {stats.map((stat, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
-              className="text-center"
-            >
-              <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4 text-brand-red">
-                {stat.icon}
-              </div>
-              <div className="text-3xl font-bold text-ink mb-2">{stat.number}</div>
-              <div className="text-slate-600 text-sm">{stat.label}</div>
-            </motion.div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function FLFPRReportCard({ report, index }) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ delay: index * 0.1 }}
-      className="bg-white rounded-xl border border-slate-200 hover:border-brand-red/30 hover:shadow-lg transition-all duration-300 overflow-hidden group"
-    >
-      <div className="p-6">
-        {/* Header */}
-        <div className="flex items-start justify-between mb-4">
-          <div className="flex items-center gap-3">
-            <div className="w-12 h-12 bg-red-50 rounded-lg flex items-center justify-center">
-              <Briefcase className="w-6 h-6 text-brand-red" />
-            </div>
-            <div>
-              <div className="flex items-center gap-2 mb-1">
-                <span className="bg-slate-100 text-slate-700 px-2 py-1 rounded-md text-xs font-medium">
-                  {report.year}
-                </span>
-                {report.featured && (
-                  <span className="bg-brand-yellow text-black px-2 py-1 rounded-md text-xs font-medium">
-                    Latest
-                  </span>
-                )}
-              </div>
-              <p className="text-xs text-slate-500">Workforce Research</p>
-            </div>
-          </div>
-        </div>
-
-        {/* Title & Subtitle */}
-        <h3 className="text-lg font-bold text-ink mb-1 line-clamp-2 group-hover:text-brand-red transition-colors">
-          {report.title}
-        </h3>
-
-        <p className="text-sm text-brand-red font-medium mb-3">{report.subtitle}</p>
-
-        {/* Description */}
-        <p className="text-slate-600 text-sm mb-4 line-clamp-3">{report.description}</p>
-
-        {/* Key Findings */}
-        <div className="mb-4">
-          <h4 className="text-xs font-semibold text-slate-700 mb-2 uppercase tracking-wide">
-            Key Findings
-          </h4>
-          <div className="space-y-1">
-            {report.keyFindings.slice(0, 2).map((finding, idx) => (
-              <div key={idx} className="flex items-center gap-2">
-                <div className="w-1.5 h-1.5 bg-brand-red rounded-full"></div>
-                <span className="text-xs text-slate-600">{finding}</span>
-              </div>
-            ))}
-            {report.keyFindings.length > 2 && (
-              <div className="text-xs text-brand-red font-medium">
-                +{report.keyFindings.length - 2} more findings
-              </div>
-            )}
-          </div>
-        </div>
-
-        {/* Sectors */}
-        <div className="mb-4">
-          <h4 className="text-xs font-semibold text-slate-700 mb-2 uppercase tracking-wide">
-            Sectors
-          </h4>
-          <div className="flex flex-wrap gap-1">
-            {report.sectors.slice(0, 3).map((sector, idx) => (
-              <span
-                key={idx}
-                className="bg-red-50 text-brand-red px-2 py-1 rounded-md text-xs"
-              >
-                {sector}
-              </span>
-            ))}
-            {report.sectors.length > 3 && (
-              <span className="text-xs text-brand-red font-medium">
-                +{report.sectors.length - 3}
-              </span>
-            )}
-          </div>
-        </div>
-
-        {/* Methodology */}
-        <div className="mb-4 p-3 bg-red-50 rounded-lg">
-          <h4 className="text-xs font-semibold text-brand-red mb-1 uppercase tracking-wide">
-            Methodology
-          </h4>
-          <p className="text-xs text-brand-red">{report.methodology}</p>
-        </div>
-
-        {/* Stats */}
-        <div className="grid grid-cols-[repeat(auto-fit,minmax(80px,1fr))] gap-3 mb-4">
-          <div className="text-center p-2 bg-slate-50 rounded-lg">
-            <div className="text-sm font-bold text-ink">{report.pages}</div>
-            <div className="text-xs text-slate-500">Pages</div>
-          </div>
-          <div className="text-center p-2 bg-slate-50 rounded-lg">
-            <div className="text-sm font-bold text-ink">{report.fileSize}</div>
-            <div className="text-xs text-slate-500">Size</div>
-          </div>
-          <div className="text-center p-2 bg-slate-50 rounded-lg">
-            <div className="text-sm font-bold text-ink">PDF</div>
-            <div className="text-xs text-slate-500">Format</div>
-          </div>
-        </div>
-
-        {/* Footer */}
-        <div className="flex items-center justify-between pt-4 border-t border-slate-100">
-          <span className="text-xs text-slate-500">
-            {new Date(report.publishDate).toLocaleDateString("en-GB", {
-              day: "numeric",
-              month: "short",
-              year: "numeric",
-            })}
-          </span>
-          <div className="flex gap-2">
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="bg-brand-red text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-red-700 transition-colors flex items-center gap-2"
-            >
-              <Download className="w-4 h-4" />
-              Download
-            </motion.button>
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="p-2 border border-slate-200 text-slate-600 rounded-lg hover:bg-slate-50 transition-colors"
-            >
-              <Eye className="w-4 h-4" />
-            </motion.button>
-          </div>
-        </div>
-      </div>
-    </motion.div>
-  );
+  return <StatsBand eyebrow="Our research at a glance" stats={FLFPR_STATS} />;
 }
 
 export default function FLFPRReport() {
@@ -352,11 +191,11 @@ export default function FLFPRReport() {
               </p>
             </motion.div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <ReportGrid count={FLFPR_REPORTS_DATA.length}>
               {FLFPR_REPORTS_DATA.map((report, index) => (
-                <FLFPRReportCard key={report.id} report={report} index={index} />
+                <ReportCard key={report.id} report={report} index={index} kind="Workforce Research" tag={report.subtitle} highlights={report.keyFindings} />
               ))}
-            </div>
+            </ReportGrid>
           </div>
         </section>
 
