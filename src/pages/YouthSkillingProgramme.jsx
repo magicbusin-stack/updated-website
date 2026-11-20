@@ -380,9 +380,10 @@ function StructureSection() {
                 {/* Step grid */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                     {structureSteps.map((step, i) => (
-                        <FadeUp key={step.label} delay={0.07 * i}>
+                        <FadeUp key={step.label} delay={0.07 * i} className="h-full">
+                            {/* h-full on both, so every box in a row is as tall as the tallest one */}
                             <_MOTION.div
-                                className="group relative rounded-2xl overflow-hidden border border-white/10 bg-white/5 hover:bg-white/10 transition-all duration-300 cursor-default"
+                                className="group relative h-full rounded-2xl overflow-hidden border border-white/10 bg-white/5 hover:bg-white/10 transition-all duration-300 cursor-default"
                                 whileHover={{ y: -4 }}
                                 transition={{ type: "spring", stiffness: 300, damping: 25 }}
                             >

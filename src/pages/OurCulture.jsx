@@ -163,9 +163,9 @@ function IntroSection() {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                     {culturePoints.map((p, i) => (
-                        <FadeUp key={p.title} delay={0.06 * i}>
+                        <FadeUp key={p.title} delay={0.06 * i} className="h-full">
                             <motion.div
-                                className="group relative rounded-2xl overflow-hidden bg-[#F7F7F5] border border-gray-100 hover:shadow-xl transition-all duration-300 cursor-default min-h-[200px] flex flex-col"
+                                className="group relative h-full rounded-2xl overflow-hidden bg-[#F7F7F5] border border-gray-100 hover:shadow-xl transition-all duration-300 cursor-default min-h-[200px] flex flex-col"
                                 whileHover={{ y: -4, scale: 1.01 }}
                                 transition={{ type: "spring", stiffness: 300, damping: 25 }}
                             >
