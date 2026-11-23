@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { OUTREACH_SLIDES, FONTS_HREF, DATA_LINE } from "./OutreachSlides";
+import SectionHeading from "./SectionHeading";
 
 /* "Our Outreach & Impact": replaces the old Outreach (Adolescent / Livelihood tabs) section.
    Four slides, one after another: Adolescents Outreach, Adolescents Impact, Livelihood Outreach, Livelihood Impact.
@@ -55,13 +56,8 @@ export default function OurOutreachSection() {
       {/* Fonts used by the designs (Inter) */}
       <link rel="stylesheet" href={FONTS_HREF} precedence="default" />
 
-      <header className="px-4 text-center">
-        <h2
-          id="our-outreach-heading"
-          className="font-['Inter',system-ui,sans-serif] text-2xl font-extrabold tracking-tight text-[#0f1d38] sm:text-3xl md:text-[38px]"
-        >
-          Our Outreach &amp; Impact
-        </h2>
+      <header className="px-4 pt-6 md:pt-10">
+        <SectionHeading tag="Our reach" title="Our Outreach & Impact" id="our-outreach-heading" />
       </header>
 
       {/* Stats, with the arrows on its left and right (the arrows never move or fade) */}

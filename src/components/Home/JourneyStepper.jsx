@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { Layers, Users, Code2, Briefcase, Network } from "lucide-react";
+import SectionHeading from "./SectionHeading";
 import {
   fadeUp,
   fadeUpSm,
@@ -62,18 +63,7 @@ export default function JourneyZigzagAnimated() {
           whileInView="visible"
           viewport={VIEWPORT_ONCE}
         >
-          <motion.p
-            variants={fadeUpSm}
-            className="uppercase tracking-[0.2em] text-base md:text-xl font-extrabold text-gray-800 mb-3"
-          >
-            Our proven model
-          </motion.p>
-          <motion.h2
-            variants={fadeUp}
-            className="text-3xl md:text-5xl font-extrabold text-ink mb-4"
-          >
-            Childhood to Livelihood Journey
-          </motion.h2>
+          <SectionHeading tag="Our proven model" title="Childhood to Livelihood Journey" />
         </motion.div>
 
         <div className="relative">

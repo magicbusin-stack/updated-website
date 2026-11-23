@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
 import { motion } from "framer-motion";
-import { fadeUp, fadeUpSm, staggerStd, VIEWPORT_ONCE } from "../../hooks/useScrollAnimations";
+import { fadeUpSm, staggerStd, VIEWPORT_ONCE } from "../../hooks/useScrollAnimations";
+import SectionHeading from "./SectionHeading";
 
 export default function ProgrammesSlider() {
   const baseSlides = useMemo(
@@ -55,9 +56,7 @@ export default function ProgrammesSlider() {
           whileInView="visible"
           viewport={VIEWPORT_ONCE}
         >
-          <motion.h2 variants={fadeUp} className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-6">
-            CORE PROGRAMMES
-          </motion.h2>
+          <SectionHeading tag="Our programmes" title="CORE PROGRAMMES" className="mb-6" />
           <motion.p variants={fadeUpSm} className="text-gray-600 text-lg md:text-xl max-w-3xl mx-auto">
             Transforming lives through structured pathways from adolescence to
             sustainable livelihoods.

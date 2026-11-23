@@ -1,4 +1,5 @@
 import TechInnovationCarousel from "./TechInnovationCarousel";
+import SectionHeading from "./SectionHeading";
 
 // TODO: placeholder — swap in the final sub-headline copy once confirmed.
 const SUBHEADLINE_PLACEHOLDER =
@@ -8,7 +9,7 @@ export default function AIDigitalSection() {
   return (
     <section className="bg-gradient-to-b from-sky-50 via-white to-amber-50 text-ink overflow-hidden pt-20">
       <div className="max-w-7xl mx-auto px-6 lg:px-8 text-center">
-        <h2 className="text-4xl md:text-5xl font-extrabold mb-4 text-ink">TECH AND INNOVATION</h2>
+        <SectionHeading tag="Innovation" title="TECH AND INNOVATION" className="mb-5" />
         <p className="text-slate-600 text-lg md:text-xl max-w-3xl mx-auto">
           {SUBHEADLINE_PLACEHOLDER}
         </p>
