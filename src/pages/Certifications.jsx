@@ -1,10 +1,11 @@
 // src/pages/Certifications.jsx
-import React from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
 import Layout from "../components/Layout";
 import FAQSection from "../components/Home/FAQSectiom";
 import { certificationsFAQ } from "../components/Home/faqItems";
 import FaqSchema from "../components/seo/FaqSchema";
+import { CountUp } from "../components/reports/ReportBlocks";
 import {
   Shield,
   Award,
@@ -17,6 +18,7 @@ import {
   Verified,
   ShieldCheck,
   Users,
+  Eye,
 } from "lucide-react";
 
 /**
@@ -257,34 +259,50 @@ function CertificationsHero() {
 }
 
 /* ---------------- Stats Section ---------------- */
+/* Four number cards: the figure counts up when it scrolls into view; each card lifts, glows and shows a coloured bar on hover. */
+const STAT_STYLES = {
+  red: { block: "bg-brand-red text-white", bar: "bg-brand-red", glow: "bg-brand-red/15" },
+  blue: { block: "bg-brand-blue text-brand-black", bar: "bg-brand-blue", glow: "bg-brand-blue/20" },
+  yellow: { block: "bg-brand-yellow text-brand-black", bar: "bg-brand-yellow", glow: "bg-brand-yellow/25" },
+  green: { block: "bg-brand-green text-brand-black", bar: "bg-brand-green", glow: "bg-brand-green/25" },
+};
+
 function CertificationStats() {
   const stats = [
-    { number: "12+", label: "Active Certifications", icon: <ShieldCheck className="w-8 h-8" /> },
-    { number: "100%", label: "Compliance Rate", icon: <CheckCircle className="w-8 h-8" /> },
-    { number: "2006", label: "Established Since", icon: <Calendar className="w-8 h-8" /> },
-    { number: "5+", label: "Regulatory Bodies", icon: <Building className="w-8 h-8" /> },
+    { to: 12, suffix: "+", label: "Active Certifications", Icon: ShieldCheck, color: "red" },
+    { to: 100, suffix: "%", label: "Compliance Rate", Icon: CheckCircle, color: "blue" },
+    { to: 2006, suffix: "", label: "Established Since", Icon: Calendar, color: "yellow" },
+    { to: 5, suffix: "+", label: "Regulatory Bodies", Icon: Building, color: "green" },
   ];
 
   return (
-    <section className="py-16 bg-white">
+    <section className="py-16 md:py-20 bg-white">
       <div className="max-w-7xl mx-auto px-6">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-          {stats.map((stat, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
-              className="text-center"
-            >
-              <div className="w-16 h-16 bg-brand-red/10 rounded-full flex items-center justify-center mx-auto mb-4 text-brand-red">
-                {stat.icon}
-              </div>
-              <div className="text-3xl font-bold text-ink mb-2">{stat.number}</div>
-              <div className="text-slate-600 text-sm">{stat.label}</div>
-            </motion.div>
-          ))}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6">
+          {stats.map((stat, index) => {
+            const c = STAT_STYLES[stat.color];
+            return (
+              <motion.div
+                key={stat.label}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1, duration: 0.5 }}
+                whileHover={{ y: -8 }}
+                className="group relative cursor-default overflow-hidden rounded-3xl border border-slate-200 bg-white p-7 shadow-sm transition-shadow duration-300 hover:shadow-xl"
+              >
+                <div className={`pointer-events-none absolute -right-10 -top-10 h-36 w-36 rounded-full blur-2xl opacity-60 transition-opacity duration-300 group-hover:opacity-100 ${c.glow}`} />
+                <span className={`relative flex h-16 w-16 items-center justify-center rounded-2xl shadow-md transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-3 ${c.block}`}>
+                  <stat.Icon className="h-8 w-8" />
+                </span>
+                <div className="relative mt-6 text-5xl md:text-6xl font-black leading-none tracking-tight text-ink">
+                  <CountUp to={stat.to} suffix={stat.suffix} />
+                </div>
+                <div className="relative mt-3 text-lg md:text-xl font-bold text-slate-700">{stat.label}</div>
+                <span className={`absolute bottom-0 left-0 h-1.5 w-full origin-left scale-x-0 transition-transform duration-500 group-hover:scale-x-100 ${c.bar}`} />
+              </motion.div>
+            );
+          })}
         </div>
       </div>
     </section>
@@ -395,6 +413,101 @@ function CertificationsTable() {
 }
 
 
+/* ---------------- Commitment to Transparency (interactive) ---------------- */
+/* The three parts of the original paragraph, one per tab. Hover or click a tab to read that part. */
+const COMMITMENT_POINTS = [
+  {
+    label: "Certifications & registrations",
+    Icon: FileText,
+    text: "Magic Bus India Foundation maintains all necessary certifications and registrations",
+  },
+  {
+    label: "Full compliance",
+    Icon: CheckCircle,
+    text: "to ensure full compliance with Indian regulations and international standards.",
+  },
+  {
+    label: "Open for review",
+    Icon: Eye,
+    text: "Our commitment to transparency means all our documents are regularly updated and available for review.",
+  },
+];
+
+function TransparencyCommitment() {
+  const [active, setActive] = useState(0);
+  const current = COMMITMENT_POINTS[active];
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ delay: 0.2 }}
+      className="mt-12 overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm"
+    >
+      <div className="h-1.5 w-full bg-gradient-to-r from-brand-red via-brand-yellow to-brand-red" />
+      <div className="p-8 md:p-12">
+        <div className="text-center">
+          <div className="mx-auto mb-5 flex h-20 w-20 items-center justify-center rounded-full bg-brand-red/10">
+            <Shield className="h-10 w-10 text-brand-red" />
+          </div>
+          <h3 className="text-3xl md:text-4xl font-extrabold text-ink">Commitment to Transparency</h3>
+          <p className="mx-auto mt-3 max-w-2xl text-lg md:text-xl font-medium text-slate-700">
+            Select a point below to highlight it.
+          </p>
+        </div>
+
+        {/* Tabs */}
+        <div className="mt-8 grid gap-3 md:grid-cols-3" role="tablist" aria-label="Commitment to Transparency">
+          {COMMITMENT_POINTS.map((pt, i) => {
+            const on = i === active;
+            return (
+              <button
+                key={pt.label}
+                type="button"
+                role="tab"
+                aria-selected={on}
+                onClick={() => setActive(i)}
+                onMouseEnter={() => setActive(i)}
+                onFocus={() => setActive(i)}
+                className={`group flex items-center gap-4 rounded-2xl border-2 px-5 py-4 text-left transition-all duration-300 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-brand-red/25 ${
+                  on ? "border-brand-red bg-brand-red text-white shadow-lg -translate-y-1" : "border-slate-200 bg-slate-50 text-ink hover:border-brand-red/40 hover:bg-white"
+                }`}
+              >
+                <span className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-xl transition-colors ${on ? "bg-white/20 text-white" : "bg-brand-red/10 text-brand-red"}`}>
+                  <pt.Icon className="h-6 w-6" />
+                </span>
+                <span className="text-lg md:text-xl font-extrabold leading-snug">{pt.label}</span>
+              </button>
+            );
+          })}
+        </div>
+
+        {/* Selected point */}
+        <div className="mt-6 rounded-2xl bg-slate-50 p-6 md:p-8" role="tabpanel" aria-live="polite">
+          <p className="text-center text-xl md:text-2xl font-semibold leading-relaxed text-slate-500">
+            {COMMITMENT_POINTS.map((pt, i) => (
+              <span
+                key={pt.label}
+                className={`rounded px-1 py-0.5 transition-all duration-300 [box-decoration-break:clone] ${
+                  i === active ? "bg-brand-yellow/70 font-extrabold text-slate-950" : "text-slate-600"
+                }`}
+              >
+                {pt.text}{" "}
+              </span>
+            ))}
+          </p>
+          <div className="mt-5 flex justify-center gap-2">
+            {COMMITMENT_POINTS.map((pt, i) => (
+              <span key={pt.label} className={`h-2 rounded-full transition-all duration-300 ${i === active ? "w-8 bg-brand-red" : "w-2 bg-slate-300"}`} />
+            ))}
+          </div>
+        </div>
+      </div>
+    </motion.div>
+  );
+}
+
 /* ---------------- Main Certifications Component ---------------- */
 export default function Certifications() {
   return (
@@ -432,26 +545,8 @@ export default function Certifications() {
               <CertificationsTable />
             </motion.div>
 
-            {/* Additional Info */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.4 }}
-              className="mt-12 bg-white rounded-xl border border-slate-200 p-8"
-            >
-              <div className="text-center">
-                <div className="w-16 h-16 bg-brand-red/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Shield className="w-8 h-8 text-brand-red" />
-                </div>
-                <h3 className="text-xl font-bold text-ink mb-3">Commitment to Transparency</h3>
-                <p className="text-slate-600 max-w-2xl mx-auto">
-                  Magic Bus India Foundation maintains all necessary certifications and registrations
-                  to ensure full compliance with Indian regulations and international standards.
-                  Our commitment to transparency means all our documents are regularly updated and available for review.
-                </p>
-              </div>
-            </motion.div>
+            {/* Additional Info: Commitment to Transparency (pick a point to read it) */}
+            <TransparencyCommitment />
           </div>
         </section>
 
