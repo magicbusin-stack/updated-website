@@ -115,15 +115,15 @@ function PillarsExplorer() {
                             onFocus={() => setActive(i)}
                             whileHover={{ y: -4 }}
                             transition={{ type: "spring", stiffness: 300, damping: 24 }}
-                            className={`relative flex flex-col items-start gap-3 overflow-hidden rounded-2xl border-2 p-4 text-left transition-colors duration-300 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-brand-red/25 ${
+                            className={`relative flex flex-col items-start gap-1.5 overflow-hidden rounded-xl border-2 px-3 py-2.5 text-left transition-colors duration-300 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-brand-red/25 ${
                                 on ? `${pt.color} ${pt.textColor} border-transparent shadow-lg` : "border-gray-200 bg-[#F7F7F5] text-[#1A1A1A] hover:border-[#1A1A1A]/30 hover:bg-white"
                             }`}
                         >
-                            <span className={`text-4xl font-black leading-none select-none ${on ? "opacity-30" : "text-[#1A1A1A]/10"}`}>{String(i + 1).padStart(2, "0")}</span>
-                            <span className={`flex h-11 w-11 items-center justify-center rounded-xl ${on ? "bg-white/25" : `${pt.color} ${pt.textColor}`}`}>
-                                <pt.icon className="h-5 w-5" />
+                            <span className={`text-xl font-black leading-none select-none ${on ? "opacity-40" : "text-[#1A1A1A]/20"}`}>{String(i + 1).padStart(2, "0")}</span>
+                            <span className={`flex h-8 w-8 items-center justify-center rounded-lg ${on ? "bg-white/25" : `${pt.color} ${pt.textColor}`}`}>
+                                <pt.icon className="h-4 w-4" />
                             </span>
-                            <span className="text-lg font-extrabold leading-tight">{pt.title}</span>
+                            <span className="text-base font-extrabold leading-tight">{pt.title}</span>
                         </motion.button>
                     );
                 })}
@@ -135,14 +135,14 @@ function PillarsExplorer() {
                 initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.35 }}
-                className={`mt-5 flex flex-col items-start gap-6 rounded-3xl p-8 md:flex-row md:items-center md:p-10 ${cur.color} ${cur.textColor}`}
+                className={`mt-4 flex flex-col items-start gap-5 rounded-2xl p-6 md:flex-row md:items-center md:p-7 ${cur.color} ${cur.textColor}`}
             >
-                <span className="flex h-20 w-20 shrink-0 items-center justify-center rounded-2xl bg-white/25">
-                    <cur.icon className="h-10 w-10" />
+                <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-white/25">
+                    <cur.icon className="h-7 w-7" />
                 </span>
                 <div>
-                    <h3 className="text-3xl md:text-4xl font-extrabold leading-tight">{cur.title}</h3>
-                    <p className="mt-3 max-w-3xl text-xl md:text-2xl font-medium leading-relaxed">{cur.desc}</p>
+                    <h3 className="text-2xl md:text-3xl font-extrabold leading-tight">{cur.title}</h3>
+                    <p className="mt-2 max-w-3xl text-lg md:text-xl font-medium leading-relaxed">{cur.desc}</p>
                 </div>
             </motion.div>
         </div>

@@ -1,6 +1,27 @@
 ﻿import React, { useEffect, useMemo, useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
-import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
+import {
+  ArrowRight,
+  BookOpen,
+  Briefcase,
+  ChevronLeft,
+  ChevronRight,
+  Crown,
+  GraduationCap,
+  Layers,
+  Lightbulb,
+  Monitor,
+  Quote,
+  RefreshCw,
+  Rocket,
+  School,
+  Smartphone,
+  Target,
+  TrendingUp,
+  UserPlus,
+  Users,
+  Wrench,
+} from "lucide-react";
 import Layout from "../components/Layout";
 import HeroBanner from "../components/HeroBanner";
 
@@ -27,7 +48,7 @@ function FadeUp({ children, delay = 0, className = "" }) {
 function SectionTag({ children, dark = false }) {
   return (
     <span
-      className={`inline-flex items-center gap-2 rounded-full border px-4 py-1.5 text-xs font-bold uppercase tracking-[0.2em] ${
+      className={`inline-flex items-center gap-2 rounded-full border px-4 py-1.5 text-sm font-bold uppercase tracking-[0.2em] ${
         dark
           ? "border-white/25 bg-white/10 text-white"
           : "border-brand-black/15 bg-brand-yellow/20 text-brand-black"
@@ -40,11 +61,22 @@ function SectionTag({ children, dark = false }) {
 }
 
 const beliefs = [
-  "Empowering teams maximises impact",
-  "Skilling people helps them achieve their best",
-  "Driving excellence sparks innovation",
-  "Continuous learning fosters collaboration"
+  { text: "Empowering teams maximises impact", Icon: Users, bg: "bg-brand-red", fg: "text-white", chip: "bg-white/25" },
+  { text: "Skilling people helps them achieve their best", Icon: Target, bg: "bg-brand-blue", fg: "text-brand-black", chip: "bg-white/40" },
+  { text: "Driving excellence sparks innovation", Icon: Lightbulb, bg: "bg-brand-yellow", fg: "text-brand-black", chip: "bg-white/50" },
+  { text: "Continuous learning fosters collaboration", Icon: RefreshCw, bg: "bg-brand-magenta", fg: "text-white", chip: "bg-white/25" },
 ];
+
+/* One colour + icon per programme group */
+const initiativeStyles = {
+  joiners: { Icon: UserPlus, bg: "bg-brand-red", fg: "text-white", soft: "bg-brand-red/10", text: "text-brand-red" },
+  managerial: { Icon: Briefcase, bg: "bg-brand-blue", fg: "text-brand-black", soft: "bg-brand-blue/15", text: "text-[#0B86A8]" },
+  customised: { Icon: Wrench, bg: "bg-brand-green", fg: "text-brand-black", soft: "bg-brand-green/20", text: "text-[#5E7A00]" },
+  leadership: { Icon: Crown, bg: "bg-brand-magenta", fg: "text-white", soft: "bg-brand-magenta/10", text: "text-brand-magenta" },
+  "learning-loop": { Icon: Layers, bg: "bg-brand-yellow", fg: "text-brand-black", soft: "bg-brand-yellow/25", text: "text-[#8A6A00]" },
+};
+
+const platformIcons = [School, Monitor, Smartphone];
 
 const initiativeTabs = [
   {
@@ -153,27 +185,52 @@ function HeroSection() {
 }
 
 function IntroductionSection() {
+  const promise = [
+    { label: "Continuous learning", Icon: BookOpen },
+    { label: "Practical capability-building", Icon: Wrench },
+    { label: "Measurable impact for every team", Icon: TrendingUp },
+  ];
   return (
     <section className="bg-white py-16 sm:py-20">
       <div className="mx-auto max-w-7xl px-6 lg:px-12">
-        <FadeUp className="relative overflow-hidden rounded-3xl border border-black/5 bg-[#f8f8f6] p-8 sm:p-12">
-          <div className="pointer-events-none absolute -right-12 -top-12 h-40 w-40 rounded-full bg-brand-yellow/30 blur-2xl" />
-          <SectionTag>Introduction</SectionTag>
-          <div className="mt-5 grid gap-6 lg:grid-cols-[1.3fr_0.7fr]">
-            <div>
-              <h2 className="text-3xl font-black text-[#1A1A1A] md:text-4xl">Learning & Development at Magic Bus</h2>
-              <p className="mt-5 text-lg leading-relaxed text-gray-700">
-                At Magic Bus, our teams engage in continuous learning, promoting a culture of continuous improvement across the organisation. With the spirit of innovation, we are committed to transforming young lives through impactful training and development initiatives.
-              </p>
-            </div>
-            <div className="rounded-2xl border border-black/10 bg-white p-5">
-              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-brand-red">L&D Promise</p>
-              <p className="mt-3 text-base leading-relaxed text-[#1A1A1A]">
+        <div className="grid gap-8 lg:grid-cols-[1.25fr_0.75fr] lg:items-stretch">
+          <FadeUp className="relative overflow-hidden rounded-3xl border border-black/5 bg-[#f8f8f6] p-8 sm:p-12">
+            <div className="pointer-events-none absolute -right-16 -top-16 h-56 w-56 rounded-full bg-brand-yellow/40 blur-3xl" />
+            <div className="absolute bottom-0 left-0 top-0 w-1.5 bg-gradient-to-b from-brand-red via-brand-yellow to-brand-blue" />
+            <SectionTag>Introduction</SectionTag>
+            <h2 className="mt-5 text-4xl font-black leading-tight text-[#1A1A1A] md:text-5xl">
+              Learning &amp; Development at <span className="text-brand-red">Magic Bus</span>
+            </h2>
+            <p className="mt-6 text-xl leading-relaxed text-gray-800">
+              At Magic Bus, our teams engage in continuous learning, promoting a culture of continuous improvement across the organisation. With the spirit of innovation, we are committed to transforming young lives through impactful training and development initiatives.
+            </p>
+          </FadeUp>
+
+          <FadeUp delay={0.1}>
+            <_MOTION.div
+              whileHover={{ y: -6 }}
+              transition={{ type: "spring", stiffness: 280, damping: 22 }}
+              className="relative flex h-full flex-col overflow-hidden rounded-3xl bg-gradient-to-br from-[#1A1A1A] via-[#2B1216] to-[#6B0F18] p-8 text-white shadow-xl sm:p-10"
+            >
+              <div className="pointer-events-none absolute -right-14 -top-14 h-48 w-48 rounded-full bg-brand-red/40 blur-3xl" />
+              <span className="relative flex h-14 w-14 items-center justify-center rounded-2xl bg-brand-yellow shadow-lg">
+                <Rocket className="h-7 w-7 text-brand-black" />
+              </span>
+              <p className="relative mt-5 text-sm font-bold uppercase tracking-[0.2em] text-brand-yellow">L&amp;D Promise</p>
+              <p className="relative mt-3 text-xl font-semibold leading-relaxed text-white">
                 Continuous learning, practical capability-building, and measurable impact for every team.
               </p>
-            </div>
-          </div>
-        </FadeUp>
+              <ul className="relative mt-6 space-y-3">
+                {promise.map(({ label, Icon }) => (
+                  <li key={label} className="flex items-center gap-3 rounded-xl bg-white/10 px-4 py-3">
+                    <Icon className="h-5 w-5 shrink-0 text-brand-yellow" />
+                    <span className="text-lg font-bold">{label}</span>
+                  </li>
+                ))}
+              </ul>
+            </_MOTION.div>
+          </FadeUp>
+        </div>
       </div>
     </section>
   );
@@ -185,27 +242,31 @@ function BeliefsSection() {
       <div className="mx-auto max-w-7xl px-6 lg:px-12">
         <FadeUp className="mb-10">
           <SectionTag>Our Beliefs</SectionTag>
-          <h2 className="mt-5 text-3xl font-black text-[#1A1A1A] md:text-4xl">Our Beliefs</h2>
+          <h2 className="mt-5 text-4xl font-black leading-tight text-[#1A1A1A] md:text-5xl">
+            Our <span className="text-brand-red">Beliefs</span>
+          </h2>
         </FadeUp>
 
-        <div className="relative lg:pt-10">
-          <div className="pointer-events-none absolute left-0 right-0 top-0 hidden h-[2px] bg-gradient-to-r from-brand-red/45 via-brand-blue/35 to-brand-yellow/40 lg:block" />
-          <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-4">
-            {beliefs.map((belief, index) => (
-              <FadeUp key={belief} delay={index * 0.06}>
-                <_MOTION.div
-                  whileHover={{ y: -4 }}
-                  transition={{ duration: 0.2 }}
-                  className="relative h-full rounded-2xl border border-black/5 bg-white p-5 shadow-sm"
-                >
-                  <span className="absolute -top-8 left-1/2 hidden h-8 w-[2px] -translate-x-1/2 bg-black/15 lg:block" />
-                  <span className="absolute -top-10 left-1/2 hidden h-4 w-4 -translate-x-1/2 rounded-full border-4 border-[#f8f8f6] bg-brand-red shadow-sm lg:block" />
-                  <p className="text-sm font-semibold uppercase tracking-[0.16em] text-brand-red">Belief {index + 1}</p>
-                  <p className="mt-2 text-lg font-medium leading-relaxed text-[#1A1A1A]">{belief}</p>
-                </_MOTION.div>
-              </FadeUp>
-            ))}
-          </div>
+        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          {beliefs.map((belief, index) => (
+            <FadeUp key={belief.text} delay={index * 0.07} className="h-full">
+              <_MOTION.div
+                whileHover={{ y: -8 }}
+                transition={{ type: "spring", stiffness: 280, damping: 22 }}
+                className={`group relative flex h-full min-h-[260px] cursor-default flex-col overflow-hidden rounded-3xl p-7 shadow-md transition-shadow duration-300 hover:shadow-2xl ${belief.bg} ${belief.fg}`}
+              >
+                <span className="pointer-events-none absolute -bottom-6 -right-2 select-none text-[130px] font-black leading-none opacity-15 transition-opacity duration-300 group-hover:opacity-25">
+                  {index + 1}
+                </span>
+                <span className="pointer-events-none absolute -right-10 -top-10 h-32 w-32 rounded-full bg-white/20 transition-transform duration-500 group-hover:scale-150" />
+                <span className={`relative flex h-14 w-14 items-center justify-center rounded-2xl ${belief.chip} transition-transform duration-300 group-hover:-rotate-6 group-hover:scale-110`}>
+                  <belief.Icon className="h-7 w-7" />
+                </span>
+                <p className="relative mt-6 text-sm font-bold uppercase tracking-[0.2em] opacity-80">Belief {index + 1}</p>
+                <p className="relative mt-2 text-2xl font-extrabold leading-snug">{belief.text}</p>
+              </_MOTION.div>
+            </FadeUp>
+          ))}
         </div>
       </div>
     </section>
@@ -218,94 +279,117 @@ function InitiativesSection() {
     () => initiativeTabs.find((item) => item.key === activeTab) || initiativeTabs[0],
     [activeTab]
   );
+  const st = initiativeStyles[active.key];
 
   return (
     <section className="bg-white py-16 sm:py-20">
       <div className="mx-auto max-w-7xl px-6 lg:px-12">
-        <FadeUp className="mb-8 max-w-4xl">
-          <SectionTag>L&D Initiatives</SectionTag>
-          <h2 className="mt-5 text-3xl font-black text-[#1A1A1A] md:text-4xl">
-            Learning & Development Initiatives at Magic Bus
+        <FadeUp className="mb-10 max-w-4xl">
+          <SectionTag>L&amp;D Initiatives</SectionTag>
+          <h2 className="mt-5 text-4xl font-black leading-tight text-[#1A1A1A] md:text-5xl">
+            Learning &amp; Development <span className="text-brand-red">Initiatives</span> at Magic Bus
           </h2>
-          <p className="mt-5 text-lg leading-relaxed text-gray-700">
-            Our Learning & Development framework is designed to support employees at every stage of their journey from onboarding to leadership by building capability, confidence, and impact.
+          <p className="mt-5 text-xl leading-relaxed text-gray-800">
+            Our Learning &amp; Development framework is designed to support employees at every stage of their journey from onboarding to leadership by building capability, confidence, and impact.
           </p>
         </FadeUp>
 
-        <div className="grid gap-5 lg:grid-cols-[330px_1fr]">
-          <FadeUp delay={0.08} className="h-fit rounded-3xl border border-black/5 bg-[#f8f8f6] p-4 lg:sticky lg:top-24">
-            <div className="space-y-2">
+        {/* The five programme groups, as a journey from A to E */}
+        <FadeUp delay={0.05}>
+          <div className="relative">
+            <div className="pointer-events-none absolute left-[10%] right-[10%] top-9 hidden h-1 rounded-full bg-gradient-to-r from-brand-red via-brand-blue via-brand-green via-brand-magenta to-brand-yellow opacity-40 lg:block" />
+            <div className="relative grid gap-3 sm:grid-cols-2 lg:grid-cols-5" role="tablist" aria-label="Learning and Development initiatives">
               {initiativeTabs.map((tab) => {
                 const isActive = tab.key === activeTab;
+                const ts = initiativeStyles[tab.key];
                 return (
-                  <button
+                  <_MOTION.button
                     key={tab.key}
+                    type="button"
+                    role="tab"
+                    aria-selected={isActive}
                     onClick={() => setActiveTab(tab.key)}
-                    className={`flex w-full items-center gap-3 rounded-2xl border px-4 py-3 text-left transition ${
-                      isActive
-                        ? "border-transparent bg-brand-red text-white shadow-lg"
-                        : "border-brand-red/15 bg-white text-[#1A1A1A] hover:border-brand-red/35 hover:bg-brand-yellow/10"
+                    onMouseEnter={() => setActiveTab(tab.key)}
+                    onFocus={() => setActiveTab(tab.key)}
+                    whileHover={{ y: -5 }}
+                    transition={{ type: "spring", stiffness: 300, damping: 24 }}
+                    className={`flex flex-col items-center gap-3 rounded-2xl border-2 px-4 py-5 text-center transition-all duration-300 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-brand-red/25 ${
+                      isActive ? `${ts.bg} ${ts.fg} border-transparent shadow-xl` : "border-gray-200 bg-[#f8f8f6] text-[#1A1A1A] hover:border-[#1A1A1A]/30 hover:bg-white"
                     }`}
                   >
-                    <span
-                      className={`grid h-8 w-8 place-items-center rounded-full text-xs font-bold ${
-                        isActive ? "bg-brand-yellow text-brand-black" : "bg-brand-yellow/40 text-brand-red"
-                      }`}
-                    >
-                      {tab.letter}
+                    <span className={`relative flex h-14 w-14 items-center justify-center rounded-full ${isActive ? "bg-white/25" : `${ts.bg} ${ts.fg}`}`}>
+                      <ts.Icon className="h-7 w-7" />
+                      <span className="absolute -right-1 -top-1 grid h-6 w-6 place-items-center rounded-full bg-[#1A1A1A] text-xs font-black text-white">{tab.letter}</span>
                     </span>
-                    <span className="text-sm font-semibold leading-snug">{tab.title}</span>
-                  </button>
+                    <span className="text-base font-extrabold leading-snug md:text-lg">{tab.title}</span>
+                  </_MOTION.button>
                 );
               })}
             </div>
-          </FadeUp>
+          </div>
+        </FadeUp>
 
-          <FadeUp delay={0.12}>
-            <_MOTION.div
-              key={active.key}
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.3, ease: EASE }}
-              className="rounded-3xl border border-black/5 bg-[#f8f8f6] p-4 sm:p-6"
-            >
-              <div className="mb-5 flex items-center gap-3">
-                <span className="grid h-10 w-10 place-items-center rounded-full bg-brand-red text-sm font-bold text-white">
-                  {active.letter}
+        {/* Details */}
+        <_MOTION.div
+          key={active.key}
+          role="tabpanel"
+          initial={{ opacity: 0, y: 14 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.35, ease: EASE }}
+          className="mt-6 overflow-hidden rounded-3xl border border-black/5 bg-[#f8f8f6] shadow-sm"
+        >
+          <div className={`flex items-center gap-4 px-6 py-5 sm:px-8 ${st.bg} ${st.fg}`}>
+            <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-white/25">
+              <st.Icon className="h-6 w-6" />
+            </span>
+            <h3 className="text-2xl font-black leading-tight md:text-3xl">{active.title}</h3>
+          </div>
+
+          <div className="space-y-4 p-5 sm:p-8">
+            {active.blocks.map((block, bi) => (
+              <_MOTION.div
+                key={block.heading}
+                whileHover={{ y: -3 }}
+                transition={{ duration: 0.2 }}
+                className="flex gap-4 rounded-2xl border border-black/5 bg-white p-5 shadow-sm sm:p-6"
+              >
+                <span className={`mt-1 grid h-9 w-9 shrink-0 place-items-center rounded-full text-base font-black ${st.soft} ${st.text}`}>
+                  {bi + 1}
                 </span>
-                <h3 className="text-2xl font-black text-[#1A1A1A]">{active.title}</h3>
-              </div>
+                <div>
+                  <h4 className="text-xl font-extrabold text-[#1A1A1A] md:text-2xl">{block.heading}</h4>
+                  <p className="mt-3 text-lg leading-relaxed text-gray-800">{block.text}</p>
+                </div>
+              </_MOTION.div>
+            ))}
 
-              <div className="space-y-4">
-                {active.blocks.map((block) => (
-                  <_MOTION.div
-                    key={block.heading}
-                    whileHover={{ y: -3 }}
-                    transition={{ duration: 0.2 }}
-                    className="rounded-2xl border border-black/5 bg-white p-5 sm:p-6"
-                  >
-                    <h4 className="text-xl font-bold text-[#1A1A1A]">{block.heading}</h4>
-                    <p className="mt-3 leading-relaxed text-gray-700">{block.text}</p>
-                  </_MOTION.div>
-                ))}
-
-                {active.platforms && (
-                  <div className="rounded-2xl border border-black/5 bg-white p-5 sm:p-6">
-                    <h5 className="text-sm font-semibold uppercase tracking-[0.16em] text-brand-red">Three Platforms</h5>
-                    <div className="mt-4 grid gap-3 md:grid-cols-3">
-                      {active.platforms.map((item) => (
-                        <div key={item} className="rounded-xl border border-black/10 bg-[#f8f8f6] p-4">
-                          <p className="text-sm font-semibold leading-relaxed text-[#1A1A1A]">{item}</p>
-                        </div>
-                      ))}
-                    </div>
-                    <p className="mt-5 leading-relaxed text-gray-700">{active.footer}</p>
-                  </div>
-                )}
+            {active.platforms && (
+              <div className="rounded-2xl border border-black/5 bg-white p-5 shadow-sm sm:p-6">
+                <h5 className={`text-base font-bold uppercase tracking-[0.16em] ${st.text}`}>Three Platforms</h5>
+                <div className="mt-4 grid gap-4 md:grid-cols-3">
+                  {active.platforms.map((item, pi) => {
+                    const [name, ...rest] = item.split(":");
+                    const PIcon = platformIcons[pi] || BookOpen;
+                    return (
+                      <_MOTION.div
+                        key={item}
+                        whileHover={{ y: -4 }}
+                        className="rounded-2xl border border-black/10 bg-[#f8f8f6] p-5"
+                      >
+                        <span className={`flex h-12 w-12 items-center justify-center rounded-xl ${st.bg} ${st.fg}`}>
+                          <PIcon className="h-6 w-6" />
+                        </span>
+                        <p className="mt-4 text-xl font-extrabold leading-snug text-[#1A1A1A]">{name}</p>
+                        {rest.length > 0 && <p className="mt-1 text-lg leading-snug text-gray-800">{rest.join(":").trim()}</p>}
+                      </_MOTION.div>
+                    );
+                  })}
+                </div>
+                <p className="mt-5 text-lg leading-relaxed text-gray-800">{active.footer}</p>
               </div>
-            </_MOTION.div>
-          </FadeUp>
-        </div>
+            )}
+          </div>
+        </_MOTION.div>
       </div>
     </section>
   );
@@ -317,7 +401,7 @@ function TestimonialsSection() {
   useEffect(() => {
     const interval = setInterval(() => {
       setActive((prev) => (prev + 1) % testimonials.length);
-    }, 5000);
+    }, 7000);
     return () => clearInterval(interval);
   }, []);
 
@@ -327,57 +411,68 @@ function TestimonialsSection() {
   return (
     <section className="bg-[#f8f8f6] py-16 sm:py-20">
       <div className="mx-auto max-w-7xl px-6 lg:px-12">
-        <FadeUp className="mb-8">
+        <FadeUp className="mb-10">
           <SectionTag>Testimonials</SectionTag>
-          <h2 className="mt-5 text-3xl font-black text-[#1A1A1A] md:text-4xl">Employee Testimonials</h2>
+          <h2 className="mt-5 text-4xl font-black leading-tight text-[#1A1A1A] md:text-5xl">
+            Employee <span className="text-brand-red">Testimonials</span>
+          </h2>
         </FadeUp>
 
-        <FadeUp delay={0.1} className="rounded-3xl border border-black/5 bg-white p-6 shadow-sm sm:p-8">
-          <div className="mb-5 flex items-center justify-between gap-3">
-            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-brand-red">
-              {testimonials[active].programme}
-            </p>
-            <div className="flex items-center gap-2">
-              <button
-                onClick={prev}
-                className="grid h-9 w-9 place-items-center rounded-full border border-black/10 text-[#1A1A1A] transition hover:bg-black hover:text-white"
-                aria-label="Previous testimonial"
-              >
-                <ChevronLeft className="h-4 w-4" />
-              </button>
-              <button
-                onClick={next}
-                className="grid h-9 w-9 place-items-center rounded-full border border-black/10 text-[#1A1A1A] transition hover:bg-black hover:text-white"
-                aria-label="Next testimonial"
-              >
-                <ChevronRight className="h-4 w-4" />
-              </button>
+        <FadeUp delay={0.1}>
+          <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#1A1A1A] via-[#2B1216] to-[#6B0F18] p-8 shadow-2xl ring-1 ring-brand-red/40 sm:p-12">
+            <div className="pointer-events-none absolute -right-20 -top-20 h-72 w-72 rounded-full bg-brand-yellow/20 blur-3xl" />
+            <div className="pointer-events-none absolute -bottom-24 -left-16 h-64 w-64 rounded-full bg-brand-red/30 blur-3xl" />
+            <Quote className="pointer-events-none absolute right-8 top-6 h-28 w-28 text-white/10 sm:h-40 sm:w-40" />
+
+            <div className="relative mb-6 flex flex-wrap items-center justify-between gap-3">
+              <span className="inline-flex items-center gap-2 rounded-full bg-brand-yellow px-4 py-1.5 text-sm font-extrabold uppercase tracking-[0.14em] text-brand-black">
+                <span className="h-2 w-2 rounded-full bg-brand-red" />
+                {testimonials[active].programme}
+              </span>
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={prev}
+                  className="grid h-11 w-11 place-items-center rounded-full border border-white/30 text-white transition hover:bg-brand-yellow hover:text-brand-black"
+                  aria-label="Previous testimonial"
+                >
+                  <ChevronLeft className="h-5 w-5" />
+                </button>
+                <button
+                  onClick={next}
+                  className="grid h-11 w-11 place-items-center rounded-full border border-white/30 text-white transition hover:bg-brand-yellow hover:text-brand-black"
+                  aria-label="Next testimonial"
+                >
+                  <ChevronRight className="h-5 w-5" />
+                </button>
+              </div>
             </div>
-          </div>
 
-          <_MOTION.blockquote
-            key={active}
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.25 }}
-          >
-            <p className="text-xl leading-relaxed text-gray-800 sm:text-2xl">"{testimonials[active].quote}"</p>
-            <footer className="mt-5 text-sm font-semibold uppercase tracking-[0.14em] text-[#1A1A1A]">
-              {testimonials[active].by}
-            </footer>
-          </_MOTION.blockquote>
+            <_MOTION.blockquote
+              key={active}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.3 }}
+              className="relative"
+            >
+              <p className="text-2xl font-semibold leading-relaxed text-white sm:text-3xl">"{testimonials[active].quote}"</p>
+              <footer className="mt-7 flex items-center gap-3">
+                <span className="h-1 w-10 rounded-full bg-brand-yellow" />
+                <span className="text-base font-bold uppercase tracking-[0.14em] text-brand-yellow">{testimonials[active].by}</span>
+              </footer>
+            </_MOTION.blockquote>
 
-          <div className="mt-6 flex items-center gap-2">
-            {testimonials.map((item, index) => (
-              <button
-                key={item.programme}
-                onClick={() => setActive(index)}
-                className={`h-2 rounded-full transition-all ${
-                  index === active ? "w-10 bg-brand-red" : "w-4 bg-black/20 hover:bg-black/35"
-                }`}
-                aria-label={`Show testimonial ${index + 1}`}
-              />
-            ))}
+            <div className="relative mt-8 flex items-center gap-2">
+              {testimonials.map((item, index) => (
+                <button
+                  key={item.programme}
+                  onClick={() => setActive(index)}
+                  className={`h-2.5 rounded-full transition-all ${
+                    index === active ? "w-12 bg-brand-yellow" : "w-5 bg-white/30 hover:bg-white/50"
+                  }`}
+                  aria-label={`Show testimonial ${index + 1}`}
+                />
+              ))}
+            </div>
           </div>
         </FadeUp>
       </div>
