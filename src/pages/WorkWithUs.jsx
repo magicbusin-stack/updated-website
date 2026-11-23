@@ -252,10 +252,14 @@ export default function WorkWithUs() {
             <div className="space-y-4">
               {!hasSearched ? (
                 <div className="text-center py-16 bg-white border border-slate-200/60 rounded-3xl p-6 shadow-sm">
-                  <Search className="w-12 h-12 text-brand-yellow mx-auto mb-4" />
-                  <h4 className="font-extrabold text-slate-800 text-lg">Find Your Perfect Role</h4>
-                  <p className="text-xs text-slate-400 mt-2 max-w-sm mx-auto">
-                    Select a job profile and your preferred location above, then click <strong>Submit Search</strong> to explore career opportunities.
+                  <span className="mx-auto mb-5 flex h-16 w-16 items-center justify-center rounded-2xl bg-brand-yellow shadow-md">
+                    <Search className="w-8 h-8 text-slate-900" />
+                  </span>
+                  <h4 className="text-3xl md:text-4xl font-extrabold leading-tight text-slate-900">
+                    Find Your <span className="text-brand-red">Perfect Role</span>
+                  </h4>
+                  <p className="mt-4 max-w-xl mx-auto text-lg md:text-xl font-semibold leading-relaxed text-slate-700">
+                    Select a job profile and your preferred location above, then click <strong className="font-extrabold text-brand-red">Submit Search</strong> to explore career opportunities.
                   </p>
                 </div>
               ) : (
@@ -325,13 +329,13 @@ export default function WorkWithUs() {
             
             {/* Header */}
             <div className="text-center mb-16">
-              <span className="inline-block bg-brand-green/10 text-brand-green font-bold text-xs uppercase tracking-widest px-3 py-1 rounded-full mb-3">
+              <span className="inline-block bg-brand-green/15 text-[#5E7A00] font-bold text-sm uppercase tracking-widest px-4 py-1.5 rounded-full mb-4">
                 Team Stories
               </span>
-              <h3 className="text-3xl font-extrabold text-slate-900 tracking-tight">
-                Watch Employee Testimonials
+              <h3 className="text-4xl md:text-5xl font-extrabold leading-tight text-slate-900">
+                Watch <span className="text-brand-red">Employee Testimonials</span>
               </h3>
-              <p className="text-slate-500 text-sm mt-2">
+              <p className="mt-4 mx-auto max-w-3xl text-lg md:text-xl font-semibold leading-relaxed text-slate-700">
                 Hear directly from our team about work-life culture, career growth, and local field impacts.
               </p>
             </div>
@@ -362,8 +366,8 @@ export default function WorkWithUs() {
                   </div>
 
                   <div>
-                    <h4 className="font-extrabold text-slate-900 text-base leading-snug tracking-tight mb-1">{t.title}</h4>
-                    <p className="text-xs text-slate-400 font-semibold uppercase tracking-wider">{t.speaker}</p>
+                    <h4 className="font-extrabold text-slate-900 text-lg leading-snug mb-1">{t.title}</h4>
+                    <p className="text-sm text-slate-600 font-bold uppercase tracking-wider">{t.speaker}</p>
                   </div>
                 </div>
               ))}
@@ -373,30 +377,55 @@ export default function WorkWithUs() {
         </section>
 
         {/* ===== 6) SECTION 4: BEWARE OF JOB SCAMS (ADVISORY PANEL) ===== */}
-        <section className="py-16 bg-red-50/50 border-t border-red-100">
-          <div className="max-w-4xl mx-auto px-6">
-            <div className="bg-white border border-red-200/60 p-6 md:p-8 rounded-3xl shadow-sm flex flex-col sm:flex-row gap-6 items-start">
-              <div className="bg-red-100 text-red-600 rounded-2xl p-4 shrink-0">
-                <AlertTriangle className="w-8 h-8" />
-              </div>
-              
-              <div className="space-y-3">
-                <h3 className="text-xl font-extrabold text-red-950 tracking-tight">Beware of Job Scams</h3>
-                <p className="text-sm text-red-900/70 leading-relaxed font-light">
-                  Magic Bus India Foundation never requests payment, administration fees, or deposits at any stage of the recruitment process. Please do not pay any third-party agencies or consultants claiming to represent us. All official job confirmations are issued directly from <span className="font-bold">magicbus.org</span> domain emails.
-                </p>
-                
-                <div className="pt-2">
-                  <a
-                    href="mailto:careers@magicbusindia.org"
-                    className="inline-flex items-center gap-1.5 text-xs font-bold text-red-600 hover:text-red-800 transition-colors uppercase tracking-wider"
-                  >
-                    <span>Report Fraudulent Invites</span>
-                    <ArrowRight className="w-3.5 h-3.5" />
-                  </a>
+        <section className="py-16 md:py-20 bg-gradient-to-b from-red-50 to-white border-t border-red-100">
+          <div className="max-w-5xl mx-auto px-6">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#1A1A1A] via-[#2B1216] to-[#6B0F18] shadow-2xl shadow-red-900/30 ring-2 ring-brand-red/60"
+            >
+              {/* Warning-tape strip */}
+              <div
+                aria-hidden="true"
+                className="h-3 w-full"
+                style={{ backgroundImage: "repeating-linear-gradient(-45deg, #FFCC04 0 14px, #1A1A1A 14px 28px)" }}
+              />
+              <div className="pointer-events-none absolute -right-20 top-10 h-72 w-72 rounded-full bg-brand-red/30 blur-3xl" />
+
+              <div className="relative flex flex-col gap-6 p-7 md:flex-row md:items-start md:gap-8 md:p-10">
+                {/* Pulsing alert icon */}
+                <div className="relative shrink-0">
+                  <span aria-hidden="true" className="absolute inset-0 rounded-2xl bg-brand-red/60 motion-safe:animate-ping" />
+                  <div className="relative flex h-20 w-20 items-center justify-center rounded-2xl bg-brand-red text-white shadow-lg shadow-brand-red/50">
+                    <AlertTriangle className="h-11 w-11" />
+                  </div>
+                </div>
+
+                <div className="space-y-4">
+                  <p className="text-sm font-bold uppercase tracking-[0.25em] text-brand-yellow">Important notice</p>
+                  <h3 className="text-3xl md:text-4xl font-extrabold leading-tight text-white">Beware of Job Scams</h3>
+                  <p className="text-lg md:text-xl font-medium leading-relaxed text-white">
+                    Magic Bus India Foundation{" "}
+                    <mark className="rounded bg-brand-yellow px-1.5 font-extrabold text-slate-950">never requests payment, administration fees, or deposits</mark>{" "}
+                    at any stage of the recruitment process. Please do not pay any third-party agencies or consultants claiming to represent us. All official job confirmations are issued directly from{" "}
+                    <span className="font-extrabold text-brand-yellow underline decoration-brand-yellow/60 underline-offset-4">magicbus.org</span>{" "}
+                    domain emails.
+                  </p>
+
+                  <div className="pt-2">
+                    <a
+                      href="mailto:careers@magicbusindia.org"
+                      className="inline-flex items-center gap-2 rounded-full bg-brand-yellow px-6 py-3 text-base md:text-lg font-extrabold text-slate-950 shadow-lg transition hover:bg-white focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-brand-yellow/50"
+                    >
+                      <span>Report Fraudulent Invites</span>
+                      <ArrowRight className="h-5 w-5" />
+                    </a>
+                  </div>
                 </div>
               </div>
-            </div>
+            </motion.div>
           </div>
         </section>
 
