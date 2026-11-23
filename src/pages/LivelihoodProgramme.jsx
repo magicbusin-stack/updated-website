@@ -7,6 +7,7 @@ import {
     CalendarCheck,
     Compass,
     GraduationCap,
+    Handshake,
     Heart,
     Mail,
     MapPin,
@@ -385,7 +386,7 @@ export default function LivelihoodProgramme() {
                 </div>
             </section>
 
-            <StatsBand eyebrow="Impact and Success Stories" title="Impact of our Livelihood Programme" stats={impactStats} cols={3} />
+            <StatsBand eyebrow="Impact and Success Stories" title="Impact of our Livelihood Programme" stats={impactStats} cols={3} compact />
 
             <FAQSection
                 items={livelihoodFaq}
@@ -393,30 +394,63 @@ export default function LivelihoodProgramme() {
                 subtitle="Quick answers about SDG alignment, programme coverage, eligibility and CSR support."
             />
 
-            <section id="contact-livelihood" className="py-20 bg-white">
-                <div className="max-w-7xl mx-auto px-6 lg:px-12 grid lg:grid-cols-2 gap-6">
-                    <FadeUp>
-                        <div className="rounded-3xl border border-gray-200 bg-[#F7F7F5] p-7 h-full">
-                            <SectionTag>For CSR Support</SectionTag>
-                            <h2 className="text-2xl md:text-3xl font-extrabold text-[#1A1A1A]">For CSR Support for Youth Livelihood, Contact Us</h2>
-                            <p className="mt-4 text-[#1A1A1A]/75">Leena Rao: Head – Programme and Partnerships</p>
-                            <a href="mailto:leena.rao@magicbusindia.org" className="mt-5 inline-flex items-center gap-2 text-sm font-bold text-brand-red hover:text-[#a01018]">
-                                <Mail className="w-4 h-4" />
-                                leena.rao@magicbusindia.org
+            <section id="contact-livelihood" className="py-20 bg-[#F7F7F5]">
+                <div className="max-w-7xl mx-auto px-6 lg:px-12 grid gap-6 lg:grid-cols-2">
+                    <FadeUp className="h-full">
+                        <_MOTION.div
+                            whileHover={{ y: -5 }}
+                            transition={{ type: "spring", stiffness: 260, damping: 22 }}
+                            className="group relative flex h-full flex-col overflow-hidden rounded-3xl bg-[#1A1A1A] p-8 shadow-xl md:p-10"
+                        >
+                            <div className="pointer-events-none absolute -right-16 -top-16 h-56 w-56 rounded-full bg-brand-yellow/15 blur-3xl" />
+                            <span className="relative flex h-16 w-16 items-center justify-center rounded-2xl bg-brand-yellow shadow-lg">
+                                <Handshake className="h-8 w-8 text-brand-black" />
+                            </span>
+                            <p className="relative mt-6 text-sm font-bold uppercase tracking-[0.2em] text-brand-yellow">For CSR Support</p>
+                            <h2 className="relative mt-3 text-3xl font-extrabold leading-tight text-white md:text-4xl">
+                                For CSR Support for Youth Livelihood, Contact Us
+                            </h2>
+                            <div className="relative mt-6 border-l-4 border-brand-yellow pl-4">
+                                <p className="text-2xl font-extrabold text-white">Leena Rao</p>
+                                <p className="mt-1 text-lg text-white/85">Head – Programme and Partnerships</p>
+                            </div>
+                            <a
+                                href="mailto:leena.rao@magicbusindia.org"
+                                className="relative mt-8 inline-flex w-fit max-w-full items-center gap-3 rounded-full bg-brand-yellow px-6 py-3 text-base font-bold text-brand-black transition hover:bg-white focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-brand-yellow/40 md:text-lg"
+                            >
+                                <Mail className="h-5 w-5 shrink-0" />
+                                <span className="break-all">leena.rao@magicbusindia.org</span>
+                                <ArrowRight className="h-5 w-5 shrink-0 transition-transform group-hover:translate-x-1" />
                             </a>
-                        </div>
+                        </_MOTION.div>
                     </FadeUp>
 
-                    <FadeUp delay={0.06}>
-                        <div className="rounded-3xl border border-gray-200 bg-white p-7 h-full">
-                            <SectionTag>Get in Touch</SectionTag>
-                            <h2 className="text-2xl md:text-3xl font-extrabold text-[#1A1A1A]">Get in Touch About the Livelihood Programme</h2>
-                            <p className="mt-4 text-[#1A1A1A]/75">For other enquiries related to this programme.</p>
-                            <a href="mailto:info@magicbusindia.org" className="mt-5 inline-flex items-center gap-2 text-sm font-bold text-brand-red hover:text-[#a01018]">
-                                <Mail className="w-4 h-4" />
-                                info@magicbusindia.org
+                    <FadeUp delay={0.08} className="h-full">
+                        <_MOTION.div
+                            whileHover={{ y: -5 }}
+                            transition={{ type: "spring", stiffness: 260, damping: 22 }}
+                            className="group relative flex h-full flex-col overflow-hidden rounded-3xl border border-gray-200 bg-white p-8 shadow-sm transition-shadow duration-300 hover:shadow-xl md:p-10"
+                        >
+                            <div className="pointer-events-none absolute -right-16 -top-16 h-56 w-56 rounded-full bg-brand-red/10 blur-3xl" />
+                            <span className="relative flex h-16 w-16 items-center justify-center rounded-2xl bg-brand-red shadow-lg">
+                                <Mail className="h-8 w-8 text-white" />
+                            </span>
+                            <p className="relative mt-6 text-sm font-bold uppercase tracking-[0.2em] text-brand-red">Get in Touch</p>
+                            <h2 className="relative mt-3 text-3xl font-extrabold leading-tight text-[#1A1A1A] md:text-4xl">
+                                Get in Touch About the Livelihood Programme
+                            </h2>
+                            <div className="relative mt-6 border-l-4 border-brand-red pl-4">
+                                <p className="text-lg text-[#1A1A1A]/85 md:text-xl">For other enquiries related to this programme.</p>
+                            </div>
+                            <a
+                                href="mailto:info@magicbusindia.org"
+                                className="relative mt-8 inline-flex w-fit max-w-full items-center gap-3 rounded-full bg-brand-red px-6 py-3 text-base font-bold text-white transition hover:bg-[#c41b20] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-brand-red/30 md:text-lg"
+                            >
+                                <Mail className="h-5 w-5 shrink-0" />
+                                <span className="break-all">info@magicbusindia.org</span>
+                                <ArrowRight className="h-5 w-5 shrink-0 transition-transform group-hover:translate-x-1" />
                             </a>
-                        </div>
+                        </_MOTION.div>
                     </FadeUp>
                 </div>
             </section>
