@@ -65,9 +65,11 @@ function PageLoading() {
   );
 }
 
-function App() {
+/* The pages themselves. Used by the browser (inside BrowserRouter, below) and by the build-time
+   prerender (src/entry-server.jsx, inside StaticRouter) so both draw exactly the same thing. */
+export function AppRoutes() {
   return (
-    <Router>
+    <>
       {/* title, description, canonical, robots, social tags and structured data for every page */}
       <SeoManager />
       <Suspense fallback={<PageLoading />}>
@@ -128,6 +130,14 @@ function App() {
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Suspense>
+    </>
+  )
+}
+
+function App() {
+  return (
+    <Router>
+      <AppRoutes />
     </Router>
   )
 }

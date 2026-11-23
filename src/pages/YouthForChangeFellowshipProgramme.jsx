@@ -232,7 +232,7 @@ export default function YouthForChangeFellowshipProgramme() {
                                             {i !== programmePhases.length - 1 && (
                                                 <div className="absolute left-7 top-12 bottom-[-16px] w-px bg-brand-red/20" />
                                             )}
-                                            <div className="flex items-center justify-between gap-3">
+                                            <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-2">
                                                 <h3 className="text-xl font-bold text-[#1A1A1A]">{phase.title}</h3>
                                                 <span className="shrink-0 rounded-full bg-brand-yellow/70 px-3 py-1 text-base font-bold text-brand-black">
                                                     {phase.duration}
@@ -506,7 +506,7 @@ export default function YouthForChangeFellowshipProgramme() {
             />
 
             <section id="programme-enquiries" className="py-20 bg-white">
-                <div className="max-w-7xl mx-auto px-6 lg:px-12 grid lg:grid-cols-2 gap-6">
+                <div className="max-w-7xl mx-auto px-6 lg:px-12 grid grid-cols-[minmax(0,1fr)] lg:grid-cols-2 gap-6">
                     <FadeUp>
                         <div className="rounded-3xl border border-gray-200 bg-[#F7F7F5] p-7 h-full">
                             <SectionTag>For Programme Enquiries</SectionTag>
@@ -518,9 +518,9 @@ export default function YouthForChangeFellowshipProgramme() {
                             </p>
                             <a
                                 href="mailto:garima.mehandiratta@magicbusindia.org"
-                                className="mt-5 inline-flex items-center gap-2 text-base font-bold text-brand-red hover:text-[#a01018]"
+                                className="mt-5 inline-flex max-w-full items-center gap-2 text-base font-bold text-brand-red hover:text-[#a01018] break-all"
                             >
-                                <Mail className="w-4 h-4" />
+                                <Mail className="w-4 h-4 shrink-0" />
                                 garima.mehandiratta@magicbusindia.org
                             </a>
                         </div>

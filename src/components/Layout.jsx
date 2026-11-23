@@ -1,9 +1,11 @@
 import { motion, AnimatePresence } from "framer-motion";
+import { useLocation } from "react-router-dom";
 import Footer from "./Footer";
 import NavbarNew from "./NavbarNew";
 import RelatedPages from "../seo/RelatedPages";
 
 export default function Layout({ children }) {
+  const location = useLocation();
   return (
     <div className="flex flex-col min-h-screen bg-white text-gray-800">
       <NavbarNew />
