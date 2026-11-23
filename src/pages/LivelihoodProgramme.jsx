@@ -171,21 +171,17 @@ function StructureRow({ item, i }) {
                 </div>
                 <div className="flex-1 min-w-0 py-5 sm:py-6 px-4 sm:px-6 flex flex-col md:flex-row md:items-center md:gap-12">
                     <h3 className="font-black text-[#1A1A1A] text-xl md:text-2xl md:w-80 md:shrink-0">{item.title}</h3>
-                    {item.points.length > 1 ? (
-                        <ul className="mt-3 md:mt-0 flex flex-wrap gap-2">
-                            {item.points.map((point) => (
-                                <li
-                                    key={point}
-                                    tabIndex={0}
-                                    className="rounded-full border border-gray-300/80 bg-white px-4 py-1.5 text-base md:text-lg font-medium text-[#1A1A1A]/85 transition-colors duration-200 hover:border-[#1A1A1A]/40 hover:text-[#1A1A1A] focus-visible:border-[#1A1A1A]/40 focus-visible:outline-none"
-                                >
-                                    {point}
-                                </li>
-                            ))}
-                        </ul>
-                    ) : (
-                        <p className="mt-2 md:mt-0 text-lg md:text-2xl font-medium leading-snug text-[#1A1A1A]/85">{item.points[0]}</p>
-                    )}
+                    <ul className="mt-3 md:mt-0 flex flex-wrap gap-2">
+                        {item.points.map((point) => (
+                            <li
+                                key={point}
+                                tabIndex={0}
+                                className="rounded-3xl border border-gray-300/80 bg-white px-4 py-1.5 text-base md:text-lg font-medium leading-snug text-[#1A1A1A]/85 transition-colors duration-200 hover:border-[#1A1A1A]/40 hover:text-[#1A1A1A] focus-visible:border-[#1A1A1A]/40 focus-visible:outline-none"
+                            >
+                                {point}
+                            </li>
+                        ))}
+                    </ul>
                 </div>
             </div>
         </FadeUp>
