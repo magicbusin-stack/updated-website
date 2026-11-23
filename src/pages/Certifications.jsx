@@ -453,7 +453,7 @@ function TransparencyCommitment() {
           </div>
           <h3 className="text-3xl md:text-4xl font-extrabold text-ink">Commitment to Transparency</h3>
           <p className="mx-auto mt-3 max-w-2xl text-lg md:text-xl font-medium text-slate-700">
-            Select a point below to highlight it.
+            Select a point below to read it.
           </p>
         </div>
 
@@ -489,8 +489,8 @@ function TransparencyCommitment() {
             {COMMITMENT_POINTS.map((pt, i) => (
               <span
                 key={pt.label}
-                className={`rounded px-1 py-0.5 transition-all duration-300 [box-decoration-break:clone] ${
-                  i === active ? "bg-brand-yellow/70 font-extrabold text-slate-950" : "text-slate-600"
+                className={`transition-colors duration-300 ${
+                  i === active ? "font-extrabold text-brand-red" : "text-slate-600"
                 }`}
               >
                 {pt.text}{" "}

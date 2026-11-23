@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import {
     Heart, Shield, Users, Lightbulb, Star,
@@ -95,6 +95,60 @@ const culturePoints = [
     { icon: Star, color: "bg-brand-yellow", textColor: "text-brand-black", title: "Agility", desc: "Change is constant, and we embrace it. Our teams move fast and adapt with confidence." },
 ];
 
+
+function PillarsExplorer() {
+    const [active, setActive] = useState(0);
+    const cur = culturePoints[active];
+    return (
+        <div>
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3" role="tablist" aria-label="The six pillars of our culture">
+                {culturePoints.map((pt, i) => {
+                    const on = i === active;
+                    return (
+                        <motion.button
+                            key={pt.title}
+                            type="button"
+                            role="tab"
+                            aria-selected={on}
+                            onClick={() => setActive(i)}
+                            onMouseEnter={() => setActive(i)}
+                            onFocus={() => setActive(i)}
+                            whileHover={{ y: -4 }}
+                            transition={{ type: "spring", stiffness: 300, damping: 24 }}
+                            className={`relative flex flex-col items-start gap-3 overflow-hidden rounded-2xl border-2 p-4 text-left transition-colors duration-300 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-brand-red/25 ${
+                                on ? `${pt.color} ${pt.textColor} border-transparent shadow-lg` : "border-gray-200 bg-[#F7F7F5] text-[#1A1A1A] hover:border-[#1A1A1A]/30 hover:bg-white"
+                            }`}
+                        >
+                            <span className={`text-4xl font-black leading-none select-none ${on ? "opacity-30" : "text-[#1A1A1A]/10"}`}>{String(i + 1).padStart(2, "0")}</span>
+                            <span className={`flex h-11 w-11 items-center justify-center rounded-xl ${on ? "bg-white/25" : `${pt.color} ${pt.textColor}`}`}>
+                                <pt.icon className="h-5 w-5" />
+                            </span>
+                            <span className="text-lg font-extrabold leading-tight">{pt.title}</span>
+                        </motion.button>
+                    );
+                })}
+            </div>
+
+            <motion.div
+                key={active}
+                role="tabpanel"
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.35 }}
+                className={`mt-5 flex flex-col items-start gap-6 rounded-3xl p-8 md:flex-row md:items-center md:p-10 ${cur.color} ${cur.textColor}`}
+            >
+                <span className="flex h-20 w-20 shrink-0 items-center justify-center rounded-2xl bg-white/25">
+                    <cur.icon className="h-10 w-10" />
+                </span>
+                <div>
+                    <h3 className="text-3xl md:text-4xl font-extrabold leading-tight">{cur.title}</h3>
+                    <p className="mt-3 max-w-3xl text-xl md:text-2xl font-medium leading-relaxed">{cur.desc}</p>
+                </div>
+            </motion.div>
+        </div>
+    );
+}
+
 function IntroSection() {
     return (
         <section className="py-20 bg-white overflow-hidden">
@@ -106,22 +160,26 @@ function IntroSection() {
                         <h2 className="text-4xl md:text-5xl font-extrabold text-[#1A1A1A] leading-tight mt-2">
                             A Culture Built on <span className="text-brand-red">Purpose</span>
                         </h2>
-                        <p className="mt-5 text-base text-[#1A1A1A]/65 leading-relaxed">
+                        <p className="mt-5 text-lg text-[#1A1A1A]/80 leading-relaxed">
                             At Magic Bus, we believe that work should be meaningful, energising, and human. Our workplace is our second home — one where curiosity is encouraged, integrity is non-negotiable, and people grow together while shaping something bigger than 'Self'.
                         </p>
-                        <p className="mt-4 text-base text-[#1A1A1A]/65 leading-relaxed">
+                        <p className="mt-4 text-lg text-[#1A1A1A]/80 leading-relaxed">
                             Every role at Magic Bus makes a difference and helps shape the organisation's direction. We empower our people to take ownership and create change that truly matters.
                         </p>
-                        {/* Stat strip */}
-                        <div className="mt-8 flex gap-8 border-t border-gray-100 pt-6">
+                        {/* Stats: same style as the programme pages */}
+                        <div className="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-x-6 gap-y-6 border-t border-gray-100 pt-6">
                             {[
-                                { num: "6+", label: "Years Great Place to Work" },
-                                { num: "90%", label: "Employee Satisfaction" },
-                                { num: "3", label: "National Awards" }
-                            ].map(s => (
-                                <div key={s.label}>
-                                    <p className="text-3xl font-extrabold text-brand-red">{s.num}</p>
-                                    <p className="text-xs text-[#1A1A1A]/50 leading-tight mt-0.5 max-w-[80px]">{s.label}</p>
+                                { num: "6+", unit: "Years", label: "Great Place to Work", accent: "text-brand-yellow", bar: "bg-brand-yellow" },
+                                { num: "90%", unit: "Employee", label: "Satisfaction", accent: "text-brand-blue", bar: "bg-brand-blue" },
+                                { num: "3", unit: "National", label: "Awards", accent: "text-brand-red", bar: "bg-brand-red" },
+                            ].map((st) => (
+                                <div key={st.unit} className="flex items-stretch gap-3">
+                                    <div className={`w-1.5 shrink-0 self-stretch rounded-full ${st.bar}`} />
+                                    <div>
+                                        <div className={`font-black leading-none select-none text-5xl md:text-6xl ${st.accent}`}>{st.num}</div>
+                                        <div className="mt-2 text-base font-bold uppercase tracking-[0.14em] text-[#1A1A1A]/70">{st.unit}</div>
+                                        <div className="mt-1 text-lg leading-snug text-[#1A1A1A]/80">{st.label}</div>
+                                    </div>
                                 </div>
                             ))}
                         </div>
@@ -153,43 +211,14 @@ function IntroSection() {
                     </FadeIn>
                 </div>
 
-                {/* Six pillars — bento infographic grid */}
-                <FadeUp className="mb-10">
+                {/* Six pillars: pick one to read it */}
+                <FadeUp className="mb-8">
                     <div className="flex items-center gap-4">
                         <div className="h-0.5 w-10 bg-brand-red" />
-                        <p className="text-xs font-bold tracking-[0.2em] uppercase text-[#1A1A1A]/45">The Six Pillars of Our Culture</p>
+                        <p className="text-base md:text-lg font-bold tracking-[0.18em] uppercase text-[#1A1A1A]/75">The Six Pillars of Our Culture</p>
                     </div>
                 </FadeUp>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                    {culturePoints.map((p, i) => (
-                        <FadeUp key={p.title} delay={0.06 * i} className="h-full">
-                            <motion.div
-                                className="group relative h-full rounded-2xl overflow-hidden bg-[#F7F7F5] border border-gray-100 hover:shadow-xl transition-all duration-300 cursor-default min-h-[200px] flex flex-col"
-                                whileHover={{ y: -4, scale: 1.01 }}
-                                transition={{ type: "spring", stiffness: 300, damping: 25 }}
-                            >
-                                {/* Top color bar */}
-                                <div className={`${p.color} h-1.5 w-full`} />
-
-                                <div className="flex-1 p-6 flex flex-col justify-between">
-                                    <div className="flex items-start justify-between mb-4">
-                                        <div className={`w-11 h-11 rounded-xl ${p.color} flex items-center justify-center shadow-sm group-hover:shadow-md transition-shadow`}>
-                                            <p.icon className={`w-5 h-5 ${p.textColor}`} />
-                                        </div>
-                                        <span className="text-5xl font-black text-[#1A1A1A]/6 group-hover:text-[#1A1A1A]/10 transition-colors leading-none select-none mt-1">
-                                            {String(i + 1).padStart(2, "0")}
-                                        </span>
-                                    </div>
-                                    <div>
-                                        <h3 className="font-extrabold text-[#1A1A1A] text-lg mb-2">{p.title}</h3>
-                                        <p className="text-sm text-[#1A1A1A]/55 leading-relaxed">{p.desc}</p>
-                                    </div>
-                                </div>
-                            </motion.div>
-                        </FadeUp>
-                    ))}
-                </div>
+                <PillarsExplorer />
             </div>
         </section>
     );
@@ -217,7 +246,7 @@ function AwardsSection() {
                         <h2 className="text-4xl md:text-5xl font-extrabold text-white leading-tight">
                             Awards &amp; <span className="text-brand-yellow">Recognition</span>
                         </h2>
-                        <p className="text-white/50 max-w-sm leading-relaxed text-sm">
+                        <p className="text-white/85 max-w-md leading-relaxed text-base">
                             Consistent recognition for culture, employee wellbeing, and purposeful work.
                         </p>
                     </div>
@@ -234,17 +263,17 @@ function AwardsSection() {
                             >
                                 <img
                                     src={a.img} alt={a.title}
-                                    className="absolute inset-0 w-full h-full object-cover object-center opacity-25 group-hover:opacity-45 scale-105 group-hover:scale-100 transition-all duration-700"
+                                    className="absolute inset-0 w-full h-full object-cover object-center opacity-20 group-hover:opacity-35 scale-105 group-hover:scale-100 transition-all duration-700"
                                 />
-                                <div className="absolute inset-0 bg-gradient-to-r from-[#111]/95 via-[#111]/65 to-transparent" />
+                                <div className="absolute inset-0 bg-gradient-to-r from-[#111] via-[#111]/85 to-[#111]/30" />
                                 <div className="relative z-10 h-full flex items-center px-8 gap-6">
                                     <div className="shrink-0 w-14 h-14 rounded-2xl bg-brand-yellow flex items-center justify-center shadow-xl">
                                         <Award className="w-7 h-7 text-brand-black" />
                                     </div>
                                     <div className="flex-1">
-                                        <p className="text-xs font-bold tracking-[0.2em] uppercase text-brand-yellow/60 mb-1">Award #{i + 1}</p>
+                                        <p className="text-sm font-bold tracking-[0.2em] uppercase text-brand-yellow mb-1">Award #{i + 1}</p>
                                         <h3 className="text-xl md:text-2xl font-extrabold text-white leading-snug">{a.title}</h3>
-                                        <p className="text-sm text-white/50 mt-1">{a.sub}</p>
+                                        <p className="text-base md:text-lg text-white/90 mt-1">{a.sub}</p>
                                     </div>
                                 </div>
                                 {/* Left accent bar */}
@@ -274,7 +303,7 @@ function GreatPlaceSection() {
 
     return (
         <section className="bg-white overflow-hidden">
-            {/* ── TOP: Light split panel ── */}
+            {/* ── TOP: heading + six interactive cards ── */}
             <div className="bg-white relative overflow-hidden border-t border-gray-100">
                 <div className="pointer-events-none absolute -top-40 right-0 w-[460px] h-[460px] rounded-full bg-brand-red/4 blur-3xl" />
                 <div className="pointer-events-none absolute bottom-0 left-0 w-72 h-72 rounded-full bg-brand-yellow/8 blur-3xl" />
@@ -282,49 +311,44 @@ function GreatPlaceSection() {
                 {/* Top red accent line */}
                 <div className="h-1 w-full bg-gradient-to-r from-brand-red via-brand-yellow to-brand-red/20" />
 
-                <div className="max-w-7xl mx-auto px-6 lg:px-12 relative z-10">
-                    <div className="grid lg:grid-cols-2 gap-0 min-h-[540px]">
+                <div className="max-w-7xl mx-auto px-6 lg:px-12 relative z-10 py-20">
+                    <FadeUp className="mb-12 max-w-3xl">
+                        <SectionTag>Great Place to Work</SectionTag>
+                        <h2 className="text-4xl md:text-5xl font-extrabold text-[#1A1A1A] leading-tight mt-2">
+                            What Makes Us a{" "}
+                            <span className="relative inline-block">
+                                <span className="text-brand-red">Great Place</span>
+                                <span className="absolute -bottom-1 left-0 right-0 h-0.5 bg-brand-red/30 rounded-full" />
+                            </span>{" "}
+                            to Work?
+                        </h2>
+                        <p className="mt-5 text-[#1A1A1A]/80 leading-relaxed text-lg md:text-xl">
+                            At Magic Bus, we are intentional about creating an environment where people feel respected, supported, and empowered to do meaningful work.
+                        </p>
+                    </FadeUp>
 
-                        {/* Left: heading + stats */}
-                        <div className="py-20 pr-0 lg:pr-16 flex flex-col justify-center">
-                            <FadeUp>
-                                <SectionTag>Great Place to Work</SectionTag>
-                                <h2 className="text-4xl md:text-5xl font-extrabold text-[#1A1A1A] leading-tight mt-2">
-                                    What Makes Us a{" "}
-                                    <span className="relative inline-block">
-                                        <span className="text-brand-red">Great Place</span>
-                                        <span className="absolute -bottom-1 left-0 right-0 h-0.5 bg-brand-red/30 rounded-full" />
-                                    </span>{" "}
-                                    to Work?
-                                </h2>
-                                <p className="mt-5 text-[#1A1A1A]/60 leading-relaxed text-base max-w-lg">
-                                    At Magic Bus, we are intentional about creating an environment where people feel respected, supported, and empowered to do meaningful work.
-                                </p>
-
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                        {gptw.map((item, i) => (
+                            <FadeUp key={item.title} delay={0.06 * i} className="h-full">
+                                <motion.div
+                                    tabIndex={0}
+                                    className="group relative flex h-full cursor-default flex-col gap-4 overflow-hidden rounded-2xl border border-gray-200 bg-[#F7F7F5] p-6 transition-colors duration-300 hover:border-brand-red hover:bg-brand-red focus-visible:border-brand-red focus-visible:bg-brand-red focus-visible:outline-none"
+                                    whileHover={{ y: -6 }}
+                                    transition={{ type: "spring", stiffness: 300, damping: 24 }}
+                                >
+                                    <span className="pointer-events-none absolute -bottom-3 -right-1 text-8xl font-black leading-none text-[#1A1A1A]/5 transition-colors group-hover:text-white/15 group-focus-visible:text-white/15 select-none">
+                                        {String(i + 1).padStart(2, "0")}
+                                    </span>
+                                    <span className="relative flex h-14 w-14 items-center justify-center rounded-2xl bg-brand-red/10 transition-colors duration-300 group-hover:bg-white/20 group-focus-visible:bg-white/20">
+                                        <item.icon className="h-7 w-7 text-brand-red transition-colors duration-300 group-hover:text-white group-focus-visible:text-white" />
+                                    </span>
+                                    <div className="relative">
+                                        <h3 className="text-xl md:text-2xl font-extrabold leading-snug text-[#1A1A1A] transition-colors group-hover:text-white group-focus-visible:text-white" dangerouslySetInnerHTML={{ __html: item.title }} />
+                                        <p className="mt-2 text-base md:text-lg leading-relaxed text-[#1A1A1A]/80 transition-colors group-hover:text-white group-focus-visible:text-white">{item.desc}</p>
+                                    </div>
+                                </motion.div>
                             </FadeUp>
-                        </div>
-
-                        {/* Right: 2-col feature pills grid */}
-                        <div className="py-20 pl-0 lg:pl-16 lg:border-l border-gray-100 flex flex-col justify-center">
-                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                                {gptw.map((item, i) => (
-                                    <FadeUp key={item.title} delay={0.06 * i}>
-                                        <motion.div
-                                            className="group flex items-start gap-3 rounded-xl border border-gray-100 bg-[#F7F7F5] p-4 hover:bg-white hover:border-brand-red/20 hover:shadow-md transition-all duration-300 cursor-default"
-                                            whileHover={{ y: -2 }}
-                                        >
-                                            <div className="shrink-0 mt-0.5 w-8 h-8 rounded-lg bg-brand-red/8 group-hover:bg-brand-red/12 flex items-center justify-center transition-colors">
-                                                <item.icon className="w-4 h-4 text-brand-red" />
-                                            </div>
-                                            <div>
-                                                <h3 className="text-sm font-bold text-[#1A1A1A] leading-snug" dangerouslySetInnerHTML={{ __html: item.title }} />
-                                                <p className="text-xs text-[#1A1A1A]/50 leading-relaxed mt-0.5">{item.desc}</p>
-                                            </div>
-                                        </motion.div>
-                                    </FadeUp>
-                                ))}
-                            </div>
-                        </div>
+                        ))}
                     </div>
                 </div>
             </div>
@@ -341,12 +365,12 @@ function GreatPlaceSection() {
                             </div>
                         </div>
                         <div className="flex-1">
-                            <p className="text-lg md:text-2xl font-semibold text-[#1A1A1A]/80 leading-relaxed italic">
+                            <p className="text-xl md:text-2xl font-semibold text-[#1A1A1A] leading-relaxed italic">
                                 "Ethical conduct and accountability guide how we operate. Fairness, transparency, and mutual respect form the basis of strong, trust-based relationships across the organisation."
                             </p>
                             <div className="mt-5 flex items-center gap-3">
                                 <div className="w-6 h-0.5 bg-brand-red" />
-                                <span className="text-xs text-[#1A1A1A]/40 font-semibold uppercase tracking-widest">Magic Bus Culture Pillar</span>
+                                <span className="text-sm text-[#1A1A1A]/70 font-bold uppercase tracking-widest">Magic Bus Culture Pillar</span>
                             </div>
                         </div>
                     </div>
@@ -377,7 +401,7 @@ function CoreValuesSection() {
                         <h2 className="text-4xl md:text-5xl font-extrabold text-[#1A1A1A] leading-tight">
                             Core Values <span className="text-brand-red">Defining</span> Our Work
                         </h2>
-                        <p className="text-[#1A1A1A]/50 max-w-xs text-sm leading-relaxed">
+                        <p className="text-[#1A1A1A]/75 max-w-sm text-base leading-relaxed">
                             Five values that guide every decision, every interaction, and every programme we run.
                         </p>
                     </div>
@@ -393,7 +417,7 @@ function CoreValuesSection() {
                             >
                                 {/* Number column */}
                                 <div className="shrink-0 w-14 flex items-center justify-center">
-                                    <span className="text-4xl font-black text-[#1A1A1A]/8 group-hover:text-[#1A1A1A]/15 transition-colors select-none">{String(i + 1).padStart(2, "0")}</span>
+                                    <span className="text-4xl font-black text-[#1A1A1A]/15 group-hover:text-[#1A1A1A]/30 transition-colors select-none">{String(i + 1).padStart(2, "0")}</span>
                                 </div>
                                 {/* Color icon block */}
                                 <div className={`shrink-0 w-14 group-hover:w-20 flex items-center justify-center ${v.color} transition-all duration-300`}>
@@ -401,12 +425,12 @@ function CoreValuesSection() {
                                 </div>
                                 {/* Content */}
                                 <div className="flex-1 py-6 px-6 flex flex-col md:flex-row md:items-center md:gap-16">
-                                    <h3 className="font-black text-[#1A1A1A] text-xl md:text-2xl min-w-[150px]">{v.title}</h3>
-                                    <p className="text-sm text-[#1A1A1A]/55 leading-relaxed mt-1 md:mt-0 flex-1">{v.desc}</p>
+                                    <h3 className="font-black text-[#1A1A1A] text-2xl md:text-3xl md:w-64 md:shrink-0">{v.title}</h3>
+                                    <p className="text-lg md:text-2xl font-medium text-[#1A1A1A]/85 leading-snug mt-1 md:mt-0 flex-1">{v.desc}</p>
                                 </div>
                                 {/* Arrow reveal */}
                                 <div className="shrink-0 flex items-center pr-6 opacity-0 group-hover:opacity-100 transition-opacity">
-                                    <ArrowRight className="w-4 h-4 text-[#1A1A1A]/30" />
+                                    <ArrowRight className="w-5 h-5 text-[#1A1A1A]/50" />
                                 </div>
                             </motion.div>
                         </FadeUp>
@@ -430,14 +454,14 @@ function WorkingHereSection() {
                 <div className="grid lg:grid-cols-2 gap-14 items-center">
                     <FadeUp>
                         <SectionTag dark>Inside Magic Bus</SectionTag>
-                        <h2 className="text-3xl md:text-4xl font-extrabold text-white leading-tight mt-2">
+                        <h2 className="text-4xl md:text-5xl font-extrabold text-white leading-tight mt-2">
                             What Is It Like Working Here?
                         </h2>
-                        <p className="mt-5 text-white/65 leading-relaxed">
+                        <p className="mt-5 text-lg md:text-xl text-white/90 leading-relaxed">
                             At Magic Bus, employees feel supported, inspired, and motivated in creating change that matters. Our teams bring passion and collaboration to every initiative.
                         </p>
 
-                        <div className="mt-8 space-y-4">
+                        <div className="mt-8 space-y-3">
                             {[
                                 "A culture of ownership and empowerment",
                                 "Flexible, purpose-driven team environment",
@@ -445,12 +469,16 @@ function WorkingHereSection() {
                                 "Continuous learning and challenge at every level",
                             ].map((point, i) => (
                                 <FadeUp key={point} delay={0.08 * i}>
-                                    <div className="flex items-center gap-3">
-                                        <div className="w-5 h-5 rounded-full bg-brand-yellow flex items-center justify-center shrink-0">
-                                            <CheckCircle className="w-3 h-3 text-brand-black" />
-                                        </div>
-                                        <p className="text-sm text-white/75">{point}</p>
-                                    </div>
+                                    <motion.div
+                                        whileHover={{ x: 6 }}
+                                        transition={{ type: "spring", stiffness: 300, damping: 24 }}
+                                        className="group flex items-center gap-4 rounded-2xl border border-white/15 border-l-4 border-l-brand-yellow bg-white/10 px-5 py-4 transition-colors duration-300 hover:bg-brand-yellow"
+                                    >
+                                        <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-brand-yellow transition-colors group-hover:bg-[#1A1A1A]">
+                                            <CheckCircle className="h-6 w-6 text-brand-black transition-colors group-hover:text-brand-yellow" />
+                                        </span>
+                                        <p className="text-lg md:text-xl font-bold leading-snug text-white transition-colors group-hover:text-brand-black">{point}</p>
+                                    </motion.div>
                                 </FadeUp>
                             ))}
                         </div>
@@ -515,10 +543,10 @@ function InvestSection() {
                 <FadeUp className="mb-14">
                     <SectionTag>Employee Investment</SectionTag>
                     <div className="grid lg:grid-cols-2 gap-8 items-end">
-                        <h2 className="text-3xl md:text-4xl font-extrabold text-[#1A1A1A] leading-tight">
+                        <h2 className="text-4xl md:text-5xl font-extrabold text-[#1A1A1A] leading-tight">
                             How We Invest in Our Employees
                         </h2>
-                        <p className="text-base text-[#1A1A1A]/65 leading-relaxed">
+                        <p className="text-lg text-[#1A1A1A]/80 leading-relaxed">
                             Members of Magic Bus are encouraged to embrace continuous learning and grow with excellence. We support this through structured programmes and initiatives.
                         </p>
                     </div>
@@ -526,16 +554,33 @@ function InvestSection() {
 
                 <div className="grid md:grid-cols-3 gap-6">
                     {investments.map((item, i) => (
-                        <FadeUp key={item.title} delay={0.08 * i}>
+                        <FadeUp key={item.title} delay={0.08 * i} className="h-full">
                             <motion.div
-                                className="bg-white rounded-3xl border border-gray-100 p-7 h-full hover:shadow-xl hover:-translate-y-2 transition-all duration-300 group"
-                                whileHover={{ scale: 1.01 }}
+                                className="group relative flex h-full cursor-default flex-col overflow-hidden rounded-3xl border border-gray-200 bg-white p-8 shadow-sm transition-shadow duration-300 hover:shadow-2xl"
+                                whileHover={{ y: -8 }}
+                                transition={{ type: "spring", stiffness: 280, damping: 22 }}
                             >
-                                <div className={`${item.color} w-12 h-12 rounded-2xl flex items-center justify-center mb-6 group-hover:shadow-lg transition-shadow`}>
-                                    <item.icon className={`w-6 h-6 ${item.textColor}`} />
+                                {/* Top colour bar */}
+                                <div className={`absolute left-0 right-0 top-0 h-1.5 ${item.color}`} />
+                                {/* Ghost number */}
+                                <span className="pointer-events-none absolute -bottom-4 -right-2 text-[110px] font-black leading-none text-[#1A1A1A]/5 select-none transition-colors group-hover:text-[#1A1A1A]/10">
+                                    {String(i + 1).padStart(2, "0")}
+                                </span>
+                                {/* Icon with soft halo */}
+                                <div className="relative mb-6 w-fit">
+                                    <span className={`absolute inset-0 rounded-2xl ${item.color} opacity-30 blur-md transition-opacity group-hover:opacity-60`} />
+                                    <span className={`relative flex h-16 w-16 items-center justify-center rounded-2xl ${item.color} shadow-md transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-3`}>
+                                        <item.icon className={`h-8 w-8 ${item.textColor}`} />
+                                    </span>
                                 </div>
-                                <h3 className="font-bold text-[#1A1A1A] text-base mb-3">{item.title}</h3>
-                                <p className="text-sm text-[#1A1A1A]/60 leading-relaxed">{item.desc}</p>
+                                <h3 className="relative text-2xl font-extrabold leading-snug text-[#1A1A1A] mb-3">{item.title}</h3>
+                                <p className="relative text-base md:text-lg leading-relaxed text-[#1A1A1A]/80">{item.desc}</p>
+                                {/* Arrow that appears on hover */}
+                                <span className="relative mt-auto pt-6">
+                                    <span className={`inline-flex h-10 w-10 items-center justify-center rounded-full ${item.color} ${item.textColor} translate-x-0 opacity-0 transition-all duration-300 group-hover:translate-x-1 group-hover:opacity-100`}>
+                                        <ArrowRight className="h-5 w-5" />
+                                    </span>
+                                </span>
                             </motion.div>
                         </FadeUp>
                     ))}
@@ -571,46 +616,49 @@ function TestimonialsSection() {
             <div className="max-w-7xl mx-auto px-6 lg:px-12">
                 <FadeUp className="text-center mb-14">
                     <SectionTag>Testimonials</SectionTag>
-                    <h2 className="text-3xl md:text-4xl font-extrabold text-[#1A1A1A]">
+                    <h2 className="text-4xl md:text-5xl font-extrabold text-[#1A1A1A] leading-tight">
                         Hear from Our Employees
                     </h2>
-                    <p className="mt-3 text-[#1A1A1A]/55 max-w-lg mx-auto leading-relaxed">
+                    <p className="mt-4 text-lg md:text-xl text-[#1A1A1A]/80 max-w-2xl mx-auto leading-relaxed">
                         The voices of our people reflect the culture we have built — one of purpose, trust, and impact.
                     </p>
                 </FadeUp>
 
                 <div className="grid md:grid-cols-2 gap-6 mb-10">
                     {testimonials.map((t, i) => (
-                        <FadeUp key={t.name} delay={0.08 * i}>
-                            <div className="relative bg-[#F7F7F5] rounded-3xl p-8 border border-gray-100 h-full hover:shadow-lg transition-shadow">
-                                <span className="absolute top-5 right-6 text-7xl font-serif text-brand-yellow/30 leading-none select-none">"</span>
-
-                                <div className="relative z-10">
-                                    <p className="text-base text-[#1A1A1A]/80 leading-relaxed italic mb-6">
-                                        "{t.quote}"
-                                    </p>
-                                    <div className="flex items-center gap-3 pt-4 border-t border-gray-200">
-                                        <div className="w-10 h-10 rounded-full overflow-hidden bg-brand-yellow/20 shrink-0 flex items-center justify-center">
-                                            {t.img ? (
-                                                <img src={t.img} alt={t.name} className="w-full h-full object-cover" onError={e => e.target.style.display = 'none'} />
-                                            ) : (
-                                                <User className="w-5 h-5 text-brand-yellow" />
-                                            )}
-                                        </div>
-                                        <div className="flex-1">
-                                            <p className="text-sm font-bold text-[#1A1A1A] flex items-center gap-2">
-                                                {t.name}
-                                                {t.link && (
-                                                    <a href={t.link} target="_blank" rel="noopener noreferrer" className="text-brand-red hover:text-brand-yellow transition-colors">
-                                                        <ExternalLink className="w-3.5 h-3.5" />
-                                                    </a>
-                                                )}
-                                            </p>
-                                            <p className="text-xs text-brand-red font-medium">{t.role}</p>
-                                        </div>
+                        <FadeUp key={t.name} delay={0.08 * i} className="h-full">
+                            <motion.div
+                                whileHover={{ y: -8 }}
+                                transition={{ type: "spring", stiffness: 280, damping: 22 }}
+                                className="group relative flex h-full flex-col overflow-hidden rounded-3xl bg-gradient-to-br from-[#1A1A1A] via-[#2B1216] to-[#6B0F18] p-8 shadow-xl ring-1 ring-brand-red/30 transition-shadow duration-300 hover:shadow-2xl md:p-10"
+                            >
+                                <div className="pointer-events-none absolute -right-16 -top-16 h-56 w-56 rounded-full bg-brand-yellow/15 blur-3xl" />
+                                <span className="relative flex h-14 w-14 items-center justify-center rounded-2xl bg-brand-yellow shadow-lg">
+                                    <Quote className="h-7 w-7 text-brand-black" />
+                                </span>
+                                <p className="relative mt-6 flex-1 text-xl md:text-2xl font-semibold leading-relaxed text-white">
+                                    "{t.quote}"
+                                </p>
+                                <div className="relative mt-8 flex items-center gap-4 border-t border-white/20 pt-6">
+                                    <div className="flex h-16 w-16 shrink-0 items-center justify-center overflow-hidden rounded-full bg-brand-yellow/20 ring-4 ring-brand-yellow">
+                                        {t.img ? (
+                                            <img src={t.img} alt={t.name} className="h-full w-full object-cover" onError={e => e.target.style.display = 'none'} />
+                                        ) : (
+                                            <User className="h-8 w-8 text-brand-yellow" />
+                                        )}
                                     </div>
+                                    <div className="flex-1">
+                                        <p className="text-xl font-extrabold text-white">{t.name}</p>
+                                        <p className="text-base font-semibold text-brand-yellow">{t.role}</p>
+                                    </div>
+                                    {t.link && (
+                                        <a href={t.link} target="_blank" rel="noopener noreferrer" aria-label={`Read more from ${t.name}`}
+                                            className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white/10 text-white transition hover:bg-brand-yellow hover:text-brand-black">
+                                            <ExternalLink className="h-5 w-5" />
+                                        </a>
+                                    )}
                                 </div>
-                            </div>
+                            </motion.div>
                         </FadeUp>
                     ))}
                 </div>
