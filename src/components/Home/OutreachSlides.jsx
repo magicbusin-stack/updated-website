@@ -67,9 +67,11 @@ const Icon6 = () => (
 
 function Slide({ t, hero, para, footnote, stats, bars, Icon }) {
   const cols = stats && stats.length > 4 ? "sm:grid-cols-3" : "sm:grid-cols-2";
+  // phones: the short stats sit two to a row (so the page is not one long column); the long bar sentences stay one per row
+  const phoneCols = stats ? "grid-cols-2" : "grid-cols-1";
   return (
     <div style={{ fontFamily: "'Inter', system-ui, sans-serif", color: t.body }}>
-      <div className="grid grid-cols-1 items-start gap-10 lg:grid-cols-12 lg:gap-14">
+      <div className="grid grid-cols-1 items-start gap-6 sm:gap-10 lg:grid-cols-12 lg:gap-14">
         {/* Left: the big headline number (stays still) */}
         <div className="flex flex-col lg:col-span-5">
           <span className="text-lg font-extrabold uppercase tracking-wider md:text-[19px]" style={{ color: t.ink }}>
@@ -90,14 +92,14 @@ function Slide({ t, hero, para, footnote, stats, bars, Icon }) {
         </div>
 
         {/* Right: the numbers (these count up) */}
-        <div className={`grid grid-cols-1 gap-x-10 gap-y-9 pt-2 lg:col-span-7 ${cols}`}>
+        <div className={`grid ${phoneCols} gap-x-4 gap-y-6 pt-2 sm:gap-x-10 sm:gap-y-9 lg:col-span-7 ${cols}`}>
           {stats &&
             stats.map(([value, label]) => (
-              <div key={label} className="flex flex-col items-start space-y-2">
-                <div aria-hidden="true" className="h-10 w-10" style={{ color: t.icon }}>
+              <div key={label} className="flex min-w-0 flex-col items-start space-y-1.5 sm:space-y-2">
+                <div aria-hidden="true" className="h-8 w-8 sm:h-10 sm:w-10" style={{ color: t.icon }}>
                   <Icon />
                 </div>
-                <div className="text-[clamp(2rem,2.5vw,2.4rem)] font-bold leading-[1.1]" style={{ color: t.ink }}>
+                <div className={`max-w-full whitespace-nowrap font-bold leading-[1.1] sm:text-[clamp(2rem,2.5vw,2.4rem)] ${value.length > 7 ? "text-[1.2rem]" : "text-[1.6rem]"}`} style={{ color: t.ink }}>
                   <Ticker value={value} />
                 </div>
                 <p className="text-base leading-snug">{label}</p>

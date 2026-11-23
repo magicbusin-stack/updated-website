@@ -84,8 +84,8 @@ function ProgramCard({ program, index }) {
       initial={{ opacity: 0, y: 14 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.45, delay: (index % 4) * 0.05 }}
-      viewport={{ once: true, amount: 0.25 }}
-      className="group relative aspect-[4/3] overflow-hidden rounded-2xl bg-slate-900 shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_30px_-10px_rgba(15,23,42,0.22),0_10px_10px_-5px_rgba(15,23,42,0.06)]"
+      viewport={{ once: true, amount: 0.1 }}
+      className="group relative aspect-[4/3] w-[82%] shrink-0 snap-center overflow-hidden rounded-2xl bg-slate-900 shadow-md sm:w-auto sm:shrink transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_30px_-10px_rgba(15,23,42,0.22),0_10px_10px_-5px_rgba(15,23,42,0.06)]"
     >
       <img
         src={program.image}
@@ -138,8 +138,8 @@ export default function ProgramAreas() {
           </motion.p>
         </motion.div>
 
-        {/* Grid: 4 columns on desktop, 2 on tablet, 1 on phones */}
-        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-6 lg:grid-cols-4">
+        {/* Phones: one row you swipe sideways (not one long column). Tablet: 2 across. Desktop: 4 across. */}
+        <div className="-mx-4 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:mx-0 sm:grid sm:grid-cols-2 sm:gap-6 sm:overflow-visible sm:px-0 sm:pb-0 lg:grid-cols-4">
           {PROGRAM_AREAS.map((p, i) => (
             <ProgramCard key={p.title} program={p} index={i} />
           ))}

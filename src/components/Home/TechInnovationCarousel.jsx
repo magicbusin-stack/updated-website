@@ -99,12 +99,12 @@ function Card({ slide, index, total, progress, config, onOpen }) {
       aria-label={`${slide.title}: show details`}
       style={{ x, rotate, y, scale, opacity, zIndex }}
       className={cn(
-        "absolute rounded-2xl overflow-hidden bg-white group cursor-pointer shadow-xl ring-1 ring-black/5",
+        "absolute rounded-2xl overflow-hidden bg-slate-900 group cursor-pointer shadow-xl border-0 outline-none [backface-visibility:hidden]",
         "focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-brand-red/50",
         "w-44 h-56 sm:w-56 sm:h-80 lg:w-64 lg:h-96"
       )}
     >
-      <img loading="lazy" decoding="async" src={slide.image} alt={slide.title} className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+      <img loading="lazy" decoding="async" src={slide.image} alt={slide.title} className="absolute inset-0 block w-full h-full scale-[1.02] object-cover transition-transform duration-700 group-hover:scale-[1.07]" />
       <motion.div style={{ opacity: dimOpacity }} className="absolute inset-0 bg-black pointer-events-none" />
     </motion.button>
   );

@@ -105,7 +105,7 @@ export default function JourneyZigzagAnimated() {
 
           {/* Steps grid — staggered cascade */}
           <motion.div
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-6 relative"
+            className="grid grid-cols-2 lg:grid-cols-5 gap-x-4 gap-y-8 sm:gap-8 lg:gap-6 relative"
             variants={staggerFast}
             initial="hidden"
             whileInView="visible"
@@ -113,13 +113,14 @@ export default function JourneyZigzagAnimated() {
           >
             {steps.map((s, i) => {
               const isDown = i % 2 === 1;
+              const isLast = i === steps.length - 1;
               return (
                 <motion.div
                   key={s.id}
                   variants={fadeUp}
                   className={`relative flex flex-col items-center ${
-                    isDown ? "mt-16" : "mt-0"
-                  }`}
+                    isDown ? "lg:mt-16" : "mt-0"
+                  } ${isLast ? "col-span-2 w-[calc(50%-0.5rem)] justify-self-center sm:w-auto lg:col-span-1" : ""}`}
                 >
                   {/* Floating Icon — entry scale pop + perpetual float */}
                   <motion.div
@@ -127,10 +128,10 @@ export default function JourneyZigzagAnimated() {
                     animate={{ y: [0, -6, 0] }}
                     transition={{ duration: 3 + i * 0.15, repeat: Infinity, ease: "easeInOut" }}
                     whileHover={{ scale: 1.1, rotate: [0, -4, 4, 0] }}
-                    className={`relative z-10 w-[96px] h-[96px] rounded-full grid place-items-center shadow-xl
+                    className={`relative z-10 w-[72px] h-[72px] md:w-[96px] md:h-[96px] rounded-full grid place-items-center shadow-xl
                                 bg-gradient-to-br ${s.grad}`}
                   >
-                    <s.icon className="w-10 h-10 text-white drop-shadow-md" />
+                    <s.icon className="w-8 h-8 md:w-10 md:h-10 text-white drop-shadow-md" />
                     <motion.span
                       className="absolute -top-2 -right-2 w-7 h-7 rounded-full bg-white text-ink text-xs font-bold grid place-items-center shadow"
                       initial={{ scale: 0 }}
@@ -152,9 +153,9 @@ export default function JourneyZigzagAnimated() {
                     variants={fadeUpSm}
                     whileHover={{ y: -4, boxShadow: "0 20px 40px rgba(16,24,40,0.14)" }}
                     transition={{ type: "spring", stiffness: 250, damping: 18 }}
-                    className="mt-6 w-full"
+                    className="mt-4 md:mt-6 w-full flex-1"
                   >
-                    <div className="bg-white rounded-2xl shadow-[0_10px_30px_rgba(16,24,40,0.08)] p-6 text-center">
+                    <div className="h-full bg-white rounded-2xl shadow-[0_10px_30px_rgba(16,24,40,0.08)] p-4 md:p-6 text-center">
                       <h3 className="text-lg font-semibold text-ink mb-2">{s.title}</h3>
                       <p className="text-sm text-gray-600 leading-relaxed">{s.desc}</p>
                     </div>

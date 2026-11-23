@@ -64,7 +64,11 @@ export default function ProgrammesSlider() {
           </motion.p>
         </motion.div>
 
-        <div className="programmesGrid grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-6">
+        {/* Phones: one row you swipe sideways (short cards). Tablet and desktop: the 4-across grid. */}
+        <div
+          role="list"
+          className="programmesGrid -mx-6 flex snap-x snap-mandatory gap-4 overflow-x-auto px-6 pb-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:mx-0 md:grid md:grid-cols-4 md:gap-6 md:overflow-visible md:px-0 md:pb-0"
+        >
           {baseSlides.map((s) => (
             <ProgrammeCard key={s.id} slide={s} />
           ))}
@@ -96,7 +100,7 @@ function ProgrammeCard({ slide }) {
       role="listitem"
       aria-label={title}
       tabIndex={0}
-      className="programme-card-outer h-[400px] sm:h-[300px] md:h-[420px] cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 rounded-xl"
+      className="programme-card-outer h-[340px] w-[78%] shrink-0 snap-center sm:w-[46%] md:h-[420px] md:w-auto md:shrink cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 rounded-xl"
       style={{ perspective: "1200px" }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
@@ -126,7 +130,7 @@ function ProgrammeCard({ slide }) {
 
           {/* Bottom content */}
           <div className="absolute bottom-0 left-0 p-3 sm:p-6 md:p-8 text-white">
-            <h3 className="text-base sm:text-2xl md:text-[28px] font-bold leading-tight">{title}</h3>
+            <h3 className="text-xl sm:text-2xl md:text-[28px] font-bold leading-tight">{title}</h3>
           </div>
         </div>
 
@@ -200,15 +204,17 @@ const styles = `
   transition: transform 500ms ease-in-out, opacity 500ms ease-in-out;
 }
 
-.programmesGrid:hover .programme-card-outer {
-  transform: scale(0.97);
-  opacity: 0.6;
-}
+@media (hover: hover) and (min-width: 768px) {
+  .programmesGrid:hover .programme-card-outer {
+    transform: scale(0.97);
+    opacity: 0.6;
+  }
 
-.programmesGrid .programme-card-outer:hover,
-.programmesGrid .programme-card-outer:focus-visible {
-  transform: scale(1.05) !important;
-  opacity: 1 !important;
+  .programmesGrid .programme-card-outer:hover,
+  .programmesGrid .programme-card-outer:focus-visible {
+    transform: scale(1.05) !important;
+    opacity: 1 !important;
+  }
 }
 `;
 
