@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import { AnimatePresence, motion, useInView } from "framer-motion";
-import { Globe, Users, ArrowRight, MapPin } from "lucide-react";
+import { Globe, Users, ArrowRight, MapPin, ChevronDown } from "lucide-react";
 import { Link } from "react-router-dom";
 import Layout from "../components/Layout";
 import { indiaTeam } from "../data/indiaTeam";
@@ -164,6 +164,89 @@ function TeamCard({ member, index, variant = "light", onOpen }) {
                 />
             </motion.div>
         </FadeUp>
+    );
+}
+
+/* ─────────────────────────── PHONE LIST ───────────────────────────
+   On phones the full photo cards make this page extremely long (25 people). Phones get a compact list instead:
+   one row per person (photo, name, role). Tap a row to open that person's bio; tap again to close.
+   Long lists show the first few and a "Show all" button. Tablets and desktops keep the photo cards. */
+function TeamAvatar({ member, index }) {
+    const [imgError, setImgError] = useState(false);
+    const [from, to] = GRADIENTS[index % GRADIENTS.length];
+    const photoSrc = member.photo || toPhotoPath(member.name);
+    return (
+        <span className="flex h-14 w-14 shrink-0 items-center justify-center overflow-hidden rounded-full" style={imgError ? { background: `linear-gradient(145deg, ${from}, ${to})` } : undefined}>
+            {!imgError ? (
+                <img loading="lazy" decoding="async" src={photoSrc} alt="" className="h-full w-full object-cover object-top" onError={() => setImgError(true)} />
+            ) : (
+                <span className="select-none text-xl font-extrabold text-white/90">{getInitials(member.name)}</span>
+            )}
+        </span>
+    );
+}
+
+function MobileTeamList({ members, startIndex = 0, variant = "light", onOpen, initialCount }) {
+    const dark = variant === "dark";
+    const [openName, setOpenName] = useState(null);
+    const [showAll, setShowAll] = useState(!initialCount || members.length <= initialCount);
+    const visible = showAll ? members : members.slice(0, initialCount);
+
+    return (
+        <div className="sm:hidden">
+            <ul className="space-y-3">
+                {visible.map((m, i) => {
+                    const isOpen = openName === m.name;
+                    const panelId = `team-bio-${startIndex + i}`;
+                    return (
+                        <li key={m.name} className={`overflow-hidden rounded-2xl border ${dark ? "border-white/10 bg-white/5" : "border-gray-200 bg-white"}`}>
+                            <button
+                                type="button"
+                                onClick={() => setOpenName(isOpen ? null : m.name)}
+                                aria-expanded={isOpen}
+                                aria-controls={panelId}
+                                className="flex w-full items-center gap-4 p-4 text-left focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-inset focus-visible:ring-brand-yellow"
+                            >
+                                <TeamAvatar member={m} index={startIndex + i} />
+                                <span className="min-w-0 flex-1">
+                                    <span className={`block text-lg font-bold leading-snug ${dark ? "text-white" : "text-[#1A1A1A]"}`}>{m.name}</span>
+                                    <span className={`mt-0.5 block text-base font-semibold leading-snug ${dark ? "text-brand-yellow" : "text-brand-red"}`}>{m.role}</span>
+                                </span>
+                                <ChevronDown className={`h-6 w-6 shrink-0 transition-transform duration-300 ${isOpen ? "rotate-180" : ""} ${dark ? "text-white/70" : "text-[#1A1A1A]/60"}`} aria-hidden="true" />
+                            </button>
+                            <AnimatePresence initial={false}>
+                                {isOpen && (
+                                    <motion.div
+                                        id={panelId}
+                                        initial={{ height: 0, opacity: 0 }}
+                                        animate={{ height: "auto", opacity: 1 }}
+                                        exit={{ height: 0, opacity: 0 }}
+                                        transition={{ duration: 0.3, ease: EASE }}
+                                        className="overflow-hidden"
+                                    >
+                                        <div className={`border-t px-4 pb-4 pt-3 ${dark ? "border-white/10" : "border-gray-100"}`}>
+                                            {m.bio && <p className={`text-base leading-relaxed ${dark ? "text-white/80" : "text-[#1A1A1A]/80"}`}>{m.bio}</p>}
+                                            {m.fullBio && onOpen && <ReadMoreButton onClick={() => onOpen(m)} className="mt-4" />}
+                                        </div>
+                                    </motion.div>
+                                )}
+                            </AnimatePresence>
+                        </li>
+                    );
+                })}
+            </ul>
+
+            {!showAll && (
+                <button
+                    type="button"
+                    onClick={() => setShowAll(true)}
+                    className="mt-4 flex w-full items-center justify-center gap-2 rounded-full border-2 border-brand-red bg-white px-6 py-3 text-base font-bold text-brand-red transition hover:bg-brand-red hover:text-white focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-brand-yellow"
+                >
+                    Show all {members.length} leaders
+                    <ChevronDown className="h-5 w-5" aria-hidden="true" />
+                </button>
+            )}
+        </div>
     );
 }
 
@@ -464,7 +547,9 @@ function IndiaTeamSection({ onOpen }) {
                     </p>
                 </FadeUp>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                {/* Phones: a short tap-to-open list. Tablet and desktop: the photo cards. */}
+                <MobileTeamList members={indiaTeam} variant="light" onOpen={onOpen} initialCount={6} />
+                <div className="hidden sm:grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                     {indiaTeam.map((member, i) => (
                         <TeamCard key={member.name} member={member} index={i} variant="light" onOpen={onOpen} />
                     ))}
@@ -491,7 +576,8 @@ function RegionBlock({ code, country, members, startIndex }) {
                 </div>
             </FadeUp>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <MobileTeamList members={members} startIndex={startIndex} variant="dark" />
+            <div className="hidden sm:grid grid-cols-2 lg:grid-cols-3 gap-6">
                 {members.map((member, i) => (
                     <TeamCard
                         key={member.name}

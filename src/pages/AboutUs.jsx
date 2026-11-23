@@ -1309,14 +1309,14 @@ function WhyMagicBus() {
                             </div>
                             {/* Accent card */}
                             <motion.div
-                                className="absolute -bottom-4 left-3 md:-bottom-6 md:-left-6 bg-brand-yellow rounded-2xl p-3 md:p-5 shadow-xl max-w-[170px] md:max-w-[200px]"
+                                className="mt-4 flex items-center gap-4 rounded-2xl bg-brand-yellow p-4 shadow-xl md:absolute md:-bottom-6 md:-left-6 md:mt-0 md:block md:max-w-[200px] md:p-5"
                                 initial={{ opacity: 0, scale: 0.8 }}
                                 whileInView={{ opacity: 1, scale: 1 }}
                                 viewport={{ once: true }}
                                 transition={{ delay: 0.4, duration: 0.5 }}
                             >
-                                <div className="text-2xl md:text-3xl font-extrabold text-brand-black">25+</div>
-                                <div className="text-sm md:text-base font-semibold text-brand-black/80 mt-1">Years of transforming young lives across India</div>
+                                <div className="text-3xl md:text-3xl font-extrabold text-brand-black">25+</div>
+                                <div className="text-base font-semibold text-brand-black/80 md:mt-1">Years of transforming young lives across India</div>
                             </motion.div>
                         </div>
                     </FadeIn>

@@ -119,14 +119,14 @@ function Hero() {
                         >
                             <Link
                                 to="/donate"
-                                className="group inline-flex items-center gap-2 rounded bg-[#C41A1F] px-7 py-3.5 text-base font-semibold text-white shadow-md transition hover:bg-[#A61318] hover:shadow-lg"
+                                className="group inline-flex w-full items-center justify-center gap-2 rounded border border-[#C41A1F] bg-[#C41A1F] px-7 py-3.5 text-base font-semibold text-white shadow-md transition hover:bg-[#A61318] hover:shadow-lg sm:w-auto"
                             >
                                 Donate Now
                                 <Heart className="h-[18px] w-[18px] transition-transform group-hover:translate-x-1" />
                             </Link>
                             <Link
                                 to="/annual-reports"
-                                className="inline-flex items-center gap-2 rounded border border-[#DCDCD6] bg-[#F4F4F0] px-6 py-3.5 text-base font-semibold text-[#1A1A1A] transition hover:border-[#1A1A1A]"
+                                className="inline-flex w-full items-center justify-center gap-2 rounded border border-[#DCDCD6] bg-[#F4F4F0] px-7 py-3.5 text-base font-semibold text-[#1A1A1A] transition hover:border-[#1A1A1A] sm:w-auto"
                             >
                                 <FileText className="h-5 w-5 text-[#C41A1F]" />
                                 Read Annual Report
