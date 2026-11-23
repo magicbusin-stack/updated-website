@@ -19,5 +19,5 @@ export default function MediaThumb({ src, alt, className, ...rest }) {
     );
   }
 
-  return <img src={src} alt={alt} className={className} {...rest} />;
+  return <img decoding="async" src={src} alt={alt} className={className} {...rest} />;
 }

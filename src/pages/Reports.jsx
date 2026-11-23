@@ -121,7 +121,7 @@ const ALL_FINANCIAL_REPORTS = [
 function ReportsHero() {
   return (
     <section className="relative h-[70vh] w-full overflow-hidden">
-      <img
+      <img fetchPriority="high" decoding="async"
         src="/ngo-images/2.JPG"
         alt="Magic Bus Reports"
         className="absolute inset-0 w-full h-full object-cover"
@@ -497,7 +497,7 @@ export default function Reports() {
 
   return (
     <Layout>
-      <main className="bg-slate-50 text-ink min-h-screen">
+      <div className="bg-slate-50 text-ink min-h-screen">
         <ReportsHero />
 
         <ReportCategories />
@@ -586,7 +586,7 @@ export default function Reports() {
             </motion.div>
           </div>
         </section>
-      </main>
+      </div>
     </Layout>
   );
 }

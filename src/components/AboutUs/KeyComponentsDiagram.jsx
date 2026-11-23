@@ -37,7 +37,7 @@ function ProgramCard({ img, title, colorClass, Icon, children, href = "#" }) {
       className="bg-white rounded-2xl overflow-hidden border shadow-sm hover:shadow-md transition"
     >
       <div className="h-64 w-full overflow-hidden">
-        <img src={img} alt={title} className="w-full h-full object-cover" />
+        <img loading="lazy" decoding="async" src={img} alt={title} className="w-full h-full object-cover" />
       </div>
 
       <div className="p-6">

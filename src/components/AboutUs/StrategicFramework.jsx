@@ -52,18 +52,18 @@ const StrategicFramework = () => {
             </HeaderBadge>
 
             <Card accent="#E11D48" className="border-l-4 border-rose-500 flex-1">
-              <h4 className="text-rose-600 font-bold text-xl mb-3 leading-snug">
+              <h3 className="text-rose-600 font-bold text-xl mb-3 leading-snug">
                 Life Skills Education (LSE) for Adolescents <span className="text-base font-normal text-gray-500">(12-18 Yrs)</span>
-              </h4>
+              </h3>
               <p className="text-base text-gray-600 leading-relaxed">
                 Proving and implementing a school-based model for LSE for adolescents that works at significant scale and can be integrated within the government system.
               </p>
             </Card>
 
             <Card accent="#E11D48" className="border-l-4 border-rose-500 flex-1">
-              <h4 className="text-rose-600 font-bold text-xl mb-3 leading-snug">
+              <h3 className="text-rose-600 font-bold text-xl mb-3 leading-snug">
                 Livelihood Opportunities for Youth <span className="text-base font-normal text-gray-500">(18-25 Yrs)</span>
-              </h4>
+              </h3>
               <p className="text-base text-gray-600 leading-relaxed">
                 Large scale direct delivery, leveraging partners and technology to achieve unparalleled efficiency and quality of programming.
               </p>
@@ -89,14 +89,14 @@ const StrategicFramework = () => {
             {/* Split Top Row */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 flex-1">
               <Card accent="#C026D3" className="border-t-4 border-fuchsia-500 h-full">
-                <h4 className="text-fuchsia-600 font-bold text-lg mb-2">Direct Delivery</h4>
+                <h3 className="text-fuchsia-600 font-bold text-lg mb-2">Direct Delivery</h3>
                 <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
                   School-based, community embedded, programme delivered by Magic Bus staff.
                 </p>
               </Card>
 
               <Card accent="#C026D3" className="border-t-4 border-fuchsia-500 h-full">
-                <h4 className="text-fuchsia-600 font-bold text-lg mb-2">Govt. Partnership</h4>
+                <h3 className="text-fuchsia-600 font-bold text-lg mb-2">Govt. Partnership</h3>
                 <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
                   School-based programme, leveraging teacher training for delivery of Life Skills Education.
                 </p>
@@ -105,7 +105,7 @@ const StrategicFramework = () => {
 
             {/* Bottom Row */}
             <Card accent="#C026D3" className="border-t-4 border-fuchsia-500 flex-1 flex flex-col justify-center text-center">
-              <h4 className="text-fuchsia-600 font-bold text-xl mb-2">Livelihood Connect</h4>
+              <h3 className="text-fuchsia-600 font-bold text-xl mb-2">Livelihood Connect</h3>
               <p className="text-base text-gray-600 leading-relaxed">
                 Life and employability skills training, placement, and post-placement support.
               </p>
@@ -134,7 +134,7 @@ const StrategicFramework = () => {
                 SCHOOL OUTCOMES
               </span>
               <Card accent="#06B6D4" className="border-2 border-cyan-100 hover:border-cyan-300 pt-7 flex-1">
-                <h5 className="font-bold text-lg text-cyan-700 mb-1">Academic Success</h5>
+                <h4 className="font-bold text-lg text-cyan-700 mb-1">Academic Success</h4>
                 <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
                   School participation, regularity, grade transition, learning engagement.
                 </p>
@@ -147,7 +147,7 @@ const StrategicFramework = () => {
                 LIFE OUTCOMES
               </span>
               <Card accent="#84CC16" className="border-2 border-lime-100 hover:border-lime-300 pt-7 flex-1">
-                <h5 className="font-bold text-lg text-lime-700 mb-1">Empowerment</h5>
+                <h4 className="font-bold text-lg text-lime-700 mb-1">Empowerment</h4>
                 <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
                   Agency (esp. girls), resilience, self-efficacy, problem solving, gender equality.
                 </p>
@@ -162,17 +162,17 @@ const StrategicFramework = () => {
               <Card accent="#EF4444" className="flex flex-col border-2 border-red-100 hover:border-red-300 pt-7 flex-1">
                 <div className="flex flex-col gap-3">
                   <div>
-                    <h5 className="font-bold text-red-600 text-base sm:text-lg">Employability</h5>
+                    <h4 className="font-bold text-red-600 text-base sm:text-lg">Employability</h4>
                     <p className="text-sm sm:text-base text-gray-600 leading-relaxed">Career awareness, digital & financial literacy.</p>
                   </div>
                   <div className="w-full h-px bg-red-100"></div>
                   <div>
-                    <h5 className="font-bold text-red-600 text-base sm:text-lg">Job Placement</h5>
+                    <h4 className="font-bold text-red-600 text-base sm:text-lg">Job Placement</h4>
                     <p className="text-sm sm:text-base text-gray-600 leading-relaxed">Placement in sustainable jobs with aspirational salaries.</p>
                   </div>
                   <div className="w-full h-px bg-red-100"></div>
                   <div>
-                    <h5 className="font-bold text-red-600 text-base sm:text-lg">Workplace Success</h5>
+                    <h4 className="font-bold text-red-600 text-base sm:text-lg">Workplace Success</h4>
                     <p className="text-sm sm:text-base text-gray-600 leading-relaxed">Long-term income, job satisfaction & performance.</p>
                   </div>
                 </div>

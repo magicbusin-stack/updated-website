@@ -243,7 +243,7 @@ function ApproachSection() {
           </div>
         </FadeUp>
         <FadeUp delay={0.08} className="overflow-hidden rounded-3xl border border-black/10">
-          <img src="/ngo-images/11.jpg" alt="Adolescents in learning activity" className="h-full w-full object-cover" />
+          <img loading="lazy" decoding="async" src="/ngo-images/11.jpg" alt="Adolescents in learning activity" className="h-full w-full object-cover" />
         </FadeUp>
       </div>
     </section>
@@ -559,7 +559,7 @@ function OutreachMapSection() {
           <h2 className="mt-5 text-3xl font-black text-[#0F172A] md:text-4xl">Our Reach Across India</h2>
           <div className="mt-6 mx-auto max-w-6xl overflow-hidden rounded-3xl border border-black/10 bg-white p-3 sm:p-4">
             <div className="overflow-hidden rounded-2xl border border-black/10 bg-white">
-              <img src="/mapnew.jpg" alt="Magic Bus outreach map" className="w-full max-h-[560px] object-contain" />
+              <img loading="lazy" decoding="async" src="/mapnew.jpg" alt="Magic Bus outreach map" className="w-full max-h-[560px] object-contain" />
             </div>
           </div>
         </FadeUp>
@@ -702,7 +702,7 @@ function SuccessStoriesSection() {
               className="rounded-3xl border border-black/10 bg-[#F8FAFC] p-6 sm:p-8"
             >
               <div className="mb-5 overflow-hidden rounded-2xl border border-black/10 bg-white">
-                <img
+                <img loading="lazy" decoding="async"
                   src={stories[activeStory].image}
                   alt={stories[activeStory].title}
                   className="h-[260px] w-full object-cover sm:h-[320px]"

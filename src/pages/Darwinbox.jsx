@@ -99,7 +99,7 @@ function AboutSection() {
                     {/* Right: hero image */}
                     <FadeUp delay={0.15}>
                         <div className="relative rounded-3xl overflow-hidden shadow-2xl aspect-[4/3]">
-                            <img src="/darwinbox/hero.png" alt="Darwinbox HRMS"
+                            <img loading="lazy" decoding="async" src="/darwinbox/hero.png" alt="Darwinbox HRMS"
                                 className="w-full h-full object-cover" />
                             <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
                             {/* Floating stat */}

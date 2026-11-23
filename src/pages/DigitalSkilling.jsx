@@ -131,7 +131,7 @@ function AboutSection() {
                                 whileHover={{ scale: 1.01 }}
                                 transition={{ duration: 0.4 }}
                             >
-                                <img
+                                <img loading="lazy" decoding="async"
                                     src="/digital-aboutprogram.jpg"
                                     alt="Digital skilling in progress"
                                     className="h-full w-full object-cover"
@@ -567,7 +567,7 @@ function OutreachImpactSection() {
                 {/* Wide image banner */}
                 <FadeIn delay={0.2}>
                     <div className="relative rounded-3xl overflow-hidden h-72">
-                        <img
+                        <img loading="lazy" decoding="async"
                             src="/ngo-images/Ai.jpeg"
                             alt="Digital skilling outreach"
                             className="w-full h-full object-cover"

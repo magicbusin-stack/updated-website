@@ -665,10 +665,10 @@ export default function ContactUs() {
   return (
     <Layout>
         <FaqSchema faqs={contactFAQ} />
-      <main className="bg-white text-ink font-sans">
+      <div className="bg-white text-ink font-sans">
         {/* ===== HERO (leave as you had it) ===== */}
         <section className="relative h-screen w-full overflow-hidden">
-          <img
+          <img fetchPriority="high" decoding="async"
             src="/ngo-images/contact-hero.jpg"
             alt="Contact Us Hero"
             className="absolute inset-0 w-full h-full object-cover"
@@ -735,7 +735,7 @@ export default function ContactUs() {
           cta="Donate now"
           href="/donate"
         />
-      </main>
+      </div>
     </Layout>
   );
 }

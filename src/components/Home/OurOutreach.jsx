@@ -96,7 +96,7 @@ export function ImpactChart({ size = 520, segments, centerImage }) {
 
       <div className="absolute rounded-full overflow-hidden border-[6px] border-white shadow-xl"
         style={{ width: size * 0.48, height: size * 0.48 }}>
-        <img src={centerImage} className="w-full h-full object-cover" alt="center" />
+        <img decoding="async" src={centerImage} className="w-full h-full object-cover" alt="center" />
       </div>
     </div>
   );

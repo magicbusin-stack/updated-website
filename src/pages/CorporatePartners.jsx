@@ -53,7 +53,7 @@ export default function CorporatePartners() {
 
   return (
     <Layout>
-      <main className="bg-white text-ink font-sans">
+      <div className="bg-white text-ink font-sans">
         
         {/* ===== 1) HERO BANNER ===== */}
         <HeroBanner
@@ -234,7 +234,7 @@ export default function CorporatePartners() {
           </div>
         </section>
 
-      </main>
+      </div>
     </Layout>
   );
 }

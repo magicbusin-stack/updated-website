@@ -102,7 +102,7 @@ const FLFPR_REPORTS_DATA = [
 function FLFPRHero() {
   return (
     <section className="relative h-screen w-full overflow-hidden">
-      <img
+      <img fetchPriority="high" decoding="async"
         src="/ngo-images/5.JPG"
         alt="FLFPR Report"
         className="absolute inset-0 w-full h-full object-cover"
@@ -170,7 +170,7 @@ export default function FLFPRReport() {
   return (
     <Layout>
         <FaqSchema faqs={flfprFAQ} />
-      <main className="bg-slate-50 text-ink min-h-screen">
+      <div className="bg-slate-50 text-ink min-h-screen">
         <FLFPRHero />
         <FLFPRStats />
 
@@ -302,7 +302,7 @@ export default function FLFPRReport() {
           subtitle="Frequently asked questions about our Female Labour Force Participation Rate research and reports."
           categoriesLabel="Filter by topic"
         />
-      </main>
+      </div>
     </Layout>
   );
 }

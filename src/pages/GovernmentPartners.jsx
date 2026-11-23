@@ -53,7 +53,7 @@ export default function GovernmentPartners() {
 
   return (
     <Layout>
-      <main className="bg-white text-ink font-sans">
+      <div className="bg-white text-ink font-sans">
         
         {/* ===== 1) HERO BANNER ===== */}
         <HeroBanner
@@ -136,7 +136,7 @@ export default function GovernmentPartners() {
                   
                   <div className="flex flex-col items-center text-center p-1 w-full">
                     <div className="h-40 flex items-center justify-center mb-4">
-                      <img 
+                      <img loading="lazy" decoding="async" 
                         src={partner.logo} 
                         alt={`Government of ${partner.name}`} 
                         className="max-h-40 max-w-full object-contain group-hover:scale-105 transition-transform duration-300" 
@@ -217,7 +217,7 @@ export default function GovernmentPartners() {
           </div>
         </section>
 
-      </main>
+      </div>
     </Layout>
   );
 }

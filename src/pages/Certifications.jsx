@@ -207,7 +207,7 @@ const CERTIFICATIONS = [
 function CertificationsHero() {
   return (
     <section className="relative h-screen w-full overflow-hidden">
-      <img
+      <img fetchPriority="high" decoding="async"
         src="/ngo-images/award1.jpg"
         alt="Magic Bus Certifications"
         className="absolute inset-0 w-full h-full object-cover"
@@ -513,7 +513,7 @@ export default function Certifications() {
   return (
     <Layout>
         <FaqSchema faqs={certificationsFAQ} />
-      <main className="bg-slate-50 text-ink min-h-screen">
+      <div className="bg-slate-50 text-ink min-h-screen">
         <CertificationsHero />
 
         <CertificationStats />
@@ -598,7 +598,7 @@ export default function Certifications() {
           subtitle="Common questions about our certifications, compliance documents, and transparency practices."
           categoriesLabel="Filter by category"
         />
-      </main>
+      </div>
     </Layout>
   );
 }

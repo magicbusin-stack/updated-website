@@ -129,7 +129,7 @@ function AboutSection() {
                     {/* Right: image */}
                     <FadeIn delay={0.1}>
                         <div className="relative rounded-3xl aspect-[4/3] shadow-2xl overflow-hidden">
-                            <img
+                            <img loading="lazy" decoding="async"
                                 src="/cww1.jpg"
                                 alt="Connect With Work programme in action"
                                 className="h-full w-full object-cover"
@@ -650,7 +650,7 @@ function EligibilitySection() {
                 {/* Banner callout */}
                 <FadeUp delay={0.2}>
                     <div className="rounded-2xl overflow-hidden relative">
-                        <img
+                        <img loading="lazy" decoding="async"
                             src="/cww-banner.jpg"
                             alt="Connect With Work programme graduates"
                             className="w-full h-56 object-cover object-center"

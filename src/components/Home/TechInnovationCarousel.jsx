@@ -104,7 +104,7 @@ function Card({ slide, index, total, progress, config, onOpen }) {
         "w-44 h-56 sm:w-56 sm:h-80 lg:w-64 lg:h-96"
       )}
     >
-      <img src={slide.image} alt={slide.title} className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+      <img loading="lazy" decoding="async" src={slide.image} alt={slide.title} className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
       <motion.div style={{ opacity: dimOpacity }} className="absolute inset-0 bg-black pointer-events-none" />
     </motion.button>
   );
@@ -159,7 +159,7 @@ function DetailModal({ slide, onClose }) {
             </button>
 
             <div className="bg-gray-100 md:min-h-[32rem]">
-              <img src={slide.image} alt={slide.title} className="h-full w-full object-cover" />
+              <img loading="lazy" decoding="async" src={slide.image} alt={slide.title} className="h-full w-full object-cover" />
             </div>
 
             <div className="flex flex-col justify-center p-6 sm:p-10">

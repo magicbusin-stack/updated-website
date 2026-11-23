@@ -117,7 +117,7 @@ function ProgrammeCard({ slide }) {
           className="absolute inset-0 rounded-xl overflow-hidden shadow-lg bg-cover bg-center"
           style={{ backfaceVisibility: "hidden", WebkitBackfaceVisibility: "hidden" }}
         >
-          <img
+          <img loading="lazy" decoding="async"
             src={image}
             alt={title}
             className="absolute inset-0 w-full h-full object-cover"

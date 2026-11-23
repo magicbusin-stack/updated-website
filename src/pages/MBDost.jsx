@@ -144,7 +144,7 @@ function AboutSection() {
                                         </div>
                                         <div>
                                             <p className="text-xs font-bold uppercase tracking-widest text-white/30 mb-0.5">{point.num}</p>
-                                            <h4 className="font-extrabold text-white text-base mb-1">{point.title}</h4>
+                                            <h3 className="font-extrabold text-white text-base mb-1">{point.title}</h3>
                                             <p className="text-sm text-white/50 leading-relaxed">{point.desc}</p>
                                         </div>
                                     </motion.div>

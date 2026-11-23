@@ -354,7 +354,7 @@ function InitiativesSection() {
                 <div>
                   {/* the heading is skipped when it only repeats the tab title */}
                   {block.heading !== active.title && (
-                    <h4 className="text-xl font-extrabold text-[#1A1A1A] md:text-2xl">{block.heading}</h4>
+                    <h3 className="text-xl font-extrabold text-[#1A1A1A] md:text-2xl">{block.heading}</h3>
                   )}
                   <p className={`${block.heading !== active.title ? "mt-3 " : ""}text-lg leading-relaxed text-gray-800`}>{block.text}</p>
                 </div>
@@ -363,7 +363,7 @@ function InitiativesSection() {
 
             {active.platforms && (
               <div className="rounded-2xl border border-black/5 bg-white p-5 shadow-sm sm:p-6">
-                <h5 className={`text-base font-bold uppercase tracking-[0.16em] ${st.text}`}>Three Platforms</h5>
+                <h3 className={`text-base font-bold uppercase tracking-[0.16em] ${st.text}`}>Three Platforms</h3>
                 <div className="mt-4 grid gap-4 md:grid-cols-3">
                   {active.platforms.map((item, pi) => {
                     const [name, ...rest] = item.split(":");
@@ -503,7 +503,7 @@ function TrainingGlimpsesSection() {
                 whileHover={{ scale: 1.02 }}
                 className="group relative h-full w-full overflow-hidden rounded-2xl bg-gray-100"
               >
-                <img
+                <img loading="lazy" decoding="async"
                   src={img.src}
                   alt={`Training glimpse ${img.id}`}
                   className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"

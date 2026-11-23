@@ -71,7 +71,7 @@ const IMPACT_REPORTS_DATA = [
 function ImpactReportsHero() {
   return (
     <section className="relative h-screen w-full overflow-hidden">
-      <img
+      <img fetchPriority="high" decoding="async"
         src="/ngo-images/3.JPG"
         alt="Impact Reports"
         className="absolute inset-0 w-full h-full object-cover"
@@ -127,7 +127,7 @@ function ImpactStats() {
 export default function ImpactReports() {
   return (
     <Layout>
-      <main className="bg-slate-50 text-ink min-h-screen">
+      <div className="bg-slate-50 text-ink min-h-screen">
         <ImpactReportsHero />
         <ImpactStats />
 
@@ -176,7 +176,7 @@ export default function ImpactReports() {
             </motion.div>
           </div>
         </section>
-      </main>
+      </div>
     </Layout>
   );
 }

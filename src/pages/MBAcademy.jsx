@@ -80,7 +80,7 @@ function AboutSection() {
                     <FadeUp delay={0.15}>
                         <div className="relative">
                             <div className="relative rounded-3xl overflow-hidden shadow-2xl aspect-[4/3] bg-[#1A1A1A]">
-                                <img src="/mb-academy/app-mockup.png" alt="MB Academy App"
+                                <img loading="lazy" decoding="async" src="/mb-academy/app-mockup.png" alt="MB Academy App"
                                     className="w-full h-full object-cover opacity-90" />
                                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
                                 <div className="absolute bottom-5 left-5">

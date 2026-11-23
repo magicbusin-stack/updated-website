@@ -155,10 +155,10 @@ export default function PartnerWithUs() {
 
   return (
     <Layout>
-      <main className="bg-white text-ink font-sans">
+      <div className="bg-white text-ink font-sans">
         {/* ===== 1) HERO (matches Donate) ===== */}
         <section className="relative h-screen w-full overflow-hidden">
-          <img
+          <img fetchPriority="high" decoding="async"
             src="/ngo-images/partner-hero.jpg"
             alt="Group of smiling children and mentors waving"
             className="absolute inset-0 w-full h-full object-cover"
@@ -365,7 +365,7 @@ export default function PartnerWithUs() {
         >
           Top
         </button>
-      </main>
+      </div>
     </Layout>
   );
 }

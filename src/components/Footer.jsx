@@ -48,28 +48,34 @@ export default function Footer() {
           {/* ABOUT US */}
           <FooterColumn title="About Us">
             <ul className="space-y-2">
-              <li><a href="#" className="font-medium hover:text-brand-yellow transition-colors">Our Approach</a></li>
-              <li><a href="#" className="font-medium hover:text-brand-yellow transition-colors">Our Team</a></li>
-              <li><a href="#" className="font-medium hover:text-brand-yellow transition-colors">Our Culture</a></li>
-              <li><a href="#" className="font-medium hover:text-brand-yellow transition-colors">Board of Directors</a></li>
+              <li><Link to="/about-us" className="font-medium hover:text-brand-yellow transition-colors">About Magic Bus</Link></li>
+              <li><Link to="/our-approach" className="font-medium hover:text-brand-yellow transition-colors">Our Approach</Link></li>
+              <li><Link to="/who-we-are" className="font-medium hover:text-brand-yellow transition-colors">Who We Are</Link></li>
+              <li><Link to="/our-team" className="font-medium hover:text-brand-yellow transition-colors">Our Team</Link></li>
+              <li><Link to="/our-culture" className="font-medium hover:text-brand-yellow transition-colors">Our Culture</Link></li>
+              <li><Link to="/board-of-directors" className="font-medium hover:text-brand-yellow transition-colors">Board of Directors</Link></li>
             </ul>
           </FooterColumn>
 
           {/* PROGRAMMES */}
           <FooterColumn title="Programmes">
-            <p className="font-semibold text-white mt-2">Adolescent Programme</p>
+            <p className="font-semibold text-white mt-2"><Link to="/adolescent-programme" className="hover:text-brand-yellow transition-colors">Adolescent Programme</Link></p>
             <ul className="space-y-2 mt-2">
-              <li><a href="#" className="font-medium hover:text-brand-yellow transition-colors">Government Partnership Programme</a></li>
+              <li><Link to="/government-partnership-programme" className="font-medium hover:text-brand-yellow transition-colors">Government Partnership Programme</Link></li>
+              <li><Link to="/school-to-work" className="font-medium hover:text-brand-yellow transition-colors">School-to-Work Transition Framework</Link></li>
+              <li><Link to="/government-partnerships" className="font-medium hover:text-brand-yellow transition-colors">Government Partnerships</Link></li>
               <li><Link to="/youth-for-change-fellowship-programme" className="font-medium hover:text-brand-yellow transition-colors">Youth for Change Fellowship Programme</Link></li>
-              <li><a href="#" className="font-medium hover:text-brand-yellow transition-colors">MB Dost</a></li>
+              <li><Link to="/mb-dost" className="font-medium hover:text-brand-yellow transition-colors">MB Dost</Link></li>
             </ul>
 
-            <p className="font-semibold text-white mt-4">Livelihood Programme</p>
+            <p className="font-semibold text-white mt-4"><Link to="/livelihood-programme" className="hover:text-brand-yellow transition-colors">Livelihood Programme</Link></p>
             <ul className="space-y-2 mt-2">
-              <li><a href="#" className="font-medium hover:text-brand-yellow transition-colors">Standard Skilling</a></li>
-              <li><a href="#" className="font-medium hover:text-brand-yellow transition-colors">Digital Skilling</a></li>
-              <li><a href="#" className="font-medium hover:text-brand-yellow transition-colors">Rural Youth Livelihoods</a></li>
-              <li><a href="#" className="font-medium hover:text-brand-yellow transition-colors">Future X</a></li>
+              <li><Link to="/youth-skilling-programme" className="font-medium hover:text-brand-yellow transition-colors">Standard Skilling</Link></li>
+              <li><Link to="/connect-with-work" className="font-medium hover:text-brand-yellow transition-colors">Connect With Work</Link></li>
+              <li><Link to="/digital-skilling" className="font-medium hover:text-brand-yellow transition-colors">Digital Skilling</Link></li>
+              <li><Link to="/entrepreneurship-development-programme" className="font-medium hover:text-brand-yellow transition-colors">Entrepreneurship Development</Link></li>
+              <li><Link to="/livelihood-programme" className="font-medium hover:text-brand-yellow transition-colors">Rural Youth Livelihoods</Link></li>
+              <li><Link to="/futurex" className="font-medium hover:text-brand-yellow transition-colors">Future X</Link></li>
             </ul>
 
             <p className="font-semibold text-white mt-4"><Link to="/employee-volunteering" className="hover:text-brand-yellow transition-colors">Employee Volunteering Programme</Link></p>
@@ -95,12 +101,14 @@ export default function Footer() {
               <li><Link to="/annual-reports" className="font-medium hover:text-brand-yellow transition-colors">Annual Reports</Link></li>
               <li><Link to="/gender-journey-report" className="font-medium hover:text-brand-yellow transition-colors">Gender Journey Report</Link></li>
               <li><Link to="/flfpr-report" className="font-medium hover:text-brand-yellow transition-colors">FLFPR Report</Link></li>
+              <li><Link to="/certifications" className="font-medium hover:text-brand-yellow transition-colors">Certifications</Link></li>
             </ul>
 
             <p className="font-semibold text-white mt-4">Media & Stories</p>
             <ul className="space-y-2 mt-2">
               <li><Link to="/events" className="font-medium hover:text-brand-yellow transition-colors">Events</Link></li>
               <li><Link to="/podcasts" className="font-medium hover:text-brand-yellow transition-colors">Podcasts</Link></li>
+              <li><Link to="/gallery" className="font-medium hover:text-brand-yellow transition-colors">Gallery</Link></li>
               <li><Link to="/news" className="font-medium hover:text-brand-yellow transition-colors">News</Link></li>
               <li><Link to="/blogs" className="font-medium hover:text-brand-yellow transition-colors">Blogs</Link></li>
               <li><a href="#" className="font-medium hover:text-brand-yellow transition-colors">Podcast</a></li>
@@ -142,9 +150,9 @@ export default function Footer() {
 
           {/* CONNECT WITH US — always visible: contact info & subscribe form, not a link list */}
           <div>
-            <h4 className="text-sm font-semibold tracking-tight text-white mb-4">
+            <h2 className="text-sm font-semibold tracking-tight text-white mb-4">
               Connect With Us
-            </h4>
+            </h2>
 
             <p className="leading-relaxed mb-2">
               <strong>Head Office:</strong><br />
@@ -189,7 +197,9 @@ export default function Footer() {
         {/* BOTTOM */}
         <div className="mt-8 flex flex-col md:flex-row justify-between items-center gap-2 border-t border-white/10 pt-8 text-xs text-gray-400">
           <p>© {new Date().getFullYear()} Magic Bus. All rights reserved.</p>
-          <div className="flex gap-4">
+          <div className="flex flex-wrap justify-center gap-x-4 gap-y-2">
+            <Link to="/contact" className="underline hover:text-brand-yellow transition-colors">Contact Us</Link>
+            <Link to="/donate" className="underline hover:text-brand-yellow transition-colors">Donate</Link>
             <Link to="/privacy-policy" className="underline hover:text-brand-yellow transition-colors">Privacy Policy</Link>
             <Link to="/terms-and-conditions" className="underline hover:text-brand-yellow transition-colors">Terms & Conditions</Link>
             <Link to="/refund-policy" className="underline hover:text-brand-yellow transition-colors">Refund Policy</Link>

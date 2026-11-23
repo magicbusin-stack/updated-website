@@ -180,7 +180,7 @@ function IntroSection() {
                                 animate={{ opacity: 1, scale: 1 }}
                                 transition={{ duration: 0.5, ease: EASE }}
                             >
-                                <img
+                                <img loading="lazy" decoding="async"
                                     src={galleryImages[active].src}
                                     alt={galleryImages[active].alt}
                                     className="w-full h-full object-cover"
@@ -208,7 +208,7 @@ function IntroSection() {
                                         whileHover={{ scale: 1.05 }}
                                         whileTap={{ scale: 0.97 }}
                                     >
-                                        <img
+                                        <img loading="lazy" decoding="async"
                                             src={img.src}
                                             alt={img.alt}
                                             className="w-full h-full object-cover"

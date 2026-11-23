@@ -1,0 +1,6 @@
+# Magic Bus India Foundation: all search engines may crawl the whole site.
+# Pages that should not be listed carry a noindex tag instead (a page blocked here could not show that tag).
+User-agent: *
+Allow: /
+
+Sitemap: https://www.magicbus.org/sitemap.xml

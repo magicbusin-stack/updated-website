@@ -148,7 +148,7 @@ export default function Navbar() {
         <div className="flex items-center justify-between h-20 md:h-24 border-b border-gray-100">
           {/* Logo (left) */}
           <Link to="/" className="flex items-center gap-3 z-40">
-            <img
+            <img decoding="async"
               src="/Magic Bus Logo - Usage As Per Background-01.png"
               alt="Magic Bus Logo"
               className="h-16 w-16 sm:h-20 sm:w-20 md:h-24 md:w-24 object-contain rounded-full"

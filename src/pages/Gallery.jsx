@@ -196,7 +196,7 @@ const VIDEOS_DATA = [
 function GalleryHero() {
   return (
     <section className="relative h-screen w-full overflow-hidden">
-      <img
+      <img fetchPriority="high" decoding="async"
         src="/ngo-images/1.JPG"
         alt="Magic Bus Gallery"
         className="absolute inset-0 w-full h-full object-cover"
@@ -358,7 +358,7 @@ function ImageCard({ image, index }) {
     >
       {/* Image */}
       <div className="relative aspect-[4/3] overflow-hidden">
-        <img
+        <img loading="lazy" decoding="async"
           src={image.imageUrl}
           alt={image.title}
           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
@@ -437,7 +437,7 @@ function VideoCard({ video, index }) {
     >
       {/* Video Thumbnail */}
       <div className="relative aspect-video overflow-hidden">
-        <img
+        <img loading="lazy" decoding="async"
           src={video.thumbnailUrl}
           alt={video.title}
           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
@@ -531,7 +531,7 @@ export default function Gallery() {
 
   return (
     <Layout>
-      <main className="bg-slate-50 text-ink min-h-screen">
+      <div className="bg-slate-50 text-ink min-h-screen">
         <GalleryHero />
         
         <TabNavigation activeTab={activeTab} setActiveTab={setActiveTab} />
@@ -598,7 +598,7 @@ export default function Gallery() {
             </AnimatePresence>
           </div>
         </section>
-      </main>
+      </div>
     </Layout>
   );
 }

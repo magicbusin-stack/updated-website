@@ -61,7 +61,7 @@ const StoryCard = ({ tag, title, body, img, className = "", cta = { text: "Read 
       className,
     ].join(" ")}
   >
-    <img
+    <img loading="lazy" decoding="async"
       src={img}
       alt={title}
       className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-[1.05]"

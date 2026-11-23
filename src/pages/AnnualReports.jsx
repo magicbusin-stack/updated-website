@@ -97,7 +97,7 @@ const ANNUAL_REPORTS_DATA = [
 function AnnualReportsHero() {
   return (
     <section className="relative h-screen w-full overflow-hidden">
-      <img
+      <img fetchPriority="high" decoding="async"
         src="/ngo-images/1.JPG"
         alt="Annual Reports"
         className="absolute inset-0 w-full h-full object-cover"
@@ -197,7 +197,7 @@ export default function AnnualReports() {
   return (
     <Layout>
         <FaqSchema faqs={annualReportsFAQ} />
-      <main className="bg-slate-50 text-ink min-h-screen">
+      <div className="bg-slate-50 text-ink min-h-screen">
         <AnnualReportsHero />
 
         {/* Annual Reports Content Section */}
@@ -299,7 +299,7 @@ export default function AnnualReports() {
           subtitle="Clear answers about our annual reports, financial statements, and impact documentation."
           categoriesLabel="Filter by topic"
         />
-      </main>
+      </div>
     </Layout>
   );
 }

@@ -402,7 +402,7 @@ function WhyLifeSkills() {
                     {/* Left: image */}
                     <FadeIn className="order-2 lg:order-1">
                         <div className="relative rounded-3xl overflow-hidden aspect-[16/10] md:aspect-[4/3] shadow-xl">
-                            <img
+                            <img loading="lazy" decoding="async"
                                 src="/ngo-images/5.jpeg"
                                 alt="Life skills education"
                                 className="h-full w-full object-cover"
@@ -561,11 +561,17 @@ function WhoWeAre() {
                 {/* Image strip */}
                 <FadeIn delay={0.2} className="mt-8 md:mt-16">
                     <div className="grid grid-cols-3 gap-2 md:gap-4 rounded-3xl overflow-hidden h-32 sm:h-64 md:h-80">
-                        {["/ngo-images/6.jpeg", "/ngo-images/ai2.jpg", "/ngo-images/10.jpg"].map((src, i) => (
+                        {[
+                            { src: "/ngo-images/6.jpeg", alt: "Magic Bus team members watering a young tree together" },
+                            { src: "/ngo-images/ai2.jpg", alt: "World Youth Skills Day 2025 poster: youth empowerment through AI and digital skills" },
+                            { src: "/ngo-images/10.jpg", alt: "Five women holding a sign that reads Skills for Viksit Bharat 2047" },
+                        ].map(({ src, alt }, i) => (
                             <div key={i} className="overflow-hidden">
                                 <img
                                     src={src}
-                                    alt=""
+                                    alt={alt}
+                                    loading="lazy"
+                                    decoding="async"
                                     className="h-full w-full object-cover hover:scale-105 transition-transform duration-700"
                                 />
                             </div>
@@ -1008,7 +1014,7 @@ function OurStory() {
                                     className="w-full max-w-[300px] overflow-hidden rounded-xl border border-white/20 bg-white/10 focus:outline-none focus:ring-2 focus:ring-white/60"
                                     aria-label="Open milestone image"
                                 >
-                                    <img
+                                    <img loading="lazy" decoding="async"
                                         src="/milestone-1.jpg"
                                         alt="Magic Bus journey milestones"
                                         className="h-32 md:h-56 w-full object-cover object-left-top transition-transform duration-300 hover:scale-[1.03]"
@@ -1204,7 +1210,7 @@ function OurStory() {
                                     Close
                                 </button>
                                 <div className="rounded-2xl bg-white p-2 md:p-3 shadow-2xl">
-                                    <img
+                                    <img loading="lazy" decoding="async"
                                         src="/milestone-1.jpg"
                                         alt="Magic Bus journey milestones enlarged"
                                         className="w-full h-auto max-h-[82vh] rounded-xl object-contain"
@@ -1295,7 +1301,7 @@ function WhyMagicBus() {
                     <FadeIn delay={0.15}>
                         <div className="relative">
                             <div className="rounded-3xl overflow-hidden aspect-[16/10] md:aspect-square shadow-xl">
-                                <img
+                                <img loading="lazy" decoding="async"
                                     src="/ngo-images/girl.jpeg"
                                     alt="Young person empowerment"
                                     className="h-full w-full object-cover"
@@ -1408,7 +1414,7 @@ function VisionMissionValues() {
                                 >
                                     <v.icon className={`h-9 w-9 sm:h-11 sm:w-11 ${v.fg}`} />
                                 </motion.div>
-                                <h4 className="relative mb-2 text-xl font-extrabold text-white">{v.title}</h4>
+                                <h3 className="relative mb-2 text-xl font-extrabold text-white">{v.title}</h3>
                                 <p className="relative mt-auto text-base leading-relaxed text-white/80">{v.desc}</p>
                                 <span
                                     className="absolute bottom-0 left-0 h-1 w-0 transition-all duration-500 group-hover:w-full"

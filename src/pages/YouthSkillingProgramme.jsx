@@ -169,7 +169,7 @@ function AboutSection() {
                     {/* Right: image */}
                     <FadeIn delay={0.1}>
                         <div className="relative rounded-3xl aspect-[4/3] shadow-2xl overflow-hidden">
-                            <img
+                            <img loading="lazy" decoding="async"
                                 src="/ngo-images/6.jpg"
                                 alt="Youth skilling in action"
                                 className="h-full w-full object-cover"

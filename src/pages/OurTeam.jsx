@@ -93,7 +93,7 @@ function TeamCard({ member, index, variant = "light", onOpen }) {
                 {/* ── Photo area ─────────────────────────────────────── */}
                 <div className="relative w-full aspect-[3/3.5] overflow-hidden bg-gray-100 shrink-0">
                     {!imgError ? (
-                        <img
+                        <img loading="lazy" decoding="async"
                             src={photoSrc}
                             alt={member.name}
                             className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-700"
@@ -284,7 +284,7 @@ function LeadershipBioModal({ leader, isOpen, onClose }) {
                         <div className="grid grid-cols-1 lg:grid-cols-2">
                             <div className="relative min-h-[300px] lg:min-h-full">
                                 {leader.image || leader.photo ? (
-                                    <img
+                                    <img loading="lazy" decoding="async"
                                         src={leader.image || leader.photo}
                                         alt={leader.name}
                                         className="h-full w-full object-cover object-top"
@@ -339,7 +339,7 @@ function LeadershipIntroSection({ onReadMore }) {
                             <Users className="w-6 h-6 text-brand-black" />
                         </div>
                         <div>
-                            <h3 className="text-2xl md:text-3xl font-extrabold text-[#1A1A1A]">Leadership</h3>
+                            <h2 className="text-2xl md:text-3xl font-extrabold text-[#1A1A1A]">Leadership</h2>
                             <p className="mt-2 text-[#1A1A1A]/60 max-w-2xl leading-relaxed">
                                 Magic Bus is fortunate to have some of the brightest minds from both the corporate and non-profit world working towards empowering and changing the lives of children.
                             </p>
@@ -356,13 +356,13 @@ function LeadershipIntroSection({ onReadMore }) {
                                 className="group h-full overflow-hidden rounded-3xl border border-black/10 bg-white shadow-[0_12px_30px_rgba(0,0,0,0.06)]"
                             >
                                 <div className="relative h-64 overflow-hidden">
-                                    <img
+                                    <img loading="lazy" decoding="async"
                                         src={leader.image}
                                         alt={leader.name}
                                         className="h-full w-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
                                     />
                                     <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/65 to-transparent p-5">
-                                        <h4 className="text-3xl font-bold text-white leading-tight">{leader.name}</h4>
+                                        <h3 className="text-3xl font-bold text-white leading-tight">{leader.name}</h3>
                                         <p className="mt-1 text-xs font-semibold uppercase tracking-[0.18em] text-brand-yellow">{leader.role}</p>
                                     </div>
                                 </div>

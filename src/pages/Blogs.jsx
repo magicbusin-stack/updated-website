@@ -169,9 +169,9 @@ const dateToPretty = (iso) => new Date(iso).toLocaleDateString("en-GB", { day: "
 function Hero() {
   return (
     <section className="relative h-[60svh] min-h-[420px] md:h-screen w-full overflow-hidden">
-      <img
+      <img fetchPriority="high" decoding="async"
         src="/ngo-images/1.jpeg"
-        alt="Blogs Hero"
+        alt="Children learning at computers in a classroom with their teacher"
         className="absolute inset-0 w-full h-full object-cover"
         onError={(e) => {
           e.currentTarget.src = "https://images.unsplash.com/photo-1497486751825-1233686d5d80";
@@ -262,7 +262,7 @@ function FeaturedStories({ items }) {
             >
               <a href={`/blog/${items[activeIndex]?.id}`} aria-label={items[activeIndex]?.title} className="absolute inset-0 z-10 rounded-3xl" />
               <div className="relative block rounded-3xl overflow-hidden shadow-2xl">
-                <img
+                <img loading="lazy" decoding="async"
                   src={items[activeIndex]?.image}
                   alt={items[activeIndex]?.title}
                   className="w-full h-56 sm:h-[400px] object-cover group-hover:scale-105 transition-transform duration-700"
@@ -303,16 +303,16 @@ function FeaturedStories({ items }) {
               whileTap={{ scale: 0.98 }}
             >
               <div className="flex gap-4">
-                <img
+                <img loading="lazy" decoding="async"
                   src={item.image}
                   alt={item.title}
                   className="w-16 h-16 object-cover rounded-xl"
                 />
                 <div className="flex-1">
-                  <h4 className={`font-semibold text-sm mb-2 line-clamp-2 ${index === activeIndex ? "text-brand-red" : "text-ink"
+                  <h3 className={`font-semibold text-sm mb-2 line-clamp-2 ${index === activeIndex ? "text-brand-red" : "text-ink"
                     }`}>
                     {item.title}
-                  </h4>
+                  </h3>
                   <div className="flex items-center gap-3 text-xs text-slate-500">
                     <span>{dateToPretty(item.date)}</span>
                     <span>{item.readingTime}m</span>
@@ -422,7 +422,7 @@ function BlogCard({ post, index }) {
       <a href={`/blog/${post.id}`} aria-label={post.title} className="absolute inset-0 z-10 rounded-2xl sm:rounded-3xl" />
 
       <div className="relative overflow-hidden w-28 shrink-0 sm:w-auto">
-        <img
+        <img loading="lazy" decoding="async"
           src={post.image}
           alt={post.title}
           className="w-full h-full min-h-[120px] sm:h-48 object-cover group-hover:scale-110 transition-transform duration-700"
@@ -684,7 +684,7 @@ export default function Blogs() {
 
   return (
     <Layout>
-      <main className="bg-gradient-to-b from-[#EAF8FD] via-white to-[#FFF0F6] text-ink min-h-screen">
+      <div className="bg-gradient-to-b from-[#EAF8FD] via-white to-[#FFF0F6] text-ink min-h-screen">
         <Hero />
 
         <FeaturedStories items={featuredPosts} />
@@ -792,7 +792,7 @@ export default function Blogs() {
         </div>
 
         <BottomCTA />
-      </main>
+      </div>
     </Layout>
   );
 }

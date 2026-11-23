@@ -164,7 +164,7 @@ function Hero() {
       style={{ marginTop: "var(--header-h, 93px)" }}
     >
       <div className="absolute inset-0">
-        <img
+        <img fetchPriority="high" decoding="async"
           src={HERO_IMG}
           alt="A Magic Bus mentor walking with two children"
           className="h-full w-full object-cover object-center brightness-[0.45] contrast-[1.05]"
@@ -375,11 +375,11 @@ function Pillars() {
                 >
                   <p.Icon className="h-11 w-11" />
                 </div>
-                <h4 className={`oa-display mx-auto mt-3 w-fit rounded-md bg-white/90 px-2 py-0.5 text-lg font-bold leading-tight transition-colors ${on ? "text-slate-950" : "text-slate-500"}`}>
+                <h3 className={`oa-display mx-auto mt-3 w-fit rounded-md bg-white/90 px-2 py-0.5 text-lg font-bold leading-tight transition-colors ${on ? "text-slate-950" : "text-slate-500"}`}>
                   {p.lines[0]}
                   <br />
                   {p.lines[1]}
-                </h4>
+                </h3>
               </div>
             );
           })}
@@ -600,7 +600,7 @@ export default function OurApproach() {
         href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Epilogue:wght@600;700;800;900&display=swap"
       />
       <style>{STYLES}</style>
-      <main className="oa-page bg-slate-50 text-slate-800 antialiased">
+      <div className="oa-page bg-slate-50 text-slate-800 antialiased">
         <Hero />
         <Overview />
         <Pillars />
@@ -610,7 +610,7 @@ export default function OurApproach() {
           <StrategicFramework />
         </div>
         <JoinCTA />
-      </main>
+      </div>
     </Layout>
   );
 }

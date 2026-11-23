@@ -153,7 +153,7 @@ export default function EdpPillars() {
                 {/* Arch with photo */}
                 <div className="relative mt-12 flex flex-col items-center sm:mt-16">
                     <div className="relative h-60 w-full max-w-3xl overflow-hidden rounded-t-[180px] border-t-4 border-amber-400 bg-gradient-to-t from-slate-950 via-slate-900 to-slate-800 shadow-2xl sm:h-80 sm:rounded-t-[260px]">
-                        <img
+                        <img loading="lazy" decoding="async"
                             src="/edp-about.jpg"
                             alt=""
                             aria-hidden="true"

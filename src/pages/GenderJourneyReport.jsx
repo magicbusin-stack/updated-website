@@ -96,7 +96,7 @@ const GENDER_REPORTS_DATA = [
 function GenderJourneyHero() {
   return (
     <section className="relative h-screen w-full overflow-hidden">
-      <img
+      <img fetchPriority="high" decoding="async"
         src="/ngo-images/4.JPG"
         alt="Gender Journey Report"
         className="absolute inset-0 w-full h-full object-cover"
@@ -163,7 +163,7 @@ export default function GenderJourneyReport() {
   return (
     <Layout>
         <FaqSchema faqs={genderJourneyFAQ} />
-      <main className="bg-slate-50 text-ink min-h-screen">
+      <div className="bg-slate-50 text-ink min-h-screen">
         <GenderJourneyHero />
         <GenderStats />
 
@@ -298,7 +298,7 @@ export default function GenderJourneyReport() {
           subtitle="Common questions about our gender empowerment research, programmes, and impact."
           categoriesLabel="Filter by topic"
         />
-      </main>
+      </div>
     </Layout>
   );
 }

@@ -237,7 +237,7 @@ function AboutSection() {
                                 whileHover={{ scale: 1.01 }}
                                 transition={{ duration: 0.4 }}
                             >
-                                <img src="/edp-about.jpg" alt="EDP entrepreneurs" className="h-full w-full object-cover" />
+                                <img loading="lazy" decoding="async" src="/edp-about.jpg" alt="EDP entrepreneurs" className="h-full w-full object-cover" />
                                 <div className="absolute inset-0 bg-gradient-to-t from-[#111111]/60 to-transparent" />
                             </motion.div>
                             {/* Floating year badge */}
@@ -705,7 +705,7 @@ function OutreachImpactSection() {
                 {/* Wide image banner */}
                 <FadeIn delay={0.2}>
                     <div className="relative rounded-3xl overflow-hidden h-64">
-                        <img src="/edp-banner.jpg" alt="EDP outreach impact" className="w-full h-full object-cover object-center" />
+                        <img loading="lazy" decoding="async" src="/edp-banner.jpg" alt="EDP outreach impact" className="w-full h-full object-cover object-center" />
                         <div className="absolute inset-0 bg-gradient-to-r from-[#111111]/90 via-[#111111]/50 to-transparent" />
                         <div className="absolute inset-0 flex items-center px-10 md:px-16">
                             <div className="max-w-md">
@@ -800,7 +800,7 @@ function SuccessStoriesSection() {
                                     {/* Portrait: shown at (or below) its real pixel size so it stays sharp, no zoom on hover */}
                                     <div className="shrink-0 mx-auto sm:mx-0">
                                         <div className="h-60 w-60 overflow-hidden rounded-2xl bg-[#F0EDE8] ring-1 ring-black/5 shadow-md">
-                                            <img
+                                            <img loading="lazy" decoding="async"
                                                 src={story.image}
                                                 alt={story.name}
                                                 className={`h-full w-full object-cover object-top ${story.imgClass || ""}`}

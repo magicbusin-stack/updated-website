@@ -251,7 +251,7 @@ export default function NavbarWireframe() {
 
           {/* Left: Logo */}
           <Link to="/" className="flex-shrink-0 z-40">
-            <img
+            <img decoding="async"
               src="/logo-header.png"
               alt="Magic Bus Logo"
               className="h-[56px] md:h-[78px] xl:h-[104px] w-auto object-contain"

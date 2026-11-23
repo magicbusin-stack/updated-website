@@ -1,14 +1,45 @@
 <!doctype html>
-<html lang="en">
+<html lang="en-IN">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/public/Magic Bus Logo - Usage As Per Background-01.png" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;700;800&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="/logo-header.png" />
+    <link rel="apple-touch-icon" href="/logo-header.png" />
+
+    <!-- Speed: open connections to the font and icon hosts early, and load their stylesheets without blocking the first paint -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" media="print" onload="this.media='all'" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;700;800&display=swap" media="print" onload="this.media='all'" />
+    <noscript>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;700;800&display=swap" />
+    </noscript>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Magic Bus India Foundation is one of India's largest NGOs, working since 1999 to move young people from underserved communities from childhood to livelihood through life skills education, employability skilling, and livelihood programmes across 14+ states." />
-    <title>Magic Bus India Foundation | NGO for Youth Life Skills &amp; Livelihoods in India</title>
+
+    <!--seo:start-->
+    <!-- This block is replaced for every page at build time (scripts/seo-build.mjs, from src/seo/routes.js). These are the home page defaults. -->
+    <title>Magic Bus India Foundation | Youth Life Skills &amp; Livelihoods</title>
+    <meta name="description" content="Magic Bus moves young people from underserved communities from childhood to livelihood through life skills, employability skilling and livelihood programmes." />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <link rel="canonical" href="https://www.magicbus.org/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Magic Bus India Foundation" />
+    <meta property="og:locale" content="en_IN" />
+    <meta property="og:title" content="Magic Bus India Foundation | Youth Life Skills &amp; Livelihoods" />
+    <meta property="og:description" content="Magic Bus moves young people from underserved communities from childhood to livelihood through life skills, employability skilling and livelihood programmes." />
+    <meta property="og:url" content="https://www.magicbus.org/" />
+    <meta property="og:image" content="https://www.magicbus.org/og-image.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Magic Bus India Foundation: Childhood to Livelihood" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Magic Bus India Foundation | Youth Life Skills &amp; Livelihoods" />
+    <meta name="twitter:description" content="Magic Bus moves young people from underserved communities from childhood to livelihood through life skills, employability skilling and livelihood programmes." />
+    <meta name="twitter:image" content="https://www.magicbus.org/og-image.jpg" />
+    <meta name="twitter:image:alt" content="Magic Bus India Foundation: Childhood to Livelihood" />
+    <!--seo:end-->
 
     <!--
       Structured data (schema.org JSON-LD) so search engines and AI systems
@@ -108,6 +139,7 @@
       src="https://sales.fastoprox.com/bot/widget.js"
       data-workspace="sales"
       data-api-url="https://salesapi.fastoprox.com/bot"
+      defer
     ></script>
   </body>
 </html>

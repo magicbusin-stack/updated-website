@@ -1,6 +1,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import Footer from "./Footer";
 import NavbarNew from "./NavbarNew";
+import RelatedPages from "../seo/RelatedPages";
 
 export default function Layout({ children }) {
   return (
@@ -19,6 +20,7 @@ export default function Layout({ children }) {
           </motion.div>
         </AnimatePresence>
       </main>
+      <RelatedPages />
       <Footer />
     </div>
   );

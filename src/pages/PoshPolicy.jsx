@@ -91,7 +91,7 @@ export default function PoshPolicy() {
 
   return (
     <Layout>
-      <main className="bg-white text-ink font-sans">
+      <div className="bg-white text-ink font-sans">
         
         {/* ===== 1) HERO BANNER ===== */}
         <HeroBanner
@@ -137,7 +137,7 @@ export default function PoshPolicy() {
                 
                 {/* Scope Card */}
                 <div className="bg-slate-50 border border-slate-200/60 p-6 rounded-2xl">
-                  <h4 className="font-extrabold text-slate-800 text-xs uppercase tracking-wider mb-2">Scope of Policy</h4>
+                  <h3 className="font-extrabold text-slate-800 text-xs uppercase tracking-wider mb-2">Scope of Policy</h3>
                   <p className="text-xs text-slate-500 leading-relaxed font-light">
                     This policy applies to all individuals employed in a permanent, contractual, or temporary capacity at any location of Magic Bus India Foundation.
                   </p>
@@ -155,7 +155,7 @@ export default function PoshPolicy() {
 
                 {/* Indication policy stance box */}
                 <div className="border-l-4 border-brand-red pl-6 py-2 bg-slate-50/50 rounded-r-xl">
-                  <h4 className="font-bold text-slate-950 text-base">Organization Policy on Sexual Harassment</h4>
+                  <h3 className="font-bold text-slate-950 text-base">Organization Policy on Sexual Harassment</h3>
                   <p className="text-sm text-slate-600 mt-2 leading-relaxed font-light">
                     The organization policy is to totally prohibit any form of sexual harassment. This applies equally to relations between superior and subordinates as well as between peers. Any incident of sexual harassment will be viewed extremely seriously. A complaint or report of sexual harassment will be immediately investigated, and appropriate action will be taken against the offending employee or employees. Such action will depend on the nature and seriousness of the offence and will include strict disciplinary action, including termination of service.
                   </p>
@@ -175,9 +175,9 @@ export default function PoshPolicy() {
               <span className="inline-block bg-brand-green/10 text-brand-green font-bold text-xs uppercase tracking-widest px-3 py-1 rounded-full mb-3">
                 Indicative Definitions
               </span>
-              <h3 className="text-3xl font-extrabold text-slate-900 tracking-tight">
+              <h2 className="text-3xl font-extrabold text-slate-900 tracking-tight">
                 What Constitutes Sexual Harassment?
-              </h3>
+              </h2>
               <p className="text-slate-500 text-sm mt-2 max-w-lg mx-auto">
                 Any physical or verbal behaviour and any form of communication that has unnecessary, improper, or unwelcome sexual connotations. It may vary in form depending on circumstances. Below is an indicative list; it is not exhaustive.
               </p>
@@ -192,7 +192,7 @@ export default function PoshPolicy() {
                 >
                   <div>
                     <span className="text-slate-300 font-extrabold text-xs uppercase tracking-widest block mb-2">Category {def.id}</span>
-                    <h4 className="font-extrabold text-slate-800 text-base mb-3 tracking-tight">{def.title}</h4>
+                    <h3 className="font-extrabold text-slate-800 text-base mb-3 tracking-tight">{def.title}</h3>
                     <p className="text-xs text-slate-500 leading-relaxed font-light">{def.desc}</p>
                   </div>
                   
@@ -229,9 +229,9 @@ export default function PoshPolicy() {
               <span className="inline-block bg-brand-green/10 text-brand-green font-bold text-xs uppercase tracking-widest px-3 py-1 rounded-full mb-3">
                 POSH Internal Committee
               </span>
-              <h3 className="text-3xl font-extrabold text-slate-900 tracking-tight">
+              <h2 className="text-3xl font-extrabold text-slate-900 tracking-tight">
                 Speak Up Safely — Contact Our Committee
-              </h3>
+              </h2>
               <p className="text-slate-500 text-sm mt-2">
                 Contact your regional committee, or write to the Internal Committee at the address below.
               </p>
@@ -240,7 +240,7 @@ export default function PoshPolicy() {
             {/* Independent Member Callout */}
             <div className="max-w-xl mx-auto mb-16 bg-[#FAFAF9] border-2 border-slate-200/50 rounded-3xl p-6 flex flex-col sm:flex-row items-center gap-6 shadow-sm hover:shadow-md transition-shadow">
               <div className="w-20 h-20 rounded-full overflow-hidden shrink-0 border-2 border-brand-yellow">
-                <img
+                <img loading="lazy" decoding="async"
                   src="/posh/sandya.jpg"
                   alt="Dr. Sandya Advani"
                   className="w-full h-full object-cover"
@@ -248,7 +248,7 @@ export default function PoshPolicy() {
               </div>
               <div className="text-center sm:text-left">
                 
-                <h4 className="font-extrabold text-slate-950 text-lg leading-tight">Dr. Sandya Advani</h4>
+                <h3 className="font-extrabold text-slate-950 text-lg leading-tight">Dr. Sandya Advani</h3>
                 <p className="text-xs text-brand-red font-bold mt-0.5">External Member</p>
               </div>
             </div>
@@ -291,7 +291,7 @@ export default function PoshPolicy() {
                       <div>
                         <div className="w-24 h-24 rounded-2xl overflow-hidden mb-6 border border-slate-100 mx-auto lg:mx-0 bg-brand-yellow/30 flex items-center justify-center">
                           {data.lead.image ? (
-                            <img src={data.lead.image} alt={data.lead.name} className="w-full h-full object-cover" />
+                            <img loading="lazy" decoding="async" src={data.lead.image} alt={data.lead.name} className="w-full h-full object-cover" />
                           ) : (
                             <span className="text-3xl font-black text-slate-700">{initials(data.lead.name)}</span>
                           )}
@@ -299,7 +299,7 @@ export default function PoshPolicy() {
                         
                         <div className="text-center lg:text-left">
                           <span className="text-xs font-extrabold uppercase tracking-widest text-slate-400">Regional Contact</span>
-                          <h4 className="font-extrabold text-slate-950 text-lg leading-tight mt-1">{data.lead.name}</h4>
+                          <h3 className="font-extrabold text-slate-950 text-lg leading-tight mt-1">{data.lead.name}</h3>
                           <p className="text-xs text-brand-red font-semibold mt-1">{data.lead.role}</p>
                         </div>
                       </div>
@@ -339,7 +339,7 @@ export default function PoshPolicy() {
                       transition={{ duration: 0.35, ease: EASE_EXPO }}
                       className="space-y-4"
                     >
-                      <h4 className="text-sm font-extrabold text-slate-800 uppercase tracking-wider">Committee Members</h4>
+                      <h3 className="text-sm font-extrabold text-slate-800 uppercase tracking-wider">Committee Members</h3>
                       
                       <div className="grid sm:grid-cols-2 gap-4">
                         {data.members.map((mem) => (
@@ -347,7 +347,7 @@ export default function PoshPolicy() {
                             key={mem.name}
                             className="bg-white border border-slate-100 p-4 rounded-xl shadow-sm hover:border-brand-yellow/60 transition-colors"
                           >
-                            <h5 className="font-bold text-slate-900 text-sm leading-tight">{mem.name}</h5>
+                            <h4 className="font-bold text-slate-900 text-sm leading-tight">{mem.name}</h4>
                             <p className="text-xs text-slate-400 mt-1">{mem.role}</p>
                           </div>
                         ))}
@@ -365,7 +365,7 @@ export default function PoshPolicy() {
         {/* ===== 6) SECTION 3: CONTACT DETAILS (YELLOW STRIP) ===== */}
         <section className="bg-brand-yellow py-10 text-center text-slate-900 border-t border-slate-200/20">
           <div className="max-w-4xl mx-auto px-6">
-            <h4 className="text-sm uppercase font-bold tracking-widest text-slate-800">To file a complaint or for any concerns, contact us at</h4>
+            <h3 className="text-sm uppercase font-bold tracking-widest text-slate-800">To file a complaint or for any concerns, contact us at</h3>
             <div className="mt-3 flex flex-col sm:flex-row items-center justify-center gap-4">
               <a
                 href="mailto:poshicc@magicbusindia.org"
@@ -384,7 +384,7 @@ export default function PoshPolicy() {
           </div>
         </section>
 
-      </main>
+      </div>
     </Layout>
   );
 }

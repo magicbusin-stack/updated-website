@@ -188,14 +188,14 @@ function IntroSection() {
                     <FadeIn delay={0.1}>
                         <div className="relative rounded-3xl aspect-[4/3] shadow-2xl overflow-visible">
                             <div className="absolute inset-0 rounded-3xl overflow-hidden">
-                                <img src="/ngo-images/6.jpeg" alt="Our Culture" className="h-full w-full object-cover" />
+                                <img src="/ngo-images/6.jpeg" alt="Magic Bus team members watering a young tree together" loading="lazy" decoding="async" className="h-full w-full object-cover" />
                                 <div className="absolute inset-0 bg-gradient-to-t from-[#1A1A1A]/50 to-transparent" />
                             </div>
 
                             <div className="absolute bottom-5 left-5 z-20">
                                 <div className="relative inline-flex items-center rounded-3xl border border-white/70 bg-white/95 backdrop-blur-sm pl-10 pr-6 py-4 shadow-[0_18px_35px_rgba(0,0,0,0.25)]">
                                     <div className="absolute -left-16 top-2/3 h-48 w-24 -translate-y-1/2">
-                                        <img
+                                        <img loading="lazy" decoding="async"
                                             src="/great-place-to-work-logo.png"
                                             alt="Great Place to Work logo"
                                             className="h-full w-full object-contain"
@@ -261,7 +261,7 @@ function AwardsSection() {
                                 whileHover={{ scale: 1.015 }}
                                 transition={{ type: "spring", stiffness: 300, damping: 25 }}
                             >
-                                <img
+                                <img loading="lazy" decoding="async"
                                     src={a.img} alt={a.title}
                                     className="absolute inset-0 w-full h-full object-cover object-center opacity-20 group-hover:opacity-35 scale-105 group-hover:scale-100 transition-all duration-700"
                                 />
@@ -487,19 +487,19 @@ function WorkingHereSection() {
                     <FadeIn delay={0.1}>
                         <div className="grid grid-cols-2 sm:grid-cols-3 sm:grid-rows-3 gap-3 h-auto sm:h-[400px]">
                             <div className="h-40 sm:h-auto sm:col-span-2 sm:row-span-2 rounded-2xl overflow-hidden">
-                                <img src="/ngo-images/2.JPG" alt="Magic Bus team" className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" />
+                                <img loading="lazy" decoding="async" src="/ngo-images/2.JPG" alt="Magic Bus team" className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" />
                             </div>
                             <div className="h-40 sm:h-auto rounded-2xl overflow-hidden">
-                                <img src="/ngo-images/7.jpg" alt="Work" className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" />
+                                <img src="/ngo-images/7.jpg" alt="A group of Magic Bus colleagues smiling and giving a thumbs up together" loading="lazy" decoding="async" className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" />
                             </div>
                             <div className="h-40 sm:h-auto rounded-2xl overflow-hidden">
-                                <img src="/ngo-images/8.jpg" alt="Work" className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" />
+                                <img src="/ngo-images/8.jpg" alt="Hindustan Times article &quot;National Sports Policy scores a goal&quot; showing girls playing football" loading="lazy" decoding="async" className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" />
                             </div>
                             <div className="h-40 sm:h-auto rounded-2xl overflow-hidden">
-                                <img src="/ngo-images/10.jpg" alt="Work" className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" />
+                                <img src="/ngo-images/10.jpg" alt="Five women holding a sign that reads Skills for Viksit Bharat 2047" loading="lazy" decoding="async" className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" />
                             </div>
                             <div className="h-40 sm:h-auto sm:col-span-2 rounded-2xl overflow-hidden">
-                                <img src="/ngo-images/girl.jpeg" alt="Work" className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" />
+                                <img src="/ngo-images/girl.jpeg" alt="Three smiling schoolchildren holding their textbooks" loading="lazy" decoding="async" className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" />
                             </div>
                         </div>
                     </FadeIn>
@@ -642,7 +642,7 @@ function TestimonialsSection() {
                                 <div className="relative mt-8 flex items-center gap-4 border-t border-white/20 pt-6">
                                     <div className="flex h-16 w-16 shrink-0 items-center justify-center overflow-hidden rounded-full bg-brand-yellow/20 ring-4 ring-brand-yellow">
                                         {t.img ? (
-                                            <img src={t.img} alt={t.name} className="h-full w-full object-cover" onError={e => e.target.style.display = 'none'} />
+                                            <img loading="lazy" decoding="async" src={t.img} alt={t.name} className="h-full w-full object-cover" onError={e => e.target.style.display = 'none'} />
                                         ) : (
                                             <User className="h-8 w-8 text-brand-yellow" />
                                         )}

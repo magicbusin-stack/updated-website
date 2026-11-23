@@ -508,7 +508,7 @@ function MediaSection() {
                         className="group relative flex flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white text-left shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_20px_32px_-6px_rgba(15,23,42,0.16),0_8px_16px_-4px_rgba(15,23,42,0.06)] focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-red"
                       >
                         <span className="relative block aspect-video w-full overflow-hidden bg-black">
-                          <img src={`https://i.ytimg.com/vi/${id}/hqdefault.jpg`} alt="" loading="lazy" className="h-full w-full object-cover transition duration-500 group-hover:scale-105" />
+                          <img src={`https://i.ytimg.com/vi/${id}/hqdefault.jpg`} alt={`Video thumbnail: ${v.title}`} loading="lazy" decoding="async" className="h-full w-full object-cover transition duration-500 group-hover:scale-105" />
                           <span className="absolute inset-0 flex items-center justify-center bg-black/10 transition group-hover:bg-black/20">
                             <span className="relative flex h-14 w-14 items-center justify-center rounded-full bg-brand-red text-white shadow-[0_8px_20px_rgba(225,34,40,0.45)] transition duration-300 group-hover:scale-110 group-active:scale-95">
                               <span className="absolute inset-0 -z-10 animate-ping rounded-full bg-red-500 opacity-40 motion-reduce:hidden" />

@@ -176,7 +176,7 @@ export default function DonateNow() {
 
   return (
     <Layout>
-      <main className="bg-white text-ink font-sans min-h-screen">
+      <div className="bg-white text-ink font-sans min-h-screen">
         {/* ===== HERO + FORM ===== */}
         {/* marginTop reserves the fixed header's live-measured height (same
             --header-h mechanism the homepage hero uses) so the header can
@@ -670,7 +670,7 @@ export default function DonateNow() {
             </button>
           </motion.div>
         )}
-      </main>
+      </div>
     </Layout>
   );
 }

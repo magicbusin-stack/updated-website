@@ -1,6 +1,7 @@
 import { lazy, Suspense } from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import "./index.css";
+import SeoManager from "./seo/SeoManager";
 
 const Home = lazy(() => import('./pages/Home'))
 const HomeOld = lazy(() => import('./pages/HomeOld'))
@@ -54,6 +55,7 @@ const Podcasts = lazy(() => import('./pages/Podcasts'))
 const MBAcademy = lazy(() => import('./pages/MBAcademy'))
 const Darwinbox = lazy(() => import('./pages/Darwinbox'))
 const FAQ = lazy(() => import('./pages/FAQ'))
+const NotFound = lazy(() => import('./pages/NotFound'))
 
 function PageLoading() {
   return (
@@ -66,6 +68,8 @@ function PageLoading() {
 function App() {
   return (
     <Router>
+      {/* title, description, canonical, robots, social tags and structured data for every page */}
+      <SeoManager />
       <Suspense fallback={<PageLoading />}>
         <Routes>
           <Route path="/" element={<Home />} />
@@ -120,6 +124,8 @@ function App() {
           <Route path="/mb-academy" element={<MBAcademy />} />
           <Route path="/darwinbox" element={<Darwinbox />} />
           <Route path="/faq" element={<FAQ />} />
+          {/* any other address: a real "page not found" (not listed by search engines) */}
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </Suspense>
     </Router>

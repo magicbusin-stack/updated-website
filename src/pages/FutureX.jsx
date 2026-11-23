@@ -323,7 +323,7 @@ function InActionSection() {
                             whileHover={{ scale: 1.01 }}
                             transition={{ duration: 0.4 }}
                         >
-                            <img src="/futurex1.png" alt="FutureX in action"
+                            <img loading="lazy" decoding="async" src="/futurex1.png" alt="FutureX in action"
                                 className="w-full h-full object-cover object-center" />
                             <div className="absolute inset-0"
                                 style={{ background: `linear-gradient(to top, ${FX_DARK}CC 0%, transparent 60%)` }} />
@@ -351,7 +351,7 @@ function InActionSection() {
                                 whileHover={{ scale: 1.01 }}
                                 transition={{ duration: 0.4 }}
                             >
-                                <img src="/futurex-testimonial.png" alt="Youth participants"
+                                <img loading="lazy" decoding="async" src="/futurex-testimonial.png" alt="Youth participants"
                                     className="w-full h-full object-cover object-top" />
                                 <div className="absolute inset-0"
                                     style={{ background: `linear-gradient(to top, ${FX_DARK}BB 0%, transparent 55%)` }} />

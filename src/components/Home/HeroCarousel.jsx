@@ -121,7 +121,7 @@ export default function HeroCarousel() {
                 preload="auto"
               />
             ) : (
-              <img
+              <img decoding="async"
                 src={slides[i].image}
                 alt={slides[i].title}
                 className="h-full w-full object-cover"

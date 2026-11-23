@@ -27,7 +27,7 @@ function HeroBanner({
     return (
         <section className="relative min-h-[70vh] w-full flex items-end overflow-hidden bg-[#1A1A1A]" style={{ marginTop: "var(--header-h, 93px)", ...(minHeight ? { minHeight } : {}) }}>
             <div className="absolute inset-0">
-                <img
+                <img fetchPriority="high" decoding="async"
                     src={image}
                     alt={title}
                     className="h-full w-full object-cover opacity-45"

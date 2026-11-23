@@ -494,7 +494,7 @@ export default function EmployeeVolunteeringProgramme() {
                         {["/partners/1 (1).jpg", "/partners/1 (2).jpg", "/partners/1 (3).jpg", "/partners/1 (4).jpg", "/partners/1 (5).jpg", "/partners/1 (6).jpg"].map((logo, i) => (
                             <FadeUp key={logo} delay={0.04 * i}>
                                 <div className="rounded-xl border border-gray-200 bg-white p-4 h-20 flex items-center justify-center">
-                                    <img src={logo} alt="Corporate partner logo" className="max-h-10 w-auto object-contain" />
+                                    <img loading="lazy" decoding="async" src={logo} alt="Corporate partner logo" className="max-h-10 w-auto object-contain" />
                                 </div>
                             </FadeUp>
                         ))}

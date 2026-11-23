@@ -297,7 +297,7 @@ export default function YouthForChangeFellowshipProgramme() {
                         <FadeUp delay={0.08}>
                             <div className="rounded-3xl border border-gray-200 bg-white p-7 h-full">
                                 <div className="rounded-2xl overflow-hidden border border-gray-200 aspect-[16/10]">
-                                    <img src="/youth.jpg" alt="Youth for Change fellows in community action" className="w-full h-full object-cover" />
+                                    <img loading="lazy" decoding="async" src="/youth.jpg" alt="Youth for Change fellows in community action" className="w-full h-full object-cover" />
                                 </div>
                                 <h3 className="mt-5 text-2xl font-extrabold text-[#1A1A1A]">Shaping Young Leaders</h3>
                                 <p className="mt-3 text-lg text-[#1A1A1A]/80 leading-relaxed">
@@ -471,7 +471,7 @@ export default function YouthForChangeFellowshipProgramme() {
                                             className="relative rounded-2xl border border-gray-200 bg-white px-5 pb-6 pt-12 shadow-sm"
                                         >
                                             <div className="absolute -top-8 left-1/2 -translate-x-1/2 h-16 w-16 rounded-full border-4 border-white overflow-hidden shadow-md bg-gray-100">
-                                                <img src={story.image} alt={story.name} className="h-full w-full object-cover" />
+                                                <img loading="lazy" decoding="async" src={story.image} alt={story.name} className="h-full w-full object-cover" />
                                             </div>
                                             <h3 className="mt-2 text-center text-xl font-extrabold text-[#1A1A1A]">{story.name}</h3>
                                             <p className="mt-1 text-center text-sm font-semibold uppercase tracking-wider text-[#1A1A1A]/65">

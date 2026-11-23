@@ -140,7 +140,7 @@ function AboutSection() {
                 <div className="grid lg:grid-cols-[0.95fr_1.05fr] gap-12 items-center">
                     <FadeIn delay={0.08}>
                         <div className="relative rounded-3xl overflow-hidden aspect-[4/3] shadow-2xl">
-                            <img src="/ngo-images/5.jpeg" alt="Teacher training and life-skills integration"
+                            <img loading="lazy" decoding="async" src="/ngo-images/5.jpeg" alt="Teacher training and life-skills integration"
                                 className="h-full w-full object-cover" />
                             <div className="absolute inset-0 bg-gradient-to-t from-[#1A1A1A]/50 to-transparent" />
                             <div className="absolute bottom-5 left-5">
@@ -251,7 +251,7 @@ function ImplementationModel() {
                         className="group w-full overflow-hidden rounded-3xl border border-gray-200 bg-[#F7F7F5] p-4 hover:border-brand-red/30 hover:shadow-xl transition-all duration-300"
                         aria-label="Open implementation model">
                         <div className="overflow-hidden rounded-2xl border border-gray-100 bg-white">
-                            <img src="/government partnership.png" alt="Programme implementation model"
+                            <img loading="lazy" decoding="async" src="/government partnership.png" alt="Programme implementation model"
                                 className="w-full object-contain group-hover:scale-[1.01] transition-transform duration-500" />
                         </div>
                         <p className="mt-3 text-xs text-center text-[#1A1A1A]/35 font-medium">Click to enlarge</p>
@@ -262,7 +262,7 @@ function ImplementationModel() {
             {zoom && (
                 <button className="fixed inset-0 z-50 grid place-items-center bg-black/85 p-5"
                     onClick={() => setZoom(false)} aria-label="Close">
-                    <img src="/government partnership.png" alt="Implementation model enlarged"
+                    <img loading="lazy" decoding="async" src="/government partnership.png" alt="Implementation model enlarged"
                         className="max-h-[90vh] max-w-[90vw] rounded-2xl bg-white p-3 shadow-2xl" />
                 </button>
             )}
@@ -304,7 +304,7 @@ function HowWeWork() {
 
                     <FadeIn delay={0.1}>
                         <div className="relative rounded-3xl overflow-hidden aspect-[4/3] shadow-2xl">
-                            <img src="/ngo-images/2.JPG" alt="Working with the Government"
+                            <img loading="lazy" decoding="async" src="/ngo-images/2.JPG" alt="Working with the Government"
                                 className="h-full w-full object-cover" />
                             <div className="absolute inset-0 bg-gradient-to-br from-brand-red/30 via-transparent to-transparent mix-blend-multiply" />
                         </div>
@@ -430,7 +430,7 @@ function SuccessStory() {
                         onClick={() => setZoom(true)}
                         className="group w-full overflow-hidden rounded-3xl border border-gray-200 bg-[#F7F7F5] p-4 hover:border-brand-red/30 hover:shadow-xl transition-all duration-300"
                         aria-label="Open Kridangan Framework">
-                        <img src="/Kridangan.png"
+                        <img loading="lazy" decoding="async" src="/Kridangan.png"
                             alt="Kridangan Framework"
                             className="w-full rounded-2xl object-cover group-hover:scale-[1.005] transition-transform duration-500" />
                         <p className="mt-3 text-xs text-center text-[#1A1A1A]/35 font-medium">Click to enlarge</p>
@@ -441,7 +441,7 @@ function SuccessStory() {
             {zoom && (
                 <button className="fixed inset-0 z-50 grid place-items-center bg-black/85 p-5"
                     onClick={() => setZoom(false)} aria-label="Close">
-                    <img src="/Kridangan.png"
+                    <img loading="lazy" decoding="async" src="/Kridangan.png"
                         alt="Kridangan Framework enlarged"
                         className="max-h-[90vh] max-w-[90vw] rounded-2xl bg-white p-3 shadow-2xl" />
                 </button>

@@ -142,7 +142,7 @@ function Hero() {
                         className="relative mx-auto w-full max-w-md lg:col-span-5 lg:max-w-none"
                     >
                         <div className="relative aspect-[4/5] overflow-hidden rounded-lg bg-[#F0EDED] shadow-xl">
-                            <img
+                            <img fetchPriority="high" decoding="async"
                                 src="/ngo-images/who-hero.jpg"
                                 alt="A smiling student at a Magic Bus session"
                                 className="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
@@ -232,7 +232,7 @@ function Foundation() {
 
                         <FadeUp delay={0.2}>
                             <div className="relative h-48 overflow-hidden rounded-lg border border-[#E5E5DF] sm:h-56">
-                                <img src="/ngo-images/7.jpg" alt="The Magic Bus team together" className="h-full w-full object-cover object-center" />
+                                <img loading="lazy" decoding="async" src="/ngo-images/7.jpg" alt="The Magic Bus team together" className="h-full w-full object-cover object-center" />
                                 <div className="absolute inset-0 flex items-center justify-between bg-[#313030]/45 p-5 sm:p-6">
                                     <span className="wa-display text-xl font-bold text-white sm:text-2xl">Childhood to Livelihood Pathway</span>
                                     <TrendingUp className="h-7 w-7 shrink-0 text-[#F9A825]" />
@@ -334,14 +334,14 @@ function HistorySection() {
                         <FadeUp delay={0.05}>
                             <div className="grid grid-cols-2 gap-3">
                                 <div className="relative col-span-2 aspect-[16/9] overflow-hidden rounded-lg border border-[#E5E5DF] bg-[#EFEDE6]">
-                                    <img src="/history_2002.png" alt="An early Magic Bus session" className="h-full w-full object-cover object-center" />
+                                    <img loading="lazy" decoding="async" src="/history_2002.png" alt="An early Magic Bus session" className="h-full w-full object-cover object-center" />
                                     <span className="absolute bottom-3 left-3 rounded bg-[#1A1A1A]/80 px-2.5 py-1 text-xs font-bold uppercase tracking-[0.06em] text-white">From the archive</span>
                                 </div>
                                 <div className="aspect-[4/3] overflow-hidden rounded-lg border border-[#E5E5DF] bg-[#EFEDE6]">
-                                    <img src="/history1-1.jpg" alt="Early coaching sessions on the field" className="h-full w-full object-cover" />
+                                    <img loading="lazy" decoding="async" src="/history1-1.jpg" alt="Early coaching sessions on the field" className="h-full w-full object-cover" />
                                 </div>
                                 <div className="aspect-[4/3] overflow-hidden rounded-lg border border-[#E5E5DF] bg-[#EFEDE6]">
-                                    <img src="/history2-1.jpg" alt="Matthew Spacie with children" className="h-full w-full object-cover" />
+                                    <img loading="lazy" decoding="async" src="/history2-1.jpg" alt="Matthew Spacie with children" className="h-full w-full object-cover" />
                                 </div>
                             </div>
                         </FadeUp>
@@ -549,7 +549,7 @@ export default function WhoWeAre() {
             />
             <style>{STYLES}</style>
             <FaqSchema faqs={whoWeAreFAQ} />
-            <main className="wa-page bg-[#FBFBFA] antialiased">
+            <div className="wa-page bg-[#FBFBFA] antialiased">
                 <Hero />
                 <Foundation />
                 <HistorySection />
@@ -557,7 +557,7 @@ export default function WhoWeAre() {
                 <WorkInAction />
                 <FAQSection items={whoWeAreFAQ} title="Frequently Asked Questions" subtitle="Learn more about who we are, our mission, and how we work." />
                 <AnnualReportCTA />
-            </main>
+            </div>
         </Layout>
     );
 }

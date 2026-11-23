@@ -45,7 +45,7 @@ export default function KnowledgePartners() {
 
   return (
     <Layout>
-      <main className="bg-white text-ink font-sans">
+      <div className="bg-white text-ink font-sans">
         
         {/* ===== 1) HERO BANNER ===== */}
         <HeroBanner
@@ -197,7 +197,7 @@ export default function KnowledgePartners() {
           </div>
         </section>
 
-      </main>
+      </div>
     </Layout>
   );
 }
