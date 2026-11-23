@@ -221,7 +221,7 @@ function FeaturesSection() {
                     {features.map((item, i) => (
                         <FadeUp key={item.title} delay={0.07 * i}>
                             <motion.div
-                                className="group grid grid-cols-1 md:grid-cols-[200px_minmax(0,0.9fr)_minmax(0,1.5fr)] gap-0 items-stretch cursor-default overflow-hidden"
+                                className="group grid grid-cols-1 md:grid-cols-[250px_minmax(0,0.9fr)_minmax(0,1.5fr)] gap-0 items-stretch cursor-default overflow-hidden"
                                 whileHover={{ backgroundColor: "rgba(255,255,255,0.8)" }}
                                 transition={{ duration: 0.2 }}
                             >
@@ -231,7 +231,7 @@ function FeaturesSection() {
                                         className={`shrink-0 w-1.5 group-hover:w-3 self-stretch ${item.barColor} transition-all duration-300 rounded-full`}
                                     />
                                     <div>
-                                        <div className={`text-6xl md:text-7xl font-black leading-none ${item.accentColor} select-none`}>
+                                        <div className={`text-6xl lg:text-7xl font-black leading-none ${item.accentColor} select-none`}>
                                             {item.stat}
                                         </div>
                                         <div className="text-base font-bold uppercase tracking-[0.14em] text-[#1A1A1A]/70 mt-1.5">

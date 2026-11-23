@@ -158,22 +158,23 @@ function AboutSection() {
     return (
         <section className="py-24 bg-[#FDFBF7] overflow-hidden">
             <div className="max-w-7xl mx-auto px-6 lg:px-12">
-                <div className="grid lg:grid-cols-2 gap-16 items-start">
-                    {/* Left: Content */}
-                    <FadeUp>
+                <FadeUp className="mb-12 max-w-5xl">
                         <div className="inline-flex items-center gap-2 rounded-full bg-[#111111] px-4 py-1.5 mb-6">
                             <span className="h-1.5 w-1.5 rounded-full bg-brand-yellow animate-pulse" />
                             <span className="text-sm font-bold uppercase tracking-[0.22em] text-brand-yellow">Economic Empowerment Programme</span>
                         </div>
 
-                        <h2 className="text-3xl md:text-4xl font-extrabold text-[#111111] leading-[1.15] mb-8">
+                        <h2 className="text-4xl md:text-5xl font-extrabold text-[#111111] leading-[1.15]">
                             Our Entrepreneurship and Livelihood Programmes for{" "}
                             <span className="relative inline-block">
                                 Women and Youth
                                 <span className="absolute -bottom-1 left-0 right-0 h-1 bg-brand-yellow rounded-full" />
                             </span>
                         </h2>
-
+                    </FadeUp>
+                    <div className="grid lg:grid-cols-2 gap-16 items-start">
+                    {/* Left: Content */}
+                    <FadeUp>
                         <div className="space-y-8 mb-8">
                             <div>
                                 <h3 className="text-xl font-extrabold text-[#111111] mb-3">Entrepreneurship Development Programme</h3>
@@ -225,46 +226,12 @@ function AboutSection() {
                                 </p>
                             </div>
                         </div>
-
-                        {/* Award: highlighted */}
-                        <div className="relative mb-8 overflow-hidden rounded-3xl border-2 border-brand-yellow bg-gradient-to-br from-brand-yellow/25 via-brand-yellow/10 to-white p-6 shadow-lg md:p-8">
-                            <div className="pointer-events-none absolute -right-10 -top-10 h-40 w-40 rounded-full bg-brand-yellow/30 blur-2xl" />
-                            <div className="relative flex items-start gap-4">
-                                <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-brand-yellow text-[#111111] shadow-md">
-                                    <Award className="h-7 w-7" />
-                                </span>
-                                <div>
-                                    <p className="text-sm font-bold uppercase tracking-[0.2em] text-[#92400E]">Award and recognition</p>
-                                    <p className="mt-2 text-xl font-semibold leading-snug text-[#111111] md:text-2xl">
-                                        We received the{" "}
-                                        <span className="rounded bg-brand-yellow/60 px-1.5 font-extrabold">Millennium Alliance Award launched by FICCI</span>{" "}
-                                        to implement EDP in 3 states — Maharashtra, Karnataka and Rajasthan.
-                                    </p>
-                                </div>
-                            </div>
-                            <div className="relative mt-5 flex flex-wrap items-center gap-x-4 gap-y-1 rounded-2xl border border-brand-yellow/50 bg-white px-5 py-3">
-                                <p className="text-lg font-extrabold text-[#111111]">Millennium Alliance Award — FICCI</p>
-                                <span className="hidden h-5 w-px bg-[#111111]/20 sm:block" />
-                                <p className="text-base font-semibold text-[#111111]/75">Agreement No. MA/R4/2017/0024</p>
-                            </div>
-                        </div>
-
-                        {/* Funding partners: highlighted */}
-                        <div className="rounded-3xl bg-[#111111] p-6 shadow-lg md:p-8">
-                            <p className="mb-4 text-sm font-bold uppercase tracking-[0.2em] text-brand-yellow">Key Funding Partners</p>
-                            <div className="flex flex-wrap gap-3">
-                                {fundingPartners.map((p) => (
-                                    <span key={p} className="rounded-full border border-white/20 bg-white/10 px-4 py-2 text-base font-semibold text-white">
-                                        {p}
-                                    </span>
-                                ))}
-                            </div>
-                        </div>
                     </FadeUp>
 
                     {/* Right: Image with overlaid stats */}
                     <FadeIn delay={0.12}>
-                        <div className="relative h-[520px] lg:sticky lg:top-28">
+                        <div className="space-y-10">
+                        <div className="relative h-[520px]">
                             <motion.div
                                 className="absolute inset-0 rounded-3xl overflow-hidden shadow-2xl"
                                 whileHover={{ scale: 1.01 }}
@@ -306,6 +273,42 @@ function AboutSection() {
                                 </div>
                                 <span className="text-sm font-bold text-[#111111]">Job Creators</span>
                             </motion.div>
+                        </div>
+
+                        {/* Award: highlighted */}
+                        <div className="relative overflow-hidden rounded-3xl border-2 border-brand-yellow bg-gradient-to-br from-brand-yellow/25 via-brand-yellow/10 to-white p-6 shadow-lg md:p-8">
+                            <div className="pointer-events-none absolute -right-10 -top-10 h-40 w-40 rounded-full bg-brand-yellow/30 blur-2xl" />
+                            <div className="relative flex items-start gap-4">
+                                <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-brand-yellow text-[#111111] shadow-md">
+                                    <Award className="h-7 w-7" />
+                                </span>
+                                <div>
+                                    <p className="text-sm font-bold uppercase tracking-[0.2em] text-[#92400E]">Award and recognition</p>
+                                    <p className="mt-2 text-xl font-semibold leading-snug text-[#111111] md:text-2xl">
+                                        We received the{" "}
+                                        <span className="rounded bg-brand-yellow/60 px-1.5 font-extrabold">Millennium Alliance Award launched by FICCI</span>{" "}
+                                        to implement EDP in 3 states — Maharashtra, Karnataka and Rajasthan.
+                                    </p>
+                                </div>
+                            </div>
+                            <div className="relative mt-5 flex flex-wrap items-center gap-x-4 gap-y-1 rounded-2xl border border-brand-yellow/50 bg-white px-5 py-3">
+                                <p className="text-lg font-extrabold text-[#111111]">Millennium Alliance Award — FICCI</p>
+                                <span className="hidden h-5 w-px bg-[#111111]/20 sm:block" />
+                                <p className="text-base font-semibold text-[#111111]/75">Agreement No. MA/R4/2017/0024</p>
+                            </div>
+                        </div>
+
+                        {/* Funding partners: highlighted */}
+                        <div className="rounded-3xl bg-[#111111] p-6 shadow-lg md:p-8">
+                            <p className="mb-4 text-sm font-bold uppercase tracking-[0.2em] text-brand-yellow">Key Funding Partners</p>
+                            <div className="flex flex-wrap gap-3">
+                                {fundingPartners.map((p) => (
+                                    <span key={p} className="rounded-full border border-white/20 bg-white/10 px-4 py-2 text-base font-semibold text-white">
+                                        {p}
+                                    </span>
+                                ))}
+                            </div>
+                        </div>
                         </div>
                     </FadeIn>
                 </div>
