@@ -64,79 +64,52 @@ const channels = [
     { icon: MessageCircle, label: "WhatsApp Chatbot",  angle: 270 },
 ];
 
+/* Four delivery channels around the FutureX hub.
+   Every label sits INSIDE its own card (icon on top, name below), so no text can run into another element.
+   The orbit is shown on wide screens only (xl); smaller screens get the plain 2 x 2 list instead. */
+const orbitSpots = [
+    { ch: channels[0], x: 50, y: 13 },
+    { ch: channels[1], x: 82, y: 50 },
+    { ch: channels[2], x: 50, y: 87 },
+    { ch: channels[3], x: 18, y: 50 },
+];
+
 function OrbitVisual() {
-    // Container is 320×320px (w-80/h-80) so centre = 160,160
-    const CX = 160;
-    const NODE_R = 128;   // radius for the icon nodes
-    const LABEL_R = 180;  // radius for text labels — far out from nodes
-
     return (
-        <div className="relative w-80 h-80 mx-auto">
-            {/* Centre hub */}
-            <motion.div
-                className="absolute inset-0 m-auto w-24 h-24 rounded-2xl flex flex-col items-center justify-center shadow-2xl z-10"
-                style={{ background: `linear-gradient(135deg, ${FX_RED}, ${FX_YELLOW})` }}
-                animate={{ rotate: [0, 360] }}
-                transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-            >
-                <Sparkles className="w-8 h-8 text-white" />
-            </motion.div>
-
+        <div className="relative mx-auto hidden w-full max-w-[34rem] aspect-[544/420] xl:block">
             {/* Orbit rings */}
-            <div className="absolute inset-0 rounded-full border border-white/10" />
-            <div className="absolute inset-6 rounded-full border border-white/5" />
+            <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/12" style={{ width: "64%", height: "74%" }} />
+            <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/6" style={{ width: "46%", height: "52%" }} />
 
-            {/* Channel nodes */}
-            {channels.map((ch, i) => {
-                const rad = (ch.angle * Math.PI) / 180;
-                const cx = CX + NODE_R * Math.sin(rad) - 24;
-                const cy = CX - NODE_R * Math.cos(rad) - 24;
-                return (
+            {/* Centre hub (rotates) */}
+            <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
+                <motion.div
+                    className="flex h-20 w-20 items-center justify-center rounded-2xl shadow-2xl"
+                    style={{ background: `linear-gradient(135deg, ${FX_RED}, ${FX_YELLOW})` }}
+                    animate={{ rotate: [0, 360] }}
+                    transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+                >
+                    <Sparkles className="h-8 w-8 text-white" />
+                </motion.div>
+            </div>
+
+            {/* Channel cards */}
+            {orbitSpots.map(({ ch, x, y }, i) => (
+                <div key={ch.label} className="absolute -translate-x-1/2 -translate-y-1/2" style={{ left: `${x}%`, top: `${y}%` }}>
                     <motion.div
-                        key={ch.label}
-                        className="absolute w-12 h-12 rounded-xl flex items-center justify-center border border-white/10 shadow-lg"
-                        style={{ left: cx, top: cy, backgroundColor: "#222222" }}
-                        initial={{ opacity: 0, scale: 0 }}
+                        className="flex w-36 flex-col items-center gap-2 rounded-2xl border border-white/15 px-3 py-4 text-center shadow-lg"
+                        style={{ backgroundColor: "#222222" }}
+                        initial={{ opacity: 0, scale: 0.6 }}
                         whileInView={{ opacity: 1, scale: 1 }}
                         viewport={{ once: true }}
                         transition={{ delay: 0.2 + i * 0.15, duration: 0.5, ease: EASE }}
-                        whileHover={{ scale: 1.15 }}
+                        whileHover={{ scale: 1.06 }}
                     >
-                        <ch.icon className="w-5 h-5"
-                            style={{ color: i % 2 === 0 ? FX_RED : FX_YELLOW }} />
+                        <ch.icon className="h-7 w-7" style={{ color: i % 2 === 0 ? FX_RED : FX_YELLOW }} />
+                        <span className="text-base font-bold leading-tight text-white">{ch.label}</span>
                     </motion.div>
-                );
-            })}
-
-            {/* Labels — placed at LABEL_R, centred on the label width */}
-            {channels.map((ch, i) => {
-                const rad = (ch.angle * Math.PI) / 180;
-                const cx = CX + LABEL_R * Math.sin(rad);
-                const cy = CX - LABEL_R * Math.cos(rad);
-
-                // Anchor adjustment so text is centred horizontally / vertically on the point
-                const anchorX = ch.angle === 0   ? -48   // top  → shift left by ~half label width
-                              : ch.angle === 90  ?  8    // right → leave a small gap
-                              : ch.angle === 180 ? -48   // bottom → shift left
-                                                 : -100; // left  → shift far left (label is right of calc point)
-                const anchorY = ch.angle === 0   ? -18   // top → push above
-                              : ch.angle === 90  ?  -8   // right → vertically centred
-                              : ch.angle === 180 ?  8    // bottom → below
-                                                 :  -8;  // left → vertically centred
-                return (
-                    <motion.span
-                        key={ch.label}
-                        className="absolute text-xs font-bold uppercase tracking-[0.18em] whitespace-nowrap"
-                        style={{ left: cx + anchorX, top: cy + anchorY, color: "rgba(255,255,255,0.40)" }}
-                        initial={{ opacity: 0 }}
-                        whileInView={{ opacity: 1 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: 0.5 + i * 0.1 }}
-                    >
-                        {ch.label}
-                    </motion.span>
-                );
-            })}
+                </div>
+            ))}
         </div>
     );
 }
@@ -169,13 +142,13 @@ function AboutSection() {
                             <span style={{ color: FX_RED }}>FutureX?</span>
                         </h2>
 
-                        <p className="text-base text-white/60 leading-relaxed mb-5">
+                        <p className="text-lg text-white/85 leading-relaxed mb-5">
                             FutureX is an innovative strategic initiative of{" "}
                             <span className="text-white font-semibold">Magic Bus India Foundation</span>{" "}
                             built for delivering life and employability skills to youth from underserved communities
                             by leveraging technology.
                         </p>
-                        <p className="text-base text-white/60 leading-relaxed mb-10">
+                        <p className="text-lg text-white/85 leading-relaxed mb-10">
                             This programme is a strategic partnership between Magic Bus and{" "}
                             <span className="text-white font-semibold">Michael Susan Dell Foundation (MSDF)</span>.
                         </p>
@@ -190,12 +163,12 @@ function AboutSection() {
                             ].map((pill) => (
                                 <motion.div
                                     key={pill.label}
-                                    className="rounded-xl border border-white/8 bg-white/5 px-4 py-2.5"
+                                    className="rounded-xl border border-white/10 bg-white/5 px-5 py-3"
                                     whileHover={{ borderColor: `${FX_RED}50`, backgroundColor: `${FX_RED}10`, y: -2 }}
                                     transition={{ type: "spring", stiffness: 280, damping: 22 }}
                                 >
-                                    <p className="text-white font-bold text-sm">{pill.label}</p>
-                                    <p className="text-white/35 text-xs font-semibold uppercase tracking-wider">{pill.sub}</p>
+                                    <p className="text-white font-bold text-base">{pill.label}</p>
+                                    <p className="text-white/70 text-sm font-semibold uppercase tracking-wider">{pill.sub}</p>
                                 </motion.div>
                             ))}
                         </div>
@@ -206,13 +179,13 @@ function AboutSection() {
                         <div className="relative flex flex-col items-center gap-6">
                             <OrbitVisual />
                             {/* Channel legend */}
-                            <div className="grid grid-cols-2 gap-3 w-full max-w-xs">
+                            <div className="grid w-full max-w-md grid-cols-2 gap-3 xl:hidden">
                                 {channels.map((ch, i) => (
                                     <div key={ch.label}
-                                        className="flex items-center gap-2 rounded-xl border border-white/6 bg-white/4 px-3 py-2">
-                                        <ch.icon className="w-3.5 h-3.5 shrink-0"
+                                        className="flex items-center gap-3 rounded-xl border border-white/10 bg-white/5 px-4 py-3">
+                                        <ch.icon className="h-5 w-5 shrink-0"
                                             style={{ color: i % 2 === 0 ? FX_RED : FX_YELLOW }} />
-                                        <span className="text-xs font-semibold text-white/55">{ch.label}</span>
+                                        <span className="text-base font-semibold text-white/90">{ch.label}</span>
                                     </div>
                                 ))}
                             </div>
@@ -297,8 +270,8 @@ function BenefitsSection() {
                                     <b.icon className="w-6 h-6" style={{ color: b.iconColor }} />
                                 </div>
 
-                                <h3 className="text-xl font-extrabold text-[#111] mb-3 leading-snug">{b.title}</h3>
-                                <p className="text-sm text-[#111]/55 leading-relaxed">{b.desc}</p>
+                                <h3 className="text-2xl font-extrabold text-[#111] mb-3 leading-snug">{b.title}</h3>
+                                <p className="text-lg text-[#111]/80 leading-relaxed">{b.desc}</p>
 
                                 <div className="mt-6 h-0.5 rounded-full"
                                     style={{ background: `linear-gradient(90deg, ${b.iconColor}50, transparent)` }} />
@@ -335,7 +308,7 @@ function InActionSection() {
                                 <span style={{ color: FX_YELLOW }}>Action</span>
                             </h2>
                         </div>
-                        <p className="text-white/40 max-w-xs text-sm leading-relaxed">
+                        <p className="text-white/75 max-w-sm text-base leading-relaxed">
                             Youth from underserved communities building skills and confidence through FutureX's blended learning approach.
                         </p>
                     </div>
@@ -365,7 +338,7 @@ function InActionSection() {
                                 transition={{ delay: 0.3, duration: 0.5, ease: EASE }}
                             >
                                 <p className="text-2xl font-black text-white">9 Weeks</p>
-                                <p className="text-xs text-white/45 mt-0.5">Structured programme duration</p>
+                                <p className="text-sm text-white/80 mt-0.5">Structured programme duration</p>
                             </motion.div>
                         </motion.div>
                     </FadeUp>
@@ -387,20 +360,20 @@ function InActionSection() {
 
                         {/* Delivery mode card — brand red → yellow gradient */}
                         <FadeUp delay={0.14}>
-                            <div className="rounded-3xl p-6 flex-1 relative overflow-hidden"
+                            <div className="rounded-3xl p-8 flex-1 relative overflow-hidden"
                                 style={{ background: `linear-gradient(135deg, ${FX_RED}, #C0392B)` }}>
                                 <div className="pointer-events-none absolute -bottom-4 -right-4 w-32 h-32 rounded-full bg-white/10" />
-                                <p className="text-xs font-bold uppercase tracking-[0.2em] text-white/60 mb-3">Programme Delivery</p>
-                                <div className="space-y-2.5">
+                                <p className="text-sm font-bold uppercase tracking-[0.2em] text-white/85 mb-4">Programme Delivery</p>
+                                <div className="space-y-3.5">
                                     {[
                                         { icon: Monitor,       label: "Virtual Sessions" },
                                         { icon: Users,         label: "In-Person Training" },
                                         { icon: Smartphone,    label: "Mobile Learning App" },
                                         { icon: MessageCircle, label: "WhatsApp Chatbot" },
                                     ].map(({ icon: Icon, label }) => (
-                                        <div key={label} className="flex items-center gap-2.5">
-                                            <Icon className="w-3.5 h-3.5 text-white/70 shrink-0" />
-                                            <span className="text-white font-semibold text-sm">{label}</span>
+                                        <div key={label} className="flex items-center gap-3">
+                                            <Icon className="w-5 h-5 text-white shrink-0" />
+                                            <span className="text-white font-semibold text-lg">{label}</span>
                                         </div>
                                     ))}
                                 </div>
@@ -420,12 +393,12 @@ function InActionSection() {
                         ].map((s) => (
                             <motion.div
                                 key={s.num}
-                                className="rounded-2xl border border-white/8 bg-white/4 px-6 py-4"
+                                className="rounded-2xl border border-white/10 bg-white/5 px-7 py-5"
                                 whileHover={{ borderColor: `${FX_RED}45`, y: -3 }}
                                 transition={{ type: "spring", stiffness: 280, damping: 22 }}
                             >
-                                <p className="text-xl font-black text-white">{s.num}</p>
-                                <p className="text-xs text-white/35 mt-0.5 font-semibold">{s.sub}</p>
+                                <p className="text-3xl font-black text-white">{s.num}</p>
+                                <p className="text-base text-white/75 mt-1 font-semibold">{s.sub}</p>
                             </motion.div>
                         ))}
                     </div>
