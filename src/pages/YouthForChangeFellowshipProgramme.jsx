@@ -1,12 +1,15 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import {
+    ArrowLeft,
     ArrowRight,
     CheckCircle2,
     Clock3,
     Compass,
+    ExternalLink,
     Mail,
     MapPinned,
+    Quote,
     Sprout,
     Users2,
 } from "lucide-react";
@@ -107,6 +110,243 @@ const programmePhases = [
     },
 ];
 
+/* ══════════════════════════════════════════════════════════════
+   Programme journey: one phase at a time (keeps the section short)
+══════════════════════════════════════════════════════════════ */
+function PhaseExplorer() {
+    const [active, setActive] = useState(0);
+    const last = programmePhases.length - 1;
+    const go = (n) => setActive(Math.min(last, Math.max(0, n)));
+
+    return (
+        <div className="flex h-full flex-col rounded-3xl border border-gray-200 bg-white p-6 md:p-7">
+            <div className="flex flex-wrap items-center justify-between gap-3">
+                <SectionTag>Programme Journey</SectionTag>
+                <span className="mb-4 rounded-full border border-gray-200 bg-[#F7F7F5] px-3 py-1 text-base font-bold text-[#1A1A1A]/80">
+                    15 Month Pathway
+                </span>
+            </div>
+
+            {/* The five phases: tap one to read it */}
+            <div role="group" aria-label="Programme phases" className="relative flex items-start justify-between">
+                <div aria-hidden="true" className="absolute left-[10%] right-[10%] top-6 h-1 -translate-y-1/2 rounded-full bg-gray-200" />
+                <div
+                    aria-hidden="true"
+                    className="absolute left-[10%] top-6 h-1 -translate-y-1/2 rounded-full bg-brand-red transition-all duration-500"
+                    style={{ width: `${(active / last) * 80}%` }}
+                />
+                {programmePhases.map((p, i) => (
+                    <button
+                        key={p.title}
+                        type="button"
+                        onClick={() => setActive(i)}
+                        aria-pressed={i === active}
+                        aria-label={`Phase ${i + 1}, ${p.duration}`}
+                        className="group relative z-10 flex w-1/5 flex-col items-center gap-2 focus-visible:outline-none"
+                    >
+                        <span
+                            className={`flex h-12 w-12 items-center justify-center rounded-full border-2 text-lg font-extrabold transition-all duration-300 group-focus-visible:ring-4 group-focus-visible:ring-brand-yellow ${
+                                i <= active
+                                    ? "border-brand-red bg-brand-red text-white"
+                                    : "border-gray-300 bg-white text-[#1A1A1A] group-hover:border-brand-red group-hover:text-brand-red"
+                            } ${i === active ? "scale-110 ring-4 ring-brand-red/20" : ""}`}
+                        >
+                            {i + 1}
+                        </span>
+                        <span className={`hidden text-center text-sm font-bold leading-tight sm:block ${i === active ? "text-brand-red" : "text-[#1A1A1A]/70"}`}>
+                            {p.duration}
+                        </span>
+                    </button>
+                ))}
+            </div>
+
+            {/* The selected phase. All five sit in the same spot so the section keeps one steady height. */}
+            <div className="mt-6 grid flex-1">
+                {programmePhases.map((p, i) => (
+                    <div
+                        key={p.title}
+                        role="group"
+                        aria-label={p.title}
+                        aria-hidden={i !== active}
+                        inert={i !== active}
+                        className="col-start-1 row-start-1"
+                        style={{
+                            opacity: i === active ? 1 : 0,
+                            visibility: i === active ? "visible" : "hidden",
+                            transition: i === active ? "opacity 0.4s ease" : "opacity 0.25s ease, visibility 0s linear 0.25s",
+                        }}
+                    >
+                        <div className="h-full rounded-2xl border border-brand-red/25 bg-[#FFF7F2] p-5 md:p-6">
+                            <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-2">
+                                <h3 className="text-xl font-extrabold text-[#1A1A1A] md:text-2xl">{p.title}</h3>
+                                <span className="shrink-0 rounded-full bg-brand-yellow px-3 py-1 text-base font-bold text-brand-black">{p.duration}</span>
+                            </div>
+                            <p className="mt-3 text-lg leading-relaxed text-[#1A1A1A]/85">{p.detail}</p>
+                        </div>
+                    </div>
+                ))}
+            </div>
+
+            <div className="mt-4 flex items-center justify-between gap-3">
+                <button
+                    type="button"
+                    onClick={() => go(active - 1)}
+                    disabled={active === 0}
+                    className="inline-flex items-center gap-1.5 rounded-full border border-gray-300 bg-white px-3 py-2 text-base font-bold text-[#1A1A1A] transition sm:gap-2 sm:px-4 hover:border-brand-red hover:text-brand-red disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:border-gray-300 disabled:hover:text-[#1A1A1A] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-brand-yellow"
+                >
+                    <ArrowLeft className="h-4 w-4" /> Previous
+                </button>
+                <span className="whitespace-nowrap text-base font-semibold text-[#1A1A1A]/70" aria-live="polite">
+                    Phase {active + 1} of {programmePhases.length}
+                </span>
+                <button
+                    type="button"
+                    onClick={() => go(active + 1)}
+                    disabled={active === last}
+                    className="inline-flex items-center gap-1.5 rounded-full bg-brand-red px-3 py-2 text-base font-bold text-white transition sm:gap-2 sm:px-4 hover:bg-[#a01018] disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-brand-red focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-brand-yellow"
+                >
+                    Next <ArrowRight className="h-4 w-4" />
+                </button>
+            </div>
+        </div>
+    );
+}
+
+/* ══════════════════════════════════════════════════════════════
+   The "Youth for Change Fellowship" journey picture, redrawn from the team's artwork
+   (yellow panel, round title, colour arc with five dots, five soft shapes)
+══════════════════════════════════════════════════════════════ */
+const ARC = { cx: 384, cy: 117, r: 161 };
+const arcPoint = (deg) => {
+    const a = (deg * Math.PI) / 180;
+    return [ARC.cx - ARC.r * Math.sin(a), ARC.cy + ARC.r * Math.cos(a)];
+};
+const arcPath = (from, to) => {
+    const [x1, y1] = arcPoint(from);
+    const [x2, y2] = arcPoint(to);
+    return `M ${x1.toFixed(1)} ${y1.toFixed(1)} A ${ARC.r} ${ARC.r} 0 0 0 ${x2.toFixed(1)} ${y2.toFixed(1)}`;
+};
+const ARC_PARTS = [
+    { from: 90, to: 57, color: "#FF9800", width: 3 },
+    { from: 57, to: 24, color: "#26C6DA", width: 10 },
+    { from: 24, to: -24, color: "#42A5F5", width: 15 },
+    { from: -24, to: -57, color: "#EC407A", width: 10 },
+    { from: -57, to: -90, color: "#8E44AD", width: 3 },
+];
+const ARC_DOTS = [
+    { at: 57, r: 5.5, color: "#FF9800" },
+    { at: 24, r: 8, color: "#26C6DA" },
+    { at: -24, r: 8, color: "#EC407A" },
+    { at: -57, r: 6.5, color: "#EC407A" },
+];
+
+/* each soft shape is a fan piece turned around the title circle */
+const PIECE = { inner: 216, outer: 370, halfTop: 44, halfBottom: 96, round: 8 };
+const piecePath = () => {
+    const yTop = Math.sqrt(PIECE.inner ** 2 - PIECE.halfTop ** 2);
+    const yBottom = Math.sqrt(PIECE.outer ** 2 - PIECE.halfBottom ** 2);
+    return `M ${-PIECE.halfTop} ${yTop.toFixed(1)} A ${PIECE.inner} ${PIECE.inner} 0 0 0 ${PIECE.halfTop} ${yTop.toFixed(1)} L ${PIECE.halfBottom} ${yBottom.toFixed(1)} A ${PIECE.outer} ${PIECE.outer} 0 0 1 ${-PIECE.halfBottom} ${yBottom.toFixed(1)} Z`;
+};
+const FELLOWSHIP_STEPS = [
+    { angle: 71, fill: "#FDF3C8", lines: ["Selection of the", "fellows from", "different parts", "of the country."] },
+    { angle: 37, fill: "#D3F5D3", lines: ["Capacity Building", "Training of", "these fellows."] },
+    { angle: 0, fill: "#D5F3FA", lines: ["Development", "of the project"] },
+    { angle: -37, fill: "#FBE4E8", lines: ["Identifying the", "problem / needs", "in the community"] },
+    { angle: -71, fill: "#F4EBD8", lines: ["Building", "connections", "with local", "organizations."] },
+];
+const LINE_H = 23;
+
+function FellowshipDiagram() {
+    const path = piecePath();
+    return (
+        <div className="overflow-hidden rounded-2xl">
+            <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@700;900&display=swap" precedence="default" />
+
+            {/* Tablet and desktop: the picture */}
+            <svg
+                viewBox="0 0 768 505"
+                role="img"
+                aria-labelledby="y4c-diagram-title y4c-diagram-desc"
+                className="hidden h-auto w-full sm:block"
+                style={{ fontFamily: "Lato, Inter, system-ui, sans-serif" }}
+            >
+                <title id="y4c-diagram-title">Youth for Change Fellowship journey</title>
+                <desc id="y4c-diagram-desc">
+                    Five steps: selection of the fellows from different parts of the country; capacity building training of these fellows;
+                    development of the project; identifying the problem or needs in the community; building connections with local organizations.
+                </desc>
+                <rect width="768" height="505" fill="#FBCB14" />
+
+                {FELLOWSHIP_STEPS.map((s) => {
+                    const a = (s.angle * Math.PI) / 180;
+                    const tx = ARC.cx - 292 * Math.sin(a);
+                    const ty = ARC.cy + 292 * Math.cos(a);
+                    return (
+                        <g key={s.lines[0]}>
+                            <path
+                                d={path}
+                                fill={s.fill}
+                                stroke={s.fill}
+                                strokeWidth={PIECE.round * 2}
+                                strokeLinejoin="round"
+                                transform={`translate(${ARC.cx} ${ARC.cy}) rotate(${s.angle})`}
+                            />
+                            <text textAnchor="middle" fontSize="18" fontWeight="700" fill="#3B3B3B">
+                                {s.lines.map((line, i) => (
+                                    <tspan key={line} x={tx.toFixed(1)} y={(ty + (i - (s.lines.length - 1) / 2) * LINE_H).toFixed(1)} dominantBaseline="central">
+                                        {line}
+                                    </tspan>
+                                ))}
+                            </text>
+                        </g>
+                    );
+                })}
+
+                {/* the colour arc */}
+                {ARC_PARTS.map((p) => (
+                    <path key={p.color} d={arcPath(p.from, p.to)} fill="none" stroke={p.color} strokeWidth={p.width} />
+                ))}
+                {(() => {
+                    const [x, y] = arcPoint(90);
+                    return <circle cx={x} cy={y} r="4.5" fill="#FF9800" />;
+                })()}
+                {(() => {
+                    const [x, y] = arcPoint(-90);
+                    return <circle cx={x} cy={y} r="4.5" fill="#fff" stroke="#8E44AD" strokeWidth="2" />;
+                })()}
+                {ARC_DOTS.map((d) => {
+                    const [x, y] = arcPoint(d.at);
+                    return <circle key={d.at} cx={x} cy={y} r={d.r} fill="#fff" stroke={d.color} strokeWidth="3" />;
+                })}
+
+                {/* the title circle */}
+                <circle cx="384" cy="100" r="100" fill="#F2F2F2" />
+                <text textAnchor="middle" fontSize="28" fontWeight="900" fill="#3B3B3B">
+                    {["Youth", "for", "Change", "Fellowship"].map((line, i) => (
+                        <tspan key={line} x="384" y={52.5 + i * 33} dominantBaseline="central">
+                            {line}
+                        </tspan>
+                    ))}
+                </text>
+            </svg>
+
+            {/* Phones: the same five steps as a list (the picture would be too small to read) */}
+            <div className="rounded-2xl bg-[#FBCB14] p-4 sm:hidden">
+                <p className="mx-auto mb-4 flex h-28 w-28 items-center justify-center rounded-full bg-[#F2F2F2] text-center text-xl font-black leading-tight text-[#3B3B3B]">
+                    Youth for Change Fellowship
+                </p>
+                <ul className="space-y-3">
+                    {FELLOWSHIP_STEPS.map((s) => (
+                        <li key={s.lines[0]} className="rounded-2xl px-4 py-3 text-center text-lg font-bold leading-snug text-[#3B3B3B]" style={{ backgroundColor: s.fill }}>
+                            {s.lines.join(" ")}
+                        </li>
+                    ))}
+                </ul>
+            </div>
+        </div>
+    );
+}
+
 export default function YouthForChangeFellowshipProgramme() {
     return (
         <Layout>
@@ -140,13 +380,20 @@ export default function YouthForChangeFellowshipProgramme() {
                             { label: "Lack of Sports Infrastructure", icon: MapPinned },
                             { label: "Limited Access to Quality Physical Education", icon: Users2 },
                         ].map((item, i) => (
-                            <FadeUp key={item.label} delay={0.08 * i}>
+                            <FadeUp key={item.label} delay={0.08 * i} className="h-full">
                                 <_MOTION.div
-                                    whileHover={{ y: -4 }}
-                                    className="rounded-2xl border border-gray-200 bg-[#F7F7F5] p-5 h-full"
+                                    tabIndex={0}
+                                    whileHover={{ y: -6 }}
+                                    transition={{ type: "spring", stiffness: 300, damping: 24 }}
+                                    className="group relative flex h-full min-h-[200px] cursor-default flex-col justify-between gap-6 overflow-hidden rounded-2xl border border-gray-200 bg-[#F7F7F5] p-6 transition-colors duration-300 hover:border-brand-red hover:bg-brand-red focus-visible:border-brand-red focus-visible:bg-brand-red focus-visible:outline-none"
                                 >
-                                    <item.icon className="w-7 h-7 text-brand-red" />
-                                    <p className="mt-3 font-semibold text-[#1A1A1A] leading-snug text-lg">{item.label}</p>
+                                    <item.icon aria-hidden="true" className="pointer-events-none absolute -bottom-4 -right-4 h-28 w-28 text-[#1A1A1A]/5 transition-colors duration-300 group-hover:text-white/15 group-focus-visible:text-white/15" />
+                                    <span className="relative flex h-14 w-14 items-center justify-center rounded-2xl bg-brand-red/10 transition-colors duration-300 group-hover:bg-white/20 group-focus-visible:bg-white/20">
+                                        <item.icon className="h-7 w-7 text-brand-red transition-colors duration-300 group-hover:text-white group-focus-visible:text-white" />
+                                    </span>
+                                    <p className="relative text-xl font-extrabold leading-snug text-[#1A1A1A] transition-colors duration-300 group-hover:text-white group-focus-visible:text-white">
+                                        {item.label}
+                                    </p>
                                 </_MOTION.div>
                             </FadeUp>
                         ))}
@@ -163,9 +410,9 @@ export default function YouthForChangeFellowshipProgramme() {
                         </h2>
                     </FadeUp>
 
-                    <div className="mt-10 grid lg:grid-cols-12 gap-6 lg:gap-8 items-start">
-                        <FadeUp className="lg:col-span-5">
-                            <div className="relative overflow-hidden rounded-3xl border border-gray-200 bg-gradient-to-br from-[#fff2e9] via-white to-[#fff7dc] p-7 md:p-8">
+                    <div className="mt-10 grid lg:grid-cols-12 gap-6 lg:gap-8 items-stretch">
+                        <FadeUp className="lg:col-span-5 h-full">
+                            <div className="relative h-full overflow-hidden rounded-3xl border border-gray-200 bg-gradient-to-br from-[#fff2e9] via-white to-[#fff7dc] p-7 md:p-8">
                                 <div className="pointer-events-none absolute -top-16 -right-16 h-44 w-44 rounded-full bg-brand-red/10 blur-2xl" />
                                 <p className="text-sm uppercase tracking-widest font-bold text-brand-red">Programme Focus</p>
                                 <p className="mt-4 text-[#1A1A1A]/80 leading-relaxed text-lg">
@@ -187,7 +434,7 @@ export default function YouthForChangeFellowshipProgramme() {
                                     </p>
                                 </_MOTION.div>
 
-                                <div className="mt-6 grid grid-cols-[repeat(auto-fit,minmax(140px,1fr))] gap-3">
+                                <div className="mt-6 grid grid-cols-2 gap-3">
                                     {[
                                         "Climate literacy",
                                         "Civic leadership",
@@ -206,43 +453,8 @@ export default function YouthForChangeFellowshipProgramme() {
                             </div>
                         </FadeUp>
 
-                        <FadeUp delay={0.08} className="lg:col-span-7">
-                            <div className="rounded-3xl border border-gray-200 bg-white p-6 md:p-7">
-                                <div className="flex items-center justify-between gap-3">
-                                    <SectionTag>Programme Journey</SectionTag>
-                                    <span className="rounded-full border border-gray-200 bg-[#F7F7F5] px-3 py-1 text-base font-bold text-[#1A1A1A]/80">
-                                        15 Month Pathway
-                                    </span>
-                                </div>
-
-                                <div className="mt-4 space-y-4">
-                                    {programmePhases.map((phase, i) => (
-                                        <_MOTION.div
-                                            key={phase.title}
-                                            initial={{ opacity: 0, x: 18 }}
-                                            whileInView={{ opacity: 1, x: 0 }}
-                                            viewport={{ once: true }}
-                                            transition={{ duration: 0.5, ease: EASE, delay: i * 0.06 }}
-                                            whileHover={{ x: 4 }}
-                                            className="relative rounded-2xl border border-gray-200 bg-[#FAFAF8] p-5 pl-12"
-                                        >
-                                            <div className="absolute left-4 top-5 flex h-7 w-7 items-center justify-center rounded-full bg-brand-red text-base font-bold text-white">
-                                                {i + 1}
-                                            </div>
-                                            {i !== programmePhases.length - 1 && (
-                                                <div className="absolute left-7 top-12 bottom-[-16px] w-px bg-brand-red/20" />
-                                            )}
-                                            <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-2">
-                                                <h3 className="text-xl font-bold text-[#1A1A1A]">{phase.title}</h3>
-                                                <span className="shrink-0 rounded-full bg-brand-yellow/70 px-3 py-1 text-base font-bold text-brand-black">
-                                                    {phase.duration}
-                                                </span>
-                                            </div>
-                                            <p className="mt-3 text-lg text-[#1A1A1A]/80 leading-relaxed">{phase.detail}</p>
-                                        </_MOTION.div>
-                                    ))}
-                                </div>
-                            </div>
+                        <FadeUp delay={0.08} className="lg:col-span-7 h-full">
+                            <PhaseExplorer />
                         </FadeUp>
                     </div>
                 </div>
@@ -261,8 +473,8 @@ export default function YouthForChangeFellowshipProgramme() {
                         </p>
                     </FadeUp>
 
-                    <div className="mt-10 grid lg:grid-cols-2 gap-6 items-stretch">
-                        <FadeUp>
+                    <div className="mt-10 grid lg:grid-cols-[minmax(0,5fr)_minmax(0,6fr)] gap-6 items-stretch">
+                        <FadeUp className="h-full">
                             <div className="rounded-3xl border border-gray-200 bg-gradient-to-br from-[#faf7ed] to-white p-7 h-full">
                                 <h3 className="text-2xl font-extrabold text-[#1A1A1A]">Programme Overview and Design</h3>
                                 <p className="mt-3 text-lg text-[#1A1A1A]/80 leading-relaxed">
@@ -294,11 +506,9 @@ export default function YouthForChangeFellowshipProgramme() {
                             </div>
                         </FadeUp>
 
-                        <FadeUp delay={0.08}>
+                        <FadeUp delay={0.08} className="h-full">
                             <div className="rounded-3xl border border-gray-200 bg-white p-7 h-full">
-                                <div className="rounded-2xl overflow-hidden border border-gray-200 aspect-[16/10]">
-                                    <img loading="lazy" decoding="async" src="/youth.jpg" alt="Youth for Change fellows in community action" className="w-full h-full object-cover" />
-                                </div>
+                                <FellowshipDiagram />
                                 <h3 className="mt-5 text-2xl font-extrabold text-[#1A1A1A]">Shaping Young Leaders</h3>
                                 <p className="mt-3 text-lg text-[#1A1A1A]/80 leading-relaxed">
                                     The Youth for Change (Y4C) Fellowship is a leadership journey for young people
@@ -317,12 +527,13 @@ export default function YouthForChangeFellowshipProgramme() {
             <section className="py-20 bg-[#F7F7F5]">
                 <div className="max-w-7xl mx-auto px-6 lg:px-12">
                     <div className="rounded-3xl border border-gray-200 bg-[#F4F5EF] p-6 md:p-8 lg:p-10">
-                        <div className="grid lg:grid-cols-12 gap-8 lg:gap-10 items-start">
+                        <div className="grid lg:grid-cols-12 gap-8 lg:gap-10 items-center">
                             <FadeUp className="lg:col-span-5">
                                 <SectionTag>Who Can Join</SectionTag>
-                                <h2 className="text-3xl md:text-4xl font-extrabold text-[#1A1A1A] leading-tight">
+                                <h2 className="text-3xl md:text-5xl font-extrabold text-[#1A1A1A] leading-tight">
                                     Who Can Join This Programme?
                                 </h2>
+                                <div className="mt-3 h-1.5 w-20 rounded-full bg-brand-red" />
                                 <div className="mt-6 space-y-3">
                                     {[
                                         "Are in the 18-30 years age group",
@@ -331,10 +542,16 @@ export default function YouthForChangeFellowshipProgramme() {
                                         "Are willing to engage with communities consistently",
                                         "Show curiosity, commitment, and leadership potential",
                                     ].map((item) => (
-                                        <div key={item} className="flex gap-3 items-start">
-                                            <CheckCircle2 className="w-6 h-6 text-brand-red mt-0.5 shrink-0" />
-                                            <p className="text-[#1A1A1A]/80 text-lg">{item}</p>
-                                        </div>
+                                        <_MOTION.div
+                                            key={item}
+                                            whileHover={{ x: 6 }}
+                                            className="flex items-center gap-3 rounded-xl border border-gray-200 border-l-4 border-l-brand-red bg-white px-4 py-3 shadow-sm"
+                                        >
+                                            <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-brand-red">
+                                                <CheckCircle2 className="h-5 w-5 text-white" />
+                                            </span>
+                                            <p className="text-lg font-semibold text-[#1A1A1A]">{item}</p>
+                                        </_MOTION.div>
                                     ))}
                                 </div>
 
@@ -345,7 +562,7 @@ export default function YouthForChangeFellowshipProgramme() {
                                         "Strong communication and teamwork abilities",
                                         "Problem-solving and decision-making skills",
                                     ].map((item) => (
-                                        <div key={item} className="rounded-xl border border-gray-200 bg-white p-4 text-lg text-[#1A1A1A]/80">
+                                        <div key={item} className="rounded-xl border border-brand-yellow bg-brand-yellow/25 p-4 text-lg font-bold leading-snug text-[#1A1A1A]">
                                             {item}
                                         </div>
                                     ))}
@@ -354,10 +571,10 @@ export default function YouthForChangeFellowshipProgramme() {
 
                             <FadeUp delay={0.08} className="lg:col-span-7">
                                 <div className="relative">
-                                    <div className="rounded-3xl border border-gray-200 bg-gradient-to-br from-[#0C3B73] via-[#114a8d] to-[#1a5ba0] p-5 md:p-6 shadow-xl">
-                                        <div className="flex items-center justify-between gap-3">
-                                            <h3 className="text-xl md:text-2xl font-extrabold">Programme Outcomes</h3>
-                                            <span className="rounded-full bg-white/15 px-3 py-1 text-sm font-bold tracking-wider uppercase">
+                                    <div className="flex flex-col rounded-3xl border border-brand-black/10 bg-brand-yellow p-5 md:p-6 text-[#1A1A1A] shadow-xl">
+                                        <div className="flex flex-wrap items-center justify-between gap-3">
+                                            <h3 className="text-2xl md:text-3xl font-extrabold text-[#1A1A1A]">Programme Outcomes</h3>
+                                            <span className="rounded-full bg-[#1A1A1A] px-3 py-1 text-sm font-bold tracking-wider uppercase text-brand-yellow">
                                                 What Fellows Learn
                                             </span>
                                         </div>
@@ -375,27 +592,28 @@ export default function YouthForChangeFellowshipProgramme() {
                                                     whileInView={{ opacity: 1, y: 0 }}
                                                     viewport={{ once: true }}
                                                     transition={{ delay: i * 0.06, duration: 0.35 }}
-                                                    className="rounded-lg bg-white/10 px-3 py-2 text-lg leading-relaxed"
+                                                    className="flex items-center gap-3 rounded-xl border border-brand-black/10 bg-white px-4 py-5 text-lg font-bold leading-snug text-[#1A1A1A] shadow-sm"
                                                 >
-                                                    {item}
+                                                    <CheckCircle2 className="h-7 w-7 shrink-0 text-brand-red" />
+                                                    <span>{item}</span>
                                                 </_MOTION.div>
                                             ))}
                                         </div>
 
-                                        <div className="mt-5 grid grid-cols-[repeat(auto-fit,minmax(130px,1fr))] gap-3">
+                                        <div className="mt-5 grid grid-cols-2 sm:grid-cols-4 gap-3">
                                             {[
                                                 { label: "Leadership", value: "92%" },
                                                 { label: "Teamwork", value: "89%" },
                                                 { label: "Problem Solving", value: "87%" },
                                                 { label: "Community Action", value: "94%" },
                                             ].map((stat) => (
-                                                <div key={stat.label} className="rounded-xl bg-white/10 p-3">
-                                                    <div className="flex items-center justify-between text-base text-white/85">
+                                                <div key={stat.label} className="rounded-xl border border-brand-black/10 bg-white p-3 shadow-sm">
+                                                    <div className="flex items-center justify-between gap-2 text-base font-bold text-[#1A1A1A]">
                                                         <span>{stat.label}</span>
-                                                        <span>{stat.value}</span>
+                                                        <span className="text-brand-red">{stat.value}</span>
                                                     </div>
-                                                    <div className="mt-2 h-1.5 rounded-full bg-white/20 overflow-hidden">
-                                                        <div className="h-full rounded-full bg-brand-yellow" style={{ width: stat.value }} />
+                                                    <div className="mt-2 h-2 rounded-full bg-[#1A1A1A]/10 overflow-hidden">
+                                                        <div className="h-full rounded-full bg-brand-red" style={{ width: stat.value }} />
                                                     </div>
                                                 </div>
                                             ))}
@@ -430,71 +648,75 @@ export default function YouthForChangeFellowshipProgramme() {
                 </div>
             </section>
 
-            <section id="success-stories" className="py-20 bg-[#F7F7F5]">
+            <section id="success-stories" className="py-20 bg-white">
                 <div className="max-w-7xl mx-auto px-6 lg:px-12">
-                    <div className="grid lg:grid-cols-12 gap-8 lg:gap-10 items-center">
-                            <FadeUp className="lg:col-span-4">
-                                <SectionTag>Success Stories</SectionTag>
-                                <h2 className="text-3xl md:text-4xl font-extrabold text-[#1A1A1A] leading-tight">
-                                    Journeys That Inspire
-                                </h2>
-                                <p className="mt-4 text-[#1A1A1A]/80 leading-relaxed text-lg">
-                                    The journeys of our fellows reflect how early exposure and mentorship can shape
-                                    responsible, capable leaders.
-                                </p>
-                            </FadeUp>
+                    <FadeUp className="text-center mb-14">
+                        <SectionTag>Success Stories</SectionTag>
+                        <h2 className="text-4xl md:text-5xl font-extrabold text-[#1A1A1A] leading-tight">
+                            Journeys That Inspire
+                        </h2>
+                        <p className="mt-4 mx-auto max-w-2xl text-lg md:text-xl text-[#1A1A1A]/80 leading-relaxed">
+                            The journeys of our fellows reflect how early exposure and mentorship can shape
+                            responsible, capable leaders.
+                        </p>
+                    </FadeUp>
 
-                            <div className="lg:col-span-8 grid md:grid-cols-2 gap-5 md:gap-6 pt-8">
-                                {[
-                                    {
-                                        name: "Monika Regar",
-                                        location: "Rajasthan",
-                                        cta: "Explore her journey",
-                                        link: "https://linkedin.com/posts/magic-bus_magicbusindiafoundation-childhoodtolivelihood-activity-7344006955163631616-X7Wu",
-                                        quote:
-                                            "Through the fellowship, I worked towards setting up a mini nursery and a kitchen garden in a government school in Ajmer.",
-                                        image: "/testimonials/monika.png",
-                                    },
-                                    {
-                                        name: "Vikas Raghuvanshi",
-                                        location: "Madhya Pradesh",
-                                        cta: "Explore his journey",
-                                        link: "https://www.linkedin.com/posts/magic-bus_magicbusindiafoundation-childhoodtolivelihood-activity-7358845646402924547-crrG/",
-                                        quote:
-                                            "I united farmers in Ahmedpur to promote sustainable farming practices, resulting in nearly 7% increase in crop yield.",
-                                        image: "/testimonials/vikas.png",
-                                    },
-                                ].map((story, i) => (
-                                    <FadeUp key={story.name} delay={0.07 * i}>
-                                        <_MOTION.article
-                                            whileHover={{ y: -6 }}
-                                            className="relative rounded-2xl border border-gray-200 bg-white px-5 pb-6 pt-12 shadow-sm"
+                    <div className="grid md:grid-cols-2 gap-6">
+                        {[
+                            {
+                                name: "Monika Regar",
+                                location: "Rajasthan",
+                                cta: "Explore her journey",
+                                link: "https://linkedin.com/posts/magic-bus_magicbusindiafoundation-childhoodtolivelihood-activity-7344006955163631616-X7Wu",
+                                quote:
+                                    "Through the fellowship, I worked towards setting up a mini nursery and a kitchen garden in a government school in Ajmer.",
+                                image: "/testimonials/monika.png",
+                            },
+                            {
+                                name: "Vikas Raghuvanshi",
+                                location: "Madhya Pradesh",
+                                cta: "Explore his journey",
+                                link: "https://www.linkedin.com/posts/magic-bus_magicbusindiafoundation-childhoodtolivelihood-activity-7358845646402924547-crrG/",
+                                quote:
+                                    "I united farmers in Ahmedpur to promote sustainable farming practices, resulting in nearly 7% increase in crop yield.",
+                                image: "/testimonials/vikas.png",
+                            },
+                        ].map((story, i) => (
+                            <FadeUp key={story.name} delay={0.08 * i} className="h-full">
+                                <_MOTION.article
+                                    whileHover={{ y: -8 }}
+                                    transition={{ type: "spring", stiffness: 280, damping: 22 }}
+                                    className="group relative flex h-full flex-col overflow-hidden rounded-3xl bg-gradient-to-br from-[#1A1A1A] via-[#2B1216] to-[#6B0F18] p-8 shadow-xl ring-1 ring-brand-red/30 transition-shadow duration-300 hover:shadow-2xl md:p-10"
+                                >
+                                    <div className="pointer-events-none absolute -right-16 -top-16 h-56 w-56 rounded-full bg-brand-yellow/15 blur-3xl" />
+                                    <span className="relative flex h-14 w-14 items-center justify-center rounded-2xl bg-brand-yellow shadow-lg">
+                                        <Quote className="h-7 w-7 text-brand-black" />
+                                    </span>
+                                    <p className="relative mt-6 flex-1 text-xl md:text-2xl font-semibold leading-relaxed text-white">
+                                        &ldquo;{story.quote}&rdquo;
+                                    </p>
+                                    <div className="relative mt-8 flex items-center gap-4 border-t border-white/20 pt-6">
+                                        <div className="flex h-16 w-16 shrink-0 items-center justify-center overflow-hidden rounded-full bg-brand-yellow/20 ring-4 ring-brand-yellow">
+                                            <img loading="lazy" decoding="async" src={story.image} alt={story.name} className="h-full w-full object-cover" />
+                                        </div>
+                                        <div className="flex-1">
+                                            <p className="text-xl font-extrabold text-white">{story.name}</p>
+                                            <p className="text-base font-semibold text-brand-yellow">Fellow, {story.location}</p>
+                                        </div>
+                                        <a
+                                            href={story.link}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            aria-label={story.cta}
+                                            title={story.cta}
+                                            className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white/10 text-white transition hover:bg-brand-yellow hover:text-brand-black focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-brand-yellow"
                                         >
-                                            <div className="absolute -top-8 left-1/2 -translate-x-1/2 h-16 w-16 rounded-full border-4 border-white overflow-hidden shadow-md bg-gray-100">
-                                                <img loading="lazy" decoding="async" src={story.image} alt={story.name} className="h-full w-full object-cover" />
-                                            </div>
-                                            <h3 className="mt-2 text-center text-xl font-extrabold text-[#1A1A1A]">{story.name}</h3>
-                                            <p className="mt-1 text-center text-sm font-semibold uppercase tracking-wider text-[#1A1A1A]/65">
-                                                {story.location}
-                                            </p>
-                                            <p className="mt-4 text-center text-lg text-[#1A1A1A]/80 leading-relaxed">
-                                                {story.quote}
-                                            </p>
-                                            <div className="mt-5 text-center">
-                                                <a
-                                                    href={story.link}
-                                                    target="_blank"
-                                                    rel="noopener noreferrer"
-                                                    className="inline-flex items-center gap-2 text-base font-bold text-brand-red hover:text-[#a01018]"
-                                                >
-                                                    {story.cta}
-                                                    <ArrowRight className="w-4 h-4" />
-                                                </a>
-                                            </div>
-                                        </_MOTION.article>
-                                    </FadeUp>
-                                ))}
-                            </div>
+                                            <ExternalLink className="h-5 w-5" />
+                                        </a>
+                                    </div>
+                                </_MOTION.article>
+                            </FadeUp>
+                        ))}
                     </div>
                 </div>
             </section>
