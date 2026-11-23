@@ -588,7 +588,7 @@ const eligibility = [
         color: "bg-brand-blue",
         textColor: "text-white",
         title: "Status",
-        value: "Not in education, employment or training",
+        value: "Not in education, employment or training (NEET)",
     },
     {
         icon: BookOpen,

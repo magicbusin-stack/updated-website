@@ -559,9 +559,9 @@ function ComponentsSection() {
    Design: 4 bold horizontal bars on warm cream
 ══════════════════════════════════════════════════════════════ */
 const eligibility = [
-    { icon: Users, color: "bg-brand-red", textColor: "text-white", accentBg: "bg-brand-red/6", accentBorder: "border-brand-red/20", accentText: "text-brand-red", label: "Age Range", value: "18 – 45 years", note: "Open to a wider age bracket to include diverse entrepreneurs" },
+    { icon: Users, color: "bg-brand-red", textColor: "text-white", accentBg: "bg-brand-red/6", accentBorder: "border-brand-red/20", accentText: "text-brand-red", label: "Age Range", value: "18 to 45 years", note: "Open to a wider age bracket to include diverse entrepreneurs" },
     { icon: GraduationCap, color: "bg-[#F59E0B]", textColor: "text-white", accentBg: "bg-[#F59E0B]/8", accentBorder: "border-[#F59E0B]/25", accentText: "text-[#B45309]", label: "Education", value: "Minimum 8th standard pass", note: "Accessible to those with basic foundational education" },
-    { icon: Wallet, color: "bg-[#10B981]", textColor: "text-white", accentBg: "bg-[#10B981]/6", accentBorder: "border-[#10B981]/20", accentText: "text-[#047857]", label: "Family Income", value: "₹3 Lakh or Less per Annum", note: "Targeted at economically underserved households" },
+    { icon: Wallet, color: "bg-[#10B981]", textColor: "text-white", accentBg: "bg-[#10B981]/6", accentBorder: "border-[#10B981]/20", accentText: "text-[#047857]", label: "Family Income", value: "Annual family income of 3 lakh or less", note: "Targeted at economically underserved households" },
     { icon: Sprout, color: "bg-[#6366F1]", textColor: "text-white", accentBg: "bg-[#6366F1]/6", accentBorder: "border-[#6366F1]/20", accentText: "text-[#4F46E5]", label: "Intent", value: "Desire to start own enterprise or small business, upgrade existing or start self-employment", note: "Whether launching new or growing an existing micro-business" },
 ];
 

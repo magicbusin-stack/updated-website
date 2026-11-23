@@ -47,7 +47,10 @@ const RING = {
 };
 
 /* stats: [{ prefix, to, decimals, suffix, label, Icon, color: "yellow" | "green" | "red" | "blue" }] */
-export function StatsBand({ eyebrow = "Our impact at a glance", stats }) {
+/* title (optional): a heading shown under the small tag.  cols: 4 (default) or 3 numbers across on a wide screen. */
+export function StatsBand({ eyebrow = "Our impact at a glance", title, stats, cols = 4 }) {
+  /* short labels are shown in capitals; if any label is a full sentence they all switch to normal sentence case, so the row stays even */
+  const longLabels = stats.some((st) => st.label.length > 45);
   return (
     <section className="relative overflow-hidden bg-gradient-to-br from-[#1A1A1A] via-[#232323] to-[#1A1A1A] py-16 md:py-24">
       <div className="pointer-events-none absolute -left-24 -top-24 h-72 w-72 rounded-full bg-brand-yellow/10 blur-3xl" />
@@ -59,9 +62,10 @@ export function StatsBand({ eyebrow = "Our impact at a glance", stats }) {
             <span className="h-2 w-2 rounded-full bg-brand-yellow" />
             {eyebrow}
           </span>
+          {title && <h2 className="mt-5 text-4xl font-extrabold leading-tight text-white md:text-5xl">{title}</h2>}
         </motion.div>
 
-        <div className="grid grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-4">
+        <div className={`grid gap-4 sm:gap-6 ${cols === 3 ? "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3" : "grid-cols-2 lg:grid-cols-4"}`}>
           {stats.map((s, i) => {
             const c = RING[s.color] || RING.yellow;
             return (
@@ -81,7 +85,7 @@ export function StatsBand({ eyebrow = "Our impact at a glance", stats }) {
                 <div className="relative mt-5 bg-gradient-to-b from-white to-brand-yellow bg-clip-text text-4xl font-black leading-none tracking-tight text-transparent sm:text-5xl xl:text-6xl">
                   <CountUp prefix={s.prefix} to={s.to} decimals={s.decimals} suffix={s.suffix} />
                 </div>
-                <p className="relative mt-3 text-base font-semibold uppercase tracking-wider text-white/80 sm:text-lg">{s.label}</p>
+                <p className={`relative mt-3 font-semibold text-white/85 ${longLabels ? "text-base leading-snug sm:text-lg" : "text-base uppercase tracking-wider sm:text-lg"}`}>{s.label}</p>
                 <span className={`absolute bottom-0 left-0 h-1.5 w-full origin-left scale-x-0 bg-gradient-to-r transition-transform duration-500 group-hover:scale-x-100 ${c.ring}`} />
               </motion.div>
             );
