@@ -196,9 +196,6 @@ function PhaseExplorer() {
                 >
                     <ArrowLeft className="h-4 w-4" /> Previous
                 </button>
-                <span className="whitespace-nowrap text-base font-semibold text-[#1A1A1A]/70" aria-live="polite">
-                    Phase {active + 1} of {programmePhases.length}
-                </span>
                 <button
                     type="button"
                     onClick={() => go(active + 1)}
@@ -255,6 +252,9 @@ const FELLOWSHIP_STEPS = [
     { angle: -71, fill: "#F4EBD8", lines: ["Building", "connections", "with local", "organizations."] },
 ];
 const LINE_H = 23;
+
+/* Photo for the empty slot next to the diagram (Role of Magic Bus section). Leave null until the image is ready. */
+const FELLOWSHIP_PHOTO = null;
 
 function FellowshipDiagram() {
     const path = piecePath();
@@ -473,7 +473,7 @@ export default function YouthForChangeFellowshipProgramme() {
                         </p>
                     </FadeUp>
 
-                    <div className="mt-10 grid lg:grid-cols-[minmax(0,5fr)_minmax(0,6fr)] gap-6 items-stretch">
+                    <div className="mt-10 grid lg:grid-cols-[minmax(0,6fr)_minmax(0,5fr)] gap-6 items-stretch">
                         <FadeUp className="h-full">
                             <div className="rounded-3xl border border-gray-200 bg-gradient-to-br from-[#faf7ed] to-white p-7 h-full">
                                 <h3 className="text-2xl font-extrabold text-[#1A1A1A]">Programme Overview and Design</h3>
@@ -503,12 +503,22 @@ export default function YouthForChangeFellowshipProgramme() {
                                     Source: Magic Bus programme page
                                     <ArrowRight className="w-4 h-4" />
                                 </a>
+
+                                <div className="mt-6">
+                                    <FellowshipDiagram />
+                                </div>
                             </div>
                         </FadeUp>
 
                         <FadeUp delay={0.08} className="h-full">
-                            <div className="rounded-3xl border border-gray-200 bg-white p-7 h-full">
-                                <FellowshipDiagram />
+                            <div className="flex h-full flex-col rounded-3xl border border-gray-200 bg-white p-7">
+                                {/* Photo slot: fills the space above the text. It stays empty until FELLOWSHIP_PHOTO is set
+                                    (put the image in /public and use its path, e.g. "/youth-fellows.jpg"). */}
+                                <div className="relative min-h-[240px] flex-1 overflow-hidden rounded-2xl border border-gray-200 bg-gray-100">
+                                    {FELLOWSHIP_PHOTO && (
+                                        <img loading="lazy" decoding="async" src={FELLOWSHIP_PHOTO} alt="Youth for Change fellows in community action" className="absolute inset-0 h-full w-full object-cover" />
+                                    )}
+                                </div>
                                 <h3 className="mt-5 text-2xl font-extrabold text-[#1A1A1A]">Shaping Young Leaders</h3>
                                 <p className="mt-3 text-lg text-[#1A1A1A]/80 leading-relaxed">
                                     The Youth for Change (Y4C) Fellowship is a leadership journey for young people

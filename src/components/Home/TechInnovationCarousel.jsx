@@ -13,12 +13,14 @@ const PLACEHOLDER =
   "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean porta diam eget molestie consequat.";
 
 const slides = [
-  { title: "FPD", fullName: "Fraud Prevention Detection (FPD)", description: PLACEHOLDER, image: "/tech-cards/fpd.jpg" },
-  { title: "MB Pay", fullName: "MB Pay", description: PLACEHOLDER, image: "/tech-cards/mb-pay.jpg" },
-  { title: "MB Insights", fullName: "MB Insights", description: PLACEHOLDER, image: "/tech-cards/mb-insights.jpg" },
-  { title: "MB Donor Portal", fullName: "MB Donor Portal", description: PLACEHOLDER, image: "/tech-cards/mb-donor-portal.jpg" },
-  { title: "Chatbots", fullName: "Chatbots", description: PLACEHOLDER, image: "/tech-cards/chatbots.jpg" },
+  { title: "FPD", fullName: "Fraud Prevention Detection (FPD)", description: PLACEHOLDER, image: "/tech-cards/fpd.jpg", clean: "/tech-cards/clean/fpd.jpg" },
+  { title: "MB Pay", fullName: "MB Pay", description: PLACEHOLDER, image: "/tech-cards/mb-pay.jpg", clean: "/tech-cards/clean/mb-pay.jpg" },
+  { title: "MB Insights", fullName: "MB Insights", description: PLACEHOLDER, image: "/tech-cards/mb-insights.jpg", clean: "/tech-cards/clean/mb-insights.jpg" },
+  { title: "MB Donor Portal", fullName: "MB Donor Portal", description: PLACEHOLDER, image: "/tech-cards/mb-donor-portal.jpg", clean: "/tech-cards/clean/mb-donor-portal.jpg" },
+  { title: "Chatbots", fullName: "Chatbots", description: PLACEHOLDER, image: "/tech-cards/chatbots.jpg", clean: "/tech-cards/clean/chatbots.jpg" },
 ];
+// `image` is the full card artwork (with its title and text) used on the carousel cards.
+// `clean` is the same photo without the text on it, used on the left of the details panel.
 
 const AUTO_MS = 3200; // the carousel moves one card every few seconds on its own
 
@@ -159,7 +161,7 @@ function DetailModal({ slide, onClose }) {
             </button>
 
             <div className="bg-gray-100 md:min-h-[32rem]">
-              <img loading="lazy" decoding="async" src={slide.image} alt={slide.title} className="h-full w-full object-cover" />
+              <img decoding="async" src={slide.clean} alt={slide.title} className="h-full max-h-[24rem] w-full object-cover object-top md:max-h-none" />
             </div>
 
             <div className="flex flex-col justify-center p-6 sm:p-10">
