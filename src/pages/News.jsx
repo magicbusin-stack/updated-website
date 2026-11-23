@@ -1,40 +1,46 @@
 // src/pages/News.jsx
-import React, { useState, useMemo } from "react";
+import React, { useMemo, useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Layout from "../components/Layout";
 import FAQSection from "../components/Home/FAQSectiom";
 import { newsFAQ } from "../components/Home/faqItems";
 import FaqSchema from "../components/seo/FaqSchema";
 import {
-  Calendar,
+  Play,
   Clock,
-  ArrowRight,
   Search,
-  Eye,
-  Share2,
-  ExternalLink,
-  Newspaper,
-  TrendingUp,
-  Award,
-  Users,
-  Globe,
+  ArrowRight,
+  ChevronLeft,
+  ChevronRight,
   Filter,
-  ChevronDown,
+  Grid,
+  List,
+  Eye,
+  ExternalLink,
+  Calendar,
+  Tag,
+  TrendingUp,
+  BookOpen,
+  Users,
+  Award,
+  Heart,
+  Share2,
+  Bookmark,
 } from "lucide-react";
 
 /**
- * Modern News Page
+ * News page: same layout and styling as the Blogs page (hero, featured carousel, filters, cards, pagination, call to action).
  * Features:
- * - Clean hero section with news focus
- * - Featured news carousel
- * - Modern filter and search
- * - Grid layout with hover effects
- * - News categories and tags
- * - External link handling
+ * - Immersive hero with animated elements
+ * - Interactive featured stories carousel
+ * - Modern filter system with animations
+ * - Card-based layout with hover effects
+ * - Enhanced sidebar with engagement metrics
+ * - Smooth transitions and micro-interactions
  */
 
 /* ---------------- News Data ---------------- */
-const NEWS_ARTICLES = [
+const POSTS = [
   {
     id: 1,
     title: "Magic Bus Wins National Award for Youth Development Excellence",
@@ -158,37 +164,25 @@ const NEWS_ARTICLES = [
 ];
 
 /* ---------------- Helper Functions ---------------- */
-const uniqueCategories = (articles) => Array.from(new Set(articles.map(a => a.category))).sort();
-const dateToPretty = (iso) => new Date(iso).toLocaleDateString("en-GB", { 
-  day: "numeric", 
-  month: "short", 
-  year: "numeric" 
-});
+const uniqueCategories = (posts) => Array.from(new Set(posts.map((p) => p.category))).sort();
 
-const getTypeIcon = (type) => {
-  switch(type) {
-    case 'press-release': return <Newspaper className="w-4 h-4" />;
-    case 'media-coverage': return <Globe className="w-4 h-4" />;
-    case 'announcement': return <TrendingUp className="w-4 h-4" />;
-    case 'research': return <Award className="w-4 h-4" />;
-    default: return <Newspaper className="w-4 h-4" />;
-  }
-};
+// One brand colour per category (used for tags, card borders and filter buttons).
+const PALETTE = [
+  { bg: "#E12228", fg: "#FFFFFF" },
+  { bg: "#21BDEA", fg: "#1A1A1A" },
+  { bg: "#B3CC35", fg: "#1A1A1A" },
+  { bg: "#E01085", fg: "#FFFFFF" },
+  { bg: "#FFCC04", fg: "#1A1A1A" },
+  { bg: "#0F7F96", fg: "#FFFFFF" },
+];
+const CATEGORIES = uniqueCategories(POSTS);
+const colorFor = (category) => PALETTE[Math.max(0, CATEGORIES.indexOf(category)) % PALETTE.length];
+const dateToPretty = (iso) => new Date(iso).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" });
 
-const getTypeColor = (type) => {
-  switch(type) {
-    case 'press-release': return 'bg-blue-100 text-blue-700';
-    case 'media-coverage': return 'bg-green-100 text-green-700';
-    case 'announcement': return 'bg-purple-100 text-purple-700';
-    case 'research': return 'bg-orange-100 text-orange-700';
-    default: return 'bg-gray-100 text-gray-700';
-  }
-};
-
-/* ---------------- Hero Section ---------------- */
-function NewsHero() {
+/* ---------------- Modern Hero Section ---------------- */
+function Hero() {
   return (
-    <section className="relative h-screen w-full overflow-hidden">
+    <section className="relative h-[60svh] min-h-[420px] md:h-screen w-full overflow-hidden">
       <img
         src="/ngo-images/award1.jpg"
         alt="Magic Bus News"
@@ -197,9 +191,9 @@ function NewsHero() {
           e.currentTarget.src = "https://images.unsplash.com/photo-1504711434969-e33886168f5c";
         }}
       />
-      
-      <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/70 to-transparent" />
-      <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-black/20" />
+
+      <div className="absolute inset-0 bg-gradient-to-r from-black/95 via-black/75 to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/20" />
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 h-full flex items-center">
         <motion.div
@@ -217,13 +211,12 @@ function NewsHero() {
           </h1>
 
           <p className="mt-4 text-base md:text-lg text-white/90">
-            Get the latest news, updates, and announcements about our programs, partnerships, 
-            achievements, and impact in transforming young lives across India.
+            Get the latest news, updates, and announcements about our programs, partnerships, achievements, and impact in transforming young lives across India.
           </p>
 
           <div className="mt-6">
             <motion.a
-              href="#news"
+              href="#featured"
               className="group relative overflow-hidden rounded-full bg-brand-red px-8 py-4 font-semibold text-white shadow-lg transition-all hover:shadow-2xl hover:shadow-brand-red/20 inline-flex items-center gap-2"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.98 }}
@@ -232,6 +225,12 @@ function NewsHero() {
                 Read Latest News
                 <ArrowRight className="w-4 h-4" />
               </span>
+              <motion.div
+                className="absolute inset-0 bg-brand-red"
+                initial={{ x: "-100%" }}
+                whileHover={{ x: 0 }}
+                transition={{ duration: 0.3 }}
+              />
             </motion.a>
           </div>
         </motion.div>
@@ -240,29 +239,30 @@ function NewsHero() {
   );
 }
 
-/* ---------------- Featured News Carousel ---------------- */
-function FeaturedNews({ articles }) {
+/* ---------------- Interactive Featured Stories ---------------- */
+function FeaturedStories({ items }) {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
+
+  useEffect(() => {
+    if (!isAutoPlaying) return;
+    const timer = setInterval(() => {
+      setActiveIndex((prev) => (prev + 1) % items.length);
+    }, 4000);
+    return () => clearInterval(timer);
+  }, [items.length, isAutoPlaying]);
 
   return (
-    <section id="news" className="max-w-7xl mx-auto px-6 py-16">
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        className="text-center mb-12"
-      >
-        <h2 className="text-3xl md:text-4xl font-heading font-bold text-ink mb-4">
-          Breaking News
-        </h2>
-        <p className="text-lg text-slate-600 max-w-2xl mx-auto">
-          Stay informed about our latest achievements, partnerships, and program updates
-        </p>
-      </motion.div>
+    <section id="featured" className="bg-gradient-to-b from-[#FFF3B0] to-[#FFFBE6]">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8 sm:py-16">
+      <h2 className="lg:hidden text-2xl sm:text-3xl font-heading font-bold text-ink mb-4">Latest News</h2>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 lg:gap-8">
         {/* Main featured article */}
-        <motion.div className="lg:col-span-2" layout>
+        <motion.div
+          className="lg:col-span-2"
+          layout
+        >
           <AnimatePresence mode="wait">
             <motion.article
               key={activeIndex}
@@ -270,135 +270,100 @@ function FeaturedNews({ articles }) {
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -20 }}
               transition={{ duration: 0.5 }}
-              className="group cursor-pointer"
+              className="group relative cursor-pointer"
+              onMouseEnter={() => setIsAutoPlaying(false)}
+              onMouseLeave={() => setIsAutoPlaying(true)}
             >
-              <div className="relative rounded-3xl overflow-hidden shadow-2xl">
+              {items[activeIndex]?.externalLink && (
+                <a href={items[activeIndex].externalLink} target="_blank" rel="noopener noreferrer" aria-label={items[activeIndex]?.title} className="absolute inset-0 z-10 rounded-3xl" />
+              )}
+              <div className="relative block rounded-3xl overflow-hidden shadow-2xl">
                 <img
-                  src={articles[activeIndex]?.image}
-                  alt={articles[activeIndex]?.title}
-                  className="w-full h-[400px] object-cover group-hover:scale-105 transition-transform duration-700"
+                  src={items[activeIndex]?.image}
+                  alt={items[activeIndex]?.title}
+                  className="w-full h-56 sm:h-[400px] object-cover group-hover:scale-105 transition-transform duration-700"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
+                <span className="absolute top-5 left-5 inline-block bg-brand-yellow text-brand-black px-3 py-1 rounded-full text-sm font-semibold shadow">
+                  {items[activeIndex]?.category}
+                </span>
+              </div>
 
-                <div className="absolute bottom-0 left-0 right-0 p-8 text-white">
-                  <div className="flex items-center gap-3 mb-4">
-                    <span className={`inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-semibold ${getTypeColor(articles[activeIndex]?.type)}`}>
-                      {getTypeIcon(articles[activeIndex]?.type)}
-                      {articles[activeIndex]?.type?.replace('-', ' ')}
-                    </span>
-                    <span className="inline-block bg-brand-yellow text-brand-black px-3 py-1 rounded-full text-sm font-semibold">
-                      {articles[activeIndex]?.category}
-                    </span>
-                  </div>
-
-                  <h3 className="text-2xl md:text-3xl font-bold mb-4 leading-tight">
-                    {articles[activeIndex]?.title}
-                  </h3>
-
-                  <p className="text-white/90 mb-6 line-clamp-3">
-                    {articles[activeIndex]?.excerpt}
-                  </p>
-
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-4 text-sm">
-                      <span className="flex items-center gap-1">
-                        <Calendar className="w-4 h-4" />
-                        {dateToPretty(articles[activeIndex]?.date)}
-                      </span>
-                      <span className="flex items-center gap-1">
-                        <Clock className="w-4 h-4" />
-                        {articles[activeIndex]?.readingTime} min read
-                      </span>
-                      <span className="flex items-center gap-1">
-                        <Eye className="w-4 h-4" />
-                        {articles[activeIndex]?.views}
-                      </span>
-                    </div>
-
-                    <motion.div
-                      className="flex items-center gap-2 text-brand-yellow font-semibold"
-                      whileHover={{ x: 5 }}
-                    >
-                      Read More
-                      {articles[activeIndex]?.externalLink ? (
-                        <ExternalLink className="w-4 h-4" />
-                      ) : (
-                        <ArrowRight className="w-4 h-4" />
-                      )}
-                    </motion.div>
-                  </div>
-                </div>
+              <div
+                className="mt-3 sm:mt-5 flex items-center justify-between gap-3 sm:gap-4 rounded-2xl bg-white px-4 sm:px-5 py-3 sm:py-4 shadow-md transition hover:shadow-lg"
+              >
+                <h3 className="text-base sm:text-xl md:text-2xl font-bold leading-snug text-ink underline decoration-brand-red/40 decoration-2 underline-offset-4 transition-colors group-hover:text-brand-red group-hover:decoration-brand-red">
+                  {items[activeIndex]?.title}
+                </h3>
+                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-brand-red text-white transition-transform group-hover:translate-x-1">
+                  {items[activeIndex]?.externalLink ? <ExternalLink className="h-5 w-5" /> : <ArrowRight className="h-5 w-5" />}
+                </span>
               </div>
             </motion.article>
           </AnimatePresence>
         </motion.div>
 
-        {/* News navigation */}
-        <div className="space-y-4">
-          {articles.map((article, index) => (
+        {/* Story navigation */}
+        <div>
+        <h2 className="hidden lg:block text-3xl md:text-4xl font-heading font-bold text-ink mb-2">Latest News</h2>
+        <p className="hidden lg:block text-sm text-slate-600 mb-5">Stay informed about our latest achievements, partnerships, and programme updates</p>
+        <div className="flex gap-3 overflow-x-auto snap-x snap-mandatory pb-2 lg:block lg:space-y-4 lg:overflow-visible lg:pb-0 [scrollbar-width:none]">
+          {items.map((item, index) => (
             <motion.button
-              key={article.id}
+              key={item.id}
               onClick={() => setActiveIndex(index)}
-              className={`w-full text-left p-4 rounded-2xl transition-all ${
-                index === activeIndex
-                  ? "bg-brand-red/10 border-2 border-brand-red/20 shadow-lg"
-                  : "bg-white hover:bg-slate-50 border-2 border-transparent"
-              }`}
+              className={`w-[78%] shrink-0 snap-start lg:w-full lg:shrink text-left p-3 sm:p-4 rounded-2xl transition-all ${index === activeIndex
+                ? "bg-brand-red/10 border-2 border-brand-red/20 shadow-lg"
+                : "bg-white hover:bg-slate-50 border-2 border-transparent"
+                }`}
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >
               <div className="flex gap-4">
                 <img
-                  src={article.image}
-                  alt={article.title}
+                  src={item.image}
+                  alt={item.title}
                   className="w-16 h-16 object-cover rounded-xl"
                 />
                 <div className="flex-1">
-                  <h4 className={`font-semibold text-sm mb-2 line-clamp-2 ${
-                    index === activeIndex ? "text-brand-red" : "text-ink"
-                  }`}>
-                    {article.title}
+                  <h4 className={`font-semibold text-sm mb-2 line-clamp-2 ${index === activeIndex ? "text-brand-red" : "text-ink"
+                    }`}>
+                    {item.title}
                   </h4>
                   <div className="flex items-center gap-3 text-xs text-slate-500">
-                    <span>{dateToPretty(article.date)}</span>
-                    <span>{article.readingTime}m</span>
-                    <span className="flex items-center gap-1">
-                      <Eye className="w-3 h-3" />
-                      {article.views}
-                    </span>
+                    <span>{dateToPretty(item.date)}</span>
+                    <span>{item.readingTime}m</span>
                   </div>
                 </div>
               </div>
             </motion.button>
           ))}
         </div>
+        </div>
+      </div>
       </div>
     </section>
   );
-}/* -
---------------- Modern Filter Section ---------------- */
-function NewsFilterSection({ query, setQuery, resultsCount, categories, activeCategory, setActiveCategory }) {
+}
+
+
+function ModernFilterSection({ query, setQuery, resultsCount, categories, activeCategory, setActiveCategory }) {
   const [isFocused, setIsFocused] = useState(false);
 
   return (
-    <div className="max-w-7xl mx-auto px-6 py-6">
-      <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
-        <div className="flex flex-col lg:flex-row lg:items-center gap-6">
-          {/* Search Bar */}
-          <div className="lg:max-w-xs">
-            <div className={`flex items-center gap-2 bg-slate-50 rounded-md px-2 py-1.5 border transition-all ${
-              isFocused ? "border-brand-red bg-white shadow-sm" : "border-transparent"
-            }`}>
-              <Search className={`w-3.5 h-3.5 transition-colors ${
-                isFocused ? "text-brand-red" : "text-slate-400"
-              }`} />
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 sm:py-6">
+      <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-4 sm:p-6">
+        <div className="flex flex-col lg:flex-row lg:items-center gap-3 lg:gap-6">
+          {/* Search Bar - Extra Compact */}
+          <div className="lg:min-w-xs">
+            <div className={`flex items-center gap-2 bg-slate-50 rounded-md px-2 py-1.5 border transition-all ${isFocused ? "border-brand-red bg-white shadow-sm" : "border-transparent"}`}>
+              <Search className={`w-3.5 h-3.5 transition-colors ${isFocused ? "text-brand-red" : "text-slate-400"}`} />
               <input
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 onFocus={() => setIsFocused(true)}
                 onBlur={() => setIsFocused(false)}
                 placeholder="Search news..."
-                className="flex-1 bg-transparent outline-none text-ink placeholder-slate-400 text-xs w-24"
+                className="flex-1 bg-transparent outline-none text-ink placeholder-slate-400 text-sm sm:text-xs w-24"
               />
               {query && (
                 <button
@@ -416,15 +381,14 @@ function NewsFilterSection({ query, setQuery, resultsCount, categories, activeCa
 
           {/* Category Filters */}
           <div className="flex-1">
-            <div className="flex flex-wrap items-center gap-2">
-              <span className="text-sm font-medium text-slate-600 mr-2">Category:</span>
+            <div className="flex flex-nowrap sm:flex-wrap items-center gap-2 overflow-x-auto sm:overflow-visible pb-1 [scrollbar-width:none]">
+              <span className="hidden sm:inline text-sm font-medium text-slate-600 mr-2">Filter:</span>
               <button
                 onClick={() => setActiveCategory("All")}
-                className={`px-3 py-1 rounded-full text-xs font-medium transition-all ${
-                  activeCategory === "All" 
-                    ? "bg-brand-red text-white" 
-                    : "bg-slate-100 text-slate-600 hover:bg-slate-200"
-                }`}
+                className={`shrink-0 whitespace-nowrap px-3 py-1.5 sm:py-1 rounded-full text-xs font-medium transition-all ${activeCategory === "All"
+                  ? "bg-brand-red text-white"
+                  : "bg-slate-100 text-slate-600 hover:bg-slate-200"
+                  }`}
               >
                 All
               </button>
@@ -432,13 +396,14 @@ function NewsFilterSection({ query, setQuery, resultsCount, categories, activeCa
                 <button
                   key={category}
                   onClick={() => setActiveCategory(category)}
-                  className={`px-3 py-1 rounded-full text-xs font-medium transition-all ${
+                  style={
                     activeCategory === category
-                      ? "bg-brand-red text-white"
-                      : "bg-slate-100 text-slate-600 hover:bg-slate-200"
-                  }`}
+                      ? { background: colorFor(category).bg, color: colorFor(category).fg }
+                      : { background: colorFor(category).bg + "26", color: "#1A1A1A" }
+                  }
+                  className="shrink-0 whitespace-nowrap px-3 py-1.5 sm:py-1 rounded-full text-xs font-semibold transition-all hover:brightness-95"
                 >
-                  {category} ({NEWS_ARTICLES.filter(a => a.category === category).length})
+                  {category.split(' ').slice(0, 2).join(' ')} ({POSTS.filter(p => p.category === category).length})
                 </button>
               ))}
             </div>
@@ -456,18 +421,9 @@ function NewsFilterSection({ query, setQuery, resultsCount, categories, activeCa
   );
 }
 
-/* ---------------- News Card Component ---------------- */
-function NewsCard({ article, index }) {
-  const [isBookmarked, setIsBookmarked] = useState(false);
-
-  const handleReadMore = () => {
-    if (article.externalLink) {
-      window.open(article.externalLink, '_blank');
-    } else {
-      // Handle internal news article
-      console.log('Navigate to internal article:', article.id);
-    }
-  };
+/* ---------------- News Card ---------------- */
+function NewsCard({ post, index }) {
+  const c = colorFor(post.category);
 
   return (
     <motion.article
@@ -475,170 +431,228 @@ function NewsCard({ article, index }) {
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: index * 0.1 }}
       whileHover={{ y: -8 }}
-      className="group bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500"
+      className="group relative cursor-pointer flex sm:block bg-white rounded-2xl sm:rounded-3xl overflow-hidden shadow-md sm:shadow-lg hover:shadow-2xl transition-all duration-500 border-l-[6px] sm:border-l-0 sm:border-t-[6px]"
+      style={{ borderColor: c.bg }}
     >
-      <div className="relative overflow-hidden">
+      {/* Invisible link covering the whole card (only when the article has a link), so a click anywhere opens it */}
+      {post.externalLink && (
+        <a href={post.externalLink} target="_blank" rel="noopener noreferrer" aria-label={post.title} className="absolute inset-0 z-10 rounded-2xl sm:rounded-3xl" />
+      )}
+
+      <div className="relative overflow-hidden w-28 shrink-0 sm:w-auto">
         <img
-          src={article.image}
-          alt={article.title}
-          className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-700"
+          src={post.image}
+          alt={post.title}
+          className="w-full h-full min-h-[120px] sm:h-48 object-cover group-hover:scale-110 transition-transform duration-700"
         />
-
-        <div className="absolute top-4 left-4 flex gap-2">
-          <span className={`inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-semibold ${getTypeColor(article.type)}`}>
-            {getTypeIcon(article.type)}
-            {article.type.replace('-', ' ')}
-          </span>
-          <span className="bg-brand-yellow text-brand-black px-3 py-1 rounded-full text-xs font-semibold">
-            {article.category}
-          </span>
-        </div>
-
-        <div className="absolute top-4 right-4 flex gap-2">
-          <motion.button
-            onClick={() => setIsBookmarked(!isBookmarked)}
-            className={`p-2 rounded-full backdrop-blur-sm transition-colors ${
-              isBookmarked ? "bg-brand-red text-white" : "bg-white/80 text-slate-600"
-            }`}
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
-          >
-            <TrendingUp className="w-4 h-4" />
-          </motion.button>
-
-          <motion.button
-            className="p-2 rounded-full bg-white/80 text-slate-600 hover:bg-white transition-colors"
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
-          >
-            <Share2 className="w-4 h-4" />
-          </motion.button>
-        </div>
       </div>
 
-      <div className="p-6">
-        <div className="flex items-center gap-2 mb-3">
-          <div className="w-8 h-8 bg-brand-red/10 rounded-full flex items-center justify-center">
-            <Newspaper className="w-4 h-4 text-brand-red" />
-          </div>
-          <span className="text-sm text-slate-600">{article.source}</span>
-        </div>
+      <div className="p-3 sm:p-6 min-w-0">
+        <span className="inline-block mb-1.5 sm:mb-3 px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full text-xs sm:text-xs font-semibold" style={{ background: c.bg, color: c.fg }}>
+          {post.category}
+        </span>
 
-        <h3 className="text-xl font-bold text-ink mb-3 line-clamp-2 group-hover:text-brand-red transition-colors">
-          {article.title}
+        <h3 className="text-sm sm:text-xl font-bold text-ink mb-1.5 sm:mb-3 line-clamp-3 sm:line-clamp-2 group-hover:text-brand-red transition-colors">
+          {post.title}
         </h3>
 
-        <p className="text-slate-600 mb-4 line-clamp-3">
-          {article.excerpt}
+        <p className="hidden sm:block text-slate-600 mb-4 line-clamp-3">
+          {post.excerpt}
         </p>
 
-        <div className="flex flex-wrap gap-2 mb-4">
-          {article.tags?.slice(0, 2).map((tag) => (
-            <span key={tag} className="text-xs bg-slate-100 text-slate-600 px-2 py-1 rounded-full">
+        <div className="hidden sm:flex flex-wrap gap-2 mb-4">
+          {post.tags?.slice(0, 2).map((tag) => (
+            <span key={tag} className="text-xs px-2 py-1 rounded-full font-medium" style={{ background: c.bg + "26", color: "#1A1A1A" }}>
               #{tag}
             </span>
           ))}
         </div>
 
-        <div className="flex items-center justify-between text-sm text-slate-500 mb-4">
-          <div className="flex items-center gap-4">
-            <span className="flex items-center gap-1">
-              <Calendar className="w-4 h-4" />
-              {dateToPretty(article.date)}
-            </span>
-            <span className="flex items-center gap-1">
-              <Clock className="w-4 h-4" />
-              {article.readingTime}m
-            </span>
-          </div>
+        <p className="hidden sm:block mb-2 text-sm font-semibold text-slate-700">{post.source}</p>
 
-          <div className="flex items-center gap-3">
-            <span className="flex items-center gap-1">
-              <Eye className="w-4 h-4" />
-              {article.views}
-            </span>
-          </div>
+        <div className="flex items-center gap-3 sm:gap-4 text-xs sm:text-sm text-slate-500 sm:mb-4">
+          <span className="flex items-center gap-1">
+            <Calendar className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+            {dateToPretty(post.date)}
+          </span>
+          <span className="flex items-center gap-1">
+            <Clock className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+            {post.readingTime}m
+          </span>
         </div>
 
-        <motion.button
-          onClick={handleReadMore}
-          className="inline-flex items-center gap-2 text-brand-red font-semibold hover:gap-3 transition-all"
-          whileHover={{ x: 5 }}
-        >
-          Read Full Article
-          {article.externalLink ? (
+        {post.externalLink && (
+          <span className="hidden sm:inline-flex items-center gap-2 text-brand-red font-semibold group-hover:gap-3 transition-all">
+            Read Full Article
             <ExternalLink className="w-4 h-4" />
-          ) : (
-            <ArrowRight className="w-4 h-4" />
-          )}
-        </motion.button>
+          </span>
+        )}
       </div>
     </motion.article>
   );
 }
 
-/* ---------------- Newsletter Signup ---------------- */
-function NewsletterSignup() {
-  const [email, setEmail] = useState("");
-  const [subscribed, setSubscribed] = useState(false);
+/* ---------------- Enhanced Pagination ---------------- */
+function Pagination({ currentPage, totalPages, onPageChange, hasMore, onLoadMore }) {
+  const getPageNumbers = () => {
+    const pages = [];
+    const showPages = 5;
+    let start = Math.max(1, currentPage - Math.floor(showPages / 2));
+    let end = Math.min(totalPages, start + showPages - 1);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setSubscribed(true);
-    setEmail("");
-    setTimeout(() => setSubscribed(false), 3000);
+    if (end - start + 1 < showPages) {
+      start = Math.max(1, end - showPages + 1);
+    }
+
+    for (let i = start; i <= end; i++) {
+      pages.push(i);
+    }
+    return pages;
   };
 
   return (
-    <section className="bg-gradient-to-br from-brand-red via-brand-red to-brand-yellow py-16">
-      <div className="max-w-4xl mx-auto px-6 text-center">
+    <div className="flex flex-col items-center gap-4 mt-6 sm:mt-12">
+      {/* Load More Button */}
+      {hasMore && (
+        <motion.button
+          onClick={onLoadMore}
+          className="px-8 py-4 bg-brand-red text-white rounded-full font-semibold hover:bg-brand-red/90 transition-colors shadow-lg"
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          Load More News
+        </motion.button>
+      )}
+
+      {/* Page Numbers */}
+      <div className="hidden sm:flex items-center gap-2">
+        <motion.button
+          onClick={() => onPageChange(currentPage - 1)}
+          disabled={currentPage === 1}
+          className="p-3 rounded-xl bg-white shadow-md disabled:opacity-50 disabled:cursor-not-allowed hover:bg-slate-50 transition-colors"
+          whileHover={{ scale: currentPage > 1 ? 1.05 : 1 }}
+        >
+          <ChevronLeft className="w-5 h-5" />
+        </motion.button>
+
+        {getPageNumbers().map((page) => (
+          <motion.button
+            key={page}
+            onClick={() => onPageChange(page)}
+            className={`px-4 py-3 rounded-xl font-semibold transition-all ${page === currentPage
+              ? "bg-brand-red text-white shadow-lg"
+              : "bg-white text-slate-600 hover:bg-slate-50 shadow-md"
+              }`}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            {page}
+          </motion.button>
+        ))}
+
+        <motion.button
+          onClick={() => onPageChange(currentPage + 1)}
+          disabled={currentPage === totalPages}
+          className="p-3 rounded-xl bg-white shadow-md disabled:opacity-50 disabled:cursor-not-allowed hover:bg-slate-50 transition-colors"
+          whileHover={{ scale: currentPage < totalPages ? 1.05 : 1 }}
+        >
+          <ChevronRight className="w-5 h-5" />
+        </motion.button>
+      </div>
+
+      <p className="text-sm text-slate-600">
+        Page {currentPage} of {totalPages}
+      </p>
+    </div>
+  );
+}
+
+/* ---------------- Enhanced Bottom CTA ---------------- */
+function BottomCTA() {
+  return (
+    <section className="mt-8 sm:mt-20 bg-gradient-to-br from-[#1A1A1A] via-[#2B1216] to-[#4A0F16] py-8 sm:py-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-white"
+          className="text-center mb-5 sm:mb-12"
         >
-          <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-6">
-            <Newspaper className="w-8 h-8 text-white" />
-          </div>
-          
-          <h3 className="text-3xl font-bold mb-4">Stay in the Loop</h3>
-          <p className="text-white/90 text-lg mb-8 max-w-2xl mx-auto">
-            Get the latest Magic Bus news, program updates, and impact stories delivered directly to your inbox.
+          <h3 className="text-2xl sm:text-3xl md:text-4xl font-heading font-bold text-white mb-2 sm:mb-4">
+            Join Our Mission
+          </h3>
+          <p className="text-sm sm:text-lg text-white/80 max-w-2xl mx-auto">
+            Support us in empowering young people through education, life skills, and sustainable livelihoods
           </p>
-
-          <form onSubmit={handleSubmit} className="max-w-md mx-auto">
-            <div className="flex gap-4">
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="Enter your email address"
-                required
-                className="flex-1 px-4 py-3 rounded-xl text-ink placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-white/50"
-              />
-              <motion.button
-                type="submit"
-                className="bg-white text-brand-red font-semibold px-6 py-3 rounded-xl hover:bg-white/90 transition-colors"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                disabled={subscribed}
-              >
-                {subscribed ? "Subscribed!" : "Subscribe"}
-              </motion.button>
-            </div>
-          </form>
-
-          {subscribed && (
-            <motion.p
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="text-white/90 mt-4"
-            >
-              Thank you for subscribing! You'll receive our latest news soon.
-            </motion.p>
-          )}
         </motion.div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-6">
+          <motion.a
+            href="/partner"
+            className="group p-4 sm:p-8 bg-white rounded-3xl shadow-lg hover:shadow-xl transition-all text-center"
+            whileHover={{ y: -5, scale: 1.02 }}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
+          >
+            <div className="w-11 h-11 sm:w-16 sm:h-16 bg-brand-blue/10 rounded-full flex items-center justify-center mx-auto mb-2 sm:mb-6 group-hover:bg-brand-blue/20 transition-colors">
+              <Users className="w-8 h-8 text-brand-blue" />
+            </div>
+            <h4 className="text-lg sm:text-xl font-bold text-ink mb-1 sm:mb-3">Partner With Us</h4>
+            <p className="hidden sm:block text-slate-600 mb-6">
+              Collaborate with us to create lasting impact in communities
+            </p>
+            <div className="inline-flex items-center gap-2 text-brand-blue font-semibold group-hover:gap-3 transition-all">
+              Learn More
+              <ArrowRight className="w-4 h-4" />
+            </div>
+          </motion.a>
+
+          <motion.a
+            href="/employee-volunteering"
+            className="group p-4 sm:p-8 bg-white rounded-3xl shadow-lg hover:shadow-xl transition-all text-center"
+            whileHover={{ y: -5, scale: 1.02 }}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2 }}
+          >
+            <div className="w-11 h-11 sm:w-16 sm:h-16 bg-brand-yellow/10 rounded-full flex items-center justify-center mx-auto mb-2 sm:mb-6 group-hover:bg-brand-yellow/20 transition-colors">
+              <Heart className="w-8 h-8 text-brand-yellow" />
+            </div>
+            <h4 className="text-lg sm:text-xl font-bold text-ink mb-1 sm:mb-3">Volunteer</h4>
+            <p className="hidden sm:block text-slate-600 mb-6">
+              Join our community of volunteers making a difference
+            </p>
+            <div className="inline-flex items-center gap-2 text-brand-yellow font-semibold group-hover:gap-3 transition-all">
+              Get Involved
+              <ArrowRight className="w-4 h-4" />
+            </div>
+          </motion.a>
+
+          <motion.a
+            href="/donate"
+            className="group p-4 sm:p-8 bg-gradient-to-br from-brand-red to-brand-red/80 text-white rounded-3xl shadow-lg hover:shadow-xl transition-all text-center"
+            whileHover={{ y: -5, scale: 1.02 }}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.3 }}
+          >
+            <div className="w-11 h-11 sm:w-16 sm:h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-2 sm:mb-6 group-hover:bg-white/30 transition-colors">
+              <Heart className="w-8 h-8 text-white" />
+            </div>
+            <h4 className="text-lg sm:text-xl font-bold mb-1 sm:mb-3">Donate Now</h4>
+            <p className="hidden sm:block text-white/90 mb-6">
+              Make a direct impact with your generous contribution
+            </p>
+            <div className="inline-flex items-center gap-2 text-white font-semibold group-hover:gap-3 transition-all">
+              Donate Today
+              <ArrowRight className="w-4 h-4" />
+            </div>
+          </motion.a>
+        </div>
       </div>
     </section>
   );
@@ -649,30 +663,31 @@ export default function News() {
   const [activeCategory, setActiveCategory] = useState("All");
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const articlesPerPage = 6;
+  const [viewMode, setViewMode] = useState("grid"); // grid or list
+  const postsPerPage = 6;
 
-  const categories = useMemo(() => uniqueCategories(NEWS_ARTICLES), []);
-  const featuredArticles = useMemo(() => NEWS_ARTICLES.filter(a => a.featured), []);
+  const categories = useMemo(() => uniqueCategories(POSTS), []);
+  const featuredPosts = useMemo(() => POSTS.filter(p => p.featured), []);
 
-  // Filter articles based on category and search
-  const filteredArticles = useMemo(() => {
-    return NEWS_ARTICLES.filter(article => {
-      const matchesCategory = activeCategory === "All" || article.category === activeCategory;
+  // Filter posts based on category and search
+  const filteredPosts = useMemo(() => {
+    return POSTS.filter(post => {
+      const matchesCategory = activeCategory === "All" || post.category === activeCategory;
       const matchesSearch = !searchQuery ||
-        article.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        article.excerpt.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        article.category.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        article.tags?.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()));
+        post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        post.excerpt.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        post.category.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        post.tags?.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()));
 
       return matchesCategory && matchesSearch;
     });
   }, [activeCategory, searchQuery]);
 
   // Pagination
-  const totalPages = Math.ceil(filteredArticles.length / articlesPerPage);
-  const paginatedArticles = filteredArticles.slice(
-    (currentPage - 1) * articlesPerPage,
-    currentPage * articlesPerPage
+  const totalPages = Math.ceil(filteredPosts.length / postsPerPage);
+  const paginatedPosts = filteredPosts.slice(
+    (currentPage - 1) * postsPerPage,
+    currentPage * postsPerPage
   );
 
   const handleCategoryChange = (category) => {
@@ -687,94 +702,115 @@ export default function News() {
 
   return (
     <Layout>
-        <FaqSchema faqs={newsFAQ} />
-      <main className="bg-slate-50 text-ink min-h-screen">
-        <NewsHero />
-        
-        <FeaturedNews articles={featuredArticles} />
+      <FaqSchema faqs={newsFAQ} />
+      <main className="bg-gradient-to-b from-[#EAF8FD] via-white to-[#FFF0F6] text-ink min-h-screen">
+        <Hero />
 
-        {/* <NewsFilterSection
+        <FeaturedStories items={featuredPosts} />
+
+        <ModernFilterSection
           query={searchQuery}
           setQuery={handleSearchChange}
-          resultsCount={filteredArticles.length}
+          resultsCount={filteredPosts.length}
           categories={categories}
           activeCategory={activeCategory}
           setActiveCategory={handleCategoryChange}
-        /> */}
+        />
 
         {/* Main Content Area */}
-        <div className="max-w-7xl mx-auto px-6 py-8">
-          {/* Results Info */}
-          <div className="mb-8">
-            <h2 className="text-2xl font-bold text-ink mb-2">
-              {activeCategory === "All" ? "All News" : activeCategory}
-            </h2>
-            <p className="text-slate-600">
-              {filteredArticles.length} {filteredArticles.length === 1 ? "article" : "articles"} found
-              {searchQuery && ` for "${searchQuery}"`}
-            </p>
-          </div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 sm:py-8">
+          <div className="flex flex-col lg:flex-row gap-12">
+            {/* Blog Posts Grid */}
+            <div className="lg:flex-1">
+              {/* View Toggle & Results Info */}
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-4 sm:mb-8">
+                <div>
+                  <h2 className="text-2xl font-bold text-ink mb-2">
+                    {activeCategory === "All" ? "All News" : activeCategory}
+                  </h2>
+                  <p className="text-slate-600">
+                    {filteredPosts.length} {filteredPosts.length === 1 ? "article" : "articles"} found
+                    {searchQuery && ` for "${searchQuery}"`}
+                  </p>
+                </div>
 
-          {/* News Grid */}
-          {paginatedArticles.length > 0 ? (
-            <motion.div
-              className="grid gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
-              layout
-            >
-              <AnimatePresence>
-                {paginatedArticles.map((article, index) => (
-                  <NewsCard key={article.id} article={article} index={index} />
-                ))}
-              </AnimatePresence>
-            </motion.div>
-          ) : (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              className="text-center py-16"
-            >
-              <div className="w-24 h-24 bg-slate-200 rounded-full flex items-center justify-center mx-auto mb-6">
-                <Search className="w-12 h-12 text-slate-400" />
+                <div className="hidden sm:flex items-center gap-2 mt-4 sm:mt-0">
+                  <span className="text-sm text-slate-600">View:</span>
+                  <div className="flex bg-white rounded-lg p-1 shadow-sm">
+                    <button
+                      onClick={() => setViewMode("grid")}
+                      className={`p-2 rounded-md transition-colors ${viewMode === "grid" ? "bg-brand-red text-white" : "text-slate-600 hover:bg-slate-100"
+                        }`}
+                    >
+                      <Grid className="w-4 h-4" />
+                    </button>
+                    <button
+                      onClick={() => setViewMode("list")}
+                      className={`p-2 rounded-md transition-colors ${viewMode === "list" ? "bg-brand-red text-white" : "text-slate-600 hover:bg-slate-100"
+                        }`}
+                    >
+                      <List className="w-4 h-4" />
+                    </button>
+                  </div>
+                </div>
               </div>
-              <h3 className="text-xl font-semibold text-ink mb-2">No news found</h3>
-              <p className="text-slate-600 mb-6">
-                Try adjusting your search or browse different categories
-              </p>
-              <button
-                onClick={() => {
-                  setSearchQuery("");
-                  setActiveCategory("All");
-                }}
-                className="px-6 py-3 bg-brand-red text-white rounded-full font-semibold hover:bg-brand-red/90 transition-colors"
-              >
-                Show All News
-              </button>
-            </motion.div>
-          )}
 
-          {/* Simple Pagination */}
-          {paginatedArticles.length > 0 && totalPages > 1 && (
-            <div className="flex justify-center mt-12">
-              <div className="flex items-center gap-2">
-                {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-                  <button
-                    key={page}
-                    onClick={() => setCurrentPage(page)}
-                    className={`px-4 py-2 rounded-lg font-medium transition-all ${
-                      currentPage === page
-                        ? "bg-brand-red text-white"
-                        : "bg-white text-slate-600 hover:bg-slate-100"
+              {/* Posts Grid */}
+              {paginatedPosts.length > 0 ? (
+                <motion.div
+                  className={`grid gap-3 sm:gap-8 ${viewMode === "grid"
+                    ? "grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
+                    : "grid-cols-1"
                     }`}
+                  layout
+                >
+                  <AnimatePresence>
+                    {paginatedPosts.map((post, index) => (
+                      <NewsCard key={post.id} post={post} index={index} />
+                    ))}
+                  </AnimatePresence>
+                </motion.div>
+              ) : (
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  className="text-center py-16"
+                >
+                  <div className="w-24 h-24 bg-slate-200 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <Search className="w-12 h-12 text-slate-400" />
+                  </div>
+                  <h3 className="text-xl font-semibold text-ink mb-2">No news found</h3>
+                  <p className="hidden sm:block text-slate-600 mb-6">
+                    Try adjusting your search or browse different categories
+                  </p>
+                  <button
+                    onClick={() => {
+                      setSearchQuery("");
+                      setActiveCategory("All");
+                    }}
+                    className="px-6 py-3 bg-brand-red text-white rounded-full font-semibold hover:bg-brand-red/90 transition-colors"
                   >
-                    {page}
+                    Show All News
                   </button>
-                ))}
-              </div>
+                </motion.div>
+              )}
+
+              {/* Pagination */}
+              {paginatedPosts.length > 0 && totalPages > 1 && (
+                <Pagination
+                  currentPage={currentPage}
+                  totalPages={totalPages}
+                  onPageChange={setCurrentPage}
+                  hasMore={currentPage < totalPages}
+                  onLoadMore={() => setCurrentPage(prev => prev + 1)}
+                />
+              )}
             </div>
-          )}
+
+          </div>
         </div>
 
-        <NewsletterSignup />
+        <BottomCTA />
 
         {/* FAQ Section */}
         <FAQSection
