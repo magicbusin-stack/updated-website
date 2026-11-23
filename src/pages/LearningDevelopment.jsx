@@ -338,12 +338,7 @@ function InitiativesSection() {
           transition={{ duration: 0.35, ease: EASE }}
           className="mt-6 overflow-hidden rounded-3xl border border-black/5 bg-[#f8f8f6] shadow-sm"
         >
-          <div className={`flex items-center gap-4 px-6 py-5 sm:px-8 ${st.bg} ${st.fg}`}>
-            <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-white/25">
-              <st.Icon className="h-6 w-6" />
-            </span>
-            <h3 className="text-2xl font-black leading-tight md:text-3xl">{active.title}</h3>
-          </div>
+          <div className={`h-2 w-full ${st.bg}`} />
 
           <div className="space-y-4 p-5 sm:p-8">
             {active.blocks.map((block, bi) => (
@@ -357,8 +352,11 @@ function InitiativesSection() {
                   {bi + 1}
                 </span>
                 <div>
-                  <h4 className="text-xl font-extrabold text-[#1A1A1A] md:text-2xl">{block.heading}</h4>
-                  <p className="mt-3 text-lg leading-relaxed text-gray-800">{block.text}</p>
+                  {/* the heading is skipped when it only repeats the tab title */}
+                  {block.heading !== active.title && (
+                    <h4 className="text-xl font-extrabold text-[#1A1A1A] md:text-2xl">{block.heading}</h4>
+                  )}
+                  <p className={`${block.heading !== active.title ? "mt-3 " : ""}text-lg leading-relaxed text-gray-800`}>{block.text}</p>
                 </div>
               </_MOTION.div>
             ))}
