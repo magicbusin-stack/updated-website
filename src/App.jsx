@@ -2,6 +2,7 @@ import { lazy, Suspense } from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import "./index.css";
 import SeoManager from "./seo/SeoManager";
+import ScrollToTop from "./components/ScrollToTop";
 
 const Home = lazy(() => import('./pages/Home'))
 const HomeOld = lazy(() => import('./pages/HomeOld'))
@@ -72,6 +73,8 @@ export function AppRoutes() {
     <>
       {/* title, description, canonical, robots, social tags and structured data for every page */}
       <SeoManager />
+      {/* every page opens at the top (or at its #section) */}
+      <ScrollToTop />
       <Suspense fallback={<PageLoading />}>
         <Routes>
           <Route path="/" element={<Home />} />
