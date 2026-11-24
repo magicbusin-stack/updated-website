@@ -1,8 +1,7 @@
 // src/pages/WhoWeAre.jsx  (new design: "Impact Vanguard")
 import React, { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import { Link, useNavigate } from "react-router-dom";
-import FlipCoinButton from "../components/ui/flip-coin-button";
+import { Link } from "react-router-dom";
 import CountOnView from "../components/ui/CountOnView";
 import {
     ArrowRight,
@@ -18,10 +17,10 @@ import {
     Eye,
     Globe2,
     Sparkles,
-    PartyPopper,
     TrendingUp,
 } from "lucide-react";
 import Layout from "../components/Layout";
+import HeroBanner from "../components/HeroBanner";
 import FAQSection from "../components/Home/FAQSectiom";
 import { whoWeAreFAQ } from "../components/Home/faqItems";
 import FaqSchema from "../components/seo/FaqSchema";
@@ -72,99 +71,20 @@ function Tag({ icon: Icon, children, tone = "red" }) {
 }
 
 /* ======================= HERO ======================= */
+/* The same banner as the other pages: photo, gradient title, yellow tag, Donate and report buttons. */
 function Hero() {
-    const navigate = useNavigate();
     return (
-        <section className="relative overflow-hidden bg-[#FBFBFA]" style={{ marginTop: "var(--header-h, 93px)" }}>
-            <div className="pointer-events-none absolute -top-40 right-0 h-[520px] w-[520px] rounded-full bg-[#C41A1F]/5 blur-3xl" />
-            <div className="pointer-events-none absolute bottom-0 left-[-10%] h-[380px] w-[380px] rounded-full bg-[#F9A825]/10 blur-2xl" />
-
-            <div className="relative z-10 mx-auto max-w-[1600px] px-5 py-12 sm:px-8 md:py-20">
-                <div className="grid items-center gap-10 lg:grid-cols-12 lg:gap-12">
-                    <div className="flex flex-col items-start lg:col-span-7">
-                        <motion.div
-                            initial={{ opacity: 0, y: 16 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.5, ease: EASE }}
-                            className="mb-5 inline-flex items-center gap-2 rounded-full bg-[#FFDDB5]/60 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.06em] text-[#643F00]"
-                        >
-                            <span className="h-2 w-2 rounded-full bg-[#835400]" />
-                            Magic Bus India Foundation
-                        </motion.div>
-
-                        <motion.h1
-                            initial={{ opacity: 0, y: 24 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.6, ease: EASE, delay: 0.08 }}
-                            className="wa-display text-4xl font-bold leading-[1.12] sm:text-5xl lg:text-[56px] lg:leading-[64px]"
-                        >
-                            Who We Are — An NGO Trusted by{" "}
-                            <span className="underline decoration-[#F9A825] decoration-4 underline-offset-8" style={{ color: CRIMSON }}>
-                                Millions
-                            </span>
-                        </motion.h1>
-
-                        <motion.p
-                            initial={{ opacity: 0, y: 24 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.6, ease: EASE, delay: 0.16 }}
-                            className="mt-6 max-w-2xl text-lg leading-8 text-[#4A4A48] sm:text-xl sm:leading-9"
-                        >
-                            Helping young people from underserved communities complete their education, build life skills, and secure sustainable livelihoods — one life at a time, since 1999.
-                        </motion.p>
-
-                        <motion.div
-                            initial={{ opacity: 0, y: 24 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.6, ease: EASE, delay: 0.24 }}
-                            className="mt-8 flex flex-wrap items-center gap-3 sm:gap-4"
-                        >
-                            {/* the site's own Donate button, the same size as the report button beside it */}
-                            <FlipCoinButton size="cta" onFlipComplete={() => navigate("/donate")}>
-                                Donate Now
-                            </FlipCoinButton>
-                            <Link
-                                to="/annual-reports"
-                                className="inline-flex h-14 w-56 items-center justify-center gap-2 rounded-full border-2 border-[#1A1A1A] bg-white px-4 text-base font-bold text-[#1A1A1A] shadow-md transition hover:bg-[#1A1A1A] hover:text-white"
-                            >
-                                <FileText className="h-5 w-5 text-[#C41A1F]" />
-                                Read Annual Report
-                            </Link>
-                        </motion.div>
-                    </div>
-
-                    {/* Photo with a floating note */}
-                    <motion.div
-                        initial={{ opacity: 0, scale: 0.97 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{ duration: 0.7, ease: EASE, delay: 0.1 }}
-                        className="relative mx-auto w-full max-w-md lg:col-span-5 lg:max-w-none"
-                    >
-                        <div className="relative aspect-[4/5] overflow-hidden rounded-lg bg-[#F0EDED] shadow-xl">
-                            <img fetchPriority="high" decoding="async"
-                                src="/ngo-images/who-hero.jpg"
-                                alt="A smiling student at a Magic Bus session"
-                                className="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
-                            />
-                            <div className="absolute inset-0 bg-gradient-to-t from-[#313030]/80 via-transparent to-transparent" />
-                            <div className="absolute inset-x-4 bottom-4 rounded-lg bg-[#FBFBFA]/95 p-4 shadow-lg backdrop-blur-md sm:inset-x-6 sm:bottom-6">
-                                <span className="text-xs font-bold uppercase tracking-[0.06em]" style={{ color: CRIMSON }}>
-                                    Where it began
-                                </span>
-                                <p className="wa-display text-lg font-bold leading-snug sm:text-xl">Bombay Gymkhana, Mumbai, 1999</p>
-                                <p className="mt-1 text-sm leading-relaxed text-[#4A4A48] sm:text-sm">
-                                    A game of rugby, and a group of boys watching from outside, became Magic Bus.
-                                </p>
-                            </div>
-                        </div>
-                        <div className="absolute -left-2 -top-4 flex items-center gap-2 rounded-full bg-[#835400] px-4 py-2 text-xs font-bold uppercase tracking-[0.06em] text-white shadow-md sm:-left-4">
-                            <PartyPopper className="h-4 w-4" />
-                            26+ Years of Magic
-                        </div>
-                    </motion.div>
-                </div>
-            </div>
-        </section>
+        <HeroBanner
+            badgeText="Magic Bus India Foundation"
+            image="/ngo-images/who-hero.jpg" imagePosition="50% 15%"
+            title="Who We Are"
+            subtitle="An NGO Trusted by Millions"
+            description="Helping young people from underserved communities complete their education, build life skills, and secure sustainable livelihoods — one life at a time, since 1999."
+            ctas={[
+                { to: "/donate", label: "Donate Now", variant: "primary", showArrow: true },
+                { to: "/annual-reports", label: "Read Annual Report", icon: FileText },
+            ]}
+        />
     );
 }
 
@@ -555,8 +475,8 @@ export default function WhoWeAre() {
             />
             <style>{STYLES}</style>
             <FaqSchema faqs={whoWeAreFAQ} />
+            <Hero />
             <div className="wa-page bg-[#FBFBFA] antialiased">
-                <Hero />
                 <Foundation />
                 <HistorySection />
                 <Milestones />
