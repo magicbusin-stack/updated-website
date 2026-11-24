@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 
 // "Build support around the learner": concentric circles with the learner at the centre.
 // Hover or tap a ring (or its card) to highlight both. Wording is from the programme team's School-to-Work document.
@@ -44,6 +44,16 @@ export default function LearnerSupportRings() {
   const [pinned, setPinned] = useState("equip");
   const [hovered, setHovered] = useState(null);
   const active = hovered || pinned;
+  const row = useRef(null);
+
+  // phones: swiping the cards pins the ring that belongs to the card in front
+  const onRowScroll = () => {
+    const el = row.current;
+    if (!el || el.scrollWidth <= el.clientWidth + 4) return;
+    const step = el.children[0].getBoundingClientRect().width + 16;
+    const i = Math.min(RINGS.length - 1, Math.max(0, Math.round(el.scrollLeft / step)));
+    setPinned(RINGS[i].id);
+  };
 
   const handlers = (id) => ({
     onClick: () => setPinned(id),
@@ -97,14 +107,20 @@ export default function LearnerSupportRings() {
         </svg>
       </div>
 
-      <div className="space-y-4">
+      {/* phones: the three cards are a row you swipe sideways (the ring that matches the card in front lights up);
+          tablet and desktop: stacked as before */}
+      <div
+        ref={row}
+        onScroll={onRowScroll}
+        className="-mx-6 flex snap-x snap-mandatory gap-4 overflow-x-auto px-6 pb-4 [scrollbar-width:none] sm:mx-0 sm:block sm:space-y-4 sm:overflow-visible sm:px-0 sm:pb-0 [&::-webkit-scrollbar]:hidden"
+      >
         {RINGS.map((r, i) => {
           const on = active === r.id;
           return (
             <div
               key={r.id}
               {...handlers(r.id)}
-              className="cursor-pointer overflow-hidden rounded-2xl border bg-white shadow-sm transition"
+              className="w-[85%] shrink-0 cursor-pointer snap-center overflow-hidden rounded-2xl border bg-white shadow-sm transition sm:w-auto sm:shrink"
               style={{ borderColor: on ? r.color : "rgba(0,0,0,0.1)", boxShadow: on ? `0 10px 28px ${r.color}33` : undefined }}
             >
               <div className="flex items-center gap-3 px-5 py-3 text-white" style={{ background: r.color }}>
