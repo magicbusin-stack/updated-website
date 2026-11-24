@@ -202,7 +202,7 @@ function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
         >
-          <span className="inline-block border border-brand-yellow/40 bg-brand-yellow/10 text-white backdrop-blur-sm px-3 py-1 rounded-full text-sm font-semibold">
+          <span className="inline-block bg-brand-yellow text-brand-black px-3 py-1 rounded-full text-sm font-semibold">
             Latest News
           </span>
 
@@ -210,7 +210,7 @@ function Hero() {
             Stay Updated with Magic Bus
           </h1>
 
-          <p className="mt-4 text-base md:text-lg text-white">
+          <p className="mt-4 text-base md:text-lg text-white/90">
             Get the latest news, updates, and announcements about our programs, partnerships, achievements, and impact in transforming young lives across India.
           </p>
 

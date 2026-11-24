@@ -121,7 +121,7 @@ function FLFPRHero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
         >
-          <span className="inline-block border border-brand-yellow/40 bg-brand-yellow/10 text-white backdrop-blur-sm px-3 py-1 rounded-full text-sm font-semibold">
+          <span className="inline-block bg-brand-yellow text-black px-3 py-1 rounded-full text-sm font-semibold">
             Workforce Research
           </span>
 
@@ -129,7 +129,7 @@ function FLFPRHero() {
             Women in the Workforce
           </h1>
 
-          <p className="mt-4 text-base md:text-lg text-white">
+          <p className="mt-4 text-base md:text-lg text-white/90">
             Our FLFPR reports provide critical insights into women's labour force
             participation, identifying barriers and showcasing how our programs
             create pathways to sustainable employment and economic empowerment.

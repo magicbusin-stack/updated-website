@@ -133,14 +133,14 @@ function ReportsHero() {
       <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/70 to-transparent" />
       <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-black/20" />
 
-      <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 h-full flex items-center">
+      <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 h-full flex items-center pt-24 pb-10">
         <motion.div
           className="max-w-3xl text-white"
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
         >
-          <span className="inline-block border border-brand-yellow/40 bg-brand-yellow/10 text-white backdrop-blur-sm px-3 py-1 rounded-full text-sm font-semibold">
+          <span className="inline-block bg-brand-yellow text-brand-black px-3 py-1 rounded-full text-sm font-semibold">
             Reports & Publications
           </span>
 
@@ -148,7 +148,7 @@ function ReportsHero() {
             Transparency Through Documentation
           </h1>
 
-          <p className="mt-4 text-base md:text-lg text-white">
+          <p className="mt-4 text-base md:text-lg text-white/90">
             Explore our comprehensive collection of reports and publications that showcase our impact,
             research findings, and commitment to transparency across all our programs and initiatives.
           </p>

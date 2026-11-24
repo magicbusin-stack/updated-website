@@ -234,7 +234,7 @@ function HeroSection() {
             subtitle="from Childhood to Livelihood"
             description="Helping young people from underserved communities complete education and build sustainable livelihoods since 1999."
             subtitleClassName="mt-3 text-xl md:text-2xl font-semibold text-white"
-            descriptionClassName="mt-7 max-w-3xl text-lg sm:text-xl text-white leading-relaxed"
+            descriptionClassName="mt-7 max-w-3xl text-lg sm:text-xl text-white/85 leading-relaxed"
             ctas={[
                 { to: "/donate", label: "Donate Now", variant: "primary", showArrow: true },
                 { to: "/partner", label: "Partner With Us" },
