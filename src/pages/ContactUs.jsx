@@ -683,13 +683,13 @@ export default function ContactUs() {
 
           <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 h-full flex items-center">
             <motion.div initial="hidden" animate="show" variants={fadeUp} className="max-w-3xl text-white">
-              <span className="inline-block bg-brand-yellow text-brand-black px-3 py-1 rounded-full text-sm font-semibold">
+              <span className="inline-block border border-brand-yellow/40 bg-brand-yellow/10 text-white backdrop-blur-sm px-3 py-1 rounded-full text-sm font-semibold">
                 Get in touch
               </span>
               <h1 className="mt-4 text-3xl md:text-4xl lg:text-5xl font-heading font-extrabold leading-tight">
                 Magic Bus India Foundation
               </h1>
-              <p className="mt-4 text-base md:text-lg text-white/90">
+              <p className="mt-4 text-base md:text-lg text-white">
                 Magic Bus partners with companies, donors, volunteers, and communities to move young people out of poverty through education and employment.
               </p>
               <div className="mt-6">

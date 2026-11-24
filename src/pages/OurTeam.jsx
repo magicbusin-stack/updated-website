@@ -481,7 +481,7 @@ function HeroSection() {
                     transition={{ delay: 0.1, duration: 0.6, ease: EASE }}
                     className="mb-5"
                 >
-                    <span className="inline-flex items-center gap-2 rounded-full border border-brand-yellow/40 bg-brand-yellow/10 px-4 py-2 text-xs font-semibold uppercase tracking-widest text-brand-yellow backdrop-blur-sm">
+                    <span className="inline-flex items-center gap-2 rounded-full border border-brand-yellow/40 bg-brand-yellow/10 px-4 py-2 text-xs font-semibold uppercase tracking-widest text-white backdrop-blur-sm">
                         <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-brand-yellow" />
                         Magic Bus India Foundation
                     </span>
@@ -500,7 +500,7 @@ function HeroSection() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.35, duration: 0.65, ease: EASE }}
-                    className="mt-5 max-w-2xl text-lg text-white/70 leading-relaxed"
+                    className="mt-5 max-w-2xl text-lg text-white leading-relaxed"
                 >
                     Magic Bus brings together experienced leaders from the corporate and
                     development sectors, working towards empowering adolescents and youth
@@ -521,8 +521,8 @@ function HeroSection() {
                         { num: "1999", label: "Founded in Mumbai" },
                     ].map((st) => (
                         <div key={st.label} className="rounded-2xl border border-white/10 bg-white/5 px-5 py-5 backdrop-blur-sm">
-                            <div className="text-4xl font-extrabold leading-none text-brand-yellow sm:text-5xl">{st.num}</div>
-                            <div className="mt-2 text-base font-medium leading-snug text-white/75 sm:text-lg">{st.label}</div>
+                            <div className="text-4xl font-extrabold leading-none text-white sm:text-5xl">{st.num}</div>
+                            <div className="mt-2 text-base font-medium leading-snug text-white sm:text-lg">{st.label}</div>
                         </div>
                     ))}
                 </motion.div>

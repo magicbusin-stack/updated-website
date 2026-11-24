@@ -61,10 +61,9 @@ function CultureHeroBanner() {
             subtitle="Purpose is part of who we are"
             description="A workplace where curiosity is encouraged, integrity is non-negotiable, and people grow together while shaping something bigger than 'Self'."
             image="/great-place-to-work.jpg"
-            titleGradient
             showTitleDivider
             subtitleClassName="mt-3 text-xl md:text-2xl font-semibold text-white"
-            descriptionClassName="mt-7 max-w-2xl text-base md:text-lg text-white/70 leading-relaxed"
+            descriptionClassName="mt-7 max-w-2xl text-base md:text-lg text-white leading-relaxed"
             ctas={[
                 {
                     href: "#connect",

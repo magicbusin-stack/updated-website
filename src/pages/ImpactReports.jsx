@@ -84,11 +84,11 @@ function ImpactReportsHero() {
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 h-full flex items-center">
         <motion.div className="max-w-3xl text-white" initial={{ opacity: 0, y: 50 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.2 }}>
-          <span className="inline-block bg-brand-yellow text-brand-black px-4 py-1.5 rounded-full text-base font-semibold">Impact Measurement</span>
+          <span className="inline-block border border-brand-yellow/40 bg-brand-yellow/10 text-white backdrop-blur-sm px-4 py-1.5 rounded-full text-base font-semibold">Impact Measurement</span>
 
           <h1 className="mt-4 text-4xl md:text-5xl lg:text-6xl font-heading font-extrabold leading-tight">Measuring Real Impact</h1>
 
-          <p className="mt-5 text-xl md:text-2xl text-white/90 leading-relaxed">
+          <p className="mt-5 text-xl md:text-2xl text-white leading-relaxed">
             Our impact reports provide evidence-based insights into program effectiveness, beneficiary outcomes, and the measurable social change we create in communities across
             India.
           </p>

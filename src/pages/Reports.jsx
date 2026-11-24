@@ -140,7 +140,7 @@ function ReportsHero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
         >
-          <span className="inline-block bg-brand-yellow text-brand-black px-3 py-1 rounded-full text-sm font-semibold">
+          <span className="inline-block border border-brand-yellow/40 bg-brand-yellow/10 text-white backdrop-blur-sm px-3 py-1 rounded-full text-sm font-semibold">
             Reports & Publications
           </span>
 
@@ -148,7 +148,7 @@ function ReportsHero() {
             Transparency Through Documentation
           </h1>
 
-          <p className="mt-4 text-base md:text-lg text-white/90">
+          <p className="mt-4 text-base md:text-lg text-white">
             Explore our comprehensive collection of reports and publications that showcase our impact,
             research findings, and commitment to transparency across all our programs and initiatives.
           </p>

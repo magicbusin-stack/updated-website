@@ -226,7 +226,7 @@ function CertificationsHero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
         >
-          <span className="inline-block bg-brand-yellow text-brand-black px-3 py-1 rounded-full text-sm font-semibold">
+          <span className="inline-block border border-brand-yellow/40 bg-brand-yellow/10 text-white backdrop-blur-sm px-3 py-1 rounded-full text-sm font-semibold">
             Transparency & Compliance
           </span>
 
@@ -234,7 +234,7 @@ function CertificationsHero() {
             Transparency is at the Heart of Magic Bus
           </h1>
 
-          <p className="mt-4 text-base md:text-lg text-white/90">
+          <p className="mt-4 text-base md:text-lg text-white">
             Magic Bus is a non-profit organization registered as Magic Bus India Foundation under section 8 of the Companies Act 2013.
             We maintain the highest standards of transparency, accountability, and compliance with all regulatory requirements.
           </p>

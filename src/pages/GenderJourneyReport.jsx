@@ -115,7 +115,7 @@ function GenderJourneyHero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
         >
-          <span className="inline-block bg-brand-yellow text-brand-black px-4 py-1.5 rounded-full text-base font-semibold">
+          <span className="inline-block border border-brand-yellow/40 bg-brand-yellow/10 text-white backdrop-blur-sm px-4 py-1.5 rounded-full text-base font-semibold">
             Gender Empowerment
           </span>
 
@@ -123,7 +123,7 @@ function GenderJourneyHero() {
             Empowering Girls & Women
           </h1>
 
-          <p className="mt-5 text-xl md:text-2xl text-white/90 leading-relaxed">
+          <p className="mt-5 text-xl md:text-2xl text-white leading-relaxed">
             Our Gender Journey Reports document the transformative impact of our
             gender-focused programs, showcasing how we empower girls and women
             to become leaders and change agents in their communities.

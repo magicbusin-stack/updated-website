@@ -179,7 +179,7 @@ function Hero() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, ease: EASE }}
-            className="inline-flex items-center gap-2 rounded-full border border-amber-400/40 bg-amber-500/20 px-3.5 py-1.5 text-sm font-semibold uppercase tracking-wider text-amber-300 backdrop-blur-md"
+            className="inline-flex items-center gap-2 rounded-full border border-amber-400/40 bg-amber-500/20 px-3.5 py-1.5 text-sm font-semibold uppercase tracking-wider text-white backdrop-blur-md"
           >
             <span className="oa-ping relative inline-flex h-2 w-2 rounded-full bg-amber-400" />
             Our Approach &amp; Pedagogy
@@ -192,14 +192,14 @@ function Hero() {
             className="oa-display text-4xl font-extrabold leading-[1.12] tracking-tight sm:text-5xl lg:text-6xl"
           >
             Equip. Educate. <br />
-            <span className="bg-gradient-to-r from-amber-300 via-rose-400 to-rose-500 bg-clip-text text-transparent">Empower for Life.</span>
+            <span>Empower for Life.</span>
           </motion.h1>
 
           <motion.p
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: EASE, delay: 0.16 }}
-            className="max-w-2xl text-lg leading-relaxed text-slate-200 sm:text-xl md:text-2xl md:leading-relaxed"
+            className="max-w-2xl text-lg leading-relaxed text-white sm:text-xl md:text-2xl md:leading-relaxed"
           >
             Working hand-in-hand with vulnerable young people to create an unbroken pathway from childhood into sustainable, dignified
             livelihoods—combining socio-emotional life skills, foundational education, and sector-specific employability aligned with NEP 2020.

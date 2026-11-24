@@ -19,11 +19,11 @@ function HeroBanner({
     stats = [],
     statsVariant = "inline",
     statsStackOnPhone = false, /* inline stats: on a phone each one is a neat block with a yellow bar at its left (one under the other) */
-    titleGradient = true,
+    titleGradient = false, /* every hero title is plain white now; the red-to-yellow gradient is only used if a page asks for it */
     showTitleDivider = true,
     titleSizeClassName = "text-5xl md:text-6xl lg:text-7xl",
     subtitleClassName = "mt-3 text-xl md:text-2xl font-semibold text-white",
-    descriptionClassName = "mt-7 max-w-2xl text-base md:text-lg text-white/70 leading-relaxed",
+    descriptionClassName = "mt-7 max-w-2xl text-base md:text-lg text-white leading-relaxed",
 }) {
     const navigate = useNavigate();
     return (
@@ -58,7 +58,7 @@ function HeroBanner({
                         transition={{ delay: 0.1, duration: 0.6, ease: EASE }}
                         className="mb-5"
                     >
-                        <span className="inline-flex items-center gap-2 rounded-full border border-brand-yellow/40 bg-brand-yellow/10 px-4 py-2 text-xs font-semibold uppercase tracking-widest text-brand-yellow backdrop-blur-sm">
+                        <span className="inline-flex items-center gap-2 rounded-full border border-brand-yellow/40 bg-brand-yellow/10 px-4 py-2 text-xs font-semibold uppercase tracking-widest text-white backdrop-blur-sm">
                             <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-brand-yellow" />
                             {badgeText}
                         </span>
@@ -173,8 +173,8 @@ function HeroBanner({
                                             statsStackOnPhone ? "flex-col gap-1 border-l-4 border-brand-yellow pl-4 md:flex-row md:items-center md:gap-4 md:border-l-0 md:pl-0" : "items-center"
                                         }`}
                                     >
-                                        <div className={`font-extrabold leading-tight text-brand-yellow ${num.length > 8 ? `text-2xl md:text-3xl ${statsStackOnPhone ? "md:max-w-[260px]" : "max-w-[260px]"}` : "text-4xl md:text-5xl"}`}>{num}</div>
-                                        <div className={`text-base md:text-lg text-white/85 font-medium leading-snug ${statsStackOnPhone ? "md:max-w-[240px]" : "max-w-[240px]"}`}>{s.label}</div>
+                                        <div className={`font-extrabold leading-tight text-white ${num.length > 8 ? `text-2xl md:text-3xl ${statsStackOnPhone ? "md:max-w-[260px]" : "max-w-[260px]"}` : "text-4xl md:text-5xl"}`}>{num}</div>
+                                        <div className={`text-base md:text-lg text-white font-medium leading-snug ${statsStackOnPhone ? "md:max-w-[240px]" : "max-w-[240px]"}`}>{s.label}</div>
                                     </div>
                                 );
                             })}
@@ -190,7 +190,7 @@ function HeroBanner({
                         >
                             {stats.map((s) => (
                                 <div key={s.label} className="rounded-2xl border border-white/20 bg-white/10 p-4 backdrop-blur">
-                                    <p className="text-sm uppercase tracking-[0.12em] text-white/70">{s.label}</p>
+                                    <p className="text-sm uppercase tracking-[0.12em] text-white">{s.label}</p>
                                     <p className="mt-2 text-xl font-bold text-white">{s.num ?? s.value}</p>
                                 </div>
                             ))}

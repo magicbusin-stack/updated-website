@@ -115,7 +115,7 @@ function AnnualReportsHero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
         >
-          <span className="inline-block bg-brand-yellow text-brand-black px-3 py-1 rounded-full text-sm font-semibold">
+          <span className="inline-block border border-brand-yellow/40 bg-brand-yellow/10 text-white backdrop-blur-sm px-3 py-1 rounded-full text-sm font-semibold">
             Annual Documentation
           </span>
 
@@ -123,7 +123,7 @@ function AnnualReportsHero() {
             Our Journey of Impact
           </h1>
 
-          <p className="mt-4 text-base md:text-lg text-white/90">
+          <p className="mt-4 text-base md:text-lg text-white">
             Comprehensive annual reports documenting our programs, achievements, challenges, and the transformative 
             impact we create in communities across India, year after year.
           </p>

@@ -188,7 +188,7 @@ function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
         >
-          <span className="inline-block bg-brand-yellow text-brand-black px-3 py-1 rounded-full text-sm font-semibold">
+          <span className="inline-block border border-brand-yellow/40 bg-brand-yellow/10 text-white backdrop-blur-sm px-3 py-1 rounded-full text-sm font-semibold">
             Magic Bus Blogs
           </span>
 
@@ -196,7 +196,7 @@ function Hero() {
             Insights That Shape Futures
           </h1>
 
-          <p className="mt-4 text-base md:text-lg text-white/90">
+          <p className="mt-4 text-base md:text-lg text-white">
             Explore articles, stories, and research that highlight how structured interventions support adolescents and youth to complete education, develop life skills, and secure employment.
           </p>
 
