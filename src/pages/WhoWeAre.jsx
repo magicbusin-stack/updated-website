@@ -1,12 +1,13 @@
 // src/pages/WhoWeAre.jsx  (new design: "Impact Vanguard")
 import React, { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import FlipCoinButton from "../components/ui/flip-coin-button";
+import CountOnView from "../components/ui/CountOnView";
 import {
     ArrowRight,
     BookOpen,
     FileText,
-    Heart,
     GraduationCap,
     Briefcase,
     Users,
@@ -72,6 +73,7 @@ function Tag({ icon: Icon, children, tone = "red" }) {
 
 /* ======================= HERO ======================= */
 function Hero() {
+    const navigate = useNavigate();
     return (
         <section className="relative overflow-hidden bg-[#FBFBFA]" style={{ marginTop: "var(--header-h, 93px)" }}>
             <div className="pointer-events-none absolute -top-40 right-0 h-[520px] w-[520px] rounded-full bg-[#C41A1F]/5 blur-3xl" />
@@ -117,16 +119,13 @@ function Hero() {
                             transition={{ duration: 0.6, ease: EASE, delay: 0.24 }}
                             className="mt-8 flex flex-wrap items-center gap-3 sm:gap-4"
                         >
-                            <Link
-                                to="/donate"
-                                className="group inline-flex w-full items-center justify-center gap-2 rounded border border-[#C41A1F] bg-[#C41A1F] px-7 py-3.5 text-base font-semibold text-white shadow-md transition hover:bg-[#A61318] hover:shadow-lg sm:w-auto"
-                            >
+                            {/* the site's own Donate button, the same size as the report button beside it */}
+                            <FlipCoinButton size="cta" onFlipComplete={() => navigate("/donate")}>
                                 Donate Now
-                                <Heart className="h-[18px] w-[18px] transition-transform group-hover:translate-x-1" />
-                            </Link>
+                            </FlipCoinButton>
                             <Link
                                 to="/annual-reports"
-                                className="inline-flex w-full items-center justify-center gap-2 rounded border border-[#DCDCD6] bg-[#F4F4F0] px-7 py-3.5 text-base font-semibold text-[#1A1A1A] transition hover:border-[#1A1A1A] sm:w-auto"
+                                className="inline-flex h-14 w-56 items-center justify-center gap-2 rounded-full border border-[#DCDCD6] bg-[#F4F4F0] px-4 text-base font-bold text-[#1A1A1A] transition hover:border-[#1A1A1A]"
                             >
                                 <FileText className="h-5 w-5 text-[#C41A1F]" />
                                 Read Annual Report
@@ -192,10 +191,10 @@ const DIFFERENTIATORS = [
 ];
 
 const STATS = [
-    { num: "1999", label: "Year Founded", note: "Founded in Mumbai" },
-    { num: "1M+", label: "Lives Impacted" },
-    { num: "14+", label: "States Across India" },
-    { num: "25+", label: "Years of Commitment" },
+    { num: "1999", label: "Year Founded", note: "Founded in Mumbai", bg: `linear-gradient(135deg, ${CRIMSON} 0%, #7F0F13 100%)`, fg: "#FFFFFF", sub: "rgba(255,255,255,0.85)" },
+    { num: "1M+", label: "Lives Impacted", bg: `linear-gradient(135deg, ${FOREST} 0%, #0E221E 100%)`, fg: "#FFFFFF", sub: "rgba(255,255,255,0.85)" },
+    { num: "14+", label: "States Across India", bg: `linear-gradient(135deg, ${SUN} 0%, #E08F00 100%)`, fg: INK, sub: "rgba(26,26,26,0.85)" },
+    { num: "25+", label: "Years of Commitment", bg: `linear-gradient(135deg, #3A3A3A 0%, ${INK} 100%)`, fg: "#FFFFFF", sub: "rgba(255,255,255,0.85)" },
 ];
 
 function Foundation() {
@@ -245,13 +244,22 @@ function Foundation() {
                     <div className="flex flex-col gap-4 lg:col-span-5">
                         <div className="grid grid-cols-2 gap-4">
                             {STATS.map((s, i) => (
-                                <FadeUp key={s.label} delay={i * 0.07}>
-                                    <div className="h-full rounded-lg border border-[#E5E5DF] border-t-2 border-t-[#F9A825] bg-white p-5 transition hover:-translate-y-1 hover:shadow-[0_8px_24px_-4px_rgba(26,26,26,0.08)] sm:p-6">
-                                        <div className="wa-display text-4xl font-extrabold leading-none sm:text-5xl" style={{ color: i % 2 === 0 ? CRIMSON : INK }}>
-                                            {s.num}
+                                <FadeUp key={s.label} delay={i * 0.07} className="h-full">
+                                    <div
+                                        className="relative h-full overflow-hidden rounded-lg p-5 shadow-lg transition hover:-translate-y-1 hover:shadow-xl sm:p-6"
+                                        style={{ background: s.bg, color: s.fg }}
+                                    >
+                                        <div aria-hidden="true" className="pointer-events-none absolute -right-6 -top-6 h-24 w-24 rounded-full bg-white/15" />
+                                        <div className="wa-display relative text-4xl font-extrabold leading-none tracking-tight sm:text-5xl">
+                                            <CountOnView value={s.num} />
                                         </div>
-                                        <div className="mt-3 text-sm font-bold uppercase tracking-[0.06em] text-[#1A1A1A]">{s.label}</div>
-                                        {s.note && <p className="mt-1 text-sm text-[#4A4A48]">{s.note}</p>}
+                                        <div className="relative mt-3 h-1 w-10 rounded-full" style={{ background: s.fg, opacity: 0.55 }} aria-hidden="true" />
+                                        <div className="relative mt-3 text-sm font-bold uppercase tracking-[0.06em]">{s.label}</div>
+                                        {s.note && (
+                                            <p className="relative mt-1 text-sm" style={{ color: s.sub }}>
+                                                {s.note}
+                                            </p>
+                                        )}
                                     </div>
                                 </FadeUp>
                             ))}
@@ -380,7 +388,9 @@ function Milestones() {
     return (
         <section className="bg-white py-12 md:py-24">
             <div className="mx-auto max-w-[1600px] px-5 sm:px-8">
-                <FadeUp className="mx-auto mb-8 max-w-3xl text-center md:mb-12">
+                {/* the text on the left and the video on the right (stacked on phones) */}
+                <div className="grid items-center gap-8 lg:grid-cols-2 lg:gap-14">
+                <FadeUp>
                     <Tag icon={Clapperboard} tone="forest">Our Milestones</Tag>
                     <h2 className="wa-display mt-4 text-3xl font-bold leading-tight sm:text-4xl lg:text-[40px] lg:leading-[48px]">Over Two Decades of Commitment</h2>
                     <p className="mt-5 text-lg leading-8 text-[#4A4A48] sm:text-xl sm:leading-9">
@@ -412,6 +422,7 @@ function Milestones() {
                         </div>
                     </div>
                 </FadeUp>
+                </div>
             </div>
         </section>
     );
@@ -457,14 +468,9 @@ function WorkInAction() {
     return (
         <section className="bg-[#FBFBFA] py-12 md:py-24">
             <div className="mx-auto max-w-[1600px] px-5 sm:px-8">
-                <FadeUp className="mb-10 flex flex-col justify-between gap-4 md:mb-14 md:flex-row md:items-end">
-                    <div>
-                        <Tag icon={Eye}>Programmes in focus</Tag>
-                        <h2 className="wa-display mt-4 text-3xl font-bold leading-tight sm:text-4xl lg:text-[40px] lg:leading-[48px]">Our Work in Action</h2>
-                    </div>
-                    <p className="max-w-md text-base leading-7 text-[#4A4A48] sm:text-lg sm:leading-8">
-                        Four areas of work that help young people complete education, build life skills and secure livelihoods.
-                    </p>
+                <FadeUp className="mb-10 md:mb-14">
+                    <Tag icon={Eye}>Programmes in focus</Tag>
+                    <h2 className="wa-display mt-4 text-3xl font-bold leading-tight sm:text-4xl lg:text-[40px] lg:leading-[48px]">Our Work in Action</h2>
                 </FadeUp>
 
                 <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4 lg:gap-6">

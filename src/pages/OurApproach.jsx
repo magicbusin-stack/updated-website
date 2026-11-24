@@ -293,12 +293,48 @@ function Pillars() {
           </div>
           <h2 className="oa-display text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl lg:text-5xl">Five Pillars of Our Approach</h2>
           <p className="mt-4 text-lg leading-relaxed text-slate-600 sm:text-xl">
-            Hover or tap any pillar below to see how these five connected components work together to guide adolescents into sustainable livelihoods.
+            <span className="sm:hidden">Swipe to see how these five connected components work together to guide adolescents into sustainable livelihoods.</span>
+            <span className="hidden sm:inline">
+              Hover or tap any pillar below to see how these five connected components work together to guide adolescents into sustainable livelihoods.
+            </span>
           </p>
         </FadeUp>
 
-        {/* Pillar tabs: one swipeable row on phones */}
-        <div className="oa-scroll-row -mx-4 mb-8 flex items-center gap-2 overflow-x-auto px-4 pb-1 sm:mx-0 sm:mb-12 sm:flex-wrap sm:justify-center sm:gap-3 sm:overflow-visible sm:px-0">
+        {/* Phones: the five pillars as cards you swipe through */}
+        <div className="-mx-4 mb-2 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-4 [scrollbar-width:none] sm:hidden [&::-webkit-scrollbar]:hidden">
+          {PILLARS.map((p) => (
+            <article
+              key={p.id}
+              className="w-[86%] shrink-0 snap-center rounded-3xl border-2 bg-white p-5 shadow-lg shadow-slate-200/50"
+              style={{ borderColor: `${p.hex}66`, backgroundImage: `linear-gradient(135deg, ${p.hex}1A, #ffffff 55%)` }}
+            >
+              <div className="flex items-center gap-3.5 border-b border-slate-100 pb-4">
+                <span className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl text-white shadow-md ${p.iconBg}`}>
+                  <p.Icon className="h-6 w-6" />
+                </span>
+                <div>
+                  <span className={`text-sm font-bold uppercase tracking-wider ${p.text}`}>{p.tag}</span>
+                  <h3 className="oa-display text-2xl font-bold leading-tight text-slate-900">{p.title}</h3>
+                </div>
+              </div>
+              <p className="mt-4 text-lg leading-relaxed text-slate-700">{p.desc}</p>
+              <div className="mt-5 grid gap-2.5 border-t border-slate-100 pt-4 text-base font-semibold text-slate-700">
+                {p.chips.map((c, i) => {
+                  const Icon = CHIP_ICONS[i % CHIP_ICONS.length];
+                  return (
+                    <div key={c} className="flex items-center gap-2.5 rounded-xl bg-slate-50 p-3">
+                      <Icon className={`h-5 w-5 shrink-0 ${p.text}`} />
+                      <span>{c}</span>
+                    </div>
+                  );
+                })}
+              </div>
+            </article>
+          ))}
+        </div>
+
+        {/* Pillar tabs: tablet and up (phones use the swipe cards above) */}
+        <div className="oa-scroll-row -mx-4 mb-8 hidden items-center gap-2 overflow-x-auto px-4 pb-1 sm:mx-0 sm:mb-12 sm:flex sm:flex-wrap sm:justify-center sm:gap-3 sm:overflow-visible sm:px-0">
           {PILLARS.map((p) => {
             const on = p.id === activeId;
             return (
@@ -385,8 +421,8 @@ function Pillars() {
           })}
         </div>
 
-        {/* Detail card */}
-        <div className="mx-auto max-w-3xl">
+        {/* Detail card (tablet and up) */}
+        <div className="mx-auto hidden max-w-3xl sm:block">
           <AnimatePresence mode="wait">
             <motion.div
               key={active.id}

@@ -407,19 +407,6 @@ function WhyLifeSkills() {
                                 alt="Life skills education"
                                 className="h-full w-full object-cover"
                             />
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
-                            {/* Floating card */}
-                            <div className="absolute bottom-3 left-3 right-3 md:bottom-6 md:left-6 md:right-6 bg-white/90 backdrop-blur rounded-2xl p-3 md:p-4 shadow-lg">
-                                <div className="flex items-center gap-3">
-                                    <div className="bg-brand-yellow rounded-lg p-2.5">
-                                        <Star className="w-5 h-5 text-brand-black" />
-                                    </div>
-                                    <div>
-                                        <p className="text-sm text-[#1A1A1A]/70 font-semibold uppercase tracking-wider">Research & Experience Show</p>
-                                        <p className="text-base font-bold text-[#1A1A1A]">Life skills increase chances of finishing education</p>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                     </FadeIn>
 
@@ -1285,11 +1272,11 @@ function WhyMagicBus() {
                                 <div className="mt-6 flex flex-wrap gap-4">
                                     <Link
                                         to="/partner"
-                                        className="inline-flex w-48 items-center justify-center gap-2 rounded-full bg-brand-red px-4 py-3.5 text-sm font-semibold text-white hover:bg-brand-red/90 transition-colors"
+                                        className="inline-flex h-14 w-56 items-center justify-center gap-2 rounded-full bg-brand-red px-4 text-base font-bold text-white hover:bg-brand-red/90 transition-colors"
                                     >
                                         Become a Partner <ArrowRight className="w-4 h-4" />
                                     </Link>
-                                    <FlipCoinButton onFlipComplete={() => navigate("/donate")}>
+                                    <FlipCoinButton size="cta" onFlipComplete={() => navigate("/donate")}>
                                         Donate Now
                                     </FlipCoinButton>
                                 </div>

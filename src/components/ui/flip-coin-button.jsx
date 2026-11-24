@@ -4,7 +4,9 @@ import { useEffect, useRef, useState } from "react";
    - The little Magic Bus on the left still bobs and spins its wheels on hover (unchanged).
    - The old coin-flip animation is gone. On click the Magic Bus now drives across the button, and then the page
      redirects (via onFlipComplete, the prop name is kept so every existing use keeps working).
-   - size="lg" gives the bigger version used in the header. */
+   - size="lg" gives the bigger version used in the header.
+   - size="cta" is for when Donate sits next to another call-to-action button: exactly 14rem x 3.5rem, the same size as
+     those buttons (see HeroBanner), so the two always match. */
 
 function cn(...inputs) {
   return inputs
@@ -69,7 +71,7 @@ export default function FlipCoinButton({ children, onFlipComplete, size }) {
   };
 
   return (
-    <button type="button" className={cn("flipCoinButton", { clicked, fcbLarge: size === "lg" })} onClick={handleClick}>
+    <button type="button" className={cn("flipCoinButton", { clicked, fcbLarge: size === "lg" || size === "cta", fcbCta: size === "cta" })} onClick={handleClick}>
       <span className="buttonText">
         <span className="fcbBadge">
           <span className="fcbBadgeInner">
@@ -122,6 +124,13 @@ const styles = `
     height: 3rem;
     width: 11rem;
   }
+}
+
+/* matches the other call-to-action buttons (min 14rem wide, 3.5rem tall) on every screen size */
+.flipCoinButton.fcbLarge.fcbCta {
+  font-size: 1.05rem;
+  height: 3.5rem;
+  width: 14rem;
 }
 
 .flipCoinButton:active {

@@ -122,7 +122,7 @@ function HeroBanner({
 
                                 if (cta.to === "/donate") {
                                     return (
-                                        <FlipCoinButton key={i} onFlipComplete={() => navigate(cta.to)}>
+                                        <FlipCoinButton key={i} size="cta" onFlipComplete={() => navigate(cta.to)}>
                                             {cta.label}
                                         </FlipCoinButton>
                                     );

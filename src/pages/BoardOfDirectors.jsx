@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useInView } from "framer-motion";
-import { ArrowRight, Users } from "lucide-react";
+import { ArrowRight, ChevronDown, Users } from "lucide-react";
 import { Link } from "react-router-dom";
 import Layout from "../components/Layout";
 import HeroBanner from "../components/HeroBanner";
@@ -81,6 +81,90 @@ function MemberCard({ member, index, onOpen }) {
                 </div>
             </motion.article>
         </FadeUp>
+    );
+}
+
+/* ----------------------------- phone list -----------------------------
+   Same idea as the Our Team page: on phones each person is one compact row (photo, name, role). Tap a row to open
+   the bio under it; "Read More" opens the full profile. Long boards show the first few and a "Show all" button.
+   Tablets and desktops keep the photo cards. */
+function MemberAvatar({ member }) {
+    const [failed, setFailed] = useState(false);
+    const initials = member.name
+        .split(" ")
+        .slice(0, 2)
+        .map((n) => n[0])
+        .join("");
+    return (
+        <span className="flex h-14 w-14 shrink-0 items-center justify-center overflow-hidden rounded-full bg-gradient-to-br from-[#E12228] to-[#FF6B6B]">
+            {!failed ? (
+                <img src={member.photo} alt="" loading="lazy" decoding="async" onError={() => setFailed(true)} className="h-full w-full object-cover object-[50%_20%]" />
+            ) : (
+                <span className="select-none text-xl font-extrabold text-white/90">{initials}</span>
+            )}
+        </span>
+    );
+}
+
+function MobileBoardList({ members, boardKey, onOpen, initialCount = 5 }) {
+    const [openName, setOpenName] = useState(null);
+    const [showAll, setShowAll] = useState(members.length <= initialCount);
+    const visible = showAll ? members : members.slice(0, initialCount);
+
+    return (
+        <div className="sm:hidden">
+            <ul className="space-y-3">
+                {visible.map((m) => {
+                    const isOpen = openName === m.name;
+                    const panelId = `board-bio-${boardKey}-${m.name.replace(/\s+/g, "-").toLowerCase()}`;
+                    return (
+                        <li key={m.name} className="overflow-hidden rounded-2xl border border-black/10 bg-white shadow-sm">
+                            <button
+                                type="button"
+                                onClick={() => setOpenName(isOpen ? null : m.name)}
+                                aria-expanded={isOpen}
+                                aria-controls={panelId}
+                                className="flex w-full items-center gap-4 p-4 text-left focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-inset focus-visible:ring-brand-yellow"
+                            >
+                                <MemberAvatar member={m} />
+                                <span className="min-w-0 flex-1">
+                                    <span className="block text-lg font-bold leading-snug text-[#1A1A1A]">{m.name}</span>
+                                    {m.role && <span className="mt-0.5 block text-sm font-semibold uppercase tracking-wider leading-snug text-brand-red">{m.role}</span>}
+                                </span>
+                                <ChevronDown className={`h-6 w-6 shrink-0 text-[#1A1A1A]/60 transition-transform duration-300 ${isOpen ? "rotate-180" : ""}`} aria-hidden="true" />
+                            </button>
+                            <AnimatePresence initial={false}>
+                                {isOpen && (
+                                    <motion.div
+                                        id={panelId}
+                                        initial={{ height: 0, opacity: 0 }}
+                                        animate={{ height: "auto", opacity: 1 }}
+                                        exit={{ height: 0, opacity: 0 }}
+                                        transition={{ duration: 0.3, ease: EASE }}
+                                        className="overflow-hidden"
+                                    >
+                                        <div className="border-t border-gray-100 px-4 pb-4 pt-3">
+                                            <p className="text-base leading-relaxed text-[#1A1A1A]/80">{m.bio[0]}</p>
+                                            {m.bio.length > 1 && <ReadMoreButton onClick={() => onOpen(m)} className="mt-4" />}
+                                        </div>
+                                    </motion.div>
+                                )}
+                            </AnimatePresence>
+                        </li>
+                    );
+                })}
+            </ul>
+            {!showAll && (
+                <button
+                    type="button"
+                    onClick={() => setShowAll(true)}
+                    className="mt-4 flex w-full items-center justify-center gap-2 rounded-full border-2 border-brand-red bg-white px-6 py-3 text-base font-bold text-brand-red transition hover:bg-brand-red hover:text-white focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-brand-yellow"
+                >
+                    Show all {members.length} members
+                    <ChevronDown className="h-5 w-5" aria-hidden="true" />
+                </button>
+            )}
+        </div>
     );
 }
 
@@ -197,7 +281,8 @@ function BoardsSection({ onOpen }) {
                                 <span className="rounded-full bg-brand-yellow/40 px-3 py-1 text-sm font-bold text-brand-black">{t.members.length} members</span>
                             </div>
                         </FadeUp>
-                        <div className="grid grid-cols-1 gap-5 min-[480px]:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                        <MobileBoardList members={t.members.map((n) => boardMembers[n]).filter(Boolean)} boardKey={t.key} onOpen={onOpen} />
+                        <div className="hidden gap-5 sm:grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                             {t.members.map((n, i) => {
                                 const m = boardMembers[n];
                                 return m ? <MemberCard key={`${t.key}-${n}`} member={m} index={i} onOpen={onOpen} /> : null;
