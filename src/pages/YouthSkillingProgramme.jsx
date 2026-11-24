@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import {
     CheckCircle2,
@@ -17,7 +17,8 @@ import {
     Zap,
     Award,
     ArrowRight,
-    Star,
+    ChevronLeft,
+    Quote,
     MessageCircle,
 } from "lucide-react";
 import Layout from "../components/Layout";
@@ -25,6 +26,8 @@ import HeroBanner from "../components/HeroBanner";
 import FAQSection from "../components/Home/FAQSectiom";
 import FaqSchema from "../components/seo/FaqSchema";
 import usePageMeta from "../hooks/usePageMeta";
+import usePhone from "../hooks/usePhone";
+import CountOnView from "../components/ui/CountOnView";
 import FrameworkWheel from "../components/programmes/FrameworkWheel";
 import LogoMarquee from "../components/Corporate/LogoMarquee";
 import { YOUTH_FRAMEWORK } from "../components/programmes/frameworkWheelData";
@@ -33,7 +36,12 @@ import { YOUTH_FRAMEWORK } from "../components/programmes/frameworkWheelData";
 const EASE = [0.16, 1, 0.3, 1];
 const _MOTION = motion;
 
-function FadeUp({ children, delay = 0, className = "" }) {
+/* Phones: a row you swipe sideways (so the page is not one very long column). Tablet and desktop: the normal grid. */
+const SWIPE_ROW =
+    "-mx-6 flex snap-x snap-mandatory gap-4 overflow-x-auto px-6 pb-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:mx-0 sm:overflow-visible sm:px-0 sm:pb-0";
+const SWIPE_ITEM = "w-[82%] shrink-0 snap-center sm:w-auto sm:shrink";
+
+function FadeUp({ children, delay = 0, className = "", immediate = false }) {
     const ref = useRef(null);
     const inView = useInView(ref, { once: true, margin: "-70px" });
     return (
@@ -41,7 +49,7 @@ function FadeUp({ children, delay = 0, className = "" }) {
             ref={ref}
             className={className}
             initial={{ opacity: 0, y: 36 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
+            animate={immediate || inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.65, ease: EASE, delay }}
         >
             {children}
@@ -174,22 +182,6 @@ function AboutSection() {
                                 alt="Youth skilling in action"
                                 className="h-full w-full object-cover"
                             />
-                            <div className="absolute inset-0 bg-gradient-to-t from-[#1A1A1A]/55 to-transparent" />
-                            <div className="absolute bottom-5 left-5 right-5">
-                                <div className="inline-flex items-center gap-3 bg-white/95 backdrop-blur rounded-2xl px-5 py-3 shadow-lg">
-                                    <div className="bg-brand-yellow rounded-xl p-2">
-                                        <Star className="w-4 h-4 text-brand-black" />
-                                    </div>
-                                    <div>
-                                        <p className="text-xs text-[#1A1A1A]/70 font-medium uppercase tracking-wider">
-                                            Connecting Youth to
-                                        </p>
-                                        <p className="text-sm font-bold text-[#1A1A1A]">
-                                            Formal Entry-Level Opportunities
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                     </FadeIn>
                 </div>
@@ -247,18 +239,36 @@ function ProgrammeDetailsSection() {
             <div className="max-w-7xl mx-auto px-6 lg:px-12">
                 <FadeUp className="mb-14">
                     <SectionTag>Programme Details</SectionTag>
-                    <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
-                        <h2 className="text-4xl md:text-5xl font-extrabold text-[#1A1A1A] leading-tight">
-                            Youth Skilling Programme <span className="text-brand-red">highlights</span>
-                        </h2>
-                        <p className="text-[#1A1A1A]/75 max-w-sm text-base leading-relaxed">
-                            Four defining features that shape the programme's reach and effectiveness.
-                        </p>
-                    </div>
+                    <h2 className="text-4xl md:text-5xl font-extrabold text-[#1A1A1A] leading-tight">
+                        Youth Skilling Programme <span className="text-brand-red">highlights</span>
+                    </h2>
                 </FadeUp>
 
-                {/* Bold editorial stat strip */}
-                <div className="divide-y divide-gray-200 border-t border-gray-200">
+                {/* Phones: four cards you swipe through */}
+                <div className={`${SWIPE_ROW} sm:hidden`}>
+                    {programmeDetails.map((item) => (
+                        <div
+                            key={item.title}
+                            className={`${SWIPE_ITEM} flex flex-col rounded-3xl border border-gray-200 bg-white p-6 shadow-sm`}
+                        >
+                            <div className="flex items-center gap-4">
+                                <div className={`w-1.5 self-stretch rounded-full ${item.barColor}`} />
+                                <div className="min-w-0">
+                                    <div className={`text-5xl font-black leading-none ${item.accentColor}`}>{item.stat}</div>
+                                    <div className="mt-1.5 text-base font-bold uppercase tracking-[0.14em] text-[#1A1A1A]/70">{item.unit}</div>
+                                </div>
+                                <div className={`ml-auto flex h-11 w-11 shrink-0 items-center justify-center rounded-xl ${item.barColor}`}>
+                                    <item.icon className="h-5 w-5 text-white" />
+                                </div>
+                            </div>
+                            <h3 className="mt-5 text-xl font-extrabold leading-snug text-[#1A1A1A]">{item.title}</h3>
+                            <p className="mt-2 text-base leading-relaxed text-[#1A1A1A]/80">{item.desc}</p>
+                        </div>
+                    ))}
+                </div>
+
+                {/* Tablet and desktop: bold editorial stat strip */}
+                <div className="hidden divide-y divide-gray-200 border-t border-gray-200 sm:block">
                     {programmeDetails.map((item, i) => (
                         <FadeUp key={item.title} delay={0.08 * i}>
                             <_MOTION.div
@@ -358,29 +368,25 @@ const structureSteps = [
 ];
 
 function StructureSection() {
+    const phone = usePhone();
     return (
-        <section id="programme-structure" className="py-20 bg-[#1A1A1A] relative overflow-hidden">
+        <section id="programme-structure" className="py-12 sm:py-20 bg-[#1A1A1A] relative overflow-hidden">
             <div className="pointer-events-none absolute -top-32 -left-32 w-96 h-96 rounded-full bg-brand-red/15 blur-3xl" />
             <div className="pointer-events-none absolute -bottom-32 -right-32 w-80 h-80 rounded-full bg-brand-yellow/10 blur-3xl" />
 
             <div className="max-w-7xl mx-auto px-6 lg:px-12 relative z-10">
                 <FadeUp className="mb-16">
                     <SectionTag dark>Structure of Programme</SectionTag>
-                    <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
-                        <h2 className="text-4xl md:text-5xl font-extrabold text-white leading-tight">
-                            Youth Skilling Programme{" "}
-                            <span className="text-brand-yellow">Structure</span>
-                        </h2>
-                        <p className="text-white/70 max-w-sm text-sm leading-relaxed">
-                            A six-step journey from first contact to long-term employment support.
-                        </p>
-                    </div>
+                    <h2 className="text-4xl md:text-5xl font-extrabold text-white leading-tight">
+                        Youth Skilling Programme{" "}
+                        <span className="text-brand-yellow">Structure</span>
+                    </h2>
                 </FadeUp>
 
-                {/* Step grid */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                {/* Step grid (on phones a row you swipe through) */}
+                <div className={`${SWIPE_ROW} sm:grid sm:grid-cols-2 lg:grid-cols-3`}>
                     {structureSteps.map((step, i) => (
-                        <FadeUp key={step.label} delay={0.07 * i} className="h-full">
+                        <FadeUp key={step.label} delay={0.07 * i} className={`h-full ${SWIPE_ITEM}`} immediate={phone}>
                             {/* h-full on both, so every box in a row is as tall as the tallest one */}
                             <_MOTION.div
                                 className="group relative h-full rounded-2xl overflow-hidden border border-white/10 bg-white/5 hover:bg-white/10 transition-all duration-300 cursor-default"
@@ -489,9 +495,9 @@ const sectors = [
 
 function SectorsSection() {
     return (
-        <section className="py-20 bg-[#F7F7F5]">
+        <section className="py-12 sm:py-20 bg-[#F7F7F5]">
             <div className="max-w-7xl mx-auto px-6 lg:px-12">
-                <FadeUp className="mb-14">
+                <FadeUp className="mb-8 sm:mb-14">
                     <SectionTag>Sectors and Roles</SectionTag>
                     <h2 className="text-4xl md:text-5xl font-extrabold text-[#1A1A1A] leading-tight">
                         Opportunities for Youth: <span className="text-brand-red">Entry-Level Jobs and Sectors</span>
@@ -518,34 +524,33 @@ function SectorsSection() {
                         <FadeUp key={item.sector} delay={0.08 * i}>
                             {/* Hover (or keyboard focus) is quiet: the row turns white, a thin bar in the sector colour
                                 slides in on the left, the icon lifts a little and the role pills get a soft outline. */}
-                            <div className="group relative grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-0 items-stretch overflow-hidden transition-colors duration-300 hover:bg-white focus-within:bg-white">
+                            <div className="group relative grid grid-cols-[112px_minmax(0,1fr)] md:grid-cols-2 gap-0 items-stretch overflow-hidden transition-colors duration-300 hover:bg-white focus-within:bg-white">
                                 <span
                                     aria-hidden="true"
                                     className={`absolute left-0 top-0 h-full w-1 origin-top scale-y-0 ${item.color} transition-transform duration-300 group-hover:scale-y-100 group-focus-within:scale-y-100`}
                                 />
                                 {/* Col 1: sector name + icon */}
-                                <div className="flex items-center gap-4 pt-6 pb-2 pl-3 md:py-6 md:pl-5 md:pr-6">
+                                <div className="flex flex-col items-start gap-2 py-4 pl-3 md:flex-row md:items-center md:gap-4 md:py-6 md:pl-5 md:pr-6">
                                     <div
-                                        className={`${item.color} rounded-xl w-12 h-12 flex items-center justify-center shrink-0 transition duration-300 group-hover:-translate-y-0.5 group-hover:shadow-md`}
+                                        className={`${item.color} rounded-xl w-10 h-10 md:w-12 md:h-12 flex items-center justify-center shrink-0 transition duration-300 group-hover:-translate-y-0.5 group-hover:shadow-md`}
                                     >
-                                        <item.icon className={`w-6 h-6 ${item.textColor}`} />
+                                        <item.icon className={`w-5 h-5 md:w-6 md:h-6 ${item.textColor}`} />
                                     </div>
-                                    <h3 className="font-extrabold text-[#1A1A1A] text-xl md:text-2xl">{item.sector}</h3>
+                                    <h3 className="font-extrabold leading-snug text-[#1A1A1A] text-lg md:text-2xl">{item.sector}</h3>
                                 </div>
-                                {/* Col 2: roles, as small pills */}
-                                <div className="flex items-center pb-6 pl-3 md:py-6 md:px-6 md:border-l border-gray-200">
+                                {/* Col 2: roles. On phones: a tight list beside the sector name, so every sector fits on screen at once.
+                                    Tablet and desktop: small pills. */}
+                                <div className="flex items-center py-4 pl-2 md:py-6 md:px-6 md:border-l border-gray-200">
                                     <div>
-                                        <p className="text-xs font-bold uppercase tracking-widest text-[#1A1A1A]/55 mb-2 md:hidden">
-                                            Roles available
-                                        </p>
-                                        <ul className="flex flex-wrap gap-2">
+                                        <ul className="flex flex-col gap-1 md:flex-row md:flex-wrap md:gap-2">
                                             {item.roles.split(", ").map((role) => (
                                                 <li
                                                     key={role}
                                                     tabIndex={0}
-                                                    className="rounded-full border border-gray-300/80 bg-white px-4 py-1.5 text-base md:text-lg font-medium text-[#1A1A1A]/85 transition-colors duration-200 hover:border-[#1A1A1A]/40 hover:text-[#1A1A1A] focus-visible:border-[#1A1A1A]/40 focus-visible:outline-none"
+                                                    className="flex items-start gap-2 text-[15px] leading-snug font-medium text-[#1A1A1A]/85 md:block md:rounded-full md:border md:border-gray-300/80 md:bg-white md:px-4 md:py-1.5 md:text-lg transition-colors duration-200 md:hover:border-[#1A1A1A]/40 hover:text-[#1A1A1A] focus-visible:outline-none md:focus-visible:border-[#1A1A1A]/40"
                                                 >
-                                                    {role}
+                                                    <span aria-hidden="true" className={`mt-[7px] h-1.5 w-1.5 shrink-0 rounded-full md:hidden ${item.color}`} />
+                                                    <span>{role}</span>
                                                 </li>
                                             ))}
                                         </ul>
@@ -748,27 +753,56 @@ function ContactSection() {
 ══════════════════════════════════════════════════════════════ */
 function ImpactSection() {
     const stats = [
-        { num: "2,30,124", label: "Youth enrolled in Standard Skilling" },
-        { num: "1,44,982", label: "Female participants" },
-        { num: "63%", label: "Female participation" },
+        { num: "2,30,124", label: "Youth enrolled in Standard Skilling", icon: Users, tile: "bg-brand-red text-white", chip: "bg-white/20 text-white", sub: "text-white/90" },
+        { num: "1,44,982", label: "Female participants", icon: Award, tile: "bg-brand-blue text-brand-black", chip: "bg-brand-black/10 text-brand-black", sub: "text-brand-black/85" },
+        { num: "63%", label: "Female participation", icon: Target, tile: "bg-brand-yellow text-brand-black", chip: "bg-brand-black/10 text-brand-black", sub: "text-brand-black/85", bar: 63 },
     ];
     return (
-        <section className="py-20 bg-[#F7F7F5]">
+        <section className="py-12 sm:py-20 bg-[#F7F7F5]">
             <div className="max-w-7xl mx-auto px-6 lg:px-12">
-                <FadeUp className="mb-12">
+                <FadeUp className="mb-8 sm:mb-12">
                     <SectionTag>Outreach and Impact</SectionTag>
                     <h2 className="text-4xl md:text-5xl font-extrabold text-[#1A1A1A] leading-tight">
                         Outreach and <span className="text-brand-red">Impact</span>
                     </h2>
-                    <p className="mt-3 text-sm text-[#1A1A1A]/70">Cumulative enrolment as on August 2026</p>
+                    <p className="mt-3 text-base text-[#1A1A1A]/75">Cumulative enrolment as on August 2026</p>
                 </FadeUp>
-                <div className="grid sm:grid-cols-3 gap-4">
+                {/* Three colour tiles. The numbers count up when they scroll into view. */}
+                <div className="grid gap-4 md:grid-cols-3">
                     {stats.map((st, i) => (
-                        <FadeUp key={st.label} delay={0.06 * i}>
-                            <div className="rounded-2xl border border-gray-200 bg-white p-7 h-full">
-                                <p className="text-4xl md:text-5xl font-black text-brand-red">{st.num}</p>
-                                <p className="mt-2 text-sm font-semibold text-[#1A1A1A]/80">{st.label}</p>
-                            </div>
+                        <FadeUp key={st.label} delay={0.08 * i} className="h-full">
+                            <_MOTION.div
+                                whileHover={{ y: -6 }}
+                                transition={{ type: "spring", stiffness: 280, damping: 22 }}
+                                className={`relative h-full overflow-hidden rounded-3xl p-6 shadow-lg md:p-7 ${st.tile}`}
+                            >
+                                <st.icon aria-hidden="true" className="pointer-events-none absolute -right-4 -top-4 h-28 w-28 opacity-10" />
+                                {/* phones: icon beside the number, so each tile stays short; larger screens: icon above */}
+                                <div className="relative flex items-center gap-4 md:block">
+                                    <span className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-xl ${st.chip}`}>
+                                        <st.icon className="h-5 w-5" />
+                                    </span>
+                                    <div className="min-w-0 md:mt-5">
+                                        <p className="text-4xl font-black leading-none min-[400px]:text-5xl md:text-[clamp(2rem,3.6vw,3.25rem)]">
+                                            <CountOnView value={st.num} />
+                                        </p>
+                                        <p className={`mt-2 text-lg font-semibold leading-snug md:mt-3 ${st.sub}`}>{st.label}</p>
+                                    </div>
+                                </div>
+                                {st.bar && (
+                                    <div className="relative mt-4 md:mt-5" aria-hidden="true">
+                                        <div className="h-3 overflow-hidden rounded-full bg-brand-black/15">
+                                            <_MOTION.div
+                                                className="h-full rounded-full bg-brand-black"
+                                                initial={{ width: 0 }}
+                                                whileInView={{ width: `${st.bar}%` }}
+                                                viewport={{ once: true, margin: "-40px" }}
+                                                transition={{ duration: 1.2, ease: EASE, delay: 0.2 }}
+                                            />
+                                        </div>
+                                    </div>
+                                )}
+                            </_MOTION.div>
                         </FadeUp>
                     ))}
                 </div>
@@ -808,31 +842,118 @@ const successStories = [
     }
 ];
 
+/* Same look as the testimonials on the other pages: a dark card with a yellow quote mark, one story at a time,
+   with dots and arrows (and swipe on a touch screen). All stories sit in one grid cell, so the card never changes height. */
 function SuccessStoriesSection() {
+    const [active, setActive] = useState(0);
+    const start = useRef(null);
+    const count = successStories.length;
+    const [open, setOpen] = useState(false); /* phones: the full story is opened with "Read full story" */
+    const go = (n) => {
+        setActive((n + count) % count);
+        setOpen(false);
+    };
+    const swipe = {
+        style: { touchAction: "pan-y" },
+        onPointerDown: (e) => {
+            start.current = { x: e.clientX, y: e.clientY };
+        },
+        onPointerUp: (e) => {
+            if (!start.current) return;
+            const dx = e.clientX - start.current.x;
+            const dy = e.clientY - start.current.y;
+            start.current = null;
+            if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) go(active + (dx < 0 ? 1 : -1));
+        },
+    };
     return (
-        <section className="py-20 bg-white">
+        <section className="py-12 sm:py-20 bg-white">
             <div className="max-w-7xl mx-auto px-6 lg:px-12">
-                <FadeUp className="mb-12">
+                <FadeUp className="mb-8 sm:mb-12">
                     <SectionTag>Success Stories</SectionTag>
                     <h2 className="text-4xl md:text-5xl font-extrabold text-[#1A1A1A] leading-tight">
                         Success <span className="text-brand-red">Stories</span>
                     </h2>
                 </FadeUp>
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
-                    {successStories.map((item, i) => (
-                        <FadeUp key={item.name} delay={0.05 * i}>
-                            <article className="h-full rounded-2xl border border-gray-200 bg-[#F7F7F5] p-6 flex flex-col">
-                                <div className="flex items-center justify-between gap-3">
-                                    <h3 className="text-xl font-extrabold text-[#1A1A1A]">{item.name}</h3>
-                                    <span className="shrink-0 rounded-full bg-brand-yellow px-3 py-1 text-xs font-bold uppercase tracking-wider text-brand-black">
-                                        {item.city}
+
+                <FadeUp delay={0.1}>
+                    <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#1A1A1A] via-[#2B1216] to-[#6B0F18] p-6 shadow-2xl ring-1 ring-brand-red/40 sm:p-10 md:p-12">
+                        <div className="pointer-events-none absolute -right-20 -top-20 h-72 w-72 rounded-full bg-brand-yellow/20 blur-3xl" />
+                        <div className="pointer-events-none absolute -bottom-24 -left-16 h-64 w-64 rounded-full bg-brand-red/30 blur-3xl" />
+                        <Quote className="pointer-events-none absolute right-4 top-4 h-16 w-16 text-white/10 sm:right-8 sm:top-6 sm:h-40 sm:w-40" />
+
+                        <div className="relative grid" {...swipe} aria-live="polite">
+                            {successStories.map((item, i) => (
+                                <article
+                                    key={item.name}
+                                    inert={i !== active}
+                                    aria-hidden={i !== active}
+                                    className={`col-start-1 row-start-1 flex flex-col transition-opacity duration-300 ${
+                                        i === active ? "opacity-100" : "pointer-events-none invisible opacity-0"
+                                    }`}
+                                >
+                                    <span className="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-brand-yellow shadow-lg">
+                                        <Quote className="h-6 w-6 text-brand-black" />
                                     </span>
-                                </div>
-                                <p className="mt-4 text-sm leading-relaxed text-[#1A1A1A]/70">{item.story}</p>
-                            </article>
-                        </FadeUp>
-                    ))}
-                </div>
+                                    <p
+                                        className={`text-base font-medium leading-relaxed text-white sm:text-lg md:text-xl md:leading-relaxed sm:line-clamp-none ${
+                                            open && i === active ? "" : "line-clamp-[9]"
+                                        }`}
+                                    >
+                                        &ldquo;{item.story}&rdquo;
+                                    </p>
+                                    <button
+                                        type="button"
+                                        onClick={() => setOpen((o) => !o)}
+                                        className="mt-3 self-start text-base font-bold text-brand-yellow underline underline-offset-4 sm:hidden"
+                                    >
+                                        {open ? "Show less" : "Read full story"}
+                                    </button>
+                                    <footer className="mt-5 flex items-center gap-3 border-t border-white/20 pt-5 sm:mt-7">
+                                        <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-brand-yellow/20 text-lg font-black text-brand-yellow ring-4 ring-brand-yellow">
+                                            {item.name.charAt(0)}
+                                        </span>
+                                        <div className="min-w-0">
+                                            <p className="text-lg font-extrabold text-white sm:text-xl">{item.name}</p>
+                                            <p className="text-base font-semibold text-brand-yellow">{item.city}</p>
+                                        </div>
+                                    </footer>
+                                </article>
+                            ))}
+                        </div>
+
+                        <div className="relative mt-6 flex items-center justify-between gap-3 sm:mt-8">
+                            <div className="flex items-center gap-2">
+                                {successStories.map((item, i) => (
+                                    <button
+                                        key={item.name}
+                                        onClick={() => go(i)}
+                                        className={`h-2.5 rounded-full transition-all ${
+                                            i === active ? "w-10 bg-brand-yellow" : "w-4 bg-white/30 hover:bg-white/50"
+                                        }`}
+                                        aria-label={`Show story ${i + 1}: ${item.name}`}
+                                    />
+                                ))}
+                            </div>
+                            <div className="flex items-center gap-2">
+                                <button
+                                    onClick={() => go(active - 1)}
+                                    className="grid h-11 w-11 place-items-center rounded-full border border-white/30 text-white transition hover:bg-brand-yellow hover:text-brand-black"
+                                    aria-label="Previous story"
+                                >
+                                    <ChevronLeft className="h-5 w-5" />
+                                </button>
+                                <button
+                                    onClick={() => go(active + 1)}
+                                    className="grid h-11 w-11 place-items-center rounded-full border border-white/30 text-white transition hover:bg-brand-yellow hover:text-brand-black"
+                                    aria-label="Next story"
+                                >
+                                    <ChevronRight className="h-5 w-5" />
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </FadeUp>
             </div>
         </section>
     );
@@ -856,6 +977,7 @@ export default function YouthSkillingProgramme() {
                 badgeText="Magic Bus India Foundation"
                 image="/youth-skilling.jpg"
                 title="Skilling for Undergraduates Programme"
+                titleSizeClassName="text-[2.15rem] min-[400px]:text-4xl sm:text-5xl md:text-6xl lg:text-7xl"
                 subtitle="Connecting youth to livelihood opportunities through a job-oriented skilling course after 12th"
                 ctas={[
                     {
