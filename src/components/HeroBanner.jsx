@@ -18,6 +18,7 @@ function HeroBanner({
     showStats = false,
     stats = [],
     statsVariant = "inline",
+    statsStackOnPhone = false, /* inline stats: on a phone each one is a neat block with a yellow bar at its left (one under the other) */
     titleGradient = true,
     showTitleDivider = true,
     titleSizeClassName = "text-5xl md:text-6xl lg:text-7xl",
@@ -161,14 +162,19 @@ function HeroBanner({
                             initial={{ opacity: 0, y: 16 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.7, duration: 0.6, ease: EASE }}
-                            className="mt-10 flex flex-wrap gap-x-0 gap-y-6"
+                            className={`mt-10 flex flex-wrap gap-x-0 ${statsStackOnPhone ? "gap-y-5 md:gap-y-6" : "gap-y-6"}`}
                         >
                             {stats.map((s, i) => {
                                 const num = String(s.num ?? s.value);
                                 return (
-                                    <div key={s.label} className="flex w-full items-center gap-4 md:w-auto md:pr-8 md:mr-8 md:border-r border-white/20 md:last:border-0 md:last:mr-0 md:last:pr-0">
-                                        <div className={`font-extrabold leading-tight text-brand-yellow ${num.length > 8 ? "text-2xl md:text-3xl max-w-[260px]" : "text-4xl md:text-5xl"}`}>{num}</div>
-                                        <div className="text-base md:text-lg text-white/85 font-medium leading-snug max-w-[240px]">{s.label}</div>
+                                    <div
+                                        key={s.label}
+                                        className={`flex w-full gap-4 md:w-auto md:pr-8 md:mr-8 md:border-r border-white/20 md:last:border-0 md:last:mr-0 md:last:pr-0 ${
+                                            statsStackOnPhone ? "flex-col gap-1 border-l-4 border-brand-yellow pl-4 md:flex-row md:items-center md:gap-4 md:border-l-0 md:pl-0" : "items-center"
+                                        }`}
+                                    >
+                                        <div className={`font-extrabold leading-tight text-brand-yellow ${num.length > 8 ? `text-2xl md:text-3xl ${statsStackOnPhone ? "md:max-w-[260px]" : "max-w-[260px]"}` : "text-4xl md:text-5xl"}`}>{num}</div>
+                                        <div className={`text-base md:text-lg text-white/85 font-medium leading-snug ${statsStackOnPhone ? "md:max-w-[240px]" : "max-w-[240px]"}`}>{s.label}</div>
                                     </div>
                                 );
                             })}

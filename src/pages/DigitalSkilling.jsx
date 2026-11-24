@@ -25,11 +25,12 @@ import FAQSection from "../components/Home/FAQSectiom";
 import { digitalSkillingFAQ } from "../components/Home/faqItems";
 import FaqSchema from "../components/seo/FaqSchema";
 import usePageMeta from "../hooks/usePageMeta";
+import usePhone from "../hooks/usePhone";
 
 /* ─────────────────────────── animation helpers ─────────────────────────── */
 const EASE = [0.16, 1, 0.3, 1];
 
-function FadeUp({ children, delay = 0, className = "" }) {
+function FadeUp({ children, delay = 0, className = "", immediate = false }) {
     const ref = useRef(null);
     const inView = useInView(ref, { once: true, margin: "-60px" });
     return (
@@ -37,7 +38,7 @@ function FadeUp({ children, delay = 0, className = "" }) {
             ref={ref}
             className={className}
             initial={{ opacity: 0, y: 40 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
+            animate={immediate || inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.7, ease: EASE, delay }}
         >
             {children}
@@ -61,6 +62,15 @@ function FadeIn({ children, delay = 0, className = "" }) {
     );
 }
 
+/* A figure (60 hours, Face to face ...) shown with a yellow marker behind it; on hover the marker fills the whole word. */
+function Mark({ children }) {
+    return (
+        <span className="rounded-sm bg-[linear-gradient(#FFCC04,#FFCC04)] bg-[length:100%_38%] bg-bottom bg-no-repeat px-1 transition-[background-size] duration-300 hover:bg-[length:100%_100%]">
+            {children}
+        </span>
+    );
+}
+
 /* ══════════════════════════════════════════════════════════════
    SECTION 1 — ABOUT
    Design: Split — editorial left text + layered image collage right
@@ -72,14 +82,6 @@ function AboutSection() {
                 <div className="grid lg:grid-cols-2 gap-16 items-center">
                     {/* Left: Text */}
                     <FadeUp>
-                        {/* Eyebrow */}
-                        <div className="inline-flex items-center gap-2 rounded-full bg-[#0F0F23] px-4 py-1.5 mb-6">
-                            <span className="h-1.5 w-1.5 rounded-full bg-brand-yellow animate-pulse" />
-                            <span className="text-xs font-bold uppercase tracking-[0.22em] text-brand-yellow">
-                                About Magic Bus Digital Programmes
-                            </span>
-                        </div>
-
                         <h2 className="text-4xl md:text-5xl font-extrabold text-[#0F0F23] leading-[1.1] mb-6">
                             About Magic Bus{" "}
                             <span className="relative inline-block">
@@ -141,7 +143,7 @@ function AboutSection() {
 
                             {/* Floating stat card — top right */}
                             <motion.div
-                                className="absolute -top-4 -right-4 bg-[#0F0F23] text-white rounded-2xl px-5 py-4 shadow-2xl"
+                                className="absolute -bottom-4 -right-2 max-w-[120px] rounded-2xl bg-[#0F0F23] px-4 py-3 text-white shadow-2xl sm:-top-4 sm:-right-4 sm:bottom-auto sm:max-w-none sm:px-5 sm:py-4"
                                 initial={{ opacity: 0, scale: 0.85 }}
                                 whileInView={{ opacity: 1, scale: 1 }}
                                 viewport={{ once: true }}
@@ -153,7 +155,7 @@ function AboutSection() {
 
                             {/* Floating badge — bottom left */}
                             <motion.div
-                                className="absolute -bottom-4 -left-4 bg-brand-yellow rounded-2xl px-5 py-4 shadow-xl"
+                                className="absolute -bottom-4 -left-4 max-w-[150px] rounded-2xl bg-brand-yellow px-4 py-3 shadow-xl sm:max-w-none sm:px-5 sm:py-4"
                                 initial={{ opacity: 0, y: 16 }}
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
@@ -214,6 +216,7 @@ const features = [
 ];
 
 function FeaturesSection() {
+    const phone = usePhone();
     return (
         <section className="py-24 bg-[#0F0F23] relative overflow-hidden">
             {/* Decorative glows */}
@@ -235,12 +238,12 @@ function FeaturesSection() {
                     </h2>
                 </FadeUp>
 
-                {/* Feature grid — 3 equal cards */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+                {/* Feature cards: on phones a row you swipe through; larger screens a grid of 3 equal cards */}
+                <div className="-mx-6 flex snap-x snap-mandatory gap-4 overflow-x-auto px-6 pb-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:mx-0 md:grid md:grid-cols-3 md:gap-5 md:overflow-visible md:px-0 md:pb-0">
                     {features.map((f, i) => (
-                        <FadeUp key={f.title} delay={0.08 * i}>
+                        <FadeUp key={f.title} delay={0.08 * i} className="flex w-[82%] shrink-0 snap-center flex-col md:h-full md:w-auto md:shrink" immediate={phone}>
                             <motion.div
-                                className="group relative rounded-2xl border border-white/8 bg-white/5 p-8 overflow-hidden cursor-default h-full"
+                                className="group relative flex-1 rounded-2xl border border-white/8 bg-white/5 p-6 md:p-8 overflow-hidden cursor-default"
                                 whileHover={{ y: -6, borderColor: "rgba(255,255,255,0.15)" }}
                                 transition={{ type: "spring", stiffness: 260, damping: 20 }}
                             >
@@ -340,9 +343,6 @@ function ProgrammeDetailsSection() {
                             Our Digital Programmes{" "}
                             <span className="text-brand-red">at a Glance: AI, Data Analytics and Web Design Courses</span>
                         </h2>
-                        <p className="text-[#0F0F23]/75 text-base leading-relaxed max-w-sm">
-                            Three distinct tracks — each designed to unlock white collar career pathways.
-                        </p>
                     </div>
                 </FadeUp>
 
@@ -398,7 +398,7 @@ function ProgrammeDetailsSection() {
                                                     <Icon className="w-4 h-4 shrink-0" />
                                                     <span className="text-base font-medium">{label}</span>
                                                 </div>
-                                                <span className="text-base font-bold text-[#0F0F23] text-right">{prog[key]}</span>
+                                                <span className="text-base font-bold text-[#0F0F23] text-right"><Mark>{prog[key]}</Mark></span>
                                             </div>
                                         ))}
                                     </div>
@@ -454,7 +454,7 @@ function ProgrammeDetailsSection() {
                                                         <Icon className="w-4 h-4" />
                                                         <span className="text-base font-medium">{label}</span>
                                                     </div>
-                                                    <span className="text-base font-bold text-[#0F0F23] text-right">{prog[key]}</span>
+                                                    <span className="text-base font-bold text-[#0F0F23] text-right"><Mark>{prog[key]}</Mark></span>
                                                 </div>
                                             ))}
                                         </div>
@@ -474,8 +474,36 @@ function ProgrammeDetailsSection() {
                     </AnimatePresence>
                 </div>
 
-                {/* Full comparison table */}
-                <FadeUp delay={0.15} className="mt-12">
+                {/* Programme Framework on phones: one block per programme, so nothing needs a sideways swipe */}
+                <div className="mt-10 md:hidden">
+                    <p className="mb-3 text-sm font-bold uppercase tracking-widest text-[#0F0F23]/60">Programme Framework</p>
+                    <div className="space-y-4">
+                        {programmes.map((p) => (
+                            <div key={p.name} className="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm">
+                                <div className="flex items-center gap-3 bg-[#0F0F23] px-4 py-3">
+                                    <div className={`h-2.5 w-2.5 shrink-0 rounded-full ${p.accentBg}`} />
+                                    <span className="text-lg font-bold leading-tight text-white">{p.name}</span>
+                                </div>
+                                <dl className="grid grid-cols-2 gap-px bg-gray-200">
+                                    {rows.map(({ label, key, icon: Icon }) => (
+                                        <div key={key} className="bg-white p-3.5">
+                                            <dt className="flex items-start gap-1.5 text-sm font-medium text-[#0F0F23]/70">
+                                                <Icon className="h-4 w-4 shrink-0" />
+                                                {label}
+                                            </dt>
+                                            <dd className="mt-1.5 text-lg font-bold leading-snug text-[#0F0F23]">
+                                                <Mark>{p[key]}</Mark>
+                                            </dd>
+                                        </div>
+                                    ))}
+                                </dl>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+
+                {/* Full comparison table (tablet and desktop) */}
+                <FadeUp delay={0.15} className="mt-12 hidden md:block">
                   <div className="overflow-x-auto">
                     <div className="min-w-[720px] rounded-2xl overflow-hidden border border-gray-200 bg-white shadow-sm">
                         <div className="grid grid-cols-4 bg-[#0F0F23]">
@@ -498,7 +526,7 @@ function ProgrammeDetailsSection() {
                                 </div>
                                 {programmes.map((p) => (
                                     <div key={p.name} className="p-5 flex items-center">
-                                        <span className="text-base md:text-lg font-bold text-[#0F0F23]">{p[key]}</span>
+                                        <span className="text-base md:text-lg font-bold text-[#0F0F23]"><Mark>{p[key]}</Mark></span>
                                     </div>
                                 ))}
                             </div>
@@ -689,6 +717,7 @@ export default function DigitalSkilling() {
                 ]}
                 showStats
                 statsVariant="inline"
+                statsStackOnPhone
                 stats={[
                     { num: "3", label: "Digital Tracks" },
                     { num: "Nano & short-term courses", label: "60 hours AI-CWW / 240 Hours AI Data Analytics" },
