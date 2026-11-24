@@ -4,6 +4,7 @@ import { Landmark, Mail, ArrowRight, ArrowUpRight, Play, GraduationCap, Brain, M
 import Layout from "../components/Layout";
 import HeroBanner from "../components/HeroBanner";
 import usePageMeta from "../hooks/usePageMeta";
+import usePhone from "../hooks/usePhone";
 import GovernmentFootprintMap from "../components/programmes/GovernmentFootprintMap";
 
 const EASE = [0.16, 1, 0.3, 1];
@@ -11,7 +12,12 @@ const CORAL = "#F26B6B";
 const TEAL = "#3CBFC2";
 const NAVY = "#1F4457";
 
-function FadeUp({ children, delay = 0, className = "" }) {
+/* Phones: a row you swipe sideways (so the page is not one very long column). Tablet and desktop: the normal grid. */
+const SWIPE_ROW =
+  "-mx-6 flex snap-x snap-mandatory gap-4 overflow-x-auto px-6 pb-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:mx-0 sm:overflow-visible sm:px-0 sm:pb-0";
+const SWIPE_ITEM = "w-[84%] shrink-0 snap-center sm:w-auto sm:shrink";
+
+function FadeUp({ children, delay = 0, className = "", immediate = false }) {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
   return (
@@ -19,7 +25,7 @@ function FadeUp({ children, delay = 0, className = "" }) {
       ref={ref}
       className={className}
       initial={{ opacity: 0, y: 28 }}
-      animate={inView ? { opacity: 1, y: 0 } : {}}
+      animate={immediate || inView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.58, ease: EASE, delay }}
     >
       {children}
@@ -239,16 +245,17 @@ const PHASES = [
 ];
 
 function TimelineSection() {
+  const phone = usePhone();
   return (
-    <section className="bg-[#F6F8FB] py-16 sm:py-20">
+    <section className="bg-[#F6F8FB] py-10 sm:py-20">
       <div className="mx-auto max-w-7xl px-6 lg:px-12">
         <FadeUp className="max-w-4xl">
           <SectionTag>Our journey</SectionTag>
           <h2 className="mt-5 text-3xl font-black text-[#0F172A] md:text-4xl">Our partnership journey, 2022–2026</h2>
         </FadeUp>
-        <div className="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+        <div className={`mt-8 ${SWIPE_ROW} sm:mt-10 sm:grid sm:grid-cols-2 sm:gap-5 xl:grid-cols-4`}>
           {PHASES.map((p, i) => (
-            <FadeUp key={p.year} delay={i * 0.06} className="h-full">
+            <FadeUp key={p.year} delay={i * 0.06} className={`h-full ${SWIPE_ITEM}`} immediate={phone}>
               <div className="flex h-full flex-col overflow-hidden rounded-3xl border border-black/10 bg-white shadow-sm">
                 <div className="px-5 py-4 text-white" style={{ background: p.color }}>
                   <p className="text-lg font-black leading-tight">
@@ -297,8 +304,9 @@ const FINDINGS = [
 const FINDING_COLORS = [CORAL, TEAL, NAVY, "#D97706", "#7B52B8"];
 
 function ProofSection() {
+  const phone = usePhone();
   return (
-    <section className="bg-white py-16 sm:py-20">
+    <section className="bg-white py-10 sm:py-20">
       <div className="mx-auto max-w-7xl px-6 lg:px-12">
         <FadeUp className="max-w-4xl">
           <SectionTag>Evidence</SectionTag>
@@ -306,9 +314,9 @@ function ProofSection() {
           <p className="mt-4 text-lg font-semibold text-slate-800">Key findings from our Government Partnership life skills programme in the field</p>
           <p className="mt-3 leading-relaxed text-slate-600">The Life-Skills Impact Assessment Report 2025 (Odisha) reports the following findings:</p>
         </FadeUp>
-        <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <div className={`mt-8 ${SWIPE_ROW} sm:grid sm:grid-cols-2 sm:gap-5 lg:grid-cols-3`}>
           {FINDINGS.map((f, i) => (
-            <FadeUp key={f.label} delay={i * 0.05} className="h-full">
+            <FadeUp key={f.label} delay={i * 0.05} className={`h-full ${SWIPE_ITEM}`} immediate={phone}>
               <div className="h-full rounded-3xl border border-black/10 bg-[#F8FAFC] p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-md" style={{ borderTop: `6px solid ${FINDING_COLORS[i % FINDING_COLORS.length]}` }}>
                 <p className="text-5xl font-black" style={{ color: FINDING_COLORS[i % FINDING_COLORS.length] }}>
                   {f.big}

@@ -7,12 +7,18 @@ import {
     Clock3,
     Compass,
     ExternalLink,
+    Handshake,
+    Landmark,
+    Leaf,
     Mail,
     MapPinned,
     Quote,
+    Rocket,
     Sprout,
+    Target,
     Users2,
 } from "lucide-react";
+import usePhone from "../hooks/usePhone";
 import Layout from "../components/Layout";
 import HeroBanner from "../components/HeroBanner";
 import FAQSection from "../components/Home/FAQSectiom";
@@ -20,7 +26,7 @@ const _MOTION = motion;
 
 const EASE = [0.16, 1, 0.3, 1];
 
-function FadeUp({ children, delay = 0, className = "" }) {
+function FadeUp({ children, delay = 0, className = "", immediate = false }) {
     const ref = useRef(null);
     const inView = useInView(ref, { once: true, margin: "-80px" });
     return (
@@ -28,7 +34,7 @@ function FadeUp({ children, delay = 0, className = "" }) {
             ref={ref}
             className={className}
             initial={{ opacity: 0, y: 40 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
+            animate={immediate || inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.7, ease: EASE, delay }}
         >
             {children}
@@ -332,7 +338,7 @@ function FellowshipDiagram() {
 
             {/* Phones: the same five steps as a list (the picture would be too small to read) */}
             <div className="rounded-2xl bg-[#FBCB14] p-4 sm:hidden">
-                <p className="mx-auto mb-4 flex h-28 w-28 items-center justify-center rounded-full bg-[#F2F2F2] text-center text-xl font-black leading-tight text-[#3B3B3B]">
+                <p className="mx-auto mb-4 flex h-40 w-40 items-center justify-center rounded-full bg-[#F2F2F2] px-5 text-center text-lg font-black leading-tight text-[#3B3B3B]">
                     Youth for Change Fellowship
                 </p>
                 <ul className="space-y-3">
@@ -344,6 +350,131 @@ function FellowshipDiagram() {
                 </ul>
             </div>
         </div>
+    );
+}
+
+/* ══════════════════════════════════════════════════════════════
+   "Why the need": four cards. Tap one to fill it; on phones they are a row you swipe, and the card in front fills.
+══════════════════════════════════════════════════════════════ */
+const NEEDS = [
+    { label: "Climate Vulnerability", icon: Sprout },
+    { label: "Educational Gaps", icon: Compass },
+    { label: "Lack of Sports Infrastructure", icon: MapPinned },
+    { label: "Limited Access to Quality Physical Education", icon: Users2 },
+];
+
+function NeedCards() {
+    const phone = usePhone();
+    const row = useRef(null);
+    const [active, setActive] = useState(null);
+
+    // on a phone the first card starts filled, so it is clear the cards can be touched
+    React.useEffect(() => {
+        if (phone) setActive((a) => (a === null ? 0 : a));
+    }, [phone]);
+
+    const onScroll = () => {
+        const el = row.current;
+        if (!el || el.scrollWidth <= el.clientWidth + 4) return;
+        const step = el.children[0].getBoundingClientRect().width + 16;
+        setActive(Math.min(NEEDS.length - 1, Math.max(0, Math.round(el.scrollLeft / step))));
+    };
+
+    return (
+        <div
+            ref={row}
+            onScroll={onScroll}
+            className="mt-10 -mx-6 flex snap-x snap-mandatory gap-4 overflow-x-auto px-6 pb-4 [scrollbar-width:none] sm:mx-0 sm:grid sm:grid-cols-2 sm:overflow-visible sm:px-0 sm:pb-0 lg:grid-cols-4 [&::-webkit-scrollbar]:hidden"
+        >
+            {NEEDS.map((item, i) => {
+                const on = active === i;
+                return (
+                    <FadeUp key={item.label} delay={0.08 * i} className="h-full w-[78%] shrink-0 snap-center sm:w-auto sm:shrink" immediate={phone}>
+                        <_MOTION.button
+                            type="button"
+                            onClick={() => setActive(on ? null : i)}
+                            aria-pressed={on}
+                            whileHover={{ y: -6 }}
+                            whileTap={{ scale: 0.98 }}
+                            transition={{ type: "spring", stiffness: 300, damping: 24 }}
+                            className={`group relative flex h-full min-h-[200px] w-full cursor-pointer flex-col justify-between gap-6 overflow-hidden rounded-2xl border p-6 text-left transition-colors duration-300 hover:border-brand-red hover:bg-brand-red focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-brand-yellow ${
+                                on ? "border-brand-red bg-brand-red shadow-xl" : "border-gray-200 bg-[#F7F7F5]"
+                            }`}
+                        >
+                            <item.icon aria-hidden="true" className={`pointer-events-none absolute -bottom-4 -right-4 h-28 w-28 transition-all duration-500 group-hover:rotate-12 group-hover:scale-110 group-hover:text-white/15 ${on ? "rotate-12 text-white/15" : "text-[#1A1A1A]/5"}`} />
+                            <span className={`relative flex h-14 w-14 items-center justify-center rounded-2xl transition-colors duration-300 group-hover:bg-white/20 ${on ? "bg-white/20" : "bg-brand-red/10"}`}>
+                                <item.icon className={`h-7 w-7 transition-colors duration-300 group-hover:text-white ${on ? "text-white" : "text-brand-red"}`} />
+                            </span>
+                            <p className={`relative text-xl font-extrabold leading-snug transition-colors duration-300 group-hover:text-white ${on ? "text-white" : "text-[#1A1A1A]"}`}>
+                                {item.label}
+                            </p>
+                        </_MOTION.button>
+                    </FadeUp>
+                );
+            })}
+        </div>
+    );
+}
+
+/* ══════════════════════════════════════════════════════════════
+   Programme Focus: the Goal box and the four focus areas as boxes you can touch
+══════════════════════════════════════════════════════════════ */
+const FOCUS = [
+    { label: "Climate literacy", Icon: Leaf, color: "#3F8F2B" },
+    { label: "Civic leadership", Icon: Landmark, color: "#2563EB" },
+    { label: "Stakeholder engagement", Icon: Handshake, color: "#E01085" },
+    { label: "Project execution", Icon: Rocket, color: "#E12228" },
+];
+
+function FocusBoxes() {
+    const [on, setOn] = useState(null);
+    return (
+        <>
+            <_MOTION.div
+                whileHover={{ y: -4 }}
+                whileTap={{ scale: 0.98 }}
+                className="relative mt-6 overflow-hidden rounded-2xl bg-gradient-to-br from-brand-red to-[#9F1239] p-5 text-white shadow-lg"
+            >
+                <span aria-hidden="true" className="pointer-events-none absolute -right-8 -top-8 h-28 w-28 rounded-full bg-white/10" />
+                <span aria-hidden="true" className="pointer-events-none absolute -right-2 -top-2 h-16 w-16 rounded-full border-2 border-white/25" />
+                <div className="relative flex items-start gap-4">
+                    <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-white/20">
+                        <Target className="h-6 w-6" aria-hidden="true" />
+                    </span>
+                    <div>
+                        <p className="text-sm font-bold uppercase tracking-[0.16em] text-brand-yellow">Goal</p>
+                        <p className="mt-1 text-lg font-extrabold leading-snug">To empower youth to lead change in communities.</p>
+                    </div>
+                </div>
+            </_MOTION.div>
+
+            <div className="mt-4 grid grid-cols-2 gap-3">
+                {FOCUS.map(({ label, Icon, color }) => {
+                    const sel = on === label;
+                    return (
+                        <_MOTION.button
+                            key={label}
+                            type="button"
+                            onClick={() => setOn(sel ? null : label)}
+                            onMouseEnter={() => setOn(label)}
+                            aria-pressed={sel}
+                            whileHover={{ y: -3 }}
+                            whileTap={{ scale: 0.96 }}
+                            className="group flex min-h-[104px] flex-col items-start justify-between gap-3 rounded-2xl border-2 p-3.5 text-left transition-colors duration-300 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-brand-yellow"
+                            style={sel ? { background: color, borderColor: color, color: "#fff" } : { background: "#fff", borderColor: `${color}40`, color: "#1A1A1A" }}
+                        >
+                            <span
+                                className="flex h-9 w-9 items-center justify-center rounded-xl transition-transform duration-300 group-hover:-rotate-6 group-hover:scale-110"
+                                style={sel ? { background: "rgba(255,255,255,0.25)", color: "#fff" } : { background: `${color}1A`, color }}
+                            >
+                                <Icon className="h-5 w-5" aria-hidden="true" />
+                            </span>
+                            <span className="text-base font-bold leading-snug">{label}</span>
+                        </_MOTION.button>
+                    );
+                })}
+            </div>
+        </>
     );
 }
 
@@ -373,31 +504,8 @@ export default function YouthForChangeFellowshipProgramme() {
                         </p>
                     </FadeUp>
 
-                    <div className="mt-10 grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                        {[
-                            { label: "Climate Vulnerability", icon: Sprout },
-                            { label: "Educational Gaps", icon: Compass },
-                            { label: "Lack of Sports Infrastructure", icon: MapPinned },
-                            { label: "Limited Access to Quality Physical Education", icon: Users2 },
-                        ].map((item, i) => (
-                            <FadeUp key={item.label} delay={0.08 * i} className="h-full">
-                                <_MOTION.div
-                                    tabIndex={0}
-                                    whileHover={{ y: -6 }}
-                                    transition={{ type: "spring", stiffness: 300, damping: 24 }}
-                                    className="group relative flex h-full min-h-[200px] cursor-default flex-col justify-between gap-6 overflow-hidden rounded-2xl border border-gray-200 bg-[#F7F7F5] p-6 transition-colors duration-300 hover:border-brand-red hover:bg-brand-red focus-visible:border-brand-red focus-visible:bg-brand-red focus-visible:outline-none"
-                                >
-                                    <item.icon aria-hidden="true" className="pointer-events-none absolute -bottom-4 -right-4 h-28 w-28 text-[#1A1A1A]/5 transition-colors duration-300 group-hover:text-white/15 group-focus-visible:text-white/15" />
-                                    <span className="relative flex h-14 w-14 items-center justify-center rounded-2xl bg-brand-red/10 transition-colors duration-300 group-hover:bg-white/20 group-focus-visible:bg-white/20">
-                                        <item.icon className="h-7 w-7 text-brand-red transition-colors duration-300 group-hover:text-white group-focus-visible:text-white" />
-                                    </span>
-                                    <p className="relative text-xl font-extrabold leading-snug text-[#1A1A1A] transition-colors duration-300 group-hover:text-white group-focus-visible:text-white">
-                                        {item.label}
-                                    </p>
-                                </_MOTION.div>
-                            </FadeUp>
-                        ))}
-                    </div>
+                    <NeedCards />
+
                 </div>
             </section>
 
@@ -424,32 +532,7 @@ export default function YouthForChangeFellowshipProgramme() {
                                     catalysts of change by combining life skills, leadership development, and community engagement.
                                 </p>
 
-                                <_MOTION.div
-                                    whileHover={{ y: -4 }}
-                                    className="mt-6 rounded-2xl border border-brand-red/20 bg-white/90 p-5 shadow-sm"
-                                >
-                                    <p className="text-sm uppercase tracking-[0.16em] font-bold text-brand-red">Goal</p>
-                                    <p className="mt-2 text-lg font-extrabold text-[#1A1A1A]">
-                                        To empower youth to lead change in communities.
-                                    </p>
-                                </_MOTION.div>
-
-                                <div className="mt-6 grid grid-cols-2 gap-3">
-                                    {[
-                                        "Climate literacy",
-                                        "Civic leadership",
-                                        "Stakeholder engagement",
-                                        "Project execution",
-                                    ].map((pill) => (
-                                        <_MOTION.div
-                                            key={pill}
-                                            whileHover={{ scale: 1.03 }}
-                                            className="rounded-xl border border-gray-200 bg-white px-4 py-2.5 text-base font-semibold text-[#1A1A1A]/85"
-                                        >
-                                            {pill}
-                                        </_MOTION.div>
-                                    ))}
-                                </div>
+                                <FocusBoxes />
                             </div>
                         </FadeUp>
 
@@ -617,11 +700,10 @@ export default function YouthForChangeFellowshipProgramme() {
                                                 { label: "Problem Solving", value: "87%" },
                                                 { label: "Community Action", value: "94%" },
                                             ].map((stat) => (
-                                                <div key={stat.label} className="rounded-xl border border-brand-black/10 bg-white p-3 shadow-sm">
-                                                    <div className="flex items-center justify-between gap-2 text-base font-bold text-[#1A1A1A]">
-                                                        <span>{stat.label}</span>
-                                                        <span className="text-brand-red">{stat.value}</span>
-                                                    </div>
+                                                <div key={stat.label} className="min-w-0 rounded-xl border border-brand-black/10 bg-white p-3 shadow-sm">
+                                                    {/* the label sits above the number, so neither can run into the other on a narrow screen */}
+                                                    <div className="text-[15px] font-bold leading-tight text-[#1A1A1A] sm:text-base">{stat.label}</div>
+                                                    <div className="mt-1 text-3xl font-black leading-none text-brand-red">{stat.value}</div>
                                                     <div className="mt-2 h-2 rounded-full bg-[#1A1A1A]/10 overflow-hidden">
                                                         <div className="h-full rounded-full bg-brand-red" style={{ width: stat.value }} />
                                                     </div>

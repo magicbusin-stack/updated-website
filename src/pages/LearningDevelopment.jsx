@@ -24,11 +24,17 @@ import {
 } from "lucide-react";
 import Layout from "../components/Layout";
 import HeroBanner from "../components/HeroBanner";
+import usePhone from "../hooks/usePhone";
 
 const _MOTION = motion;
 const EASE = [0.16, 1, 0.3, 1];
 
-function FadeUp({ children, delay = 0, className = "" }) {
+/* Phones: a row you swipe sideways (so the page is not one very long column). Tablet and desktop: the normal grid. */
+const SWIPE_ROW =
+  "-mx-6 flex snap-x snap-mandatory gap-4 overflow-x-auto px-6 pb-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:mx-0 sm:overflow-visible sm:px-0 sm:pb-0";
+const SWIPE_ITEM = "w-[82%] shrink-0 snap-center sm:w-auto sm:shrink";
+
+function FadeUp({ children, delay = 0, className = "", immediate = false }) {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
@@ -37,7 +43,7 @@ function FadeUp({ children, delay = 0, className = "" }) {
       ref={ref}
       className={className}
       initial={{ opacity: 0, y: 28 }}
-      animate={inView ? { opacity: 1, y: 0 } : {}}
+      animate={immediate || inView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.62, ease: EASE, delay }}
     >
       {children}
@@ -191,7 +197,7 @@ function IntroductionSection() {
     { label: "Measurable impact for every team", Icon: TrendingUp },
   ];
   return (
-    <section className="bg-white py-16 sm:py-20">
+    <section className="bg-white py-10 sm:py-20">
       <div className="mx-auto max-w-7xl px-6 lg:px-12">
         <div className="grid gap-8 lg:grid-cols-[1.25fr_0.75fr] lg:items-stretch">
           <FadeUp className="relative overflow-hidden rounded-3xl border border-black/5 bg-[#f8f8f6] p-8 sm:p-12">
@@ -237,33 +243,31 @@ function IntroductionSection() {
 }
 
 function BeliefsSection() {
+  const phone = usePhone();
   return (
-    <section className="bg-[#f8f8f6] py-16 sm:py-20">
+    <section className="bg-[#f8f8f6] py-10 sm:py-20">
       <div className="mx-auto max-w-7xl px-6 lg:px-12">
-        <FadeUp className="mb-10">
-          <SectionTag>Our Beliefs</SectionTag>
-          <h2 className="mt-5 text-4xl font-black leading-tight text-[#1A1A1A] md:text-5xl">
+        <FadeUp className="mb-8 sm:mb-10">
+          <h2 className="text-4xl font-black leading-tight text-[#1A1A1A] md:text-5xl">
             Our <span className="text-brand-red">Beliefs</span>
           </h2>
         </FadeUp>
 
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        {/* phones: a row you swipe sideways; tablet and desktop: all four across */}
+        <div className={`${SWIPE_ROW} sm:grid sm:grid-cols-2 sm:gap-5 lg:grid-cols-4`}>
           {beliefs.map((belief, index) => (
-            <FadeUp key={belief.text} delay={index * 0.07} className="h-full">
+            <FadeUp key={belief.text} delay={index * 0.07} className={`h-full ${SWIPE_ITEM}`} immediate={phone}>
               <_MOTION.div
                 whileHover={{ y: -8 }}
+                whileTap={{ scale: 0.98 }}
                 transition={{ type: "spring", stiffness: 280, damping: 22 }}
-                className={`group relative flex h-full min-h-[260px] cursor-default flex-col overflow-hidden rounded-3xl p-7 shadow-md transition-shadow duration-300 hover:shadow-2xl ${belief.bg} ${belief.fg}`}
+                className={`group relative flex h-full min-h-[220px] cursor-default flex-col overflow-hidden rounded-3xl p-7 shadow-md transition-shadow duration-300 hover:shadow-2xl sm:min-h-[260px] ${belief.bg} ${belief.fg}`}
               >
-                <span className="pointer-events-none absolute -bottom-6 -right-2 select-none text-[130px] font-black leading-none opacity-15 transition-opacity duration-300 group-hover:opacity-25">
-                  {index + 1}
-                </span>
                 <span className="pointer-events-none absolute -right-10 -top-10 h-32 w-32 rounded-full bg-white/20 transition-transform duration-500 group-hover:scale-150" />
                 <span className={`relative flex h-14 w-14 items-center justify-center rounded-2xl ${belief.chip} transition-transform duration-300 group-hover:-rotate-6 group-hover:scale-110`}>
                   <belief.Icon className="h-7 w-7" />
                 </span>
-                <p className="relative mt-6 text-sm font-bold uppercase tracking-[0.2em] opacity-80">Belief {index + 1}</p>
-                <p className="relative mt-2 text-2xl font-extrabold leading-snug">{belief.text}</p>
+                <p className="relative mt-6 text-2xl font-extrabold leading-snug">{belief.text}</p>
               </_MOTION.div>
             </FadeUp>
           ))}
@@ -273,18 +277,33 @@ function BeliefsSection() {
   );
 }
 
+const platformStyles = [
+  { bg: "bg-brand-blue", fg: "text-brand-black" },
+  { bg: "bg-brand-magenta", fg: "text-white" },
+  { bg: "bg-brand-green", fg: "text-brand-black" },
+];
+
 function InitiativesSection() {
   const [activeTab, setActiveTab] = useState(initiativeTabs[0].key);
   const active = useMemo(
     () => initiativeTabs.find((item) => item.key === activeTab) || initiativeTabs[0],
     [activeTab]
   );
-  const st = initiativeStyles[active.key];
+  const tabRow = useRef(null);
+
+  // phones: the programme group that is in front of the visitor opens below
+  const onTabScroll = () => {
+    const el = tabRow.current;
+    if (!el || el.scrollWidth <= el.clientWidth + 4) return;
+    const step = el.children[0].getBoundingClientRect().width + 16;
+    const i = Math.min(initiativeTabs.length - 1, Math.max(0, Math.round(el.scrollLeft / step)));
+    setActiveTab(initiativeTabs[i].key);
+  };
 
   return (
-    <section className="bg-white py-16 sm:py-20">
+    <section className="bg-white py-10 sm:py-20">
       <div className="mx-auto max-w-7xl px-6 lg:px-12">
-        <FadeUp className="mb-10 max-w-4xl">
+        <FadeUp className="mb-8 max-w-4xl sm:mb-10">
           <SectionTag>L&amp;D Initiatives</SectionTag>
           <h2 className="mt-5 text-4xl font-black leading-tight text-[#1A1A1A] md:text-5xl">
             Learning &amp; Development <span className="text-brand-red">Initiatives</span> at Magic Bus
@@ -294,11 +313,17 @@ function InitiativesSection() {
           </p>
         </FadeUp>
 
-        {/* The five programme groups, as a journey from A to E */}
+        {/* The five programme groups, each in its own colour. Phones: swipe the row. */}
         <FadeUp delay={0.05}>
           <div className="relative">
             <div className="pointer-events-none absolute left-[10%] right-[10%] top-9 hidden h-1 rounded-full bg-gradient-to-r from-brand-red via-brand-blue via-brand-green via-brand-magenta to-brand-yellow opacity-40 lg:block" />
-            <div className="relative grid gap-3 sm:grid-cols-2 lg:grid-cols-5" role="tablist" aria-label="Learning and Development initiatives">
+            <div
+              ref={tabRow}
+              onScroll={onTabScroll}
+              className={`relative ${SWIPE_ROW} sm:grid sm:grid-cols-2 sm:gap-3 lg:grid-cols-5`}
+              role="tablist"
+              aria-label="Learning and Development initiatives"
+            >
               {initiativeTabs.map((tab) => {
                 const isActive = tab.key === activeTab;
                 const ts = initiativeStyles[tab.key];
@@ -313,13 +338,12 @@ function InitiativesSection() {
                     onFocus={() => setActiveTab(tab.key)}
                     whileHover={{ y: -5 }}
                     transition={{ type: "spring", stiffness: 300, damping: 24 }}
-                    className={`flex flex-col items-center gap-3 rounded-2xl border-2 px-4 py-5 text-center transition-all duration-300 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-brand-red/25 ${
-                      isActive ? `${ts.bg} ${ts.fg} border-transparent shadow-xl` : "border-gray-200 bg-[#f8f8f6] text-[#1A1A1A] hover:border-[#1A1A1A]/30 hover:bg-white"
+                    className={`flex w-[72%] shrink-0 snap-center flex-col items-center gap-3 rounded-2xl border-2 border-transparent px-4 py-5 text-center transition-all duration-300 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-brand-red/25 sm:w-auto sm:shrink ${ts.bg} ${ts.fg} ${
+                      isActive ? "shadow-xl ring-4 ring-[#1A1A1A]/20 ring-offset-2" : "opacity-90 shadow-sm hover:opacity-100"
                     }`}
                   >
-                    <span className={`relative flex h-14 w-14 items-center justify-center rounded-full ${isActive ? "bg-white/25" : `${ts.bg} ${ts.fg}`}`}>
+                    <span className="flex h-14 w-14 items-center justify-center rounded-full bg-white/25">
                       <ts.Icon className="h-7 w-7" />
-                      <span className="absolute -right-1 -top-1 grid h-6 w-6 place-items-center rounded-full bg-[#1A1A1A] text-xs font-black text-white">{tab.letter}</span>
                     </span>
                     <span className="text-base font-extrabold leading-snug md:text-lg">{tab.title}</span>
                   </_MOTION.button>
@@ -336,9 +360,9 @@ function InitiativesSection() {
           initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.35, ease: EASE }}
-          className="mt-6 overflow-hidden rounded-3xl border border-black/5 bg-[#f8f8f6] shadow-sm"
+          className="mt-4 overflow-hidden rounded-3xl border border-black/5 bg-[#f8f8f6] shadow-sm sm:mt-6"
         >
-          <div className={`h-2 w-full ${st.bg}`} />
+          <div className={`h-2 w-full ${initiativeStyles[active.key].bg}`} />
 
           <div className="space-y-4 p-5 sm:p-8">
             {active.blocks.map((block, bi) => (
@@ -348,10 +372,10 @@ function InitiativesSection() {
                 transition={{ duration: 0.2 }}
                 className="flex gap-4 rounded-2xl border border-black/5 bg-white p-5 shadow-sm sm:p-6"
               >
-                <span className={`mt-1 grid h-9 w-9 shrink-0 place-items-center rounded-full text-base font-black ${st.soft} ${st.text}`}>
+                <span className={`mt-1 grid h-9 w-9 shrink-0 place-items-center rounded-full text-base font-black ${initiativeStyles[active.key].soft} ${initiativeStyles[active.key].text}`}>
                   {bi + 1}
                 </span>
-                <div>
+                <div className="min-w-0">
                   {/* the heading is skipped when it only repeats the tab title */}
                   {block.heading !== active.title && (
                     <h3 className="text-xl font-extrabold text-[#1A1A1A] md:text-2xl">{block.heading}</h3>
@@ -363,22 +387,26 @@ function InitiativesSection() {
 
             {active.platforms && (
               <div className="rounded-2xl border border-black/5 bg-white p-5 shadow-sm sm:p-6">
-                <h3 className={`text-base font-bold uppercase tracking-[0.16em] ${st.text}`}>Three Platforms</h3>
-                <div className="mt-4 grid gap-4 md:grid-cols-3">
+                <h3 className={`text-base font-bold uppercase tracking-[0.16em] ${initiativeStyles[active.key].text}`}>Three Platforms</h3>
+                {/* the three ways of learning: colour cards (swipe on phones) */}
+                <div className="-mx-5 mt-4 flex snap-x snap-mandatory gap-4 overflow-x-auto px-5 pb-3 [scrollbar-width:none] sm:mx-0 sm:grid sm:grid-cols-3 sm:overflow-visible sm:px-0 sm:pb-0 [&::-webkit-scrollbar]:hidden">
                   {active.platforms.map((item, pi) => {
                     const [name, ...rest] = item.split(":");
                     const PIcon = platformIcons[pi] || BookOpen;
+                    const ps = platformStyles[pi % platformStyles.length];
                     return (
                       <_MOTION.div
                         key={item}
-                        whileHover={{ y: -4 }}
-                        className="rounded-2xl border border-black/10 bg-[#f8f8f6] p-5"
+                        whileHover={{ y: -6 }}
+                        whileTap={{ scale: 0.98 }}
+                        className={`group relative w-[80%] shrink-0 snap-center overflow-hidden rounded-3xl p-6 shadow-md sm:w-auto sm:shrink ${ps.bg} ${ps.fg}`}
                       >
-                        <span className={`flex h-12 w-12 items-center justify-center rounded-xl ${st.bg} ${st.fg}`}>
-                          <PIcon className="h-6 w-6" />
+                        <PIcon className="pointer-events-none absolute -bottom-5 -right-5 h-32 w-32 opacity-15 transition-transform duration-500 group-hover:-rotate-12 group-hover:scale-125" aria-hidden="true" />
+                        <span className="relative flex h-14 w-14 items-center justify-center rounded-2xl bg-white/30">
+                          <PIcon className="h-7 w-7" aria-hidden="true" />
                         </span>
-                        <p className="mt-4 text-xl font-extrabold leading-snug text-[#1A1A1A]">{name}</p>
-                        {rest.length > 0 && <p className="mt-1 text-lg leading-snug text-gray-800">{rest.join(":").trim()}</p>}
+                        <p className="relative mt-5 text-2xl font-extrabold leading-snug">{name}</p>
+                        {rest.length > 0 && <p className="relative mt-2 text-lg leading-snug opacity-95">{rest.join(":").trim()}</p>}
                       </_MOTION.div>
                     );
                   })}
@@ -395,21 +423,37 @@ function InitiativesSection() {
 
 function TestimonialsSection() {
   const [active, setActive] = useState(0);
+  const start = useRef(null);
 
   useEffect(() => {
     const interval = setInterval(() => {
       setActive((prev) => (prev + 1) % testimonials.length);
-    }, 7000);
+    }, 9000);
     return () => clearInterval(interval);
   }, []);
 
   const next = () => setActive((prev) => (prev + 1) % testimonials.length);
   const prev = () => setActive((prev) => (prev - 1 + testimonials.length) % testimonials.length);
 
+  // swipe left / right on the quote
+  const swipe = {
+    style: { touchAction: "pan-y" },
+    onPointerDown: (e) => {
+      start.current = { x: e.clientX, y: e.clientY };
+    },
+    onPointerUp: (e) => {
+      if (!start.current) return;
+      const dx = e.clientX - start.current.x;
+      const dy = e.clientY - start.current.y;
+      start.current = null;
+      if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) (dx < 0 ? next : prev)();
+    },
+  };
+
   return (
-    <section className="bg-[#f8f8f6] py-16 sm:py-20">
+    <section className="bg-[#f8f8f6] py-10 sm:py-20">
       <div className="mx-auto max-w-7xl px-6 lg:px-12">
-        <FadeUp className="mb-10">
+        <FadeUp className="mb-8 sm:mb-10">
           <SectionTag>Testimonials</SectionTag>
           <h2 className="mt-5 text-4xl font-black leading-tight text-[#1A1A1A] md:text-5xl">
             Employee <span className="text-brand-red">Testimonials</span>
@@ -417,16 +461,37 @@ function TestimonialsSection() {
         </FadeUp>
 
         <FadeUp delay={0.1}>
-          <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#1A1A1A] via-[#2B1216] to-[#6B0F18] p-8 shadow-2xl ring-1 ring-brand-red/40 sm:p-12">
+          <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#1A1A1A] via-[#2B1216] to-[#6B0F18] p-6 shadow-2xl ring-1 ring-brand-red/40 sm:p-12">
             <div className="pointer-events-none absolute -right-20 -top-20 h-72 w-72 rounded-full bg-brand-yellow/20 blur-3xl" />
             <div className="pointer-events-none absolute -bottom-24 -left-16 h-64 w-64 rounded-full bg-brand-red/30 blur-3xl" />
-            <Quote className="pointer-events-none absolute right-8 top-6 h-28 w-28 text-white/10 sm:h-40 sm:w-40" />
+            <Quote className="pointer-events-none absolute right-4 top-4 h-16 w-16 text-white/10 sm:right-8 sm:top-6 sm:h-40 sm:w-40" />
 
-            <div className="relative mb-6 flex flex-wrap items-center justify-between gap-3">
-              <span className="inline-flex items-center gap-2 rounded-full bg-brand-yellow px-4 py-1.5 text-sm font-extrabold uppercase tracking-[0.14em] text-brand-black">
-                <span className="h-2 w-2 rounded-full bg-brand-red" />
-                {testimonials[active].programme}
+            <div className="relative" {...swipe}>
+              <span className="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-brand-yellow shadow-lg">
+                <Quote className="h-6 w-6 text-brand-black" />
               </span>
+              <_MOTION.blockquote key={active} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.3 }}>
+                <p className="text-lg font-semibold leading-relaxed text-white sm:text-3xl sm:leading-relaxed">"{testimonials[active].quote}"</p>
+                <footer className="mt-5 flex items-center gap-3 sm:mt-7">
+                  <span className="h-1 w-10 shrink-0 rounded-full bg-brand-yellow" />
+                  <span className="text-sm font-bold uppercase tracking-[0.14em] text-brand-yellow sm:text-base">{testimonials[active].by}</span>
+                </footer>
+              </_MOTION.blockquote>
+            </div>
+
+            <div className="relative mt-6 flex items-center justify-between gap-3 sm:mt-8">
+              <div className="flex items-center gap-2">
+                {testimonials.map((item, index) => (
+                  <button
+                    key={item.programme}
+                    onClick={() => setActive(index)}
+                    className={`h-2.5 rounded-full transition-all ${
+                      index === active ? "w-12 bg-brand-yellow" : "w-5 bg-white/30 hover:bg-white/50"
+                    }`}
+                    aria-label={`Show testimonial ${index + 1}`}
+                  />
+                ))}
+              </div>
               <div className="flex items-center gap-2">
                 <button
                   onClick={prev}
@@ -443,33 +508,6 @@ function TestimonialsSection() {
                   <ChevronRight className="h-5 w-5" />
                 </button>
               </div>
-            </div>
-
-            <_MOTION.blockquote
-              key={active}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.3 }}
-              className="relative"
-            >
-              <p className="text-2xl font-semibold leading-relaxed text-white sm:text-3xl">"{testimonials[active].quote}"</p>
-              <footer className="mt-7 flex items-center gap-3">
-                <span className="h-1 w-10 rounded-full bg-brand-yellow" />
-                <span className="text-base font-bold uppercase tracking-[0.14em] text-brand-yellow">{testimonials[active].by}</span>
-              </footer>
-            </_MOTION.blockquote>
-
-            <div className="relative mt-8 flex items-center gap-2">
-              {testimonials.map((item, index) => (
-                <button
-                  key={item.programme}
-                  onClick={() => setActive(index)}
-                  className={`h-2.5 rounded-full transition-all ${
-                    index === active ? "w-12 bg-brand-yellow" : "w-5 bg-white/30 hover:bg-white/50"
-                  }`}
-                  aria-label={`Show testimonial ${index + 1}`}
-                />
-              ))}
             </div>
           </div>
         </FadeUp>
@@ -489,7 +527,7 @@ function TrainingGlimpsesSection() {
   ];
 
   return (
-    <section className="bg-white py-16 sm:py-20">
+    <section className="bg-white py-10 sm:py-20">
       <div className="mx-auto max-w-7xl px-6 lg:px-12">
         <FadeUp className="mb-8">
           <SectionTag>Training Glimpses</SectionTag>
@@ -526,25 +564,25 @@ function TrainingGlimpsesSection() {
 
 function ContactSection() {
   return (
-    <section className="relative overflow-hidden bg-[#111111] py-16 sm:py-20">
+    <section className="relative overflow-hidden bg-[#111111] py-10 sm:py-20">
       <div className="pointer-events-none absolute -right-20 -top-20 h-72 w-72 rounded-full bg-brand-yellow/25 blur-3xl" />
       <div className="mx-auto max-w-7xl px-6 lg:px-12">
         <FadeUp className="rounded-3xl border border-white/15 bg-white/10 p-6 backdrop-blur sm:p-10">
           <SectionTag dark>Contact Details</SectionTag>
           <h2 className="mt-5 text-3xl font-black text-white md:text-4xl">Get in Touch with our Team</h2>
           <div className="mt-6 grid gap-4 sm:grid-cols-[1fr_auto] sm:items-end">
-            <div className="space-y-2 text-white/90">
+            <div className="min-w-0 space-y-2 text-white/90">
               <p className="text-lg font-semibold">Rukhsana Shaikh: Head, Learning & Development</p>
               <p className="text-lg">
                 Email ID:{" "}
-                <a href="mailto:rukhsana.shaikh@magicbusindia.org" className="font-semibold text-brand-yellow hover:underline">
+                <a href="mailto:rukhsana.shaikh@magicbusindia.org" className="break-all font-semibold text-brand-yellow hover:underline">
                   rukhsana.shaikh@magicbusindia.org
                 </a>
               </p>
             </div>
             <a
               href="mailto:rukhsana.shaikh@magicbusindia.org"
-              className="inline-flex items-center justify-center gap-2 rounded-full bg-brand-yellow px-5 py-3 text-sm font-bold text-[#1A1A1A] transition hover:bg-brand-yellow/90"
+              className="inline-flex items-center justify-center gap-2 rounded-full bg-brand-yellow px-5 py-3 text-base font-bold text-[#1A1A1A] transition hover:bg-brand-yellow/90"
             >
               Write to Us
               <ArrowRight className="h-4 w-4" />
