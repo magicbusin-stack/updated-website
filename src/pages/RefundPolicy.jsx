@@ -144,7 +144,7 @@ export default function RefundPolicy() {
                 or telephone the Magic Bus Donations Department on <strong className="text-white">022-62434825</strong> /{" "}
                 <strong className="text-white">022-62434826</strong> during office hours (9 am to 6 pm Monday-Friday).
               </p>
-              <div className="mt-6 flex flex-wrap gap-3">
+              <div className="cta-pair mt-6">
                 <a
                   href={`mailto:${DONOR_EMAIL}`}
                   className="inline-flex max-w-full items-center gap-2 break-all rounded-full bg-brand-yellow px-5 py-3 text-sm font-bold text-[#0F172A] transition hover:opacity-90 sm:text-base"

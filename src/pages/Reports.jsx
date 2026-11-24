@@ -566,7 +566,7 @@ export default function Reports() {
                 All reports are audited by certified chartered accountants and made publicly accessible.
               </p>
 
-              <div className="flex flex-wrap justify-center gap-4">
+              <div className="cta-pair mx-auto">
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}

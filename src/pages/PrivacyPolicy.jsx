@@ -149,7 +149,7 @@ export default function PrivacyPolicy() {
                   Vikhroli West, Mumbai - 400079
                 </address>
               </div>
-              <div className="mt-5 flex flex-wrap gap-3">
+              <div className="cta-pair mt-5">
                 <a href="tel:02262434848" className="inline-flex items-center gap-2 rounded-full border border-white/30 px-5 py-2.5 text-sm font-bold transition hover:bg-white/10 sm:text-base">
                   <Phone className="h-5 w-5" />
                   022 62434848

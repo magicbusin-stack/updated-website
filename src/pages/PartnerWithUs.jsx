@@ -456,7 +456,7 @@ function ContactCard({ c, index }) {
         {c.email}
       </a>
 
-      <div className="mt-6 flex flex-wrap gap-3 pt-1">
+      <div className="cta-inline mt-6 pt-1">
         <a
           href={`mailto:${c.email}`}
           className="inline-flex items-center gap-2 rounded-full bg-brand-red px-5 py-2.5 text-base font-bold text-white transition hover:-translate-y-0.5 hover:bg-[#c41b20] hover:shadow-md active:scale-95"

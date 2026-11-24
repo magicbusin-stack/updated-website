@@ -510,7 +510,7 @@ export default function EmployeeVolunteeringProgramme() {
                             <h2 className="text-3xl md:text-4xl font-extrabold text-white">Let&apos;s Join Hands for Purposeful Volunteering</h2>
                             <p className="mt-5 text-white/90 font-semibold">Programme Lead: Sangeeta Sishodia</p>
                             <p className="text-white/80">Manager – Corporate Employee Volunteering</p>
-                            <div className="mt-5 flex flex-col sm:flex-row gap-4">
+                            <div className="cta-pair mt-5">
                                 <a href="mailto:Sangeeta.sishodia@magicbusindia.org" className="inline-flex items-center gap-2 rounded-full bg-white text-brand-red px-5 py-3 font-bold">
                                     <Mail className="w-4 h-4" />
                                     Sangeeta.sishodia@magicbusindia.org

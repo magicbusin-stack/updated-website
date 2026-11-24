@@ -111,7 +111,7 @@ function HeroBanner({
                             initial={{ opacity: 0, y: 16 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.58, duration: 0.6, ease: EASE }}
-                            className="mt-8 flex flex-wrap gap-4"
+                            className="cta-row mt-8"
                         >
                             {ctas.map((cta, i) => {
                                 const ctaClass = `inline-flex min-w-56 min-h-14 items-center justify-center gap-2 rounded-full px-8 py-3 text-center text-base font-bold leading-tight transition ${

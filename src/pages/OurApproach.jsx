@@ -209,7 +209,7 @@ function Hero() {
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: EASE, delay: 0.24 }}
-            className="flex flex-wrap items-center gap-3 pt-2 sm:gap-4"
+            className="cta-pair pt-2"
           >
             <a
               href="#framework"
@@ -613,7 +613,7 @@ function JoinCTA() {
           Support programmes that forge sustained generational change—from rural classrooms to formal corporate offices. Partner as an employer,
           fund a cohort, or volunteer with us.
         </p>
-        <div className="flex flex-wrap items-center justify-center gap-3 pt-2 sm:gap-4">
+        <div className="cta-pair mx-auto pt-2">
           <Link to="/donate" className="rounded-xl bg-white px-9 py-4 text-base font-bold text-rose-600 sm:text-lg shadow-xl transition hover:-translate-y-0.5 hover:bg-rose-50 hover:shadow-2xl">
             Donate Now
           </Link>

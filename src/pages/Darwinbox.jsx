@@ -82,7 +82,7 @@ function AboutSection() {
                         </div>
 
                         {/* Download strip */}
-                        <div className="mt-8 flex flex-wrap gap-3">
+                        <div className="cta-pair mt-8">
                             <motion.a href="#" target="_blank" rel="noopener noreferrer"
                                 className="inline-flex items-center gap-2 rounded-full bg-brand-red text-white px-6 py-3 text-base font-bold shadow-md"
                                 whileHover={{ scale: 1.04, y: -1 }} whileTap={{ scale: 0.97 }}>

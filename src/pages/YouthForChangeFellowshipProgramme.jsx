@@ -192,7 +192,7 @@ function PhaseExplorer() {
                     type="button"
                     onClick={() => go(active - 1)}
                     disabled={active === 0}
-                    className="inline-flex items-center gap-1.5 rounded-full border border-gray-300 bg-white px-3 py-2 text-base font-bold text-[#1A1A1A] transition sm:gap-2 sm:px-4 hover:border-brand-red hover:text-brand-red disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:border-gray-300 disabled:hover:text-[#1A1A1A] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-brand-yellow"
+                    className="inline-flex w-32 items-center justify-center gap-1.5 rounded-full border border-gray-300 bg-white px-3 py-2 text-base font-bold text-[#1A1A1A] transition sm:gap-2 sm:px-4 hover:border-brand-red hover:text-brand-red disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:border-gray-300 disabled:hover:text-[#1A1A1A] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-brand-yellow"
                 >
                     <ArrowLeft className="h-4 w-4" /> Previous
                 </button>
@@ -200,7 +200,7 @@ function PhaseExplorer() {
                     type="button"
                     onClick={() => go(active + 1)}
                     disabled={active === last}
-                    className="inline-flex items-center gap-1.5 rounded-full bg-brand-red px-3 py-2 text-base font-bold text-white transition sm:gap-2 sm:px-4 hover:bg-[#a01018] disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-brand-red focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-brand-yellow"
+                    className="inline-flex w-32 items-center justify-center gap-1.5 rounded-full bg-brand-red px-3 py-2 text-base font-bold text-white transition sm:gap-2 sm:px-4 hover:bg-[#a01018] disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-brand-red focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-brand-yellow"
                 >
                     Next <ArrowRight className="h-4 w-4" />
                 </button>

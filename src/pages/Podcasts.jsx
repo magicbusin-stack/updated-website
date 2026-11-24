@@ -311,7 +311,7 @@ function PodcastCard({ podcast, index }) {
                         </div>
 
                         {/* CTA buttons */}
-                        <div className="flex flex-wrap gap-3">
+                        <div className="cta-pair">
                             <motion.a
                                 href={podcast.youtubeUrl}
                                 target="_blank"

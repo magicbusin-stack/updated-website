@@ -95,6 +95,59 @@ html {
   }
 }
 
+/* ===== Buttons that sit together are always the same size =====
+   Put one of these classes on the box that holds the buttons. The widest label sets the width for all of them and the
+   tallest sets the height, so two buttons side by side (or stacked) never differ.
+   - cta-pair : side by side from tablet up (640px), stacked on phones. For short labels.
+   - cta-row  : side by side from 1024px up, stacked below. For long labels (hero banners). */
+.cta-inline,
+.cta-pair,
+.cta-row {
+  display: grid;
+  grid-auto-flow: row;
+  grid-auto-columns: 1fr;
+  grid-auto-rows: 1fr;
+  align-items: stretch;
+  gap: 1rem;
+  width: fit-content;
+  max-width: 100%;
+}
+.cta-inline > *,
+.cta-pair > *,
+.cta-row > * {
+  width: 100%;
+  min-width: 0;
+  justify-content: center;
+  text-align: center;
+}
+.cta-row > * {
+  min-width: min(14rem, 100%);
+}
+.cta-pair > .flipCoinButton.fcbLarge,
+.cta-row > .flipCoinButton.fcbLarge {
+  height: auto;
+  min-height: 3.5rem;
+}
+.cta-pair .flipCoinButton.fcbLarge.fcbCta,
+.cta-row .flipCoinButton.fcbLarge.fcbCta {
+  width: 100%;
+  min-width: 14rem;
+}
+.cta-inline {
+  grid-auto-flow: column;
+  gap: 0.75rem;
+}
+@media (min-width: 640px) {
+  .cta-pair {
+    grid-auto-flow: column;
+  }
+}
+@media (min-width: 1024px) {
+  .cta-row {
+    grid-auto-flow: column;
+  }
+}
+
 /* ===== Moving partner-logo rows (components/Corporate/LogoMarquee.jsx) ===== */
 .marquee-row {
   overflow: hidden;

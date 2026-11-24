@@ -274,7 +274,7 @@ export default function FLFPRReport() {
                 and sustainable employment opportunities for women across India.
               </p>
 
-              <div className="flex flex-wrap justify-center gap-4">
+              <div className="cta-pair mx-auto">
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}

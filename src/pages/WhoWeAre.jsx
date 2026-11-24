@@ -518,7 +518,7 @@ function AnnualReportCTA() {
                                 Our Annual Report details the journeys of thousands of young people whose lives have been transformed through education, life skills, and livelihoods. Read how your support is making a
                                 difference.
                             </p>
-                            <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
+                            <div className="cta-pair mx-auto mt-8">
                                 <Link
                                     to="/annual-reports"
                                     className="group inline-flex items-center gap-2 rounded bg-white px-8 py-4 text-base font-bold shadow-lg transition hover:bg-[#F4F4F0] sm:text-lg"

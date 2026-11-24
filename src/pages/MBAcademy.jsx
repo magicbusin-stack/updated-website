@@ -85,7 +85,7 @@ function AboutSection() {
                                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
                                 <div className="absolute bottom-5 left-5">
                                     <span className="text-white/90 text-sm font-bold uppercase tracking-widest">Available on</span>
-                                    <div className="flex gap-3 mt-2">
+                                    <div className="cta-inline mt-2">
                                         <a href="https://play.google.com/store/apps/details?id=co.courseplay.magicbus&hl=en_IN"
                                             target="_blank" rel="noopener noreferrer"
                                             className="flex items-center gap-2 bg-white/15 border border-white/20 rounded-xl px-3 py-2 text-white text-sm font-bold hover:bg-white/25 transition-all backdrop-blur-sm">
@@ -164,7 +164,7 @@ function FeaturesSection() {
                             <p className="text-white font-extrabold text-2xl">Ready to start learning?</p>
                             <p className="text-white/85 text-lg mt-1">Download MB Academy on your device today — it's free for all Magic Bus staff and volunteers.</p>
                         </div>
-                        <div className="flex flex-wrap gap-3 shrink-0">
+                        <div className="cta-pair shrink-0">
                             <motion.a href="https://play.google.com/store/apps/details?id=co.courseplay.magicbus&hl=en_IN"
                                 target="_blank" rel="noopener noreferrer"
                                 className="inline-flex items-center gap-2 bg-brand-red text-white rounded-full px-7 py-3.5 text-base font-bold shadow-md"

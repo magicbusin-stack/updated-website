@@ -651,7 +651,7 @@ function JoinCTA() {
                                 Come build the future with us.
                             </p>
 
-                            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+                            <div className="cta-pair mx-auto">
                                 <Link
                                     to="/work-with-us"
                                     className="inline-flex items-center gap-2 rounded-full bg-brand-yellow px-8 py-4 font-bold text-brand-black shadow-lg transition hover:shadow-xl hover:bg-brand-yellow/90 group"

@@ -271,7 +271,7 @@ export default function GenderJourneyReport() {
                 lasting change for girls and women.
               </p>
 
-              <div className="flex flex-wrap justify-center gap-4">
+              <div className="cta-pair mx-auto">
                 <a
                   href="#reports"
                   className="inline-flex items-center gap-2 rounded-full bg-white px-8 py-4 text-lg font-bold text-brand-red shadow-lg transition hover:-translate-y-0.5 hover:shadow-xl active:scale-[0.98]"
