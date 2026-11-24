@@ -125,7 +125,7 @@ function Hero() {
                             </FlipCoinButton>
                             <Link
                                 to="/annual-reports"
-                                className="inline-flex h-14 w-56 items-center justify-center gap-2 rounded-full border border-[#DCDCD6] bg-[#F4F4F0] px-4 text-base font-bold text-[#1A1A1A] transition hover:border-[#1A1A1A]"
+                                className="inline-flex h-14 w-56 items-center justify-center gap-2 rounded-full border-2 border-[#1A1A1A] bg-white px-4 text-base font-bold text-[#1A1A1A] shadow-md transition hover:bg-[#1A1A1A] hover:text-white"
                             >
                                 <FileText className="h-5 w-5 text-[#C41A1F]" />
                                 Read Annual Report

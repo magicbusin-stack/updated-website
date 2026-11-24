@@ -71,7 +71,7 @@ export default function FlipCoinButton({ children, onFlipComplete, size }) {
   };
 
   return (
-    <button type="button" className={cn("flipCoinButton", { clicked, fcbLarge: size === "lg" || size === "cta", fcbCta: size === "cta" })} onClick={handleClick}>
+    <button type="button" className={cn("flipCoinButton", { clicked, fcbLarge: size === "lg" || size === "cta" || size === "hero", fcbCta: size === "cta", fcbHero: size === "hero" })} onClick={handleClick}>
       <span className="buttonText">
         <span className="fcbBadge">
           <span className="fcbBadgeInner">
@@ -131,6 +131,21 @@ const styles = `
   font-size: 1.05rem;
   height: 3.5rem;
   width: 14rem;
+}
+
+/* size="hero": the home page banner. Fixed sizes (11.5rem x 2.9rem on phones, 14rem x 3.5rem from tablet up) so the
+   "Learn More" button beside it can use exactly the same box. */
+.flipCoinButton.fcbLarge.fcbHero {
+  font-size: 1rem;
+  height: 2.9rem;
+  width: 11.5rem;
+}
+@media (min-width: 640px) {
+  .flipCoinButton.fcbLarge.fcbHero {
+    font-size: 1.05rem;
+    height: 3.5rem;
+    width: 14rem;
+  }
 }
 
 .flipCoinButton:active {

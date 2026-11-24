@@ -198,12 +198,12 @@ export default function HeroCarousel() {
                 className="flex flex-wrap items-center gap-2 sm:gap-3"
               >
                 <div className="shrink-0">
-                  <FlipCoinButton size="lg" onFlipComplete={() => navigate(slides[i].cta.href)}>
+                  <FlipCoinButton size="hero" onFlipComplete={() => navigate(slides[i].cta.href)}>
                     {slides[i].cta.label}
                   </FlipCoinButton>
                 </div>
                 <motion.button
-                  className="inline-flex w-auto px-6 h-[2.9rem] sm:h-14 items-center justify-center gap-2 rounded-full border-2 border-brand-red bg-brand-red/5 text-base sm:text-lg font-bold text-brand-red hover:bg-brand-red/10 active:bg-brand-red/15 transition-colors"
+                  className="inline-flex h-[2.9rem] w-[11.5rem] items-center justify-center gap-2 rounded-full border-2 border-brand-red bg-brand-red/5 text-base font-bold text-brand-red transition-colors hover:bg-brand-red/10 active:bg-brand-red/15 sm:h-14 sm:w-56 sm:text-lg"
                   whileTap={{ scale: 0.98 }}
                 >
                   Learn More

@@ -34,11 +34,60 @@ const getCarouselConfig = (width) => {
   return { xMultiplier: 170, yMultiplier: 40, rotationMultiplier: 12, scaleReduction: 0.12 };
 };
 
+const SPRING = { type: "spring", stiffness: 90, damping: 22, mass: 1 };
+const SWIPE_PX = 40; // how far a finger has to move sideways to count as a swipe
+
 export default function TechInnovationCarousel() {
   const scrollProgress = useMotionValue(0);
   const [windowWidth, setWindowWidth] = React.useState(0);
   const [selected, setSelected] = React.useState(null);
+  const [current, setCurrent] = React.useState(0); // which card is in front (for the dots)
   const total = slides.length;
+
+  // Swipe: drag the cards left or right to move through them. A tap (no real movement) opens the details.
+  const touch = React.useRef({ x: 0, y: 0, down: false });
+  const justSwiped = React.useRef(false);
+  const pausedUntil = React.useRef(0); // the carousel stops moving on its own for a few seconds after the visitor uses it
+
+  React.useEffect(() => {
+    const update = (v) => setCurrent(((Math.round(v) % total) + total) % total);
+    update(scrollProgress.get());
+    return scrollProgress.on("change", update);
+  }, [scrollProgress, total]);
+
+  const goBy = (n) => {
+    pausedUntil.current = Date.now() + 8000;
+    animate(scrollProgress, Math.round(scrollProgress.get()) + n, SPRING);
+  };
+  const goTo = (index) => {
+    const base = Math.round(scrollProgress.get());
+    let diff = (index - (((base % total) + total) % total)) % total;
+    if (diff > total / 2) diff -= total;
+    if (diff < -total / 2) diff += total;
+    pausedUntil.current = Date.now() + 8000;
+    animate(scrollProgress, base + diff, SPRING);
+  };
+  const onPointerDown = (e) => {
+    touch.current = { x: e.clientX, y: e.clientY, down: true };
+    justSwiped.current = false;
+  };
+  const onPointerUp = (e) => {
+    if (!touch.current.down) return;
+    touch.current.down = false;
+    const dx = e.clientX - touch.current.x;
+    const dy = e.clientY - touch.current.y;
+    if (Math.abs(dx) > SWIPE_PX && Math.abs(dx) > Math.abs(dy)) {
+      justSwiped.current = true; // so the card under the finger does not also open
+      goBy(dx < 0 ? 1 : -1);
+    }
+  };
+  const openCard = (slide) => {
+    if (justSwiped.current) {
+      justSwiped.current = false;
+      return;
+    }
+    setSelected(slide);
+  };
 
   React.useEffect(() => {
     setWindowWidth(window.innerWidth);
@@ -55,23 +104,64 @@ export default function TechInnovationCarousel() {
     if (selected) return undefined;
     if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return undefined;
     const id = setInterval(() => {
-      animate(scrollProgress, Math.round(scrollProgress.get()) + 1, {
-        type: "spring",
-        stiffness: 90,
-        damping: 22,
-        mass: 1,
-      });
+      if (Date.now() < pausedUntil.current) return; // the visitor just used it: leave it alone for a moment
+      animate(scrollProgress, Math.round(scrollProgress.get()) + 1, SPRING);
     }, AUTO_MS);
     return () => clearInterval(id);
   }, [selected, scrollProgress]);
 
   return (
     <div className="isolate relative flex flex-col items-center justify-center w-full py-10 bg-transparent overflow-hidden select-none">
-      <div className="relative w-full max-w-7xl h-80 sm:h-[28rem] lg:h-[32rem] flex items-center justify-center">
+      <div
+        className="relative w-full max-w-7xl h-80 sm:h-[28rem] lg:h-[32rem] flex items-center justify-center"
+        style={{ touchAction: "pan-y" }}
+        onPointerDown={onPointerDown}
+        onPointerUp={onPointerUp}
+        onPointerCancel={() => (touch.current.down = false)}
+      >
         {slides.map((slide, i) => (
-          <Card key={slide.title} slide={slide} index={i} total={total} progress={scrollProgress} config={config} onOpen={() => setSelected(slide)} />
+          <Card key={slide.title} slide={slide} index={i} total={total} progress={scrollProgress} config={config} onOpen={() => openCard(slide)} />
         ))}
       </div>
+
+      {/* Which card is in front. Tap a dot to jump to it. */}
+      <div className="relative z-[200] mt-2 flex items-center justify-center gap-3">
+        <button
+          type="button"
+          onClick={() => goBy(-1)}
+          aria-label="Previous card"
+          className="flex h-11 w-11 items-center justify-center rounded-full border border-slate-300 bg-white text-slate-700 shadow-sm transition active:scale-95 hover:border-slate-500"
+        >
+          <svg className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2.2" viewBox="0 0 24 24" aria-hidden="true">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+          </svg>
+        </button>
+        <div className="flex items-center gap-2" role="group" aria-label="Choose a card">
+          {slides.map((s, i) => (
+            <button
+              key={s.title}
+              type="button"
+              onClick={() => goTo(i)}
+              aria-label={`Show ${s.title}`}
+              aria-current={i === current}
+              className="flex h-6 w-6 items-center justify-center"
+            >
+              <span className={`block rounded-full transition-all duration-300 ${i === current ? "h-3 w-7 bg-brand-red" : "h-3 w-3 bg-slate-300"}`} />
+            </button>
+          ))}
+        </div>
+        <button
+          type="button"
+          onClick={() => goBy(1)}
+          aria-label="Next card"
+          className="flex h-11 w-11 items-center justify-center rounded-full border border-slate-300 bg-white text-slate-700 shadow-sm transition active:scale-95 hover:border-slate-500"
+        >
+          <svg className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2.2" viewBox="0 0 24 24" aria-hidden="true">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+          </svg>
+        </button>
+      </div>
+      <p className="mt-3 text-center text-base font-semibold text-slate-600 sm:hidden">Swipe to browse. Tap a card to read more.</p>
 
       <DetailModal slide={selected} onClose={() => setSelected(null)} />
     </div>
