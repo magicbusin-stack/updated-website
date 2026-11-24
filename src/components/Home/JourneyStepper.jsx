@@ -63,7 +63,7 @@ export default function JourneyZigzagAnimated() {
           whileInView="visible"
           viewport={VIEWPORT_ONCE}
         >
-          <SectionHeading tag="Our proven model" title="Childhood to Livelihood Journey" />
+          <SectionHeading title="Childhood to Livelihood Journey" accent="Livelihood Journey" />
         </motion.div>
 
         <div className="relative">

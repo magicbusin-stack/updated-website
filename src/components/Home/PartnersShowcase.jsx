@@ -201,7 +201,7 @@ export default function TrustedOrganizations() {
             transition={{ duration: 0.6, ease: EASE_EXPO }}
           >
             <div className="mb-6 text-center">
-              <span className="inline-flex items-center gap-2 rounded-full bg-brand-yellow px-5 py-2 text-base font-extrabold uppercase tracking-widest text-brand-black shadow">
+              <span className="inline-flex items-center gap-2 text-lg font-extrabold uppercase tracking-widest text-ink">
                 Key partners · ₹10 crore and above
               </span>
             </div>

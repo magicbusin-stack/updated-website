@@ -56,7 +56,7 @@ export default function ProgrammesSlider() {
           whileInView="visible"
           viewport={VIEWPORT_ONCE}
         >
-          <SectionHeading tag="Our programmes" title="CORE PROGRAMMES" className="mb-6" />
+          <SectionHeading title="CORE PROGRAMMES" accent="PROGRAMMES" className="mb-6" />
           <motion.p variants={fadeUpSm} className="text-gray-600 text-lg md:text-xl max-w-3xl mx-auto">
             Transforming lives through structured pathways from adolescence to
             sustainable livelihoods.

@@ -9,7 +9,7 @@ export default function AIDigitalSection() {
   return (
     <section className="bg-gradient-to-b from-sky-50 via-white to-amber-50 text-ink overflow-hidden pt-20">
       <div className="max-w-7xl mx-auto px-6 lg:px-8 text-center">
-        <SectionHeading tag="Innovation" title="TECH AND INNOVATION" className="mb-5" />
+        <SectionHeading title="TECH AND INNOVATION" accent="INNOVATION" className="mb-5" />
         <p className="text-slate-600 text-lg md:text-xl max-w-3xl mx-auto">
           {SUBHEADLINE_PLACEHOLDER}
         </p>

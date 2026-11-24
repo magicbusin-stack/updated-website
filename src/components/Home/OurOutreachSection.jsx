@@ -57,7 +57,7 @@ export default function OurOutreachSection() {
       <link rel="stylesheet" href={FONTS_HREF} precedence="default" />
 
       <header className="px-4 pt-6 md:pt-10">
-        <SectionHeading tag="Our reach" title="Our Outreach & Impact" id="our-outreach-heading" />
+        <SectionHeading title="Our Outreach & Impact" accent="Impact" id="our-outreach-heading" />
       </header>
 
       {/* Stats, with the arrows on its left and right (the arrows never move or fade) */}

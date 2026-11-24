@@ -15,6 +15,8 @@ export default function FAQSection({
   title = "Frequently Asked Questions",
   subtitle = "Clear answers about our programmes, partnerships, and impact.",
   categoriesLabel = "Filter by category",
+  showTag = true, /* the small yellow "FAQs" tag above the title; the home page leaves it out */
+  titleAccent, /* the last words of the title shown in red */
 }) {
   const [query, setQuery] = useState("");
   const [open, setOpen] = useState(null); // index of open item
@@ -50,12 +52,21 @@ export default function FAQSection({
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-6 md:mb-10">
-          <span className="inline-flex items-center gap-2 rounded-full border border-brand-black/20 bg-brand-yellow px-4 py-1.5 text-xs font-semibold tracking-[0.18em] text-brand-black uppercase">
-            <HelpCircle className="w-4 h-4" />
-            FAQs
-          </span>
-          <h2 className="mt-4 text-2xl sm:text-4xl md:text-5xl font-extrabold text-ink">
-            {title}
+          {showTag && (
+            <span className="inline-flex items-center gap-2 rounded-full border border-brand-black/20 bg-brand-yellow px-4 py-1.5 text-xs font-semibold tracking-[0.18em] text-brand-black uppercase">
+              <HelpCircle className="w-4 h-4" />
+              FAQs
+            </span>
+          )}
+          <h2 className={`${showTag ? "mt-4 " : ""}text-2xl sm:text-4xl md:text-5xl font-extrabold text-ink`}>
+            {titleAccent && title.endsWith(titleAccent) ? (
+              <>
+                {title.slice(0, title.length - titleAccent.length)}
+                <span className="text-brand-red">{titleAccent}</span>
+              </>
+            ) : (
+              title
+            )}
           </h2>
           <p className="mt-2 md:mt-3 text-brand-black/70 text-sm md:text-lg max-w-3xl mx-auto">
             {subtitle}

@@ -25,7 +25,7 @@ export default function Home() {
         <AIDigitalSection />
         <PartnersShowcase />
         <GetInvolvedSection />
-        <FAQSection  items={homefaq} />
+        <FAQSection  items={homefaq} showTag={false} titleAccent="Questions" />
     </Layout>
   );
 }

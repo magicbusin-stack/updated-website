@@ -131,7 +131,7 @@ export default function ProgramAreas() {
             Success Stories
           </motion.span>
           <motion.h2 variants={fadeUp} id="success-stories-heading" className="text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl lg:text-5xl">
-            Lives We've Transformed
+            Lives We've <span className="text-brand-red">Transformed</span>
           </motion.h2>
           <motion.p variants={fadeUpSm} className="mt-4 text-lg leading-relaxed text-slate-600 sm:text-xl">
             Real stories from youth who found their path, built resilience, and unlocked potential through Magic Bus Programs.
