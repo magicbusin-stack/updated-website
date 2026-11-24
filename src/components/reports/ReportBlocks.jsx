@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import { Clock, Download, Eye, FileText } from "lucide-react";
+import usePhone from "../../hooks/usePhone";
 
 /* Shared building blocks for ALL the downloadable-report pages (Annual Reports, Impact Reports, Gender Journey, FLFPR):
    the same stats band and the same report card everywhere, so the pages never drift apart. */
@@ -48,9 +49,64 @@ const RING = {
 
 /* stats: [{ prefix, to, decimals, suffix, label, Icon, color: "yellow" | "green" | "red" | "blue" }] */
 /* title (optional): a heading shown under the small tag.  cols: 4 (default) or 3 numbers across on a wide screen. */
-export function StatsBand({ eyebrow = "Our impact at a glance", title, stats, cols = 4, compact = false }) {
+/* eyebrow: the small tag above the title; pass null to leave it out.
+   slider: on a phone, show one number at a time and move to the next every `slideSeconds` seconds (dots and swipe work too),
+           instead of one long column of cards. */
+function StatCard({ s, i, compact, longLabels, countKey, still }) {
+  const c = RING[s.color] || RING.yellow;
+  return (
+    <motion.div
+      initial={still ? false : { opacity: 0, y: 30 }}
+      whileInView={still ? undefined : { opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ delay: i * 0.1, duration: 0.5 }}
+      whileHover={still ? undefined : { y: -8 }}
+      className={`group relative h-full overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-5 backdrop-blur-sm transition-colors duration-300 hover:border-brand-yellow/50 hover:bg-white/10 ${compact ? "sm:p-5" : "sm:p-8"}`}
+    >
+      <div className={`pointer-events-none absolute -right-10 -top-10 h-32 w-32 rounded-full opacity-60 blur-2xl transition-opacity duration-300 group-hover:opacity-100 ${c.glow}`} />
+      <span className={`relative flex items-center justify-center rounded-2xl bg-gradient-to-br text-white shadow-lg ${compact ? "h-10 w-10" : "h-12 w-12 sm:h-14 sm:w-14"} ${c.ring}`}>
+        <s.Icon className={compact ? "h-5 w-5" : "h-6 w-6 sm:h-7 sm:w-7"} />
+      </span>
+      <div className={`relative bg-gradient-to-b from-white to-brand-yellow bg-clip-text font-black leading-none tracking-tight text-transparent ${compact ? "mt-3 text-3xl sm:text-4xl" : "mt-5 text-4xl sm:text-5xl xl:text-6xl"}`}>
+        <CountUp key={countKey} prefix={s.prefix} to={s.to} decimals={s.decimals} suffix={s.suffix} />
+      </div>
+      <p className={`relative ${compact ? "mt-2" : "mt-3"} font-semibold text-white/85 ${longLabels ? "text-base leading-snug sm:text-lg" : "text-base uppercase tracking-wider sm:text-lg"}`}>{s.label}</p>
+      <span className={`absolute bottom-0 left-0 h-1.5 w-full origin-left scale-x-0 bg-gradient-to-r transition-transform duration-500 group-hover:scale-x-100 ${c.ring}`} />
+    </motion.div>
+  );
+}
+
+export function StatsBand({ eyebrow = "Our impact at a glance", title, stats, cols = 4, compact = false, slider = false, slideSeconds = 4 }) {
   /* short labels are shown in capitals; if any label is a full sentence they all switch to normal sentence case, so the row stays even */
   const longLabels = stats.some((st) => st.label.length > 45);
+  const phone = usePhone();
+  const sliding = slider && phone;
+  const [active, setActive] = useState(0);
+  const start = useRef(null);
+  const count = stats.length;
+  const go = (n) => setActive((n + count) % count);
+
+  useEffect(() => {
+    if (!sliding) return undefined;
+    if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return undefined;
+    const t = setTimeout(() => setActive((a) => (a + 1) % count), slideSeconds * 1000);
+    return () => clearTimeout(t); /* any change of slide (also by hand) starts the countdown again */
+  }, [sliding, active, count, slideSeconds]);
+
+  const swipe = {
+    style: { touchAction: "pan-y" },
+    onPointerDown: (e) => {
+      start.current = { x: e.clientX, y: e.clientY };
+    },
+    onPointerUp: (e) => {
+      if (!start.current) return;
+      const dx = e.clientX - start.current.x;
+      const dy = e.clientY - start.current.y;
+      start.current = null;
+      if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) go(active + (dx < 0 ? 1 : -1));
+    },
+  };
+
   return (
     <section className={`relative overflow-hidden bg-gradient-to-br from-[#1A1A1A] via-[#232323] to-[#1A1A1A] ${compact ? "py-12 md:py-16" : "py-16 md:py-24"}`}>
       <div className="pointer-events-none absolute -left-24 -top-24 h-72 w-72 rounded-full bg-brand-yellow/10 blur-3xl" />
@@ -58,39 +114,49 @@ export function StatsBand({ eyebrow = "Our impact at a glance", title, stats, co
 
       <div className="relative max-w-7xl mx-auto px-6 lg:px-12">
         <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className={`mx-auto max-w-3xl text-center ${compact ? "mb-8" : "mb-12"}`}>
-          <span className="inline-flex items-center gap-2 rounded-full border border-brand-yellow/30 bg-brand-yellow/10 px-4 py-1.5 text-sm font-bold uppercase tracking-widest text-brand-yellow">
-            <span className="h-2 w-2 rounded-full bg-brand-yellow" />
-            {eyebrow}
-          </span>
-          {title && <h2 className={`mt-5 font-extrabold leading-tight text-white ${compact ? "text-3xl md:text-4xl" : "text-4xl md:text-5xl"}`}>{title}</h2>}
+          {eyebrow && (
+            <span className="inline-flex items-center gap-2 rounded-full border border-brand-yellow/30 bg-brand-yellow/10 px-4 py-1.5 text-sm font-bold uppercase tracking-widest text-brand-yellow">
+              <span className="h-2 w-2 rounded-full bg-brand-yellow" />
+              {eyebrow}
+            </span>
+          )}
+          {title && <h2 className={`${eyebrow ? "mt-5" : ""} font-extrabold leading-tight text-white ${compact ? "text-3xl md:text-4xl" : "text-4xl md:text-5xl"}`}>{title}</h2>}
         </motion.div>
 
-        <div className={`grid gap-4 sm:gap-6 ${cols === 3 ? "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3" : "grid-cols-2 lg:grid-cols-4"}`}>
-          {stats.map((s, i) => {
-            const c = RING[s.color] || RING.yellow;
-            return (
-              <motion.div
-                key={s.label}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1, duration: 0.5 }}
-                whileHover={{ y: -8 }}
-                className={`group relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-5 backdrop-blur-sm transition-colors duration-300 hover:border-brand-yellow/50 hover:bg-white/10 ${compact ? "sm:p-5" : "sm:p-8"}`}
-              >
-                <div className={`pointer-events-none absolute -right-10 -top-10 h-32 w-32 rounded-full opacity-60 blur-2xl transition-opacity duration-300 group-hover:opacity-100 ${c.glow}`} />
-                <span className={`relative flex items-center justify-center rounded-2xl bg-gradient-to-br text-white shadow-lg ${compact ? "h-10 w-10" : "h-12 w-12 sm:h-14 sm:w-14"} ${c.ring}`}>
-                  <s.Icon className={compact ? "h-5 w-5" : "h-6 w-6 sm:h-7 sm:w-7"} />
-                </span>
-                <div className={`relative bg-gradient-to-b from-white to-brand-yellow bg-clip-text font-black leading-none tracking-tight text-transparent ${compact ? "mt-3 text-3xl sm:text-4xl" : "mt-5 text-4xl sm:text-5xl xl:text-6xl"}`}>
-                  <CountUp prefix={s.prefix} to={s.to} decimals={s.decimals} suffix={s.suffix} />
+        {sliding ? (
+          <div>
+            <div className="grid" {...swipe} aria-live="off">
+              {stats.map((s, i) => (
+                <div
+                  key={s.label}
+                  inert={i !== active}
+                  aria-hidden={i !== active}
+                  className={`col-start-1 row-start-1 transition-opacity duration-500 ${i === active ? "opacity-100" : "pointer-events-none invisible opacity-0"}`}
+                >
+                  {/* the number counts up each time its card comes round */}
+                  <StatCard s={s} i={0} compact={compact} longLabels={longLabels} countKey={i === active ? `on-${active}` : "off"} still />
                 </div>
-                <p className={`relative ${compact ? "mt-2" : "mt-3"} font-semibold text-white/85 ${longLabels ? "text-base leading-snug sm:text-lg" : "text-base uppercase tracking-wider sm:text-lg"}`}>{s.label}</p>
-                <span className={`absolute bottom-0 left-0 h-1.5 w-full origin-left scale-x-0 bg-gradient-to-r transition-transform duration-500 group-hover:scale-x-100 ${c.ring}`} />
-              </motion.div>
-            );
-          })}
-        </div>
+              ))}
+            </div>
+            <div className="mt-5 flex items-center justify-center gap-2">
+              {stats.map((s, i) => (
+                <button
+                  key={s.label}
+                  type="button"
+                  onClick={() => go(i)}
+                  className={`h-2.5 rounded-full transition-all ${i === active ? "w-10 bg-brand-yellow" : "w-4 bg-white/30 hover:bg-white/50"}`}
+                  aria-label={`Show figure ${i + 1} of ${count}`}
+                />
+              ))}
+            </div>
+          </div>
+        ) : (
+          <div className={`grid gap-4 sm:gap-6 ${cols === 3 ? "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3" : "grid-cols-2 lg:grid-cols-4"}`}>
+            {stats.map((s, i) => (
+              <StatCard key={s.label} s={s} i={i} compact={compact} longLabels={longLabels} />
+            ))}
+          </div>
+        )}
       </div>
     </section>
   );

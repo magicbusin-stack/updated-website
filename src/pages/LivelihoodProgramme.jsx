@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import {
     ArrowRight,
@@ -26,11 +26,17 @@ import HeroBanner from "../components/HeroBanner";
 import FAQSection from "../components/Home/FAQSectiom";
 import FaqSchema from "../components/seo/FaqSchema";
 import usePageMeta from "../hooks/usePageMeta";
+import usePhone from "../hooks/usePhone";
 import LogoMarquee from "../components/Corporate/LogoMarquee";
 import { CountUp, StatsBand } from "../components/reports/ReportBlocks";
 
 const _MOTION = motion;
 const EASE = [0.16, 1, 0.3, 1];
+
+/* Phones: a row you swipe sideways (so the page is not one very long column). Tablet and desktop: the normal layout. */
+const SWIPE_ROW =
+    "-mx-6 flex snap-x snap-mandatory gap-4 overflow-x-auto px-6 pb-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:mx-0 sm:overflow-visible sm:px-0 sm:pb-0";
+const SWIPE_ITEM = "w-[82%] shrink-0 snap-center sm:w-auto sm:shrink";
 
 function FadeUp({ children, delay = 0, className = "" }) {
     const ref = useRef(null);
@@ -189,7 +195,158 @@ function StructureRow({ item, i }) {
     );
 }
 
+/* ───────── "Magic Bus Livelihood Programme" block: three parts, used on every screen size ───────── */
+/* The introduction text, in three pieces (the same words as before). Phones show them over two slides. */
+const INTRO_1 =
+    "Magic Bus India Foundation’s Livelihood Programmes equip underserved youth and women with 21st century life & employability skills, along with digital and entrepreneurial skills to access sustainable livelihood opportunities.";
+const INTRO_2 = "This enables them to make informed career decisions, secure sustainable jobs, support their families, and contribute to the economy.";
+const INTRO_3 =
+    "For rural youth and women, we help them to set up their nano-enterprises or self-employment at their own villages through EDP (Entrepreneurship Development Programme) and enhancing their business professionalism.";
+
+function IntroTag() {
+    return (
+        <span className="inline-flex items-center rounded-full bg-brand-yellow px-4 py-1.5 text-xs font-extrabold uppercase tracking-[0.12em] text-brand-black md:px-5 md:py-2 md:tracking-[0.2em]">
+            Livelihood Programme
+        </span>
+    );
+}
+
+function IntroCard({ part }) {
+    /* part: undefined = the whole card (tablet, desktop); 1 or 2 = the two phone slides */
+    const whole = !part;
+    return (
+        <div className={`relative rounded-[28px] border border-gray-200 bg-white p-6 shadow-sm md:p-8 ${whole ? "" : "flex h-full flex-col justify-center"}`}>
+            <div className="absolute -right-2 -top-2 h-10 w-10 rounded-full border border-gray-300 bg-white" />
+            {(whole || part === 1) && (
+                <>
+                    <div className="flex items-center gap-2 md:gap-3 flex-wrap">
+                        <IntroTag />
+                        <span className="inline-flex items-center gap-2 rounded-full border border-gray-300 bg-[#F7F7F5] px-3 py-1 text-xs font-bold uppercase tracking-wider text-[#1A1A1A]/70">
+                            <BriefcaseBusiness className="w-3.5 h-3.5 text-brand-red" />
+                            Employability + Entrepreneurship
+                        </span>
+                    </div>
+                    <h2 className="mt-5 text-3xl md:text-4xl font-extrabold text-[#15161A] leading-tight">Magic Bus Livelihood Programme</h2>
+                </>
+            )}
+            {part === 2 && (
+                <div>
+                    <IntroTag />
+                </div>
+            )}
+            <h3 className={`${part === 2 ? "mt-5" : "mt-4"} text-base md:text-lg font-normal leading-relaxed text-[#1A1A1A]/80`}>
+                {whole ? `${INTRO_1} ${INTRO_2} ${INTRO_3}` : part === 1 ? INTRO_1 : `${INTRO_2} ${INTRO_3}`}
+            </h3>
+        </div>
+    );
+}
+
+function WorldCard({ fill = false }) {
+    return (
+        <div className={`relative rounded-[28px] border border-[#184987] bg-gradient-to-br from-[#144A8B] to-[#1F5BA2] p-7 text-white shadow-lg ${fill ? "flex h-full flex-col justify-center" : ""}`}>
+            <div className="absolute -left-3 top-8 rounded-full bg-brand-yellow px-4 py-1 text-xs font-extrabold uppercase tracking-[0.18em] text-brand-black">
+                World of Work
+            </div>
+            <p className={`mt-8 leading-relaxed text-white/95 ${fill ? "text-xl" : "text-base md:text-lg"}`}>
+                The Livelihood Programme addresses the challenges of skill mismatch, limited access to job opportunities,
+                and systemic barriers, helping youth increase their household incomes and break out of the cycle of poverty.
+            </p>
+        </div>
+    );
+}
+
+function StrengthTile({ item }) {
+    return (
+        <_MOTION.div
+            whileHover={{ y: -6 }}
+            transition={{ type: "spring", stiffness: 280, damping: 22 }}
+            className="group relative flex items-center gap-4 overflow-hidden rounded-2xl border border-gray-200 bg-white p-5 shadow-sm transition-shadow duration-300 hover:shadow-lg"
+        >
+            <span className={`flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl ${item.color} transition-transform duration-300 group-hover:scale-110`}>
+                <item.icon className={`h-7 w-7 ${item.iconColor}`} />
+            </span>
+            <p className="text-xl font-extrabold leading-snug text-[#1A1A1A] md:text-2xl">{item.label}</p>
+            <span className={`absolute bottom-0 left-0 h-1.5 w-full origin-left scale-x-0 ${item.color} transition-transform duration-500 group-hover:scale-x-100`} />
+        </_MOTION.div>
+    );
+}
+
+/* Phones only: the three parts take turns, one at a time, on a timer (dots and swipe work too; touching a slide holds it).
+   All three sit in one grid cell, so the box never changes height. */
+const SLIDE_SECONDS = 8;
+function IntroSlides() {
+    const [active, setActive] = useState(0);
+    const [hold, setHold] = useState(false);
+    const start = useRef(null);
+    const count = 4;
+    const go = (n) => setActive((n + count) % count);
+
+    useEffect(() => {
+        if (hold) return undefined;
+        if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return undefined;
+        const t = setTimeout(() => setActive((a) => (a + 1) % count), SLIDE_SECONDS * 1000);
+        return () => clearTimeout(t); /* any change of slide (also by hand) starts the countdown again */
+    }, [active, hold]);
+
+    const swipe = {
+        style: { touchAction: "pan-y" },
+        onPointerDown: (e) => {
+            setHold(true);
+            start.current = { x: e.clientX, y: e.clientY };
+        },
+        onPointerUp: (e) => {
+            setHold(false);
+            if (!start.current) return;
+            const dx = e.clientX - start.current.x;
+            const dy = e.clientY - start.current.y;
+            start.current = null;
+            if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) go(active + (dx < 0 ? 1 : -1));
+        },
+        onPointerCancel: () => setHold(false),
+    };
+
+    const panels = [
+        <IntroCard key="intro-1" part={1} />,
+        <IntroCard key="intro-2" part={2} />,
+        <WorldCard key="world" fill />,
+        <div key="strengths" className="flex h-full flex-col justify-between gap-3">
+            {strengths.map((item) => (
+                <StrengthTile key={item.label} item={item} />
+            ))}
+        </div>,
+    ];
+
+    return (
+        <div>
+            <div className="grid" {...swipe}>
+                {panels.map((panel, i) => (
+                    <div
+                        key={panel.key}
+                        inert={i !== active}
+                        aria-hidden={i !== active}
+                        className={`col-start-1 row-start-1 transition-opacity duration-500 ${i === active ? "opacity-100" : "pointer-events-none invisible opacity-0"}`}
+                    >
+                        {panel}
+                    </div>
+                ))}
+            </div>
+            <div className="mt-4 flex items-center justify-center gap-2">
+                {panels.map((panel, i) => (
+                    <button
+                        key={panel.key}
+                        type="button"
+                        onClick={() => go(i)}
+                        className={`h-2.5 rounded-full transition-all ${i === active ? "w-10 bg-brand-red" : "w-4 bg-[#1A1A1A]/25"}`}
+                        aria-label={`Show part ${i + 1} of ${count}`}
+                    />
+                ))}
+            </div>
+        </div>
+    );
+}
+
 export default function LivelihoodProgramme() {
+    const phone = usePhone();
     usePageMeta({
         title: "Livelihood Programme for Youth Skills and Jobs | Magic Bus",
         description:
@@ -213,8 +370,7 @@ export default function LivelihoodProgramme() {
             <section className="py-20 bg-white">
                 <div className="max-w-7xl mx-auto px-6 lg:px-12">
                     <FadeUp className="max-w-4xl">
-                        <SectionTag>Need for Livelihood Interventions</SectionTag>
-                        <h2 className="text-4xl md:text-5xl font-extrabold leading-tight text-[#1A1A1A]">Need for Livelihood Interventions for Youth in India</h2>
+                        <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black leading-tight text-[#1A1A1A]">Need for Livelihood Interventions for Youth in India</h2>
                         <p className="mt-5 text-lg md:text-xl text-[#1A1A1A]/85 leading-relaxed">
                             India’s large youth population represents a powerful opportunity for economic growth, yet many young
                             people—especially those from underserved communities—struggle to transition from education to meaningful
@@ -233,67 +389,32 @@ export default function LivelihoodProgramme() {
 
             <section className="py-20 bg-[#F7F7F5]">
                 <div className="max-w-7xl mx-auto px-6 lg:px-12">
-                    <div className="relative overflow-hidden rounded-[34px] border border-gray-200 bg-[#EDEDEA] p-5 md:p-8">
+                    <div className="relative overflow-hidden rounded-[34px] border border-gray-200 bg-[#EDEDEA] p-5 max-sm:overflow-visible max-sm:border-0 max-sm:bg-transparent max-sm:p-0 md:p-8">
                         <div className="pointer-events-none absolute -left-16 top-1/2 h-px w-52 -rotate-12 bg-brand-red/35" />
                         <div className="pointer-events-none absolute right-[-44px] top-14 h-px w-56 rotate-12 bg-brand-yellow/65" />
                         <div className="pointer-events-none absolute right-20 bottom-16 h-28 w-28 rounded-full bg-brand-yellow/25 blur-2xl" />
 
-                        <div className="grid lg:grid-cols-12 gap-5 lg:gap-6 items-start">
-                            <FadeUp className="lg:col-span-7">
-                                <div className="relative rounded-[28px] border border-gray-200 bg-white p-7 md:p-8 shadow-sm">
-                                    <div className="absolute -right-2 -top-2 h-10 w-10 rounded-full border border-gray-300 bg-white" />
-                                    <div className="flex items-center gap-3 flex-wrap">
-                                        <span className="inline-flex items-center rounded-full bg-brand-yellow px-5 py-2 text-xs font-extrabold uppercase tracking-[0.2em] text-brand-black">
-                                            Livelihood Programme
-                                        </span>
-                                        <span className="inline-flex items-center gap-2 rounded-full border border-gray-300 bg-[#F7F7F5] px-3 py-1 text-xs font-bold uppercase tracking-wider text-[#1A1A1A]/70">
-                                            <BriefcaseBusiness className="w-3.5 h-3.5 text-brand-red" />
-                                            Employability + Entrepreneurship
-                                        </span>
-                                    </div>
-                                    <h2 className="mt-5 text-3xl md:text-4xl font-extrabold text-[#15161A] leading-tight">Magic Bus Livelihood Programme</h2>
-                                    <h3 className="mt-4 text-base md:text-lg font-normal leading-relaxed text-[#1A1A1A]/80">
-                                        Magic Bus India Foundation’s Livelihood Programmes equip underserved youth and women with 21st
-                                        century life &amp; employability skills, along with digital and entrepreneurial skills to access
-                                        sustainable livelihood opportunities. This enables them to make informed career decisions, secure
-                                        sustainable jobs, support their families, and contribute to the economy. For rural youth and women,
-                                        we help them to set up their nano-enterprises or self-employment at their own villages through EDP
-                                        (Entrepreneurship Development Programme) and enhancing their business professionalism.
-                                    </h3>
-                                </div>
-                            </FadeUp>
+                        {phone ? (
+                            <IntroSlides />
+                        ) : (
+                            <div className="grid lg:grid-cols-12 gap-5 lg:gap-6 items-start">
+                                <FadeUp className="lg:col-span-7">
+                                    <IntroCard />
+                                </FadeUp>
 
-                            <FadeUp delay={0.06} className="lg:col-span-5 lg:mt-14">
-                                <div className="relative rounded-[28px] border border-[#184987] bg-gradient-to-br from-[#144A8B] to-[#1F5BA2] p-7 text-white shadow-lg">
-                                    <div className="absolute -left-3 top-8 rounded-full bg-brand-yellow px-4 py-1 text-xs font-extrabold uppercase tracking-[0.18em] text-brand-black">
-                                        World of Work
-                                    </div>
-                                    <p className="mt-8 text-base md:text-lg leading-relaxed text-white/95">
-                                        The Livelihood Programme addresses the challenges of skill mismatch, limited access to job opportunities,
-                                        and systemic barriers, helping youth increase their household incomes and break out of the cycle of poverty.
-                                    </p>
-                                </div>
-                            </FadeUp>
+                                <FadeUp delay={0.06} className="lg:col-span-5 lg:mt-14">
+                                    <WorldCard />
+                                </FadeUp>
 
-                            <FadeUp delay={0.1} className="lg:col-span-12 lg:-mt-2">
-                                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-                                    {strengths.map((item) => (
-                                        <_MOTION.div
-                                            key={item.label}
-                                            whileHover={{ y: -6 }}
-                                            transition={{ type: "spring", stiffness: 280, damping: 22 }}
-                                            className="group relative flex items-center gap-4 overflow-hidden rounded-2xl border border-gray-200 bg-white p-5 shadow-sm transition-shadow duration-300 hover:shadow-lg"
-                                        >
-                                            <span className={`flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl ${item.color} transition-transform duration-300 group-hover:scale-110`}>
-                                                <item.icon className={`h-7 w-7 ${item.iconColor}`} />
-                                            </span>
-                                            <p className="text-xl font-extrabold leading-snug text-[#1A1A1A] md:text-2xl">{item.label}</p>
-                                            <span className={`absolute bottom-0 left-0 h-1.5 w-full origin-left scale-x-0 ${item.color} transition-transform duration-500 group-hover:scale-x-100`} />
-                                        </_MOTION.div>
-                                    ))}
-                                </div>
-                            </FadeUp>
-                        </div>
+                                <FadeUp delay={0.1} className="lg:col-span-12 lg:-mt-2">
+                                    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+                                        {strengths.map((item) => (
+                                            <StrengthTile key={item.label} item={item} />
+                                        ))}
+                                    </div>
+                                </FadeUp>
+                            </div>
+                        )}
                     </div>
                 </div>
             </section>
@@ -323,7 +444,29 @@ export default function LivelihoodProgramme() {
                         <SectionTag>Programme Structure</SectionTag>
                         <h2 className="text-4xl md:text-5xl font-extrabold leading-tight text-[#1A1A1A]">Structure, Components, Eligibility for the Livelihood Programme</h2>
                     </FadeUp>
-                    <div className="divide-y divide-gray-200 border-t border-gray-200">
+                    {/* Phones: four cards you swipe through */}
+                    <div className={`${SWIPE_ROW} sm:hidden`}>
+                        {structureRows.map((item, i) => (
+                            <div key={item.title} className={`${SWIPE_ITEM} flex flex-col rounded-3xl border border-gray-200 bg-white p-5 shadow-sm`}>
+                                <div className="flex items-center justify-between">
+                                    <span className={`flex h-12 w-12 items-center justify-center rounded-2xl ${item.color}`}>
+                                        <item.icon className={`h-6 w-6 ${item.iconColor}`} />
+                                    </span>
+                                    <span className="text-3xl font-black text-[#1A1A1A]/15">{String(i + 1).padStart(2, "0")}</span>
+                                </div>
+                                <h3 className="mt-4 text-xl font-black leading-snug text-[#1A1A1A]">{item.title}</h3>
+                                <ul className="mt-4 flex flex-wrap gap-2">
+                                    {item.points.map((point) => (
+                                        <li key={point} className="rounded-3xl border border-gray-300/80 bg-[#F7F7F5] px-3 py-1 text-[15px] font-medium leading-snug text-[#1A1A1A]/85">
+                                            {point}
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                        ))}
+                    </div>
+                    {/* Tablet and desktop: the rows */}
+                    <div className="hidden divide-y divide-gray-200 border-t border-gray-200 sm:block">
                         {structureRows.map((item, i) => (
                             <StructureRow key={item.title} item={item} i={i} />
                         ))}
@@ -343,8 +486,34 @@ export default function LivelihoodProgramme() {
                         </p>
                     </FadeUp>
 
-                    <h3 className="mt-12 mb-6 text-2xl md:text-3xl font-extrabold text-[#1A1A1A]">Job Placements for 2024-25</h3>
-                    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+                    <h3 className="mt-12 mb-6 text-2xl md:text-3xl font-extrabold text-[#1A1A1A]">Job Placements for <span className="whitespace-nowrap">2024-25</span></h3>
+                    {/* Phones: one compact card, a bar for each sector */}
+                    <div className="space-y-5 rounded-3xl border border-gray-200 bg-white p-5 shadow-sm sm:hidden">
+                        {placements.map((item, i) => (
+                            <div key={item.sector}>
+                                <div className="flex items-center gap-3">
+                                    <span className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ${item.color}`}>
+                                        <item.icon className={`h-5 w-5 ${item.color === "bg-brand-yellow" ? "text-brand-black" : "text-white"}`} />
+                                    </span>
+                                    <p className="flex-1 text-lg font-extrabold text-[#1A1A1A]">{item.sector}</p>
+                                    <p className="text-3xl font-black leading-none text-[#1A1A1A]">
+                                        <CountUp to={item.to} decimals={item.decimals} suffix="%" />
+                                    </p>
+                                </div>
+                                <div className="mt-2.5 h-2.5 overflow-hidden rounded-full bg-gray-100">
+                                    <_MOTION.div
+                                        className={`h-full rounded-full ${item.color}`}
+                                        initial={{ width: 0 }}
+                                        whileInView={{ width: `${item.to}%` }}
+                                        viewport={{ once: true }}
+                                        transition={{ duration: 1.2, ease: EASE, delay: 0.1 * i }}
+                                    />
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+
+                    <div className="hidden gap-4 sm:grid sm:grid-cols-2 lg:grid-cols-5">
                         {placements.map((item, i) => (
                             <FadeUp key={item.sector} delay={0.06 * i} className="h-full">
                                 <_MOTION.div
@@ -386,7 +555,7 @@ export default function LivelihoodProgramme() {
                 </div>
             </section>
 
-            <StatsBand eyebrow="Impact and Success Stories" title="Impact of our Livelihood Programme" stats={impactStats} cols={3} compact />
+            <StatsBand eyebrow={null} title="Impact of our Livelihood Programme" stats={impactStats} cols={3} compact slider slideSeconds={4} />
 
             <FAQSection
                 items={livelihoodFaq}
