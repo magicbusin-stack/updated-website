@@ -41,7 +41,8 @@ export default function OutreachTicker({ value }) {
   }, [value]);
 
   if (!p) return value;
-  const shown = p.grouped ? n.toLocaleString("en-US", { minimumFractionDigits: p.decimals, maximumFractionDigits: p.decimals }) : n.toFixed(p.decimals);
+  // Indian digit grouping (3,23,963), the same way the numbers are written on the pages
+  const shown = p.grouped ? n.toLocaleString("en-IN", { minimumFractionDigits: p.decimals, maximumFractionDigits: p.decimals }) : n.toFixed(p.decimals);
   return (
     <span aria-label={value}>
       <span aria-hidden="true">

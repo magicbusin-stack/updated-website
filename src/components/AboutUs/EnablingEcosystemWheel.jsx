@@ -502,10 +502,11 @@ export default function EnablingEcosystemWheel() {
       <div className="mt-14">
         <p className="text-xs font-bold uppercase tracking-widest text-brand-red">Continuous growth arc</p>
         <h3 className="mt-1 text-xl md:text-2xl font-bold text-gray-900">Learner progression: from play to future ready citizens</h3>
-        <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:flex lg:items-stretch lg:gap-0">
+        {/* phones: a row you swipe sideways; tablet: 2 across; desktop: one line with arrows */}
+        <div className="-mx-4 mt-6 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:mx-0 sm:grid sm:grid-cols-2 sm:overflow-visible sm:px-0 sm:pb-0 lg:flex lg:items-stretch lg:gap-0">
           {STAGES.map((s) => (
             <React.Fragment key={s.id}>
-              <div className="flex flex-col items-center rounded-2xl border-2 p-5 text-center shadow-sm lg:flex-1" style={{ background: s.bg, borderColor: s.border }}>
+              <div className="flex w-[78%] shrink-0 snap-center flex-col items-center rounded-2xl border-2 p-5 text-center shadow-sm sm:w-auto sm:shrink lg:flex-1" style={{ background: s.bg, borderColor: s.border }}>
                 <span className="flex h-12 w-12 items-center justify-center rounded-full text-white shadow" style={{ background: s.c }}>
                   <s.Icon className="h-6 w-6" />
                 </span>
@@ -521,7 +522,7 @@ export default function EnablingEcosystemWheel() {
               </div>
             </React.Fragment>
           ))}
-          <div className="flex flex-col items-center rounded-2xl border-2 p-5 text-center shadow-sm sm:col-span-2 lg:flex-1" style={{ background: "#F1EBFA", borderColor: "#C9B5E8" }}>
+          <div className="flex w-[78%] shrink-0 snap-center flex-col items-center rounded-2xl border-2 p-5 text-center shadow-sm sm:col-span-2 sm:w-auto sm:shrink lg:flex-1" style={{ background: "#F1EBFA", borderColor: "#C9B5E8" }}>
             <span className="flex h-12 w-12 items-center justify-center rounded-full text-white shadow" style={{ background: "#7B52B8" }}>
               <PersonStanding className="h-6 w-6" />
             </span>

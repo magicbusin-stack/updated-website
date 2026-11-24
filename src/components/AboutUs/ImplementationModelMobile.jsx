@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { ChevronDown } from "lucide-react";
 
 // Phone version of the Implementation Model: the same boxes as the flowchart, stacked top to bottom so every line is readable.
@@ -34,14 +34,38 @@ function Branch({ t, title, sub, children }) {
 }
 
 export default function ImplementationModelMobile({ onActive }) {
+  // one model at a time (a short page), chosen with the two buttons
+  const [model, setModel] = useState(0);
+  const pick = (i) => {
+    setModel(i);
+    if (onActive) onActive(i);
+  };
   return (
     <div className="space-y-5">
       <div className="mx-auto flex h-12 w-64 items-center justify-center rounded-full border-2 border-[#E9C736] bg-[#FFDE59] shadow-sm">
         <h3 className="text-lg font-bold text-neutral-900">Implementation Model</h3>
       </div>
 
+      <div role="group" aria-label="Choose a model" className="grid grid-cols-2 gap-2">
+        {[
+          ["Direct Model", PINK],
+          ["Indirect Model", BLUE],
+        ].map(([label, t], i) => (
+          <button
+            key={label}
+            type="button"
+            onClick={() => pick(i)}
+            aria-pressed={model === i}
+            className={`rounded-2xl border-2 px-3 py-3 text-base font-bold leading-snug text-neutral-900 transition focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-brand-yellow ${model === i ? "shadow-md" : "opacity-70"}`}
+            style={{ background: model === i ? t.head : t.card, borderColor: model === i ? t.stroke : "transparent" }}
+          >
+            {label}
+          </button>
+        ))}
+      </div>
+
       {/* Direct model */}
-      <div onTouchStart={() => onActive && onActive(0)} onMouseEnter={() => onActive && onActive(0)} onMouseLeave={() => onActive && onActive(null)}>
+      <div className={model === 0 ? "" : "hidden"} onTouchStart={() => onActive && onActive(0)} onMouseEnter={() => onActive && onActive(0)} onMouseLeave={() => onActive && onActive(null)}>
         <Branch t={PINK} title="Direct Model" sub="Implemented on-ground by Magic Bus team">
           <div className="space-y-4">
             <div>
@@ -71,7 +95,7 @@ export default function ImplementationModelMobile({ onActive }) {
       </div>
 
       {/* Indirect model */}
-      <div onTouchStart={() => onActive && onActive(1)} onMouseEnter={() => onActive && onActive(1)} onMouseLeave={() => onActive && onActive(null)}>
+      <div className={model === 1 ? "" : "hidden"} onTouchStart={() => onActive && onActive(1)} onMouseEnter={() => onActive && onActive(1)} onMouseLeave={() => onActive && onActive(null)}>
         <Branch t={BLUE} title="Indirect Model" sub="Implemented through state school education dept. partnership">
           <div className="space-y-4">
             <div>
