@@ -636,8 +636,8 @@ function ContactYellowStripe() {
                         href={it.email.href}
                         className="inline-flex items-center gap-2 text-ink/90 hover:text-brand-red"
                       >
-                        <Mail className="w-4 h-4" />
-                        <span className="truncate">{it.email.label}</span>
+                        <Mail className="w-4 h-4 shrink-0" />
+                        <span className="break-all">{it.email.label}</span>
                       </a>
                     )}
                     {it.phone && (

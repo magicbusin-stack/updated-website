@@ -199,3 +199,14 @@ html {
     display: none;
   }
 }
+
+/* ===== Email addresses ===== */
+/* They are long and have no spaces, so on a narrow phone they ran out of their box. Every email link now wraps
+   inside its box instead (this rule sits outside the Tailwind layers, so it also wins over classes such as "truncate"). */
+a[href^="mailto:"] {
+  overflow-wrap: anywhere;
+  white-space: normal;
+  text-overflow: clip;
+  min-width: 0;
+  max-width: 100%;
+}

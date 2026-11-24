@@ -24,13 +24,20 @@ import FAQSection from "../components/Home/FAQSectiom";
 import { cwwFAQ } from "../components/Home/faqItems";
 import FaqSchema from "../components/seo/FaqSchema";
 import usePageMeta from "../hooks/usePageMeta";
+import usePhone from "../hooks/usePhone";
 import FrameworkWheel from "../components/programmes/FrameworkWheel";
 import { CWW_FRAMEWORK } from "../components/programmes/frameworkWheelData";
+import { StatsBand } from "../components/reports/ReportBlocks";
 
 /* ─────────────────────────────── helpers ─────────────────────────────── */
 const EASE = [0.16, 1, 0.3, 1];
 
-function FadeUp({ children, delay = 0, className = "" }) {
+/* Phones: a row you swipe sideways (so the page is not one very long column). Tablet and desktop: the normal layout. */
+const SWIPE_ROW =
+    "-mx-6 flex snap-x snap-mandatory gap-4 overflow-x-auto px-6 pb-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:mx-0 sm:overflow-visible sm:px-0 sm:pb-0";
+const SWIPE_ITEM = "w-[82%] shrink-0 snap-center sm:w-auto sm:shrink";
+
+function FadeUp({ children, delay = 0, className = "", immediate = false }) {
     const ref = useRef(null);
     const inView = useInView(ref, { once: true, margin: "-70px" });
     return (
@@ -38,7 +45,7 @@ function FadeUp({ children, delay = 0, className = "" }) {
             ref={ref}
             className={className}
             initial={{ opacity: 0, y: 36 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
+            animate={immediate || inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.65, ease: EASE, delay }}
         >
             {children}
@@ -86,8 +93,7 @@ function AboutSection() {
                 <div className="grid lg:grid-cols-2 gap-14 lg:gap-20 items-center">
                     {/* Left: content */}
                     <FadeUp>
-                        <SectionTag>About the Programme</SectionTag>
-                        <h2 className="text-4xl md:text-5xl font-extrabold text-[#1A1A1A] leading-tight mt-2">
+                        <h2 className="text-4xl md:text-5xl font-extrabold text-[#1A1A1A] leading-tight">
                             About the Connect With Work{" "}
                             <span className="text-brand-red">Programme</span>
                         </h2>
@@ -134,8 +140,9 @@ function AboutSection() {
                                 alt="Connect With Work programme in action"
                                 className="h-full w-full object-cover"
                             />
-                            <div className="absolute inset-0 bg-gradient-to-t from-[#1A1A1A]/55 to-transparent" />
-                            <div className="absolute bottom-5 left-5 right-5">
+                            {/* the "Connecting Graduates to…" label sits on the photo on tablet and desktop only, not on phones */}
+                            <div className="absolute inset-0 hidden bg-gradient-to-t from-[#1A1A1A]/55 to-transparent sm:block" />
+                            <div className="absolute bottom-5 left-5 right-5 hidden sm:block">
                                 <div className="inline-flex items-center gap-3 bg-white/95 backdrop-blur rounded-2xl px-5 py-3 shadow-lg">
                                     <div className="bg-brand-yellow rounded-xl p-2">
                                         <GraduationCap className="w-4 h-4 text-brand-black" />
@@ -206,18 +213,36 @@ function FeaturesSection() {
             <div className="max-w-7xl mx-auto px-6 lg:px-12">
                 <FadeUp className="mb-14">
                     <SectionTag>Programme Features</SectionTag>
-                    <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
-                        <h2 className="text-4xl md:text-5xl font-extrabold text-[#1A1A1A] leading-tight">
-                            Connect With Work Programme <span className="text-brand-red">Features</span>
-                        </h2>
-                        <p className="text-[#1A1A1A]/75 max-w-sm text-base leading-relaxed">
-                            Four defining pillars that make CWW accessible, effective, and impactful.
-                        </p>
-                    </div>
+                    <h2 className="text-4xl md:text-5xl font-extrabold text-[#1A1A1A] leading-tight">
+                        Connect With Work Programme <span className="text-brand-red">Features</span>
+                    </h2>
                 </FadeUp>
 
-                {/* Editorial stat strip layout */}
-                <div className="divide-y divide-gray-200 border-t border-gray-200">
+                {/* Phones: four cards you swipe through */}
+                <div className={`${SWIPE_ROW} sm:hidden`}>
+                    {features.map((item) => (
+                        <div
+                            key={item.title}
+                            className={`${SWIPE_ITEM} flex flex-col rounded-3xl border border-gray-200 bg-white p-6 shadow-sm`}
+                        >
+                            <div className="flex items-center gap-4">
+                                <div className={`w-1.5 self-stretch rounded-full ${item.barColor}`} />
+                                <div className="min-w-0">
+                                    <div className={`text-5xl font-black leading-none ${item.accentColor}`}>{item.stat}</div>
+                                    <div className="mt-1.5 text-base font-bold uppercase tracking-[0.14em] text-[#1A1A1A]/70">{item.unit}</div>
+                                </div>
+                                <div className={`ml-auto flex h-11 w-11 shrink-0 items-center justify-center rounded-xl ${item.barColor}`}>
+                                    <item.icon className="h-5 w-5 text-white" />
+                                </div>
+                            </div>
+                            <h3 className="mt-5 text-xl font-extrabold leading-snug text-[#1A1A1A]">{item.title}</h3>
+                            <p className="mt-2 text-base leading-relaxed text-[#1A1A1A]/80">{item.desc}</p>
+                        </div>
+                    ))}
+                </div>
+
+                {/* Tablet and desktop: editorial stat strip layout */}
+                <div className="hidden divide-y divide-gray-200 border-t border-gray-200 sm:block">
                     {features.map((item, i) => (
                         <FadeUp key={item.title} delay={0.07 * i}>
                             <motion.div
@@ -316,13 +341,14 @@ const structureSteps = [
 ];
 
 function StructureSection() {
+    const phone = usePhone();
     return (
-        <section id="programme-structure" className="py-20 bg-[#1A1A1A] relative overflow-hidden">
+        <section id="programme-structure" className="py-12 sm:py-20 bg-[#1A1A1A] relative overflow-hidden">
             <div className="pointer-events-none absolute -top-32 -left-32 w-96 h-96 rounded-full bg-brand-red/15 blur-3xl" />
             <div className="pointer-events-none absolute -bottom-32 -right-32 w-80 h-80 rounded-full bg-brand-yellow/10 blur-3xl" />
 
             <div className="max-w-7xl mx-auto px-6 lg:px-12 relative z-10">
-                <FadeUp className="mb-16">
+                <FadeUp className="mb-8 sm:mb-16">
                     <SectionTag dark>Programme Structure</SectionTag>
                     <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
                         <h2 className="text-4xl md:text-5xl font-extrabold text-white leading-tight">
@@ -332,12 +358,12 @@ function StructureSection() {
                     </div>
                 </FadeUp>
 
-                {/* Step grid */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                {/* Step grid (on phones a row you swipe through) */}
+                <div className={`${SWIPE_ROW} sm:grid sm:grid-cols-2 lg:grid-cols-3`}>
                     {structureSteps.map((step, i) => (
-                        <FadeUp key={step.label} delay={0.07 * i} className="h-full">
+                        <FadeUp key={step.label} delay={0.07 * i} className={`flex flex-col sm:h-full ${SWIPE_ITEM}`} immediate={phone}>
                             <motion.div
-                                className="group relative h-full rounded-2xl overflow-hidden border border-white/10 bg-white/5 hover:bg-white/10 transition-all duration-300 cursor-default"
+                                className="group relative flex-1 rounded-2xl overflow-hidden border border-white/10 bg-white/5 hover:bg-white/10 transition-all duration-300 cursor-default"
                                 whileHover={{ y: -4 }}
                                 transition={{ type: "spring", stiffness: 300, damping: 25 }}
                             >
@@ -448,10 +474,9 @@ const sectors = [
 
 function SectorsSection() {
     return (
-        <section className="py-20 bg-[#F7F7F5]">
+        <section className="py-12 sm:py-20 bg-[#F7F7F5]">
             <div className="max-w-7xl mx-auto px-6 lg:px-12">
-                <FadeUp className="mb-14">
-                    <SectionTag>Sectors and Roles</SectionTag>
+                <FadeUp className="mb-8 sm:mb-14">
                     <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
                         <h2 className="text-4xl md:text-5xl font-extrabold text-[#1A1A1A] leading-tight">
                             Sectors and Roles: <span className="text-brand-red">Entry-Level Jobs for Graduates</span>
@@ -478,30 +503,32 @@ function SectorsSection() {
                     {sectors.map((item, i) => (
                         <FadeUp key={item.sector} delay={0.08 * i}>
                             <motion.div
-                                className="group grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-0 items-stretch cursor-default overflow-hidden"
+                                className="group grid grid-cols-[44px_minmax(0,1fr)] gap-x-4 gap-y-1.5 py-5 md:grid-cols-2 md:gap-0 md:py-0 items-stretch cursor-default overflow-hidden"
                                 whileHover={{ backgroundColor: "rgba(0,0,0,0.015)" }}
                             >
-                                {/* Col 1: sector name + icon */}
-                                <div className="flex items-center gap-4 py-6 md:pr-6">
+                                {/* (On phones this wrapper "disappears" so the icon, name and roles line up in one grid:
+                                    icon on the left, name on top, its roles right underneath.) */}
+                                <div className="contents md:flex md:items-center md:gap-4 md:py-6 md:pr-6">
                                     <div
-                                        className={`${item.color} rounded-xl w-12 h-12 flex items-center justify-center shrink-0 group-hover:shadow-md transition-shadow`}
+                                        className={`${item.color} row-span-2 self-start rounded-xl w-11 h-11 md:row-span-1 md:self-auto md:w-12 md:h-12 flex items-center justify-center shrink-0 group-hover:shadow-md transition-shadow`}
                                     >
-                                        <item.icon className={`w-6 h-6 ${item.textColor}`} />
+                                        <item.icon className={`w-5 h-5 md:w-6 md:h-6 ${item.textColor}`} />
                                     </div>
-                                    <div>
-                                        <h3 className="font-extrabold text-[#1A1A1A] text-xl">{item.sector}</h3>
-                                    </div>
+                                    <h3 className="font-extrabold leading-snug text-[#1A1A1A] text-xl">{item.sector}</h3>
                                 </div>
-                                {/* Col 2: roles */}
-                                <div className="flex items-center py-6 md:px-6 md:border-l border-gray-200">
-                                    <div>
-                                        <p className="text-xs font-bold uppercase tracking-widest text-[#1A1A1A]/60 mb-1 md:hidden">
-                                            Roles
-                                        </p>
-                                        <p className="text-lg md:text-xl font-medium text-[#1A1A1A]/85 leading-relaxed">
-                                            {item.roles}
-                                        </p>
-                                    </div>
+                                {/* Roles: a tight list on phones, running text on larger screens */}
+                                <div className="md:flex md:items-center md:py-6 md:px-6 md:border-l border-gray-200">
+                                    <ul className="flex flex-col gap-1 md:hidden">
+                                        {item.roles.split(", ").map((role) => (
+                                            <li key={role} className="flex items-start gap-2 text-[15px] font-medium leading-snug text-[#1A1A1A]/85">
+                                                <span aria-hidden="true" className={`mt-[7px] h-1.5 w-1.5 shrink-0 rounded-full ${item.color}`} />
+                                                <span>{role}</span>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                    <p className="hidden text-xl font-medium text-[#1A1A1A]/85 leading-relaxed md:block">
+                                        {item.roles}
+                                    </p>
                                 </div>
                             </motion.div>
                         </FadeUp>
@@ -589,10 +616,10 @@ function EligibilitySection() {
     ];
 
     return (
-        <section className="py-20 bg-white">
+        <section className="py-12 sm:py-20 bg-white">
             <div className="max-w-7xl mx-auto px-6 lg:px-12">
                 {/* Header */}
-                <FadeUp className="mb-14">
+                <FadeUp className="mb-8 sm:mb-14">
                     <SectionTag>Eligibility</SectionTag>
                     <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
                         <h2 className="text-4xl md:text-5xl font-extrabold text-[#1A1A1A] leading-tight">
@@ -602,45 +629,48 @@ function EligibilitySection() {
                 </FadeUp>
 
                 {/* 3 Bold Criteria Cards */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-10">
+                {/* On phones each criterion is a short row (icon beside the text), so all three show together without a long scroll */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-5 mb-6 md:mb-10">
                     {criteria.map((item, i) => (
                         <FadeUp key={item.label} delay={0.08 * i}>
                             <motion.div
-                                className={`group relative rounded-3xl border ${item.accentBorder} ${item.accentBg} p-8 overflow-hidden cursor-default h-full`}
+                                className={`group relative flex items-start gap-4 rounded-3xl border ${item.accentBorder} ${item.accentBg} p-5 md:block md:p-8 overflow-hidden cursor-default h-full`}
                                 whileHover={{ y: -5, scale: 1.01 }}
                                 transition={{ type: "spring", stiffness: 280, damping: 22 }}
                             >
                                 {/* Big number watermark */}
-                                <div className="pointer-events-none absolute -bottom-4 -right-4 text-[120px] font-black leading-none select-none text-[#1A1A1A]/5">
+                                <div className="pointer-events-none absolute -bottom-4 -right-4 text-[88px] font-black leading-none select-none text-[#1A1A1A]/5 md:text-[120px]">
                                     {String(i + 1).padStart(2, "0")}
                                 </div>
 
                                 {/* Icon */}
-                                <div className={`w-14 h-14 rounded-2xl ${item.color} flex items-center justify-center mb-6 group-hover:shadow-lg transition-shadow`}>
-                                    <item.icon className={`w-7 h-7 ${item.textColor}`} />
+                                <div className={`w-12 h-12 shrink-0 md:w-14 md:h-14 rounded-2xl ${item.color} flex items-center justify-center md:mb-6 group-hover:shadow-lg transition-shadow`}>
+                                    <item.icon className={`w-6 h-6 md:w-7 md:h-7 ${item.textColor}`} />
                                 </div>
 
-                                {/* Label */}
-                                <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#1A1A1A]/65 mb-2">
-                                    {item.label}
-                                </p>
-
-                                {/* Value */}
-                                <h3 className={`text-2xl md:text-3xl font-extrabold ${item.accentText} leading-tight mb-3`}>
-                                    {item.value}
-                                </h3>
-
-                                {/* Note */}
-                                {item.note && (
-                                    <p className="text-base text-[#1A1A1A]/75 leading-relaxed">
-                                        {item.note}
+                                <div className="relative min-w-0">
+                                    {/* Label */}
+                                    <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#1A1A1A]/65 mb-1 md:mb-2">
+                                        {item.label}
                                     </p>
-                                )}
 
-                                {/* Check badge */}
-                                <div className="mt-6 inline-flex items-center gap-1.5">
-                                    <CheckCircle2 className={`w-4 h-4 ${item.accentText} opacity-60`} />
-                                    <span className="text-xs font-semibold text-[#1A1A1A]/60 uppercase tracking-wider">Required</span>
+                                    {/* Value */}
+                                    <h3 className={`text-xl md:text-3xl font-extrabold ${item.accentText} leading-tight mb-1.5 md:mb-3`}>
+                                        {item.value}
+                                    </h3>
+
+                                    {/* Note */}
+                                    {item.note && (
+                                        <p className="text-base text-[#1A1A1A]/75 leading-snug md:leading-relaxed">
+                                            {item.note}
+                                        </p>
+                                    )}
+
+                                    {/* Check badge */}
+                                    <div className="mt-2.5 inline-flex items-center gap-1.5 md:mt-6">
+                                        <CheckCircle2 className={`w-4 h-4 ${item.accentText} opacity-60`} />
+                                        <span className="text-xs font-semibold text-[#1A1A1A]/60 uppercase tracking-wider">Required</span>
+                                    </div>
                                 </div>
                             </motion.div>
                         </FadeUp>
@@ -697,7 +727,7 @@ function ContactSection() {
                 <FadeUp delay={0.08}>
                     <motion.a
                         href="mailto:pdlivelihood@magicbusindia.org"
-                        className="flex flex-col sm:flex-row items-start sm:items-center gap-5 rounded-2xl border border-white/10 bg-white/5 p-7 hover:bg-white/10 hover:border-brand-yellow/40 transition-all duration-300 group max-w-2xl mx-auto"
+                        className="flex flex-col sm:flex-row items-start sm:items-center gap-5 rounded-2xl border border-white/10 bg-white/5 p-5 sm:p-7 hover:bg-white/10 hover:border-brand-yellow/40 transition-all duration-300 group max-w-2xl mx-auto"
                         whileHover={{ y: -3 }}
                     >
                         <div className="bg-brand-yellow rounded-xl p-4 shrink-0">
@@ -710,8 +740,8 @@ function ContactSection() {
                             <p className="font-extrabold text-xl text-white group-hover:text-brand-yellow transition-colors">
                                 Director: Programme Design &amp; Development
                             </p>
-                            <div className="mt-3 inline-flex max-w-full items-start gap-2 text-brand-yellow font-bold text-base break-all">
-                                <Mail className="mt-1 w-4 h-4 shrink-0" />
+                            <div className="mt-3 inline-flex max-w-full items-start gap-2 text-brand-yellow font-bold text-[15px] sm:text-base break-all">
+                                <Mail className="mt-1 hidden w-4 h-4 shrink-0 sm:block" />
                                 pdlivelihood@magicbusindia.org
                             </div>
                         </div>
@@ -729,33 +759,23 @@ function ContactSection() {
    OUTREACH AND IMPACT
 ══════════════════════════════════════════════════════════════ */
 function ImpactSection() {
+    /* The same dark stats band, with numbers that count up, as the Livelihood and report pages */
     const stats = [
-        { num: "3,012", label: "Colleges" },
-        { num: "6,05,143", label: "Youth enrolled in Connect With Work" },
-        { num: "3,43,933", label: "Female participation (57%)" },
+        { to: 3012, group: true, label: "Colleges", Icon: Building2, color: "yellow" },
+        { to: 605143, group: true, label: "Youth enrolled in Connect With Work", Icon: GraduationCap, color: "green" },
+        { to: 343933, group: true, label: "Female participation (57%)", Icon: Users, color: "red" },
     ];
     return (
-        <section className="py-20 bg-[#F7F7F5]">
-            <div className="max-w-7xl mx-auto px-6 lg:px-12">
-                <FadeUp className="mb-12">
-                    <SectionTag>Outreach and Impact</SectionTag>
-                    <h2 className="text-4xl md:text-5xl font-extrabold text-[#1A1A1A] leading-tight">
-                        Outreach and <span className="text-brand-red">Impact</span>
-                    </h2>
-                    <p className="mt-3 text-sm text-[#1A1A1A]/70">Cumulative enrolment as on August 2026</p>
-                </FadeUp>
-                <div className="grid sm:grid-cols-3 gap-4">
-                    {stats.map((st, i) => (
-                        <FadeUp key={st.label} delay={0.06 * i}>
-                            <div className="rounded-2xl border border-gray-200 bg-white p-7 h-full">
-                                <p className="text-4xl md:text-5xl font-black text-brand-red">{st.num}</p>
-                                <p className="mt-2 text-base font-semibold text-[#1A1A1A]/80">{st.label}</p>
-                            </div>
-                        </FadeUp>
-                    ))}
-                </div>
-            </div>
-        </section>
+        <StatsBand
+            eyebrow={null}
+            title="Outreach and Impact"
+            subtitle="Cumulative enrolment as on August 2026"
+            stats={stats}
+            cols={3}
+            compact
+            slider
+            slideSeconds={4}
+        />
     );
 }
 

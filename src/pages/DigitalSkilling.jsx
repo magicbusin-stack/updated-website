@@ -622,7 +622,7 @@ function ContactSection() {
                 <FadeUp delay={0.1}>
                     <motion.a
                         href="mailto:pdlivelihood@magicbusindia.org"
-                        className="group flex flex-col sm:flex-row items-start sm:items-center gap-6 bg-[#0F0F23] rounded-3xl p-8 md:p-10 shadow-2xl max-w-2xl mx-auto relative overflow-hidden"
+                        className="group flex flex-col sm:flex-row items-start sm:items-center gap-6 bg-[#0F0F23] rounded-3xl p-5 sm:p-8 md:p-10 shadow-2xl max-w-2xl mx-auto relative overflow-hidden"
                         whileHover={{ scale: 1.02 }}
                         transition={{ type: "spring", stiffness: 250, damping: 22 }}
                     >
@@ -640,8 +640,8 @@ function ContactSection() {
                             <p className="text-xl font-extrabold text-white group-hover:text-brand-yellow transition-colors">
                                 Programme Design &amp; Development
                             </p>
-                            <div className="mt-4 inline-flex max-w-full items-start gap-2 text-brand-yellow font-bold text-base break-all">
-                                <Mail className="mt-1 w-4 h-4 shrink-0" />
+                            <div className="mt-4 inline-flex max-w-full items-start gap-2 text-brand-yellow font-bold text-[15px] sm:text-base break-all">
+                                <Mail className="mt-1 hidden w-4 h-4 shrink-0 sm:block" />
                                 pdlivelihood@magicbusindia.org
                             </div>
                         </div>

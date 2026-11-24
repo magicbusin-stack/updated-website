@@ -7,7 +7,8 @@ import usePhone from "../../hooks/usePhone";
    the same stats band and the same report card everywhere, so the pages never drift apart. */
 
 /* Counts up from 0 when it scrolls into view (a still number for visitors who prefer reduced motion). */
-export function CountUp({ prefix = "", to, decimals = 0, suffix = "" }) {
+/* group: write big numbers the Indian way, 6,05,143 */
+export function CountUp({ prefix = "", to, decimals = 0, suffix = "", group = false }) {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-60px" });
   const [val, setVal] = useState(0);
@@ -34,7 +35,7 @@ export function CountUp({ prefix = "", to, decimals = 0, suffix = "" }) {
   return (
     <span ref={ref}>
       {prefix}
-      {val.toFixed(decimals)}
+      {group ? val.toLocaleString("en-IN", { minimumFractionDigits: decimals, maximumFractionDigits: decimals }) : val.toFixed(decimals)}
       {suffix}
     </span>
   );
@@ -68,7 +69,7 @@ function StatCard({ s, i, compact, longLabels, countKey, still }) {
         <s.Icon className={compact ? "h-5 w-5" : "h-6 w-6 sm:h-7 sm:w-7"} />
       </span>
       <div className={`relative bg-gradient-to-b from-white to-brand-yellow bg-clip-text font-black leading-none tracking-tight text-transparent ${compact ? "mt-3 text-3xl sm:text-4xl" : "mt-5 text-4xl sm:text-5xl xl:text-6xl"}`}>
-        <CountUp key={countKey} prefix={s.prefix} to={s.to} decimals={s.decimals} suffix={s.suffix} />
+        <CountUp key={countKey} prefix={s.prefix} to={s.to} decimals={s.decimals} suffix={s.suffix} group={s.group} />
       </div>
       <p className={`relative ${compact ? "mt-2" : "mt-3"} font-semibold text-white/85 ${longLabels ? "text-base leading-snug sm:text-lg" : "text-base uppercase tracking-wider sm:text-lg"}`}>{s.label}</p>
       <span className={`absolute bottom-0 left-0 h-1.5 w-full origin-left scale-x-0 bg-gradient-to-r transition-transform duration-500 group-hover:scale-x-100 ${c.ring}`} />
@@ -76,7 +77,7 @@ function StatCard({ s, i, compact, longLabels, countKey, still }) {
   );
 }
 
-export function StatsBand({ eyebrow = "Our impact at a glance", title, stats, cols = 4, compact = false, slider = false, slideSeconds = 4 }) {
+export function StatsBand({ eyebrow = "Our impact at a glance", title, subtitle, stats, cols = 4, compact = false, slider = false, slideSeconds = 4 }) {
   /* short labels are shown in capitals; if any label is a full sentence they all switch to normal sentence case, so the row stays even */
   const longLabels = stats.some((st) => st.label.length > 45);
   const phone = usePhone();
@@ -121,6 +122,7 @@ export function StatsBand({ eyebrow = "Our impact at a glance", title, stats, co
             </span>
           )}
           {title && <h2 className={`${eyebrow ? "mt-5" : ""} font-extrabold leading-tight text-white ${compact ? "text-3xl md:text-4xl" : "text-4xl md:text-5xl"}`}>{title}</h2>}
+          {subtitle && <p className="mt-3 text-base text-white/75">{subtitle}</p>}
         </motion.div>
 
         {sliding ? (

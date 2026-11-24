@@ -309,7 +309,7 @@ export default function PoshPolicy() {
                         <span className="block text-xs font-extrabold uppercase tracking-widest text-slate-400 mb-2">Regional POSH Email</span>
                         <a
                           href={`mailto:${data.email}`}
-                          className="font-black text-slate-900 hover:text-brand-red text-sm transition-colors tracking-tight block truncate mb-3"
+                          className="font-black text-slate-900 hover:text-brand-red text-sm transition-colors tracking-tight block break-all mb-3"
                         >
                           {data.email}
                         </a>

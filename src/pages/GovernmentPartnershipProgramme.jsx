@@ -473,10 +473,10 @@ function ContactSection() {
                                 <h3 className="text-2xl font-extrabold mb-3">CSR Enquiries</h3>
                                 <p className="text-white/65 text-sm mb-5">Sandhya R Krishnan: Director - Operations, Adolescent Programme</p>
                                 <a href="mailto:sandhya.krishnan@magicbusindia.org"
-                                    className="inline-flex items-center gap-2 font-semibold text-brand-yellow hover:gap-3 transition-all">
-                                    <Mail className="w-4 h-4" />
+                                    className="inline-flex max-w-full items-start gap-2 break-all font-semibold text-brand-yellow hover:gap-3 transition-all">
+                                    <Mail className="mt-1 w-4 h-4 shrink-0" />
                                     sandhya.krishnan@magicbusindia.org
-                                    <ArrowRight className="w-4 h-4" />
+                                    <ArrowRight className="mt-1 w-4 h-4 shrink-0" />
                                 </a>
                             </div>
                         </div>
