@@ -559,7 +559,6 @@ export default function FutureX() {
                 image="/ngo-images/6.jpeg"
                 title="FutureX"
                 subtitle="Blended learning programme for youth skilling"
-                titleGradient={false}
                 description="An innovative strategic initiative leveraging technology to deliver life and employability skills to youth from underserved communities — in partnership with Michael Susan Dell Foundation."
                 ctas={[
                     { href: "#contact-futurex", label: "Get in Touch", variant: "primary", showArrow: true },

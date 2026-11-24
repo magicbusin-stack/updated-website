@@ -563,7 +563,6 @@ export default function MBDost() {
                 image="/futurex1.png"
                 title="MB Dost"
                 subtitle="In-House Companion of Magic Bus"
-                titleGradient={false}
                 description="A WhatsApp-based digital learning companion empowering FutureX programme participants with on-demand life skills training, progress tracking, and certification — anytime, anywhere."
                 ctas={[
                     { href: "#demo", label: "Watch Demo", variant: "primary", showArrow: true },

@@ -179,9 +179,9 @@ function Hero() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, ease: EASE }}
-            className="inline-flex items-center gap-2 rounded-full border border-amber-400/40 bg-amber-500/20 px-3.5 py-1.5 text-sm font-semibold uppercase tracking-wider text-amber-300 backdrop-blur-md"
+            className="inline-flex items-center gap-2 rounded-full border border-brand-yellow/40 bg-brand-yellow/10 px-3.5 py-1.5 text-sm font-semibold uppercase tracking-wider text-brand-yellow backdrop-blur-md"
           >
-            <span className="oa-ping relative inline-flex h-2 w-2 rounded-full bg-amber-400" />
+            <span className="oa-ping relative inline-flex h-2 w-2 rounded-full bg-brand-yellow" />
             Our Approach &amp; Pedagogy
           </motion.div>
 
@@ -189,10 +189,10 @@ function Hero() {
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: EASE, delay: 0.08 }}
-            className="oa-display text-4xl font-extrabold leading-[1.12] tracking-tight sm:text-5xl lg:text-6xl"
+            className="oa-display text-4xl font-extrabold leading-[1.12] tracking-tight sm:text-5xl lg:text-6xl bg-gradient-to-r from-brand-red via-brand-yellow to-white bg-clip-text text-transparent"
           >
             Equip. Educate. <br />
-            <span className="bg-gradient-to-r from-amber-300 via-rose-400 to-rose-500 bg-clip-text text-transparent">Empower for Life.</span>
+            <span>Empower for Life.</span>
           </motion.h1>
 
           <motion.p

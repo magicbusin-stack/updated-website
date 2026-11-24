@@ -121,11 +121,11 @@ function FLFPRHero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
         >
-          <span className="inline-block bg-brand-yellow text-black px-3 py-1 rounded-full text-sm font-semibold">
+          <span className="inline-flex items-center gap-2 rounded-full border border-brand-yellow/40 bg-brand-yellow/10 px-4 py-2 text-xs font-semibold uppercase tracking-widest text-brand-yellow backdrop-blur-sm"><span className="h-1.5 w-1.5 animate-pulse rounded-full bg-brand-yellow" />
             Workforce Research
           </span>
 
-          <h1 className="mt-4 text-3xl md:text-4xl lg:text-5xl font-heading font-extrabold leading-tight">
+          <h1 className="mt-4 text-3xl md:text-4xl lg:text-5xl font-heading font-extrabold leading-tight bg-gradient-to-r from-brand-red via-brand-yellow to-white bg-clip-text text-transparent">
             Women in the Workforce
           </h1>
 

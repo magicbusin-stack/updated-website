@@ -431,7 +431,6 @@ export default function Podcasts() {
                 image="/ngo-images/1.JPG"
                 title="Podcasts"
                 subtitle="Voices of change and impact"
-                titleGradient={false}
                 description="Tune in to conversations about life skills, employability, sport for development, and community engagement — stories that inspire young people to overcome poverty and build bright futures."
                 ctas={[
                     { href: "#podcast-list", label: "Explore Podcasts", variant: "primary", showArrow: true },

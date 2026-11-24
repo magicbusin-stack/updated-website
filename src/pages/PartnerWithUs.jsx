@@ -173,11 +173,11 @@ export default function PartnerWithUs() {
 
           <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 h-full flex items-center">
             <motion.div initial="hidden" whileInView="show" viewport={{ once: true }} variants={fadeUp} className="max-w-3xl text-white">
-              <span ref={topRef} tabIndex={-1} className="inline-block bg-brand-yellow text-brand-black px-4 py-1.5 rounded-full text-base font-semibold">
+              <span ref={topRef} tabIndex={-1} className="inline-flex items-center gap-2 rounded-full border border-brand-yellow/40 bg-brand-yellow/10 px-4 py-2 text-xs font-semibold uppercase tracking-widest text-brand-yellow backdrop-blur-sm"><span className="h-1.5 w-1.5 animate-pulse rounded-full bg-brand-yellow" />
                 Partner with us
               </span>
 
-              <h1 className="mt-4 text-4xl md:text-5xl lg:text-6xl font-heading font-extrabold leading-tight">Let’s connect.</h1>
+              <h1 className="mt-4 text-4xl md:text-5xl lg:text-6xl font-heading font-extrabold leading-tight bg-gradient-to-r from-brand-red via-brand-yellow to-white bg-clip-text text-transparent">Let’s connect.</h1>
 
               <p className="mt-4 text-xl md:text-2xl text-white/90">
                 Join hands to move a generation from <em>Childhood to Livelihood</em>.

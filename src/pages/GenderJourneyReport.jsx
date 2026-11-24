@@ -115,11 +115,11 @@ function GenderJourneyHero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
         >
-          <span className="inline-block bg-brand-yellow text-brand-black px-4 py-1.5 rounded-full text-base font-semibold">
+          <span className="inline-flex items-center gap-2 rounded-full border border-brand-yellow/40 bg-brand-yellow/10 px-4 py-2 text-xs font-semibold uppercase tracking-widest text-brand-yellow backdrop-blur-sm"><span className="h-1.5 w-1.5 animate-pulse rounded-full bg-brand-yellow" />
             Gender Empowerment
           </span>
 
-          <h1 className="mt-4 text-4xl md:text-5xl lg:text-6xl font-heading font-extrabold leading-tight">
+          <h1 className="mt-4 text-4xl md:text-5xl lg:text-6xl font-heading font-extrabold leading-tight bg-gradient-to-r from-brand-red via-brand-yellow to-white bg-clip-text text-transparent">
             Empowering Girls & Women
           </h1>
 

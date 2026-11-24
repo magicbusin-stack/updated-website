@@ -471,7 +471,6 @@ export default function Events() {
                 image="/ngo-images/1.JPG"
                 title="Events at Magic Bus"
                 subtitle="Stay updated with latest events"
-                titleGradient={false}
                 description="Capturing the magical moments. Explore events, stories and programmes that are transforming the lives of young people across India."
                 ctas={[
                     { href: "#events-cards", label: "Explore Events", variant: "primary", showArrow: true },

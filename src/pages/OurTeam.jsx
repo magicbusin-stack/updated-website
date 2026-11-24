@@ -491,7 +491,7 @@ function HeroSection() {
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.2, duration: 0.7, ease: EASE }}
-                    className="text-5xl md:text-6xl lg:text-7xl font-extrabold text-white leading-tight"
+                    className="text-5xl md:text-6xl lg:text-7xl font-extrabold leading-tight bg-gradient-to-r from-brand-red via-brand-yellow to-white bg-clip-text text-transparent"
                 >
                     Our Team
                 </motion.h1>

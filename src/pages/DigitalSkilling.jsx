@@ -715,7 +715,6 @@ export default function DigitalSkilling() {
                 image="/digital-banner.jpg"
                 title="Digital Programmes: AI and Digital Skilling for Youth"
                 subtitle="Shaping Future-Ready Youth with AI and Digital Skills Training"
-                titleGradient={false}
                 description="Equipping youth from underserved communities with foundational AI skills, data annotation training, and AI-linked data analytics — opening pathways to white-collar tech careers and a digital future."
                 ctas={[
                     {

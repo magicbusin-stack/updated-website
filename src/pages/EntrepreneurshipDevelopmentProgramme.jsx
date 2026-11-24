@@ -939,7 +939,6 @@ export default function EntrepreneurshipDevelopmentProgramme() {
                 image="/edp-banner.jpg"
                 title="Economic Empowerment Programme"
                 subtitle="Creating lasting change in communities through women entrepreneurship and economic empowerment"
-                titleGradient={false}
                 description="Empowering youth and women from underserved communities with entrepreneurship skills and pathways to transition into wage employment, self-employment and nano-enterprises—strengthening agency and advancing sustainable economic empowerment."
                 ctas={[
                     { href: "#edp-structure", label: "View Programme Structure", variant: "primary", showArrow: true },
