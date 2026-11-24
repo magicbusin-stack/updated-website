@@ -635,13 +635,13 @@ function ContactSection() {
                         </div>
 
                         {/* Details */}
-                        <div className="flex-1 relative">
+                        <div className="min-w-0 max-w-full flex-1 relative">
                             <p className="text-sm font-bold uppercase tracking-widest text-white/65 mb-1">Director</p>
                             <p className="text-xl font-extrabold text-white group-hover:text-brand-yellow transition-colors">
                                 Programme Design &amp; Development
                             </p>
-                            <div className="mt-4 inline-flex items-center gap-2 text-brand-yellow font-bold text-base">
-                                <Mail className="w-4 h-4" />
+                            <div className="mt-4 inline-flex max-w-full items-start gap-2 text-brand-yellow font-bold text-base break-all">
+                                <Mail className="mt-1 w-4 h-4 shrink-0" />
                                 pdlivelihood@magicbusindia.org
                             </div>
                         </div>

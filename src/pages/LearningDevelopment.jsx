@@ -256,7 +256,7 @@ function BeliefsSection() {
         {/* phones: a row you swipe sideways; tablet and desktop: all four across */}
         <div className={`${SWIPE_ROW} sm:grid sm:grid-cols-2 sm:gap-5 lg:grid-cols-4`}>
           {beliefs.map((belief, index) => (
-            <FadeUp key={belief.text} delay={index * 0.07} className={`h-full ${SWIPE_ITEM}`} immediate={phone}>
+            <FadeUp key={belief.text} delay={index * 0.07} className={`sm:h-full ${SWIPE_ITEM}`} immediate={phone}>
               <_MOTION.div
                 whileHover={{ y: -8 }}
                 whileTap={{ scale: 0.98 }}

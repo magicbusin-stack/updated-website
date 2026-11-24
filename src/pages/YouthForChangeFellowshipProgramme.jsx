@@ -389,7 +389,7 @@ function NeedCards() {
             {NEEDS.map((item, i) => {
                 const on = active === i;
                 return (
-                    <FadeUp key={item.label} delay={0.08 * i} className="h-full w-[78%] shrink-0 snap-center sm:w-auto sm:shrink" immediate={phone}>
+                    <FadeUp key={item.label} delay={0.08 * i} className="w-[78%] shrink-0 snap-center sm:h-full sm:w-auto sm:shrink" immediate={phone}>
                         <_MOTION.button
                             type="button"
                             onClick={() => setActive(on ? null : i)}

@@ -386,10 +386,10 @@ function StructureSection() {
                 {/* Step grid (on phones a row you swipe through) */}
                 <div className={`${SWIPE_ROW} sm:grid sm:grid-cols-2 lg:grid-cols-3`}>
                     {structureSteps.map((step, i) => (
-                        <FadeUp key={step.label} delay={0.07 * i} className={`h-full ${SWIPE_ITEM}`} immediate={phone}>
+                        <FadeUp key={step.label} delay={0.07 * i} className={`flex flex-col sm:h-full ${SWIPE_ITEM}`} immediate={phone}>
                             {/* h-full on both, so every box in a row is as tall as the tallest one */}
                             <_MOTION.div
-                                className="group relative h-full rounded-2xl overflow-hidden border border-white/10 bg-white/5 hover:bg-white/10 transition-all duration-300 cursor-default"
+                                className="group relative flex-1 rounded-2xl overflow-hidden border border-white/10 bg-white/5 hover:bg-white/10 transition-all duration-300 cursor-default"
                                 whileHover={{ y: -4 }}
                                 transition={{ type: "spring", stiffness: 300, damping: 25 }}
                             >
@@ -524,23 +524,25 @@ function SectorsSection() {
                         <FadeUp key={item.sector} delay={0.08 * i}>
                             {/* Hover (or keyboard focus) is quiet: the row turns white, a thin bar in the sector colour
                                 slides in on the left, the icon lifts a little and the role pills get a soft outline. */}
-                            <div className="group relative grid grid-cols-[112px_minmax(0,1fr)] md:grid-cols-2 gap-0 items-stretch overflow-hidden transition-colors duration-300 hover:bg-white focus-within:bg-white">
+                            <div className="group relative grid grid-cols-[44px_minmax(0,1fr)] gap-x-4 gap-y-1.5 px-3 py-5 md:grid-cols-2 md:gap-0 md:p-0 items-stretch overflow-hidden transition-colors duration-300 hover:bg-white focus-within:bg-white">
                                 <span
                                     aria-hidden="true"
                                     className={`absolute left-0 top-0 h-full w-1 origin-top scale-y-0 ${item.color} transition-transform duration-300 group-hover:scale-y-100 group-focus-within:scale-y-100`}
                                 />
                                 {/* Col 1: sector name + icon */}
-                                <div className="flex flex-col items-start gap-2 py-4 pl-3 md:flex-row md:items-center md:gap-4 md:py-6 md:pl-5 md:pr-6">
+                                {/* (On phones this wrapper "disappears" so the icon, name and roles line up in one grid:
+                                    icon on the left, name on top, its roles right underneath.) */}
+                                <div className="contents md:flex md:items-center md:gap-4 md:py-6 md:pl-5 md:pr-6">
                                     <div
-                                        className={`${item.color} rounded-xl w-10 h-10 md:w-12 md:h-12 flex items-center justify-center shrink-0 transition duration-300 group-hover:-translate-y-0.5 group-hover:shadow-md`}
+                                        className={`${item.color} row-span-2 self-start rounded-xl w-11 h-11 md:row-span-1 md:self-auto md:w-12 md:h-12 flex items-center justify-center shrink-0 transition duration-300 group-hover:-translate-y-0.5 group-hover:shadow-md`}
                                     >
                                         <item.icon className={`w-5 h-5 md:w-6 md:h-6 ${item.textColor}`} />
                                     </div>
-                                    <h3 className="font-extrabold leading-snug text-[#1A1A1A] text-lg md:text-2xl">{item.sector}</h3>
+                                    <h3 className="font-extrabold leading-snug text-[#1A1A1A] text-xl md:text-2xl">{item.sector}</h3>
                                 </div>
-                                {/* Col 2: roles. On phones: a tight list beside the sector name, so every sector fits on screen at once.
+                                {/* Roles. On phones: a tight list under the sector name, so every sector fits on screen at once.
                                     Tablet and desktop: small pills. */}
-                                <div className="flex items-center py-4 pl-2 md:py-6 md:px-6 md:border-l border-gray-200">
+                                <div className="md:flex md:items-center md:py-6 md:px-6 md:border-l border-gray-200">
                                     <div>
                                         <ul className="flex flex-col gap-1 md:flex-row md:flex-wrap md:gap-2">
                                             {item.roles.split(", ").map((role) => (
@@ -726,15 +728,15 @@ function ContactSection() {
                         <div className="bg-brand-yellow rounded-xl p-4 shrink-0">
                             <Mail className="w-6 h-6 text-brand-black" />
                         </div>
-                        <div className="flex-1">
+                        <div className="min-w-0 max-w-full flex-1">
                             <p className="text-xs font-bold uppercase tracking-widest text-white/65 mb-1">
                                 Programme Point of Contact
                             </p>
                             <p className="font-extrabold text-xl text-white group-hover:text-brand-yellow transition-colors">
                                 Director: Programme Design &amp; Development
                             </p>
-                            <div className="mt-3 inline-flex items-center gap-2 text-brand-yellow font-bold text-base">
-                                <Mail className="w-4 h-4" />
+                            <div className="mt-3 inline-flex max-w-full items-start gap-2 text-brand-yellow font-bold text-base break-all">
+                                <Mail className="mt-1 w-4 h-4 shrink-0" />
                                 pdlivelihood@magicbusindia.org
                             </div>
                         </div>

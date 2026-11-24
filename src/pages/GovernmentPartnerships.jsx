@@ -255,7 +255,7 @@ function TimelineSection() {
         </FadeUp>
         <div className={`mt-8 ${SWIPE_ROW} sm:mt-10 sm:grid sm:grid-cols-2 sm:gap-5 xl:grid-cols-4`}>
           {PHASES.map((p, i) => (
-            <FadeUp key={p.year} delay={i * 0.06} className={`h-full ${SWIPE_ITEM}`} immediate={phone}>
+            <FadeUp key={p.year} delay={i * 0.06} className={`sm:h-full ${SWIPE_ITEM}`} immediate={phone}>
               <div className="flex h-full flex-col overflow-hidden rounded-3xl border border-black/10 bg-white shadow-sm">
                 <div className="px-5 py-4 text-white" style={{ background: p.color }}>
                   <p className="text-lg font-black leading-tight">
@@ -316,7 +316,7 @@ function ProofSection() {
         </FadeUp>
         <div className={`mt-8 ${SWIPE_ROW} sm:grid sm:grid-cols-2 sm:gap-5 lg:grid-cols-3`}>
           {FINDINGS.map((f, i) => (
-            <FadeUp key={f.label} delay={i * 0.05} className={`h-full ${SWIPE_ITEM}`} immediate={phone}>
+            <FadeUp key={f.label} delay={i * 0.05} className={`sm:h-full ${SWIPE_ITEM}`} immediate={phone}>
               <div className="h-full rounded-3xl border border-black/10 bg-[#F8FAFC] p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-md" style={{ borderTop: `6px solid ${FINDING_COLORS[i % FINDING_COLORS.length]}` }}>
                 <p className="text-5xl font-black" style={{ color: FINDING_COLORS[i % FINDING_COLORS.length] }}>
                   {f.big}

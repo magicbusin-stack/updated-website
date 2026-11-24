@@ -33,10 +33,10 @@ export default function LogoMarquee({ partners, rows = 3, secondsPerLogo = 4.5 }
                   {copy.map((p, i) => (
                     <div
                       key={`${p.name}-${i}`}
-                      className="flex h-52 w-60 shrink-0 flex-col items-center justify-center gap-3 rounded-2xl border border-slate-200/70 bg-white p-4 shadow-sm transition duration-300 hover:-translate-y-1 hover:border-brand-yellow hover:shadow-md sm:w-64"
+                      className="flex h-40 w-60 shrink-0 items-center justify-center rounded-2xl border border-slate-200/70 bg-white p-5 shadow-sm transition duration-300 hover:-translate-y-1 hover:border-brand-yellow hover:shadow-md sm:w-64"
                     >
+                      {/* no name under the logo: the name is already printed on each logo */}
                       <img src={p.logo} alt={p.name} loading="lazy" decoding="async" className="max-h-28 w-full object-contain mix-blend-multiply" />
-                      <span className="text-center text-base font-semibold leading-snug text-slate-700">{p.name}</span>
                     </div>
                   ))}
                 </div>

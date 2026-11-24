@@ -159,7 +159,7 @@ function InfoBoxes({ items, cols = "md:grid-cols-3", numbered = true }) {
   return (
     <div className={`mt-8 ${SWIPE_ROW} sm:grid sm:grid-cols-2 sm:gap-5 ${cols}`}>
       {items.map(([title, text], i) => (
-        <FadeUp key={title} delay={i * 0.05} className={`h-full ${SWIPE_ITEM}`} immediate={phone}>
+        <FadeUp key={title} delay={i * 0.05} className={`sm:h-full ${SWIPE_ITEM}`} immediate={phone}>
           <div className="h-full overflow-hidden rounded-2xl border border-black/10 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-md">
             <div className="h-1.5" style={{ background: ACCENTS[i % ACCENTS.length] }} />
             <div className="p-6">
@@ -397,7 +397,7 @@ function ImplementationSection() {
 
         <div className={`mt-8 ${SWIPE_ROW} sm:grid sm:gap-5 md:grid-cols-2`}>
           {IMPLEMENTATION.items.map(([name, text], i) => (
-            <FadeUp key={name} delay={i * 0.08} className={`h-full ${SWIPE_ITEM}`} immediate={phone}>
+            <FadeUp key={name} delay={i * 0.08} className={`sm:h-full ${SWIPE_ITEM}`} immediate={phone}>
               <div
                 onMouseEnter={() => setActive(i)}
                 onMouseLeave={() => setActive(null)}
@@ -467,7 +467,7 @@ function HowWeWork() {
         </FadeUp>
         <div className={`mt-8 ${SWIPE_ROW} sm:grid sm:grid-cols-3 sm:gap-5`}>
           {THRIVE.map((t, i) => (
-            <FadeUp key={t.label} delay={0.05 * (i + 1)} className={`h-full ${SWIPE_ITEM}`} immediate={phone}>
+            <FadeUp key={t.label} delay={0.05 * (i + 1)} className={`sm:h-full ${SWIPE_ITEM}`} immediate={phone}>
               <div
                 className="relative h-full overflow-hidden rounded-3xl p-6 text-white shadow-lg sm:p-7"
                 style={{ background: `linear-gradient(135deg, ${t.from} 0%, ${t.to} 100%)` }}
@@ -615,7 +615,7 @@ function ReachOutcomesSection() {
 
         <div className={`mt-8 ${SWIPE_ROW} sm:grid sm:grid-cols-2 sm:gap-5 lg:grid-cols-3`}>
           {outcomes.map((o, i) => (
-            <FadeUp key={o.title} delay={i * 0.04} className={`h-full ${SWIPE_ITEM}`} immediate={phone}>
+            <FadeUp key={o.title} delay={i * 0.04} className={`sm:h-full ${SWIPE_ITEM}`} immediate={phone}>
               <OutcomeCard o={o} />
             </FadeUp>
           ))}
