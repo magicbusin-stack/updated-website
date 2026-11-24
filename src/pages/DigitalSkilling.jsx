@@ -62,12 +62,20 @@ function FadeIn({ children, delay = 0, className = "" }) {
     );
 }
 
-/* A figure (60 hours, Face to face ...) shown with a yellow marker behind it; on hover the marker fills the whole word. */
-function Mark({ children }) {
+/* A figure (60 hours, Face to face ...) shown as a chip in its programme's colour.
+   It pops in once, when it scrolls into view, and lifts a little when you point at it. No blinking. */
+function Chip({ prog, children, i = 0 }) {
     return (
-        <span className="rounded-sm bg-[linear-gradient(#FFCC04,#FFCC04)] bg-[length:100%_38%] bg-bottom bg-no-repeat px-1 transition-[background-size] duration-300 hover:bg-[length:100%_100%]">
+        <motion.span
+            initial={{ opacity: 0, scale: 0.7 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true, margin: "-30px" }}
+            transition={{ type: "spring", stiffness: 320, damping: 18, delay: 0.06 * i }}
+            whileHover={{ y: -3, scale: 1.06 }}
+            className={`inline-block cursor-default whitespace-nowrap rounded-full px-3 py-1 text-base font-extrabold shadow-md sm:px-3.5 ring-1 ring-black/5 ${prog.accentBg} ${prog.chipText}`}
+        >
             {children}
-        </span>
+        </motion.span>
     );
 }
 
@@ -282,6 +290,7 @@ const programmes = [
         icon: Bot,
         accentColor: "text-[#A16207]",
         accentBg: "bg-brand-yellow",
+        chipText: "text-[#0F0F23]",
         borderColor: "border-brand-yellow",
         duration: "60 hours",
         mode: "Face to face",
@@ -295,6 +304,7 @@ const programmes = [
         icon: Code2,
         accentColor: "text-brand-red",
         accentBg: "bg-brand-red",
+        chipText: "text-white",
         borderColor: "border-brand-red",
         duration: "265 hours",
         mode: "Face to face",
@@ -309,6 +319,7 @@ const programmes = [
         icon: BarChart3,
         accentColor: "text-[#34D399]",
         accentBg: "bg-[#34D399]",
+        chipText: "text-[#0F0F23]",
         borderColor: "border-[#34D399]",
         duration: "240 hours",
         mode: "Face to face",
@@ -398,7 +409,7 @@ function ProgrammeDetailsSection() {
                                                     <Icon className="w-4 h-4 shrink-0" />
                                                     <span className="text-base font-medium">{label}</span>
                                                 </div>
-                                                <span className="text-base font-bold text-[#0F0F23] text-right"><Mark>{prog[key]}</Mark></span>
+                                                <span className="text-base font-bold text-[#0F0F23] text-right"><Chip prog={prog}>{prog[key]}</Chip></span>
                                             </div>
                                         ))}
                                     </div>
@@ -454,7 +465,7 @@ function ProgrammeDetailsSection() {
                                                         <Icon className="w-4 h-4" />
                                                         <span className="text-base font-medium">{label}</span>
                                                     </div>
-                                                    <span className="text-base font-bold text-[#0F0F23] text-right"><Mark>{prog[key]}</Mark></span>
+                                                    <span className="text-base font-bold text-[#0F0F23] text-right"><Chip prog={prog}>{prog[key]}</Chip></span>
                                                 </div>
                                             ))}
                                         </div>
@@ -478,7 +489,7 @@ function ProgrammeDetailsSection() {
                 <div className="mt-10 md:hidden">
                     <p className="mb-3 text-sm font-bold uppercase tracking-widest text-[#0F0F23]/60">Programme Framework</p>
                     <div className="space-y-4">
-                        {programmes.map((p) => (
+                        {programmes.map((p, pi) => (
                             <div key={p.name} className="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm">
                                 <div className="flex items-center gap-3 bg-[#0F0F23] px-4 py-3">
                                     <div className={`h-2.5 w-2.5 shrink-0 rounded-full ${p.accentBg}`} />
@@ -492,7 +503,7 @@ function ProgrammeDetailsSection() {
                                                 {label}
                                             </dt>
                                             <dd className="mt-1.5 text-lg font-bold leading-snug text-[#0F0F23]">
-                                                <Mark>{p[key]}</Mark>
+                                                <Chip prog={p} i={pi}>{p[key]}</Chip>
                                             </dd>
                                         </div>
                                     ))}
@@ -524,9 +535,9 @@ function ProgrammeDetailsSection() {
                                     <Icon className="w-4 h-4 shrink-0" />
                                     <span className="text-base font-medium">{label}</span>
                                 </div>
-                                {programmes.map((p) => (
+                                {programmes.map((p, pi) => (
                                     <div key={p.name} className="p-5 flex items-center">
-                                        <span className="text-base md:text-lg font-bold text-[#0F0F23]"><Mark>{p[key]}</Mark></span>
+                                        <span className="text-base md:text-lg font-bold text-[#0F0F23]"><Chip prog={p} i={pi}>{p[key]}</Chip></span>
                                     </div>
                                 ))}
                             </div>
