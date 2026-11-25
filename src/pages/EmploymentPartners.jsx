@@ -1,11 +1,12 @@
 // src/pages/EmploymentPartners.jsx
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { Check, Copy, ArrowRight } from "lucide-react";
+import { Check, Copy } from "lucide-react";
 import { Link } from "react-router-dom";
 import Layout from "../components/Layout";
 import HeroBanner from "../components/HeroBanner";
 import PartnerHeadline from "../components/Corporate/PartnerHeadline";
+import PartnerCategories from "../components/Corporate/PartnerCategories";
 import LogoMarquee from "../components/Corporate/LogoMarquee";
 import { employmentPartners } from "../data/employmentPartners";
 
@@ -133,46 +134,7 @@ export default function EmploymentPartners() {
           </div>
         </section>
 
-        {/* ===== 6) CROSS NAVIGATION OTHER PARTNERS ===== */}
-        <section className="py-20 bg-white">
-          <div className="max-w-6xl mx-auto px-6 lg:px-12 text-center">
-            <span className="inline-block bg-brand-green/10 text-brand-green font-bold text-sm uppercase tracking-widest px-4 py-1.5 rounded-full mb-3">
-              Ecosystem Connect
-            </span>
-            <h3 className="text-2xl md:text-4xl font-extrabold text-slate-900 tracking-tight">
-              Other Partners
-            </h3>
-            <p className="text-slate-600 text-lg mt-2 max-w-xl mx-auto">
-              Explore how we collaborate across various domains to achieve holistic community growth and empowerment.
-            </p>
-
-            {/* Button Links Row */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-12">
-              {[
-                { label: "Corporate Partners", path: "/corporate-partners" },
-                { label: "Foundations & Institutions", path: "/foundation-partners" },
-                { label: "Government Partners", path: "/government-partners" },
-                { label: "Knowledge Partners", path: "/knowledge-partners" },
-              ].map((p, idx) => (
-                <Link
-                  key={idx}
-                  to={p.path}
-                  className="group relative overflow-hidden bg-gray-50 hover:bg-slate-900 border border-slate-200/60 hover:border-slate-900 p-6 rounded-2xl flex flex-col justify-between items-center text-center h-36 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
-                >
-                  <span className="w-1.5 h-1.5 rounded-full bg-brand-yellow group-hover:scale-150 transition-transform" />
-                  <span className="font-bold text-base md:text-lg text-slate-700 group-hover:text-white transition-colors">
-                    {p.label}
-                  </span>
-                  <div className="flex items-center gap-1 text-sm font-bold text-brand-red group-hover:text-brand-yellow tracking-wider uppercase">
-                    <span>Learn More</span>
-                    <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
-                  </div>
-                </Link>
-              ))}
-            </div>
-
-          </div>
-        </section>
+        <PartnerCategories current="employment" />
 
       </div>
     </Layout>

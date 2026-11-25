@@ -1,11 +1,12 @@
 // src/pages/CorporatePartners.jsx
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { ArrowRight, Check, Copy } from "lucide-react";
+import { Check, Copy, Mail, Phone, Quote } from "lucide-react";
 import { Link } from "react-router-dom";
 import Layout from "../components/Layout";
 import HeroBanner from "../components/HeroBanner";
 import PartnerHeadline from "../components/Corporate/PartnerHeadline";
+import PartnerCategories from "../components/Corporate/PartnerCategories";
 import LogoMarquee from "../components/Corporate/LogoMarquee";
 import { corporatePartners } from "../data/corporatePartners";
 
@@ -95,12 +96,34 @@ export default function CorporatePartners() {
                 <p>
                   Through these collaborations, we can amplify our message and reach new audiences, helping us to create a deeper impact in the communities we serve. We are grateful for the strong relationships we have built with our partners, both nationally and across the globe.
                 </p>
-                <p className="border-l-4 border-brand-red pl-5 italic text-slate-700 bg-gray-50/50 py-4 pr-4 rounded-r-2xl">
-                  "These partnerships are built on a shared vision of shared values and goals. We recognize and acknowledge their contributions. Without this support, we would not be able to achieve the level of success we have today."
-                </p>
               </div>
 
             </div>
+
+            {/* The quote, in the same dark card as the testimonials on the other pages */}
+            <motion.figure
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7, ease: EASE_EXPO }}
+              className="relative mt-12 overflow-hidden rounded-3xl bg-gradient-to-br from-[#1A1A1A] via-[#2B1216] to-[#6B0F18] p-6 shadow-2xl ring-1 ring-brand-red/40 sm:p-10 md:p-12"
+            >
+              <div className="pointer-events-none absolute -right-20 -top-20 h-72 w-72 rounded-full bg-brand-yellow/20 blur-3xl" />
+              <div className="pointer-events-none absolute -bottom-24 -left-16 h-64 w-64 rounded-full bg-brand-red/30 blur-3xl" />
+              <Quote aria-hidden="true" className="pointer-events-none absolute right-4 top-4 h-16 w-16 text-white/10 sm:right-8 sm:top-6 sm:h-40 sm:w-40" />
+              <div className="relative">
+                <span className="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-brand-yellow shadow-lg">
+                  <Quote className="h-6 w-6 text-brand-black" />
+                </span>
+                <blockquote className="text-lg font-semibold leading-relaxed text-white sm:text-2xl sm:leading-relaxed md:text-3xl md:leading-relaxed">
+                  &ldquo;These partnerships are built on a shared vision of shared values and goals. We recognize and acknowledge their contributions. Without this support, we would not be able to achieve the level of success we have today.&rdquo;
+                </blockquote>
+                <figcaption className="mt-5 flex items-center gap-3 sm:mt-7">
+                  <span className="h-1 w-10 shrink-0 rounded-full bg-brand-yellow" />
+                  <span className="text-sm font-bold uppercase tracking-[0.14em] text-brand-yellow sm:text-base">Magic Bus India Foundation</span>
+                </figcaption>
+              </div>
+            </motion.figure>
           </div>
         </section>
 
@@ -136,36 +159,41 @@ export default function CorporatePartners() {
                 {/* Right Actions */}
                 <div className="flex flex-col sm:flex-row gap-4 w-full lg:w-auto shrink-0 justify-center">
                   
-                  {/* Email Box */}
-                  <div className="bg-white/95 backdrop-blur px-5 py-4 rounded-2xl shadow-sm border border-black/5 flex flex-col justify-between gap-3 text-left">
-                    <div>
-                      <span className="text-sm text-slate-500 font-bold uppercase tracking-wider block">Email Contact</span>
-                      <a href="mailto:csr@magicbusindia.org" className="text-lg font-bold text-slate-800 hover:text-brand-red transition-colors block mt-1">
+                  {/* Email + phone: dark contact cards with a yellow icon, like the contact cards on the other pages */}
+                  <div className="flex min-w-0 flex-col gap-3 rounded-2xl bg-[#1A1A1A] p-5 text-left shadow-lg sm:max-w-xs">
+                    <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-brand-yellow">
+                      <Mail className="h-5 w-5 text-brand-black" />
+                    </span>
+                    <div className="min-w-0">
+                      <span className="block text-xs font-bold uppercase tracking-widest text-white/65">Email Contact</span>
+                      <a href="mailto:csr@magicbusindia.org" className="mt-1 block text-lg font-extrabold text-brand-yellow hover:underline">
                         csr@magicbusindia.org
                       </a>
                     </div>
                     <button
                       onClick={handleCopyEmail}
-                      className="inline-flex items-center justify-center gap-1.5 text-base font-bold text-brand-red hover:underline"
+                      className="inline-flex w-fit items-center gap-1.5 rounded-full border border-white/25 px-4 py-1.5 text-sm font-bold text-white transition hover:bg-brand-yellow hover:text-brand-black"
                     >
-                      {copiedEmail ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
+                      {copiedEmail ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
                       {copiedEmail ? "Copied!" : "Copy Email"}
                     </button>
                   </div>
 
-                  {/* Phone Box */}
-                  <div className="bg-white/95 backdrop-blur px-5 py-4 rounded-2xl shadow-sm border border-black/5 flex flex-col justify-between gap-3 text-left">
-                    <div>
-                      <span className="text-sm text-slate-500 font-bold uppercase tracking-wider block">Inquiry Phone</span>
-                      <a href="tel:+918976720830" className="text-lg font-bold text-slate-800 hover:text-brand-red transition-colors block mt-1">
+                  <div className="flex min-w-0 flex-col gap-3 rounded-2xl bg-[#1A1A1A] p-5 text-left shadow-lg sm:max-w-xs">
+                    <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-brand-yellow">
+                      <Phone className="h-5 w-5 text-brand-black" />
+                    </span>
+                    <div className="min-w-0">
+                      <span className="block text-xs font-bold uppercase tracking-widest text-white/65">Inquiry Phone</span>
+                      <a href="tel:+918976720830" className="mt-1 block text-lg font-extrabold text-brand-yellow hover:underline">
                         +91 89767 20830
                       </a>
                     </div>
                     <button
                       onClick={handleCopyPhone}
-                      className="inline-flex items-center justify-center gap-1.5 text-base font-bold text-brand-red hover:underline"
+                      className="inline-flex w-fit items-center gap-1.5 rounded-full border border-white/25 px-4 py-1.5 text-sm font-bold text-white transition hover:bg-brand-yellow hover:text-brand-black"
                     >
-                      {copiedPhone ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
+                      {copiedPhone ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
                       {copiedPhone ? "Copied!" : "Copy Number"}
                     </button>
                   </div>
@@ -191,48 +219,7 @@ export default function CorporatePartners() {
           <LogoMarquee partners={PARTNERS} rows={4} />
         </section>
 
-        {/* ===== 6) EXPLORE OTHER PARTNERS SECTION ===== */}
-        <section className="py-20 bg-white border-t border-slate-100">
-          <div className="max-w-6xl mx-auto px-6 lg:px-12 text-center">
-            
-            <span className="inline-block bg-brand-green/10 text-brand-green font-bold text-sm uppercase tracking-widest px-4 py-1.5 rounded-full mb-3">
-              Ecosystem Connect
-            </span>
-            <h3 className="text-2xl md:text-4xl font-extrabold text-slate-900 tracking-tight">
-              Other Partners
-            </h3>
-            <p className="text-slate-600 text-lg mt-2 max-w-xl mx-auto">
-              Explore how we collaborate across various domains to achieve holistic community growth and empowerment.
-            </p>
-
-            {/* Button Links Row */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-12">
-              {[
-                { label: "Foundations & Institutions", path: "/foundation-partners" },
-                { label: "Government Partners", path: "/government-partners" },
-                { label: "Employment Partners", path: "/employment-partners" },
-                { label: "Knowledge Partners", path: "/knowledge-partners" },
-              ].map((p, idx) => (
-                <Link
-                  key={idx}
-                  to={p.path}
-                  className="group relative overflow-hidden bg-gray-50 hover:bg-slate-900 border border-slate-200/60 hover:border-slate-900 p-6 rounded-2xl flex flex-col justify-between items-center text-center h-36 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
-                >
-                  {/* Subtle color highlight dot on hover */}
-                  <span className="w-1.5 h-1.5 rounded-full bg-brand-yellow group-hover:scale-150 transition-transform" />
-                  <span className="font-bold text-base md:text-lg text-slate-700 group-hover:text-white transition-colors">
-                    {p.label}
-                  </span>
-                  <div className="flex items-center gap-1 text-sm font-bold text-brand-red group-hover:text-brand-yellow tracking-wider uppercase">
-                    <span>Learn More</span>
-                    <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
-                  </div>
-                </Link>
-              ))}
-            </div>
-
-          </div>
-        </section>
+        <PartnerCategories current="corporate" />
 
       </div>
     </Layout>
