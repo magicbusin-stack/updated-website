@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import Layout from "../components/Layout";
 import HeroBanner from "../components/HeroBanner";
 import PartnerHeadline from "../components/Corporate/PartnerHeadline";
+import PartnerThanks from "../components/Corporate/PartnerThanks";
 import PartnerCategories from "../components/Corporate/PartnerCategories";
 import LogoMarquee from "../components/Corporate/LogoMarquee";
 import { employmentPartners } from "../data/employmentPartners";
@@ -89,10 +90,18 @@ export default function EmploymentPartners() {
                   Magic Bus employment partners are crucial in helping achieve the mission of providing life skills to youth and enabling them to secure job opportunities. They offer various job opportunities to the youth who have completed Magic Bus' employability training programmes. The partnership also ensures that the training programmes align with the current job market trends and requirements.
                 </p>
                 <p>
-                  This collaboration creates a win-win situation for both Magic Bus and the employment partners, leading to mutual growth and success. We recognize and acknowledge their contributions. Without their support, we would not be able to achieve the level of success we have today.
+                  This collaboration creates a win-win situation for both Magic Bus and the employment partners, leading to mutual growth and success.
                 </p>
               </div>
 
+            </div>
+
+            <div className="mt-16">
+              <PartnerThanks
+                who="Employment Partners"
+                message="We recognize and acknowledge their contributions. Without their support, we would not be able to achieve the level of success we have today."
+                partners={EMPLOYER_PARTNERS}
+              />
             </div>
           </div>
         </section>

@@ -13,6 +13,7 @@ import {
     Users2,
 } from "lucide-react";
 import Layout from "../components/Layout";
+import QuoteCard from "../components/ui/QuoteCard";
 import HeroBanner from "../components/HeroBanner";
 import FAQSection from "../components/Home/FAQSectiom";
 
@@ -200,17 +201,19 @@ export default function MagicMitra() {
                                 video: "/Testimonial 3.mp4",
                             },
                         ].map((item, i) => (
-                            <FadeUp key={item.name} delay={0.05 * i}>
-                                <_MOTION.article whileHover={{ y: -4 }} className="rounded-2xl border border-gray-200 bg-white p-5">
-                                    <div className="rounded-xl overflow-hidden border border-gray-200 bg-black">
-                                        <video className="w-full aspect-video object-cover" controls preload="metadata">
+                            <FadeUp key={item.name} delay={0.05 * i} className="h-full">
+                                <QuoteCard
+                                    size="dense"
+                                    media={
+                                        <video className="aspect-video w-full object-cover" controls preload="metadata">
                                             <source src={item.video} type="video/mp4" />
                                         </video>
-                                    </div>
-                                    <p className="mt-4 text-sm text-[#1A1A1A]/75 leading-relaxed">&ldquo;{item.quote}&rdquo;</p>
-                                    <p className="mt-3 font-bold text-[#1A1A1A]">{item.name}</p>
-                                    <p className="text-xs uppercase tracking-wider text-[#1A1A1A]/55">{item.role}</p>
-                                </_MOTION.article>
+                                    }
+                                    quote={item.quote}
+                                    name={item.name}
+                                    role={item.role}
+                                    initial={item.name[0]}
+                                />
                             </FadeUp>
                         ))}
                     </div>

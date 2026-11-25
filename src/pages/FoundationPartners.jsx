@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import Layout from "../components/Layout";
 import HeroBanner from "../components/HeroBanner";
 import PartnerHeadline from "../components/Corporate/PartnerHeadline";
+import PartnerThanks from "../components/Corporate/PartnerThanks";
 import PartnerCategories from "../components/Corporate/PartnerCategories";
 import LogoMarquee from "../components/Corporate/LogoMarquee";
 import { foundationPartners } from "../data/foundationPartners";
@@ -79,9 +80,14 @@ export default function FoundationPartners() {
                 <p>
                   Our work is significantly supported by our foundation and institution partners, who provide crucial assistance in various ways including funding, capacity-building support, networking, recognition and credibility. With their support, we are able to enhance our impact and fulfill our mission of creating positive change in the world.
                 </p>
-                <p className="border-t border-slate-100 pt-6 font-semibold text-slate-800 text-xl italic">
-                  We recognize and acknowledge their contributions. Without this support, we would not be able to achieve the level of success we have today.
-                </p>
+              </div>
+
+              <div className="mt-14">
+                <PartnerThanks
+                  who="Foundations & Institutions"
+                  message="We recognize and acknowledge their contributions. Without this support, we would not be able to achieve the level of success we have today."
+                  partners={FOUNDATION_PARTNERS}
+                />
               </div>
             </div>
           </div>

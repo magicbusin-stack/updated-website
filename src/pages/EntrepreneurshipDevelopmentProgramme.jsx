@@ -21,6 +21,7 @@ import {
     Zap,
 } from "lucide-react";
 import Layout from "../components/Layout";
+import QuoteCard from "../components/ui/QuoteCard";
 import HeroBanner from "../components/HeroBanner";
 import FAQSection from "../components/Home/FAQSectiom";
 import { edpFAQ } from "../components/Home/faqItems";
@@ -824,11 +825,9 @@ function SuccessStoriesSection() {
                                             </span>
                                         </div>
 
-                                        {/* Pull quote */}
-                                        <div className={`relative mb-5 pl-5 border-l-4 ${story.accentColor.replace("bg-", "border-")}`}>
-                                            <p className={`text-lg md:text-xl font-semibold ${story.accentText} leading-relaxed italic`}>
-                                                "{story.quote}"
-                                            </p>
+                                        {/* Pull quote, in the standard dark quote card */}
+                                        <div className="mb-5">
+                                            <QuoteCard size="compact" quote={story.quote} />
                                         </div>
 
                                         {/* Story paragraphs */}

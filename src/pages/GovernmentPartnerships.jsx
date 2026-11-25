@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import { Landmark, Mail, ArrowRight, ArrowUpRight, Play, GraduationCap, Brain, MapPin, X, ChevronRight } from "lucide-react";
 import Layout from "../components/Layout";
+import QuoteCard from "../components/ui/QuoteCard";
 import HeroBanner from "../components/HeroBanner";
 import usePageMeta from "../hooks/usePageMeta";
 import usePhone from "../hooks/usePhone";
@@ -333,42 +334,7 @@ function ProofSection() {
 }
 
 /* ---------- 6. voices from field ---------- */
-// The programme team will share more quotes: add another entry to this list (pick one of the three colour themes).
-const THEMES = {
-  coral: {
-    card: "linear-gradient(to bottom,#fffbf5,#fff5f5,#ffeef1)",
-    border: "rgba(254,205,211,0.9)",
-    icon: "linear-gradient(135deg,#f43f5e,#e11d48)",
-    ring: "#ffe4e6",
-    badgeBg: "#ffe4e6",
-    badgeText: "#be123c",
-    watermark: "rgba(244,63,94,0.10)",
-    glow: "linear-gradient(135deg,rgba(253,164,175,0.35),rgba(253,230,138,0.3))",
-    line: "rgba(254,205,211,0.9)",
-  },
-  teal: {
-    card: "linear-gradient(to bottom,#f2fdf9,#e8faf4,#dcf7ee)",
-    border: "#99f6e4",
-    icon: "linear-gradient(135deg,#0d9488,#047857)",
-    ring: "#ccfbf1",
-    badgeBg: "#ccfbf1",
-    badgeText: "#115e59",
-    watermark: "rgba(13,148,136,0.10)",
-    glow: "linear-gradient(135deg,rgba(94,234,212,0.3),rgba(110,231,183,0.3))",
-    line: "rgba(153,246,228,0.9)",
-  },
-  indigo: {
-    card: "linear-gradient(to bottom,#f5f6ff,#edefff,#e4e7ff)",
-    border: "#c7d2fe",
-    icon: "linear-gradient(135deg,#4f46e5,#9333ea)",
-    ring: "#e0e7ff",
-    badgeBg: "#e0e7ff",
-    badgeText: "#3730a3",
-    watermark: "rgba(79,70,229,0.10)",
-    glow: "linear-gradient(135deg,rgba(165,180,252,0.3),rgba(216,180,254,0.3))",
-    line: "rgba(199,210,254,0.9)",
-  },
-};
+// The programme team will share more quotes: add another entry to this list.
 const VOICES = [
   {
     theme: "coral",
@@ -411,59 +377,18 @@ function VoicesSection() {
           <h2 className="mt-5 text-3xl font-black text-[#0F172A] md:text-4xl">Voices from Field</h2>
         </FadeUp>
         <div className="mt-8 grid items-stretch gap-6 sm:gap-8 md:grid-cols-2 lg:grid-cols-3">
-          {VOICES.map((v, i) => {
-            const t = THEMES[v.theme];
-            return (
-              <FadeUp key={v.who} delay={i * 0.06} className={`h-full ${i === 2 ? "md:col-span-2 lg:col-span-1" : ""}`}>
-                <figure
-                  className="group relative flex h-full flex-col justify-between overflow-hidden rounded-3xl border p-7 shadow-sm transition duration-300 hover:-translate-y-1.5 hover:shadow-xl sm:p-8"
-                  style={{ background: t.card, borderColor: t.border }}
-                >
-                  <span
-                    aria-hidden="true"
-                    className="pointer-events-none absolute -top-4 right-4 select-none font-serif text-9xl leading-none transition-transform duration-500 group-hover:scale-110"
-                    style={{ color: t.watermark }}
-                  >
-                    “
-                  </span>
-                  <span
-                    aria-hidden="true"
-                    className="pointer-events-none absolute -right-12 -top-12 h-36 w-36 rounded-full blur-2xl transition-transform duration-500 group-hover:scale-125"
-                    style={{ background: t.glow }}
-                  />
-                  <div className="relative z-10">
-                    <div className="mb-6 flex items-center gap-3">
-                      <span
-                        className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl text-white shadow-md transition-transform group-hover:scale-105"
-                        style={{ background: t.icon, boxShadow: `0 0 0 4px ${t.ring}` }}
-                      >
-                        <v.Icon className="h-6 w-6" />
-                      </span>
-                      <div className="flex flex-wrap items-center gap-1.5">
-                        <span className="rounded-full border px-2.5 py-0.5 text-xs font-bold tracking-wide" style={{ background: t.badgeBg, color: t.badgeText, borderColor: t.border }}>
-                          {v.role}
-                        </span>
-                        <span className="inline-flex items-center gap-1 rounded-full border bg-white/90 px-2 py-0.5 text-xs font-semibold" style={{ color: t.badgeText, borderColor: t.border }}>
-                          <MapPin className="h-3 w-3" />
-                          {v.place}
-                        </span>
-                      </div>
-                    </div>
-                    <blockquote className={`font-semibold leading-relaxed text-slate-900 ${v.hindi ? "text-lg leading-[1.75]" : "text-lg"}`}>“{v.quote}”</blockquote>
-                  </div>
-                  <figcaption className="relative z-10 mt-8 flex items-center justify-between border-t pt-5" style={{ borderColor: t.line }}>
-                    <p className="pr-2 text-sm font-bold leading-snug tracking-tight text-slate-900">— {v.who}</p>
-                    <span
-                      className="ml-2 flex h-8 min-w-8 shrink-0 items-center justify-center rounded-full px-2 text-xs font-bold text-white shadow-sm"
-                      style={{ background: t.icon, boxShadow: `0 0 0 2px ${t.border}` }}
-                    >
-                      {v.initials}
-                    </span>
-                  </figcaption>
-                </figure>
-              </FadeUp>
-            );
-          })}
+          {VOICES.map((v, i) => (
+            <FadeUp key={v.who} delay={i * 0.06} className={`h-full ${i === 2 ? "md:col-span-2 lg:col-span-1" : ""}`}>
+              <QuoteCard
+                size="dense"
+                quote={v.quote}
+                name={v.who}
+                role={`${v.role} · ${v.place}`}
+                icon={v.Icon}
+                quoteClassName={v.hindi ? "!leading-[1.75]" : ""}
+              />
+            </FadeUp>
+          ))}
         </div>
       </div>
     </section>

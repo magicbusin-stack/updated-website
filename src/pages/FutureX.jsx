@@ -16,6 +16,7 @@ import {
     Zap,
 } from "lucide-react";
 import Layout from "../components/Layout";
+import QuoteCard from "../components/ui/QuoteCard";
 import HeroBanner from "../components/HeroBanner";
 import FAQSection from "../components/Home/FAQSectiom";
 import { futureXFAQ } from "../components/Home/faqItems";
@@ -426,59 +427,15 @@ function TestimonialSection() {
                 </FadeUp>
 
                 <FadeUp delay={0.1}>
-                    <motion.div
-                        className="relative rounded-3xl overflow-hidden p-10 md:p-14"
-                        style={{
-                            backgroundColor: FX_DARK,
-                            border: `1px solid ${FX_RED}30`
-                        }}
-                        whileHover={{ boxShadow: `0 32px 80px ${FX_RED}18` }}
-                        transition={{ duration: 0.4 }}
-                    >
-                        {/* Ambient glows */}
-                        <div className="pointer-events-none absolute -top-20 -right-20 w-80 h-80 rounded-full blur-3xl"
-                            style={{ backgroundColor: `${FX_RED}12` }} />
-                        <div className="pointer-events-none absolute -bottom-20 -left-20 w-60 h-60 rounded-full blur-3xl"
-                            style={{ backgroundColor: `${FX_YELLOW}0C` }} />
-
-                        {/* Giant quote mark in brand yellow */}
-                        <div className="absolute top-6 left-8 text-[120px] font-black leading-none select-none"
-                            style={{ color: `${FX_YELLOW}30` }}>
-                            "
-                        </div>
-
-                        <div className="relative z-10">
-                            <p className="text-xl md:text-2xl font-semibold text-white/90 leading-relaxed mb-8 mt-8">
-                                The FutureX Programme helped me transform my life through confidence and skills.
-                                Today, I have a stable job that supports my family.
-                            </p>
-
-                            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-                                <div className="flex items-center gap-4">
-                                    {/* Initial avatar — brand red */}
-                                    <div className="w-12 h-12 rounded-full flex items-center justify-center font-black text-lg"
-                                        style={{ backgroundColor: FX_RED, color: "white" }}>
-                                        K
-                                    </div>
-                                    <div>
-                                        <p className="text-white font-extrabold">Karthik</p>
-                                        <p className="text-white/40 text-xs">Programme Participant</p>
-                                    </div>
-                                </div>
-                                {/* Instagram source chip */}
-                                <motion.a
-                                    href="https://www.instagram.com/p/DRzW8UUjKrp/?hl=en"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/8 px-4 py-2 text-xs font-bold text-white/60 hover:border-white/30 hover:text-white/80 transition-all"
-                                    whileHover={{ scale: 1.04 }}
-                                >
-                                    <span>View on Instagram</span>
-                                    <ArrowRight className="w-3 h-3" />
-                                </motion.a>
-                            </div>
-                        </div>
-                    </motion.div>
+                    <QuoteCard
+                        size="wide"
+                        quote="The FutureX Programme helped me transform my life through confidence and skills. Today, I have a stable job that supports my family."
+                        name="Karthik"
+                        role="Programme Participant"
+                        initial="K"
+                        link="https://www.instagram.com/p/DRzW8UUjKrp/?hl=en"
+                        linkLabel="View on Instagram"
+                    />
                 </FadeUp>
             </div>
         </section>

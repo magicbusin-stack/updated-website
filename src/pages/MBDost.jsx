@@ -20,6 +20,7 @@ import {
     Zap,
 } from "lucide-react";
 import Layout from "../components/Layout";
+import QuoteCard from "../components/ui/QuoteCard";
 import HeroBanner from "../components/HeroBanner";
 import FAQSection from "../components/Home/FAQSectiom";
 import { mbDostFAQ } from "../components/Home/faqItems";
@@ -102,7 +103,7 @@ const chatMessages = [
 
 function AboutSection() {
     return (
-        <section className="py-24 overflow-hidden" style={{ backgroundColor: DOST_DARK }}>
+        <section className="relative py-24 overflow-hidden" style={{ backgroundColor: DOST_DARK }}>
             <div className="pointer-events-none absolute inset-0 opacity-[0.03]"
                 style={{ backgroundImage: "radial-gradient(circle at 1px 1px, white 1px, transparent 0)", backgroundSize: "28px 28px" }} />
             <div className="pointer-events-none absolute -top-40 -right-40 w-[500px] h-[500px] rounded-full blur-[120px]"
@@ -218,7 +219,7 @@ const benefits = [
 
 function BenefitsSection() {
     return (
-        <section className="py-24 bg-white overflow-hidden">
+        <section className="relative py-24 bg-white overflow-hidden">
             <div className="max-w-7xl mx-auto px-6 lg:px-12">
                 <FadeUp className="mb-16 text-center">
                     <div className="inline-flex items-center gap-2 rounded-full border border-[#111]/10 bg-[#F5F5F0] px-4 py-1.5 mb-5">
@@ -279,7 +280,7 @@ function DemoSection() {
     };
 
     return (
-        <section id="demo" className="py-24 overflow-hidden" style={{ backgroundColor: "#0D1117" }}>
+        <section id="demo" className="relative py-24 overflow-hidden" style={{ backgroundColor: "#0D1117" }}>
             <div className="pointer-events-none absolute -top-32 left-1/2 -translate-x-1/2 w-[700px] h-[300px] blur-3xl rounded-full"
                 style={{ backgroundColor: `${DOST_GREEN}0C` }} />
             <div className="max-w-7xl mx-auto px-6 lg:px-12 relative z-10">
@@ -426,68 +427,23 @@ function TestimonialsSection() {
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-14">
                     {youthTestimonials.map((t, i) => (
-                        <FadeUp key={t.name} delay={0.08 * i}>
-                            <motion.div
-                                className="group relative bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-100 h-full"
-                                whileHover={{ y: -5, boxShadow: "0 24px 50px rgba(0,0,0,0.09)" }}
-                                transition={{ type: "spring", stiffness: 250, damping: 22 }}
-                            >
-                                {/* Top accent bar */}
-                                <div className="h-1" style={{ backgroundColor: DOST_GREEN }} />
-
-                                {/* Person row — initial avatar */}
-                                <div className="flex items-center gap-3 px-6 pt-5 pb-4 border-b border-gray-50">
-                                    <div
-                                        className="w-11 h-11 rounded-full shrink-0 flex items-center justify-center font-black text-base"
-                                        style={{ backgroundColor: `${DOST_GREEN}18`, color: DOST_GREEN }}
-                                    >
-                                        {t.name[0]}
-                                    </div>
-                                    <div>
-                                        <p className="font-extrabold text-[#111] text-sm">{t.name}</p>
-                                        <p className="text-xs text-[#111]/40 mt-0.5">{t.centre}</p>
-                                    </div>
-                                    <div className="ml-auto w-8 h-8 rounded-full flex items-center justify-center"
-                                        style={{ backgroundColor: `${DOST_GREEN}15` }}>
-                                        <MessageCircle className="w-4 h-4" style={{ color: DOST_GREEN }} />
-                                    </div>
-                                </div>
-
-                                <div className="p-6">
-                                    <p className="text-sm text-[#111]/60 leading-relaxed">{t.quote}</p>
-                                </div>
-                            </motion.div>
+                        <FadeUp key={t.name} delay={0.08 * i} className="h-full">
+                            <QuoteCard size="dense" quote={t.quote} name={t.name} role={t.centre} initial={t.name[0]} />
                         </FadeUp>
                     ))}
                 </div>
 
                 {/* Programme Head quotes */}
-                <FadeUp delay={0.1}>
-                    <div className="rounded-3xl overflow-hidden border border-white/5" style={{ backgroundColor: DOST_DARK }}>
-                        <div className="px-8 py-6 border-b border-white/8">
-                            <p className="text-xs font-bold uppercase tracking-[0.2em]" style={{ color: DOST_GREEN }}>
-                                From The Programme Head, Magic Bus
-                            </p>
-                        </div>
-                        <div className="divide-y divide-white/5">
-                            {headQuotes.map((q, i) => (
-                                <motion.div
-                                    key={i}
-                                    className="group flex items-start gap-5 px-8 py-6 cursor-default"
-                                    whileHover={{ backgroundColor: "rgba(255,255,255,0.03)" }}
-                                >
-                                    <div className="shrink-0 w-6 h-6 rounded-full flex items-center justify-center mt-0.5"
-                                        style={{ backgroundColor: `${DOST_GREEN}20` }}>
-                                        <span className="text-xs font-black" style={{ color: DOST_GREEN }}>
-                                            {String(i + 1).padStart(2, "0")}
-                                        </span>
-                                    </div>
-                                    <p className="text-white/65 text-sm leading-relaxed italic flex-1">"{q}"</p>
-                                </motion.div>
-                            ))}
-                        </div>
-                    </div>
-                </FadeUp>
+                <div className="mb-6 text-center">
+                    <span className="text-xs font-bold uppercase tracking-[0.2em] text-[#111]/35">From The Programme Head, Magic Bus</span>
+                </div>
+                <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
+                    {headQuotes.map((q, i) => (
+                        <FadeUp key={i} delay={0.08 * i} className="h-full">
+                            <QuoteCard size="dense" quote={q} name="Programme Head" role="Magic Bus" icon={MessageCircle} />
+                        </FadeUp>
+                    ))}
+                </div>
             </div>
         </section>
     );
@@ -498,7 +454,7 @@ function TestimonialsSection() {
 ══════════════════════════════════════════════════════════════ */
 function ContactSection() {
     return (
-        <section id="contact-mbdost" className="py-24 overflow-hidden" style={{ backgroundColor: DOST_DARK }}>
+        <section id="contact-mbdost" className="relative py-24 overflow-hidden" style={{ backgroundColor: DOST_DARK }}>
             <div className="pointer-events-none absolute inset-0 opacity-[0.025]"
                 style={{ backgroundImage: "radial-gradient(circle at 1px 1px, white 1px, transparent 0)", backgroundSize: "28px 28px" }} />
             <div className="pointer-events-none absolute -bottom-32 left-1/2 -translate-x-1/2 w-[600px] h-[300px] rounded-full blur-3xl"

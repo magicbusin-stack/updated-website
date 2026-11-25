@@ -20,6 +20,7 @@ import {
     TrendingUp,
 } from "lucide-react";
 import Layout from "../components/Layout";
+import QuoteCard from "../components/ui/QuoteCard";
 import HeroBanner from "../components/HeroBanner";
 import FAQSection from "../components/Home/FAQSectiom";
 import { whoWeAreFAQ } from "../components/Home/faqItems";
@@ -275,26 +276,20 @@ function HistorySection() {
                         </FadeUp>
 
                         <FadeUp delay={0.1}>
-                            {/* Highlighted founder quote */}
-                            <figure className="relative overflow-hidden rounded-lg bg-gradient-to-br from-[#C41A1F] via-[#B01519] to-[#8F1015] p-6 text-white shadow-[0_12px_32px_-8px_rgba(196,26,31,0.45)] sm:p-8">
-                                <span className="absolute inset-y-0 left-0 w-2 bg-[#F9A825]" />
-                                <div className="pointer-events-none absolute -right-10 -top-10 h-40 w-40 rounded-full bg-white/10" />
-                                <Quote className="relative h-10 w-10 text-[#F9A825]" />
-                                <blockquote className="wa-display relative mt-3 text-xl font-semibold leading-9 sm:text-2xl sm:leading-[38px]">
-                                    "A couple of things really struck me early on. Firstly, there were tremendous amounts of infrastructure and services focused on education, but{" "}
-                                    <mark className="rounded bg-[#F9A825] px-1.5 text-[#1A1A1A]">schools sat empty</mark>. Secondly, there was a great deficit of organisations focusing on{" "}
-                                    <mark className="rounded bg-[#F9A825] px-1.5 text-[#1A1A1A]">sustainable livelihoods</mark>."
-                                </blockquote>
-                                <figcaption className="relative mt-6 flex items-center gap-3">
-                                    <span className="flex h-12 w-12 items-center justify-center rounded-full bg-white text-sm font-bold" style={{ color: CRIMSON }}>
-                                        MS
-                                    </span>
-                                    <span>
-                                        <span className="block text-lg font-bold">Matthew Spacie</span>
-                                        <span className="block text-sm text-white/80">Founder, Magic Bus India Foundation</span>
-                                    </span>
-                                </figcaption>
-                            </figure>
+                            {/* Founder quote, in the standard dark quote card */}
+                            <QuoteCard
+                                quoteClassName="wa-display"
+                                quote={
+                                    <>
+                                        A couple of things really struck me early on. Firstly, there were tremendous amounts of infrastructure and services focused on education, but{" "}
+                                        <mark className="rounded bg-brand-yellow px-1.5 text-[#1A1A1A]">schools sat empty</mark>. Secondly, there was a great deficit of organisations focusing on{" "}
+                                        <mark className="rounded bg-brand-yellow px-1.5 text-[#1A1A1A]">sustainable livelihoods</mark>.
+                                    </>
+                                }
+                                name="Matthew Spacie"
+                                role="Founder, Magic Bus India Foundation"
+                                initial="MS"
+                            />
                         </FadeUp>
                     </div>
                 </div>

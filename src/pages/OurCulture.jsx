@@ -7,6 +7,7 @@ import {
     Award, Quote, User, Sparkles, ExternalLink,
 } from "lucide-react";
 import Layout from "../components/Layout";
+import QuoteCard from "../components/ui/QuoteCard";
 import HeroBanner from "../components/HeroBanner";
 import FAQSection from "../components/Home/FAQSectiom";
 import { cultureFAQ } from "../components/Home/faqItems";
@@ -356,25 +357,11 @@ function GreatPlaceSection() {
             {/* ── BOTTOM: Quote accent strip ── */}
             <FadeUp>
                 <div className="max-w-7xl mx-auto px-6 lg:px-12 pb-16">
-                    <div className="relative rounded-3xl overflow-hidden bg-[#F7F7F5] border border-gray-100 p-8 md:p-12 flex flex-col md:flex-row gap-8 items-start">
-                        {/* Decorative left bar */}
-                        <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-gradient-to-b from-brand-yellow via-brand-red to-brand-red/30 rounded-l-3xl" />
-                        <div className="shrink-0">
-                            <div className="w-14 h-14 rounded-2xl bg-brand-yellow flex items-center justify-center shadow-md">
-                                <Quote className="w-6 h-6 text-brand-black" />
-                            </div>
-                        </div>
-                        <div className="flex-1">
-                            <p className="text-xl md:text-2xl font-semibold text-[#1A1A1A] leading-relaxed italic">
-                                "Ethical conduct and accountability guide how we operate. Fairness, transparency, and mutual respect form the basis of strong, trust-based relationships across the organisation."
-                            </p>
-                            <div className="mt-5 flex items-center gap-3">
-                                <div className="w-6 h-0.5 bg-brand-red" />
-                                <span className="text-sm text-[#1A1A1A]/70 font-bold uppercase tracking-widest">Magic Bus Culture Pillar</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                    <QuoteCard
+                        size="wide"
+                        quote="Ethical conduct and accountability guide how we operate. Fairness, transparency, and mutual respect form the basis of strong, trust-based relationships across the organisation."
+                        name="Magic Bus Culture Pillar"
+                    />                </div>
             </FadeUp>
         </section>
     );

@@ -1,9 +1,10 @@
 // src/pages/CorporatePartners.jsx
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { Check, Copy, Mail, Phone, Quote } from "lucide-react";
+import { Check, Copy, Mail, Phone } from "lucide-react";
 import { Link } from "react-router-dom";
 import Layout from "../components/Layout";
+import QuoteCard from "../components/ui/QuoteCard";
 import HeroBanner from "../components/HeroBanner";
 import PartnerHeadline from "../components/Corporate/PartnerHeadline";
 import PartnerCategories from "../components/Corporate/PartnerCategories";
@@ -100,30 +101,20 @@ export default function CorporatePartners() {
 
             </div>
 
-            {/* The quote, in the same dark card as the testimonials on the other pages */}
-            <motion.figure
+            {/* The quote, in the standard dark quote card used on every page */}
+            <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.7, ease: EASE_EXPO }}
-              className="relative mt-12 overflow-hidden rounded-3xl bg-gradient-to-br from-[#1A1A1A] via-[#2B1216] to-[#6B0F18] p-6 shadow-2xl ring-1 ring-brand-red/40 sm:p-10 md:p-12"
+              className="mt-12"
             >
-              <div className="pointer-events-none absolute -right-20 -top-20 h-72 w-72 rounded-full bg-brand-yellow/20 blur-3xl" />
-              <div className="pointer-events-none absolute -bottom-24 -left-16 h-64 w-64 rounded-full bg-brand-red/30 blur-3xl" />
-              <Quote aria-hidden="true" className="pointer-events-none absolute right-4 top-4 h-16 w-16 text-white/10 sm:right-8 sm:top-6 sm:h-40 sm:w-40" />
-              <div className="relative">
-                <span className="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-brand-yellow shadow-lg">
-                  <Quote className="h-6 w-6 text-brand-black" />
-                </span>
-                <blockquote className="text-lg font-semibold leading-relaxed text-white sm:text-2xl sm:leading-relaxed md:text-3xl md:leading-relaxed">
-                  &ldquo;These partnerships are built on a shared vision of shared values and goals. We recognize and acknowledge their contributions. Without this support, we would not be able to achieve the level of success we have today.&rdquo;
-                </blockquote>
-                <figcaption className="mt-5 flex items-center gap-3 sm:mt-7">
-                  <span className="h-1 w-10 shrink-0 rounded-full bg-brand-yellow" />
-                  <span className="text-sm font-bold uppercase tracking-[0.14em] text-brand-yellow sm:text-base">Magic Bus India Foundation</span>
-                </figcaption>
-              </div>
-            </motion.figure>
+              <QuoteCard
+                size="wide"
+                quote="These partnerships are built on a shared vision of shared values and goals. We recognize and acknowledge their contributions. Without this support, we would not be able to achieve the level of success we have today."
+                name="Magic Bus India Foundation"
+              />
+            </motion.div>
           </div>
         </section>
 

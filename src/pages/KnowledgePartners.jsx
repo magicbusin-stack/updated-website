@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import Layout from "../components/Layout";
 import HeroBanner from "../components/HeroBanner";
 import PartnerHeadline from "../components/Corporate/PartnerHeadline";
+import PartnerThanks from "../components/Corporate/PartnerThanks";
 import PartnerCategories from "../components/Corporate/PartnerCategories";
 import BrandLogo from "../components/Corporate/BrandLogo";
 import { knowledgePartners } from "../data/knowledgePartners";
@@ -89,10 +90,18 @@ export default function KnowledgePartners() {
                   At Magic Bus, partnerships play an essential role in enabling us to achieve our mission and create a positive impact in the world. Our Corporate and Knowledge partners provide us with the necessary support, resources, and expertise to make a real difference in the communities we serve. Through these collaborations we can amplify our message and engage new audiences, helping us to create a broader impact in the communities we serve.
                 </p>
                 <p>
-                  We are grateful for the strong and lasting relationships we have built with our partners, both in India and across the globe. These partnerships are built on a strong foundation of shared values and goals. We recognize and acknowledge their contributions. Without this support, we would not be able to achieve the level of success we have today.
+                  We are grateful for the strong and lasting relationships we have built with our partners, both in India and across the globe. These partnerships are built on a strong foundation of shared values and goals.
                 </p>
               </div>
 
+            </div>
+
+            <div className="mt-16">
+              <PartnerThanks
+                who="Knowledge Partners"
+                message="We recognize and acknowledge their contributions. Without this support, we would not be able to achieve the level of success we have today."
+                partners={KNOWLEDGE_PARTNERS}
+              />
             </div>
           </div>
         </section>

@@ -23,6 +23,7 @@ import {
     Rocket,
 } from "lucide-react";
 import Layout from "../components/Layout";
+import QuoteCard from "../components/ui/QuoteCard";
 import { Link, useNavigate } from "react-router-dom";
 import HeroBanner from "../components/HeroBanner";
 import FlipCoinButton from "../components/ui/flip-coin-button";
@@ -977,37 +978,27 @@ function OurStory() {
                 </FadeUp>
 
                 <FadeUp delay={0.05} className="mb-6 md:mb-14">
-                    <div className="relative overflow-hidden rounded-[1.5rem] bg-brand-red">
-                        <div className="absolute -top-16 -right-14 h-44 w-44 rounded-full bg-white/10" />
-                        <div className="grid lg:grid-cols-5 gap-0">
-                            <div className="relative z-10 lg:col-span-3 p-5 md:p-8 lg:p-9">
-                                <Quote className="w-10 h-10 text-white/35" />
-                                <p className="mt-3 md:mt-4 text-white text-lg md:text-2xl font-semibold leading-snug md:leading-tight max-w-3xl">
-                                    Magic Bus India Foundation began in 1999. Our founder noticed the
-                                    transformative power of sport to change lives of young boys from underserved
-                                    communities. This realisation started with simple rugby sessions that grew
-                                    into activity-based camps shaping confidence, discipline, and aspiration.
-                                </p>
-                                <div className="mt-6 w-40 h-px bg-white/30" />
-                                <p className="mt-4 text-white/80 text-sm md:text-base font-bold tracking-[0.16em] uppercase">
-                                    Magic Bus Story
-                                </p>
-                            </div>
-
-                            <div className="lg:col-span-2 flex items-center justify-center p-4 md:p-5">
-                                <button
-                                    type="button"
-                                    onClick={() => setIsMilestoneImageOpen(true)}
-                                    className="w-full max-w-[300px] overflow-hidden rounded-xl border border-white/20 bg-white/10 focus:outline-none focus:ring-2 focus:ring-white/60"
-                                    aria-label="Open milestone image"
-                                >
-                                    <img loading="lazy" decoding="async"
-                                        src="/milestone-1.jpg"
-                                        alt="Magic Bus journey milestones"
-                                        className="h-32 md:h-56 w-full object-cover object-left-top transition-transform duration-300 hover:scale-[1.03]"
-                                    />
-                                </button>
-                            </div>
+                    <div className="grid items-stretch gap-5 lg:grid-cols-5">
+                        <div className="lg:col-span-3">
+                            <QuoteCard
+                                marks={false}
+                                quote="Magic Bus India Foundation began in 1999. Our founder noticed the transformative power of sport to change lives of young boys from underserved communities. This realisation started with simple rugby sessions that grew into activity-based camps shaping confidence, discipline, and aspiration."
+                                name="Magic Bus Story"
+                            />
+                        </div>
+                        <div className="flex items-center justify-center lg:col-span-2">
+                            <button
+                                type="button"
+                                onClick={() => setIsMilestoneImageOpen(true)}
+                                className="w-full max-w-[420px] overflow-hidden rounded-3xl border border-white/20 bg-white/10 shadow-xl focus:outline-none focus:ring-2 focus:ring-white/60"
+                                aria-label="Open milestone image"
+                            >
+                                <img loading="lazy" decoding="async"
+                                    src="/milestone-1.jpg"
+                                    alt="Magic Bus journey milestones"
+                                    className="h-40 w-full object-cover object-left-top transition-transform duration-300 hover:scale-[1.03] md:h-64"
+                                />
+                            </button>
                         </div>
                     </div>
                 </FadeUp>
