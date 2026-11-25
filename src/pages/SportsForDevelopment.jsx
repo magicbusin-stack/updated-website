@@ -184,24 +184,15 @@ function TheoryOfChange() {
           ))}
         </div>
 
-        {/* The key line: a bold dark banner whose highlight sweeps in once, when it scrolls into view */}
+        {/* The key line: a bold dark banner */}
         <FadeUp delay={0.1} className="mx-auto mt-12 max-w-5xl">
-          <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#1A1A1A] via-[#2B1216] to-[#6B0F18] px-6 py-8 text-center shadow-2xl ring-1 ring-brand-red/40 sm:px-12 sm:py-12">
+          <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#1A1A1A] via-[#2B1216] to-[#6B0F18] px-6 py-6 text-center shadow-xl ring-1 ring-brand-red/40 sm:px-10 sm:py-8">
             <div className="pointer-events-none absolute -right-16 -top-16 h-56 w-56 rounded-full bg-brand-yellow/20 blur-3xl" />
             <div className="pointer-events-none absolute -bottom-20 -left-12 h-56 w-56 rounded-full bg-brand-red/30 blur-3xl" />
             <span aria-hidden="true" className="absolute inset-y-0 left-0 w-2 bg-brand-yellow" />
-            <p className="relative text-2xl font-black leading-snug text-white sm:text-3xl md:text-4xl md:leading-snug">
+            <p className="relative text-lg font-extrabold leading-snug text-white sm:text-xl md:text-2xl md:leading-snug">
               Grounded in our <span className="text-brand-yellow">Theory of Change</span>, this framework directly enables our{" "}
-              <motion.span
-                initial={{ backgroundSize: "0% 100%" }}
-                whileInView={{ backgroundSize: "100% 100%" }}
-                viewport={{ once: true, margin: "-60px" }}
-                transition={{ duration: 1, ease: EASE, delay: 0.4 }}
-                style={{ backgroundImage: "linear-gradient(#E12228,#E12228)", backgroundRepeat: "no-repeat", WebkitBoxDecorationBreak: "clone", boxDecorationBreak: "clone" }}
-                className="rounded-md px-2 py-0.5"
-              >
-                key interventions on the ground.
-              </motion.span>
+              key interventions on the ground.
             </p>
           </div>
         </FadeUp>
