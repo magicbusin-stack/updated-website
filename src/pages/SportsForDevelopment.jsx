@@ -370,7 +370,6 @@ export default function SportsForDevelopment() {
       <StatsBand
         eyebrow={null}
         title="Our Impact at a Glance"
-        subtitle="200+ Teams. 7 Sports. 1 Vision: Equal opportunity to all adolescents to compete, excel, and rise."
         stats={IMPACT}
         cols={4}
         compact
