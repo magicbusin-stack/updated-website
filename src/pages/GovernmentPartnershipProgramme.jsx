@@ -23,16 +23,16 @@ const outreachStats = [
 ];
 
 const governmentPartners = [
-    "/government partners/Govt Andhra Pradesh-01.png",
-    "/government partners/Govt Assam-01.png",
-    "/government partners/Govt Haryana-01.png",
+    "/government partners/andhra-pradesh.png",
+    "/government partners/assam.png",
+    "/government partners/haryana.png",
     "/government partners/Govt Mizoram-01.png",
-    "/government partners/Govt of Odisha.png",
-    "/government partners/Govt Rajasthan-01.png",
+    "/government partners/odisha.png",
+    "/government partners/rajasthan.png",
     "/government partners/himachal.png",
     "/government partners/meghalaya.png",
-    "/government partners/MP Govt Logo.jpg",
-    "/government partners/chhatisgadh.png",
+    "/government partners/madhya-pradesh.png",
+    "/government partners/chhattisgarh.png",
 ];
 
 const foundationPartners = [
