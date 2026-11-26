@@ -59,7 +59,7 @@ export default function CorporatePartners() {
         
         {/* ===== 1) HERO BANNER ===== */}
         <HeroBanner
-          badgeText="Our Corporate Partners"
+          badgeText=""
           title="United to spread the magic."
           subtitle="Driving impact together through shared vision and commitment"
           description="At Magic Bus, collaborations play an essential role in reaching out to children and young people. Together, we build resources, skills, and pathways out of poverty."
