@@ -11,10 +11,9 @@ import { RotateCcw } from "lucide-react";
    exactly the approved picture: the bus parked at the top of the hill with half of it under the white line.
 
    How it plays (once, when the scene is on screen; there is a Replay button):
-     1. only the hill and the milestone are there; the bus drives in along the curve and stops half way
-     2. while the bus waits (6 seconds) the sky, clouds and field appear, then the left woman pops up from behind the hill
-     3. the bus carries on and parks at the top of the hill
-     4. the right woman pops up from behind the hill, with the shop behind her
+     1. at once: the bus is waiting at the start of the road on the left, and the sky, clouds, field and the left woman pop up
+     2. the bus drives along the curve to the middle of the hill (6 seconds)
+     3. when the bus is in the middle, the right woman pops up from behind the hill, with the shop behind her
 
    Visitors who prefer reduced motion see the finished scene straight away. */
 
@@ -28,8 +27,7 @@ const CX = 683.08;
 const CY = 1052.5;
 const BUS_ANCHOR = [683, 592]; // bottom centre of the parked bus
 const R_BUS = CY - BUS_ANCHOR[1];
-const BUS_FROM = -64; // degrees from the top of the hill: it starts below the left edge
-const BUS_MID = 0.5; //  and stops half way (0 = start, 1 = parked at the top)
+const BUS_FROM = -38; // degrees from the top of the hill: where the bus waits at the start of the road, on the left
 
 function busTransform(t) {
   const deg = BUS_FROM * (1 - t);
@@ -61,13 +59,10 @@ const EASE_OUT = [0.16, 1, 0.3, 1];
 
 /* the timeline, in seconds */
 const T = {
-  bus1: 0.6, // the bus drives in ...
-  bus1Len: 2.4,
-  wait: 6, //   ... and waits here for 6 seconds
+  go: 1.0, //      the bus sets off while the first pop-ups are still arriving ...
+  drive: 6, //     ... and takes 6 seconds to reach the middle of the hill
 };
-T.bus2 = T.bus1 + T.bus1Len + T.wait; // then it carries on and parks
-T.bus2Len = 2.4;
-T.arrive = T.bus2 + T.bus2Len;
+T.arrive = T.go + T.drive;
 T.end = T.arrive + 1.9;
 
 /* title / text: shown on the hill once the bus has parked. Nothing is shown until wording is passed in. */
@@ -76,7 +71,7 @@ export default function JourneyStory({ title, text }) {
   const wrapRef = useRef(null);
   const stageRef = useRef(null);
   const near = useInView(wrapRef, { once: true, margin: "800px" });
-  const seen = useInView(wrapRef, { once: true, amount: 0.5 });
+  const seen = useInView(wrapRef, { once: true, amount: 0.3 });
   const [ready, setReady] = useState(false);
   const [done, setDone] = useState(false);
   const [round, setRound] = useState(0); // bumping this starts the scene again
@@ -107,21 +102,17 @@ export default function JourneyStory({ title, text }) {
       go(target, { opacity: [0, 1] }, { delay, duration: 0.35, ease: "easeOut" });
     };
 
-    // 1. the bus drives in and stops half way
-    go(0, BUS_MID, { delay: T.bus1, duration: T.bus1Len, ease: EASE_BUS, onUpdate: drive });
+    // 1. at once: the sky opens from the top of the hill, clouds fade in, then the field and the left woman pop up
+    go(el("sky"), { clipPath: ["circle(0% at 50% 64.5%)", "circle(95% at 50% 64.5%)"] }, { delay: 0, duration: 1.3, ease: EASE_IO });
+    go(el("clouds"), { opacity: [0, 1] }, { delay: 0.5, duration: 1.1, ease: "easeOut" });
+    go(el("clouds"), { x: ["1.5%", "-1.5%"] }, { delay: 0.5, duration: 16, ease: "linear" });
+    go(el("field"), { opacity: [0, 1], y: ["14%", "0%"] }, { delay: 0.5, duration: 1.0, ease: EASE_OUT });
+    pop(el("before"), 0.9);
 
-    // 2. while it waits: the sky opens from the top of the hill, clouds fade in, the field and the left woman pop up
-    const w = T.bus1 + T.bus1Len; // the moment the bus stops
-    go(el("sky"), { clipPath: ["circle(0% at 50% 64.5%)", "circle(95% at 50% 64.5%)"] }, { delay: w + 0.3, duration: 1.5, ease: EASE_IO });
-    go(el("clouds"), { opacity: [0, 1] }, { delay: w + 1.4, duration: 1.3, ease: "easeOut" });
-    go(el("clouds"), { x: ["1.5%", "-1.5%"] }, { delay: w + 1.4, duration: 16, ease: "linear" });
-    go(el("field"), { opacity: [0, 1], y: ["14%", "0%"] }, { delay: w + 2.2, duration: 1.1, ease: EASE_OUT });
-    pop(el("before"), w + 3.5);
+    // 2. the bus drives from the start of the road to the middle of the hill
+    go(0, 1, { delay: T.go, duration: T.drive, ease: EASE_BUS, onUpdate: drive });
 
-    // 3. the bus carries on and parks at the top of the hill
-    go(BUS_MID, 1, { delay: T.bus2, duration: T.bus2Len, ease: EASE_BUS, onUpdate: drive });
-
-    // 4. the right woman pops up from behind the hill, then the shop behind her
+    // 3. when the bus is in the middle, the right woman pops up from behind the hill, then the shop behind her
     pop(el("after"), T.arrive);
     go(el("shop"), { opacity: [0, 1], y: ["14%", "0%"] }, { delay: T.arrive + 0.3, duration: 1.1, ease: EASE_OUT });
     go(el("field"), { "--fe": ["42%", "100%"] }, { delay: T.arrive + 0.3, duration: 1.3, ease: EASE_IO });
