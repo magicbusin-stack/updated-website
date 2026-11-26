@@ -2,7 +2,6 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Check, Copy, ArrowRight, Shield, Heart, HelpCircle, Users, Download, Mail, ExternalLink } from "lucide-react";
-import { Link } from "react-router-dom";
 import Layout from "../components/Layout";
 import HeroBanner from "../components/HeroBanner";
 
@@ -105,15 +104,6 @@ export default function PoshPolicy() {
             { href: "#committee-directory", label: "Contact Internal Committee", variant: "secondary" }
           ]}
         />
-
-        {/* ===== 2) BREADCRUMB ===== */}
-        <section className="py-4 bg-gray-50 border-b border-slate-100">
-          <div className="max-w-7xl mx-auto px-6 text-sm text-ink/60 flex items-center gap-2">
-            <Link to="/" className="hover:text-brand-red transition-colors font-medium">Home</Link>
-            <span>/</span>
-            <span className="text-ink font-semibold">POSH Policy</span>
-          </div>
-        </section>
 
         {/* ===== 3) SECTION 2: INTRO & SCOPE ===== */}
         <section className="py-24 bg-white relative overflow-hidden">

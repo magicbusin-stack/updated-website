@@ -712,11 +712,6 @@ export default function ContactUs() {
           </div>
         </section>
 
-        {/* ===== BREADCRUMB (keep as-is) ===== */}
-        <section className="py-4 bg-white border-b border-gray-100">
-          <div className="max-w-7xl mx-auto px-6 text-sm text-gray-500">Home / Contact Us</div>
-        </section>
-
         <ContactYellowStripe />
 
         {/* ===== CONTACT SECTION (enhanced) ===== */}

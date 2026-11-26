@@ -9,6 +9,9 @@ import PartnerHeadline from "../components/Corporate/PartnerHeadline";
 import PartnerCategories from "../components/Corporate/PartnerCategories";
 import LogoMarquee from "../components/Corporate/LogoMarquee";
 import { corporatePartners } from "../data/corporatePartners";
+import { foundationPartners } from "../data/foundationPartners";
+import { governmentPartners } from "../data/governmentPartners";
+import { knowledgePartners } from "../data/knowledgePartners";
 
 // Core scroll animation definitions
 const EASE_EXPO = [0.16, 1, 0.3, 1];
@@ -35,6 +38,25 @@ const cardVariants = {
 
 // Partner list + logos live in src/data/corporatePartners.js (copied from the live Corporate Partners page)
 const PARTNERS = corporatePartners;
+
+// "Our Network of Change": one moving row for each kind of partner, taken from that partner's own page.
+// A logo that two pages both list is shown once, in the first row that has it (CSR, then Institutional, Government, Knowledge).
+const norm = (n) => n.toLowerCase().replace(/[^a-z0-9]/g, "");
+const used = new Set();
+const unique = (list) =>
+  list.filter((p) => {
+    const k = norm(p.name);
+    if (used.has(k)) return false;
+    used.add(k);
+    return true;
+  });
+const NETWORK_ROWS = [
+  { label: "CSR Partners", partners: unique(corporatePartners) },
+  { label: "Institutional Partners", partners: unique(foundationPartners) },
+  { label: "Government Partners", partners: unique(governmentPartners) },
+  { label: "Knowledge Partners", partners: unique(knowledgePartners) },
+];
+const NETWORK_TOTAL = NETWORK_ROWS.reduce((n, r) => n + r.partners.length, 0);
 
 export default function CorporatePartners() {
   const [copiedEmail, setCopiedEmail] = useState(false);
@@ -129,19 +151,16 @@ export default function CorporatePartners() {
                   <span className="inline-block bg-brand-black/10 text-brand-black text-sm font-extrabold uppercase tracking-[0.2em] px-4 py-1.5 rounded-full mb-3">
                     Corporate Engagement
                   </span>
-                  <h3 className="text-2xl md:text-4xl font-extrabold tracking-tight">
-                    CSR & Employee Volunteering Partnership
-                  </h3>
-                  <p className="mt-3 text-slate-800 text-lg leading-relaxed">
+                  <p className="mt-1 text-slate-900 text-xl md:text-2xl font-semibold leading-relaxed">
                     Collaborate with us to design meaningful volunteering programs, maximize CSR alignment, and empower youth.
                   </p>
                 </div>
 
                 {/* Right Actions */}
-                <div className="flex flex-col sm:flex-row gap-4 w-full lg:w-auto shrink-0 justify-center">
+                <div className="grid w-full shrink-0 grid-cols-1 gap-4 sm:grid-cols-2 lg:w-80 lg:grid-cols-1">
                   
                   {/* Email + phone: dark contact cards with a yellow icon, like the contact cards on the other pages */}
-                  <div className="flex min-w-0 flex-col gap-3 rounded-2xl bg-[#1A1A1A] p-5 text-left shadow-lg sm:max-w-xs">
+                  <div className="flex h-full min-w-0 flex-col gap-3 rounded-2xl bg-[#1A1A1A] p-5 text-left shadow-lg">
                     <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-brand-yellow">
                       <Mail className="h-5 w-5 text-brand-black" />
                     </span>
@@ -160,7 +179,7 @@ export default function CorporatePartners() {
                     </button>
                   </div>
 
-                  <div className="flex min-w-0 flex-col gap-3 rounded-2xl bg-[#1A1A1A] p-5 text-left shadow-lg sm:max-w-xs">
+                  <div className="flex h-full min-w-0 flex-col gap-3 rounded-2xl bg-[#1A1A1A] p-5 text-left shadow-lg">
                     <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-brand-yellow">
                       <Phone className="h-5 w-5 text-brand-black" />
                     </span>
@@ -193,11 +212,11 @@ export default function CorporatePartners() {
                 Our Network of Change
               </h3>
               <p className="text-slate-600 text-lg mt-2">
-                Proudly supported by {PARTNERS.length} corporate partners
+                Proudly supported by {NETWORK_TOTAL} partners
               </p>
             </div>
           </div>
-          <LogoMarquee partners={PARTNERS} rows={4} />
+          <LogoMarquee groups={NETWORK_ROWS} />
         </section>
 
         <PartnerCategories current="corporate" />

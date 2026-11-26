@@ -2,7 +2,6 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { Check, Copy } from "lucide-react";
-import { Link } from "react-router-dom";
 import Layout from "../components/Layout";
 import HeroBanner from "../components/HeroBanner";
 import PartnerHeadline from "../components/Corporate/PartnerHeadline";
@@ -61,15 +60,6 @@ export default function EmploymentPartners() {
             { href: "#employer-showcase", label: "View Employer Partners", variant: "secondary" },
           ]}
         />
-
-        {/* ===== 2) BREADCRUMB ===== */}
-        <section className="py-4 bg-gray-50 border-b border-slate-100">
-          <div className="max-w-7xl mx-auto px-6 text-base text-ink/70 flex items-center gap-2">
-            <Link to="/" className="hover:text-brand-red transition-colors font-medium">Home</Link>
-            <span>/</span>
-            <span className="text-ink font-semibold">Employment Partners</span>
-          </div>
-        </section>
 
         {/* ===== 3) EDITORIAL CONTENT INTRO ===== */}
         <section className="py-24 bg-white relative overflow-hidden">

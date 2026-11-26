@@ -2,7 +2,6 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Check, Copy, ArrowRight, Shield, Users, FileText, Download, X } from "lucide-react";
-import { Link } from "react-router-dom";
 import Layout from "../components/Layout";
 import HeroBanner from "../components/HeroBanner";
 
@@ -119,15 +118,6 @@ export default function ChildProtectionPolicy() {
             { href: "#policy-details", label: "Learn Implementation", variant: "secondary" }
           ]}
         />
-
-        {/* ===== 2) BREADCRUMB ===== */}
-        <section className="py-4 bg-gray-50 border-b border-slate-100">
-          <div className="max-w-7xl mx-auto px-6 text-sm text-ink/60 flex items-center gap-2">
-            <Link to="/" className="hover:text-brand-red transition-colors font-medium">Home</Link>
-            <span>/</span>
-            <span className="text-ink font-semibold">Child Protection Policy</span>
-          </div>
-        </section>
 
         {/* ===== 3) SECTION 1: ABOUT POLICY WITH INTERACTIVE SELECTOR ===== */}
         <section className="py-24 bg-white relative overflow-hidden" id="policy-details">

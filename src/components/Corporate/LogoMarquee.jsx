@@ -4,10 +4,19 @@ import React from "react";
    - Rows keep moving all the time (they do not pause on hover).
    - Visitors who prefer reduced motion get a still, wrapped grid instead (see index.css).
    - A hidden list of names is kept for screen readers and search engines. */
-export default function LogoMarquee({ partners, rows = 3, secondsPerLogo = 4.5 }) {
-  // Deal partners out to the rows round-robin so every row has a mix.
-  const lanes = Array.from({ length: rows }, () => []);
-  partners.forEach((p, i) => lanes[i % rows].push(p));
+export default function LogoMarquee({ partners = [], rows = 3, secondsPerLogo = 4.5, groups }) {
+  // groups: [{ label, partners }]  one row per group, with its name above it (e.g. CSR Partners, Government Partners ...)
+  // otherwise: deal partners out to the rows round-robin so every row has a mix.
+  let lanes;
+  let labels = [];
+  if (groups) {
+    lanes = groups.map((g) => g.partners);
+    labels = groups.map((g) => g.label);
+    partners = groups.flatMap((g) => g.partners);
+  } else {
+    lanes = Array.from({ length: rows }, () => []);
+    partners.forEach((p, i) => lanes[i % rows].push(p));
+  }
 
   return (
     <div className="logo-marquee space-y-5 py-2">
@@ -23,7 +32,11 @@ export default function LogoMarquee({ partners, rows = 3, secondsPerLogo = 4.5 }
         const copy = Array.from({ length: reps }, () => items).flat();
         const duration = Math.round(copy.length * secondsPerLogo);
         return (
-          <div key={laneIdx} className="marquee-row" aria-hidden="true">
+          <div key={laneIdx}>
+            {labels[laneIdx] && (
+              <p className="mx-auto mb-3 max-w-7xl px-6 text-left text-sm font-extrabold uppercase tracking-[0.2em] text-slate-500 lg:px-12">{labels[laneIdx]}</p>
+            )}
+          <div className="marquee-row" aria-hidden="true">
             <div
               className={`marquee-track ${laneIdx % 2 === 0 ? "marquee-left" : "marquee-right"}`}
               style={{ animationDuration: `${duration}s` }}
@@ -42,6 +55,7 @@ export default function LogoMarquee({ partners, rows = 3, secondsPerLogo = 4.5 }
                 </div>
               ))}
             </div>
+          </div>
           </div>
         );
       })}

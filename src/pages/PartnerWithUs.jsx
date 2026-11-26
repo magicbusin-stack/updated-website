@@ -203,13 +203,6 @@ export default function PartnerWithUs() {
           </div>
         </section>
 
-        {/* ===== 2) BREADCRUMB ===== */}
-        <section className="py-4 bg-white border-b border-border">
-          <div className="max-w-7xl mx-auto px-6 text-base text-ink/70">
-            Home / <span className="text-ink">Partner With Us</span>
-          </div>
-        </section>
-
         {/* ===== 3) INTRO ===== */}
         <section className="pt-16 md:pt-20 bg-white">
           <motion.div
