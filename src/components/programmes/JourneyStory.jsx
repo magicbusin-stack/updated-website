@@ -2,64 +2,76 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import { animate, useInView, useReducedMotion } from "framer-motion";
 import { RotateCcw } from "lucide-react";
 
-/* "From Childhood to Livelihood": the eight layers of the journey artwork, stacked exactly as they were designed
-   (all are 1366 x 768 transparent PNGs, so every layer fills the same frame):
+/* "From Childhood to Livelihood": the eight layers of the journey artwork, stacked exactly as in the approved layout
+   (all are 1366 x 768 transparent images, so every layer fills the same frame). Back to front:
 
-   01 road + milestone   fixed, the first thing you see
-   02 bus                drives along the curve of the road and passes over the milestone
-   03 sky                opens up like an iris from the top of the hill and takes over the scene
-   04 clouds             fade in and drift very slowly
-   05 woman (before)     rises in on the left, with 06 the field behind her
-   07 woman (after)      rises in on the right, with 08 the shop behind her
-   (both women are in front of everything: the field, the shop and the tree)
+   03 sky  >  04 clouds  >  06 field  >  08 shop  >  05 woman (before)  >  07 woman (after)  >  01 road + milestone  >  02 bus
 
-   It plays once when the scene is on screen, and has a Replay button. Visitors who prefer reduced motion see the finished scene. */
+   The hill (road + milestone) is in front of the scene and the bus is in front of the hill. The finished scene is
+   exactly the approved picture: the bus parked at the top of the hill with half of it under the white line.
+
+   How it plays (once, when the scene is on screen; there is a Replay button):
+     1. only the hill and the milestone are there; the bus drives in along the curve and stops half way
+     2. while the bus waits (6 seconds) the sky, clouds and field appear, then the left woman pops up from behind the hill
+     3. the bus carries on and parks at the top of the hill
+     4. the right woman pops up from behind the hill, with the shop behind her
+
+   Visitors who prefer reduced motion see the finished scene straight away. */
 
 const W = 1366;
 const H = 768;
 
-/* the road is a circle: centre (683, 1052.5), radius 558 (measured on the artwork). The bus rides on it. */
+/* the road is a circle: centre (683, 1052.5) (measured on the artwork). The bus layer is drawn with the bus parked at the
+   top of the hill (bottom centre at 683, 592), so riding on the circle of radius 460.5 puts the bus exactly there at the top
+   and keeps it half under the white line all the way. */
 const CX = 683.08;
 const CY = 1052.5;
-const R_ROAD = 558 - 6;
-const BUS_ANCHOR = [683, 592]; // bottom centre of the bus in its own layer
-const BUS_FROM = -72; // degrees from the top of the hill: starts below the left edge ...
-const BUS_TO = 72; //   ... and leaves below the right edge
+const BUS_ANCHOR = [683, 592]; // bottom centre of the parked bus
+const R_BUS = CY - BUS_ANCHOR[1];
+const BUS_FROM = -64; // degrees from the top of the hill: it starts below the left edge
+const BUS_MID = 0.5; //  and stops half way (0 = start, 1 = parked at the top)
 
 function busTransform(t) {
-  const deg = BUS_FROM + (BUS_TO - BUS_FROM) * t;
+  const deg = BUS_FROM * (1 - t);
   const a = (deg * Math.PI) / 180;
-  const x = CX + R_ROAD * Math.sin(a);
-  const y = CY - R_ROAD * Math.cos(a);
+  const x = CX + R_BUS * Math.sin(a);
+  const y = CY - R_BUS * Math.cos(a);
   return `translate(${((x - BUS_ANCHOR[0]) / W) * 100}%, ${((y - BUS_ANCHOR[1]) / H) * 100}%) rotate(${deg}deg)`;
 }
 
-/* the field artwork ends in a straight vertical edge (it is meant to meet the shop). While the left woman is alone, that edge is
-   softened with --fe; when the shop arrives --fe opens to 100% and the field is exactly as designed. */
+/* the field artwork ends in a straight vertical edge (it is meant to meet the shop). While the right half is still empty,
+   that edge is softened with --fe; when the shop arrives --fe opens to 100% and the field is exactly as designed. */
 const FIELD_EDGE = "linear-gradient(to right, #000 var(--fe), transparent calc(var(--fe) + 7%))";
 const fieldMask = { WebkitMaskImage: FIELD_EDGE, maskImage: FIELD_EDGE };
 
 const LAYERS = [
-  { id: "road", src: "/journey/01-road.webp" },
-  { id: "bus", src: "/journey/02-bus.webp" },
   { id: "sky", src: "/journey/03-sky.webp" },
   { id: "clouds", src: "/journey/04-clouds.webp" },
   { id: "field", src: "/journey/06-field.webp", style: fieldMask },
-  /* the shop artwork has a strip of ground that starts left of the middle: it is cut at exactly 50% so the wheat field keeps the left half */
-  { id: "shop", src: "/journey/08-shop.webp", style: { clipPath: "inset(0 0 0 50%)" } },
-  /* the women are placed and straightened with a fixed transform on a wrapper (the entrance animation runs on the image inside).
-     Both turn around the bottom of the figure and stand on the same line (y = 650 of 768):
-     left woman: moved left, turned 2.9° clockwise, raised 51 px and scaled to 94% so her bowl stays inside the frame;
-     right woman: turned 13.5° anticlockwise (her photo was tilted), moved 114 px right so she is clear of the field and
-     stops just before the shop sign, and lowered 9 px. */
-  { id: "before", src: "/journey/05-woman-before.webp", wrap: { transform: "translate(-24%, -6.64%) rotate(2.9deg) scale(0.94)", transformOrigin: "41% 91.1%" } },
-  { id: "after", src: "/journey/07-woman-after.webp", wrap: { transform: "translate(8.35%, 1.17%) rotate(-13.5deg)", transformOrigin: "58.6% 83.3%" } },
+  { id: "shop", src: "/journey/08-shop.webp" },
+  { id: "before", src: "/journey/05-woman-before.webp", origin: "41% 90%" },
+  { id: "after", src: "/journey/07-woman-after.webp", origin: "58.6% 85%" },
+  { id: "road", src: "/journey/01-road.webp" },
+  { id: "bus", src: "/journey/02-bus.webp" },
 ];
 
 const EASE_IO = [0.65, 0, 0.35, 1];
+const EASE_BUS = [0.45, 0, 0.55, 1];
 const EASE_OUT = [0.16, 1, 0.3, 1];
 
-export default function JourneyStory() {
+/* the timeline, in seconds */
+const T = {
+  bus1: 0.6, // the bus drives in ...
+  bus1Len: 2.4,
+  wait: 6, //   ... and waits here for 6 seconds
+};
+T.bus2 = T.bus1 + T.bus1Len + T.wait; // then it carries on and parks
+T.bus2Len = 2.4;
+T.arrive = T.bus2 + T.bus2Len;
+T.end = T.arrive + 1.9;
+
+/* title / text: shown on the hill once the bus has parked. Nothing is shown until wording is passed in. */
+export default function JourneyStory({ title, text }) {
   const reduce = useReducedMotion();
   const wrapRef = useRef(null);
   const stageRef = useRef(null);
@@ -80,7 +92,6 @@ export default function JourneyStory() {
     };
   }, [near, ready]);
 
-  /* the timeline (seconds from the start) */
   useEffect(() => {
     if (reduce || !ready || !seen) return;
     const root = stageRef.current;
@@ -88,24 +99,36 @@ export default function JourneyStory() {
     const el = (id) => root.querySelector(`[data-layer="${id}"]`);
     const run = [];
     const go = (target, keyframes, options) => run.push(animate(target, keyframes, options));
-
-    // 0.6 s: the bus sets off and drives over the whole hill (it passes over the milestone on the way)
     const bus = el("bus");
-    go(0, 1, { delay: 0.6, duration: 5.6, ease: [0.45, 0, 0.55, 1], onUpdate: (t) => (bus.style.transform = busTransform(t)) });
-    // 5.2 s: the sky opens from the top of the hill and covers the road
-    go(el("sky"), { clipPath: ["circle(0% at 50% 64.5%)", "circle(95% at 50% 64.5%)"] }, { delay: 5.2, duration: 1.5, ease: EASE_IO });
-    // 6.3 s: clouds fade in and drift slowly
-    go(el("clouds"), { opacity: [0, 1] }, { delay: 6.3, duration: 1.4, ease: "easeOut" });
-    go(el("clouds"), { x: ["1.5%", "-1.5%"] }, { delay: 6.3, duration: 16, ease: "linear" });
-    // 7.3 s: the woman on the left, then the field in front of her
-    go(el("before"), { opacity: [0, 1], y: ["5%", "0%"] }, { delay: 7.3, duration: 0.9, ease: EASE_OUT });
-    go(el("field"), { opacity: [0, 1], y: ["14%", "0%"] }, { delay: 7.6, duration: 1.1, ease: EASE_OUT });
-    go(el("field"), { "--fe": ["42%", "100%"] }, { delay: 9.3, duration: 1.3, ease: EASE_IO });
-    // 9.2 s: the woman on the right, then the shop in front of her
-    go(el("after"), { opacity: [0, 1], y: ["5%", "0%"] }, { delay: 9.2, duration: 0.9, ease: EASE_OUT });
-    go(el("shop"), { opacity: [0, 1], y: ["14%", "0%"] }, { delay: 9.5, duration: 1.1, ease: EASE_OUT });
+    const drive = (t) => (bus.style.transform = busTransform(t));
+    /* a woman pops up from behind the hill: she rises while fading in quickly (the delay has to be repeated for opacity) */
+    const pop = (target, delay) => {
+      go(target, { y: ["40%", "0%"] }, { delay, duration: 1.1, ease: EASE_OUT });
+      go(target, { opacity: [0, 1] }, { delay, duration: 0.35, ease: "easeOut" });
+    };
 
-    const timer = setTimeout(() => setDone(true), 10900);
+    // 1. the bus drives in and stops half way
+    go(0, BUS_MID, { delay: T.bus1, duration: T.bus1Len, ease: EASE_BUS, onUpdate: drive });
+
+    // 2. while it waits: the sky opens from the top of the hill, clouds fade in, the field and the left woman pop up
+    const w = T.bus1 + T.bus1Len; // the moment the bus stops
+    go(el("sky"), { clipPath: ["circle(0% at 50% 64.5%)", "circle(95% at 50% 64.5%)"] }, { delay: w + 0.3, duration: 1.5, ease: EASE_IO });
+    go(el("clouds"), { opacity: [0, 1] }, { delay: w + 1.4, duration: 1.3, ease: "easeOut" });
+    go(el("clouds"), { x: ["1.5%", "-1.5%"] }, { delay: w + 1.4, duration: 16, ease: "linear" });
+    go(el("field"), { opacity: [0, 1], y: ["14%", "0%"] }, { delay: w + 2.2, duration: 1.1, ease: EASE_OUT });
+    pop(el("before"), w + 3.5);
+
+    // 3. the bus carries on and parks at the top of the hill
+    go(BUS_MID, 1, { delay: T.bus2, duration: T.bus2Len, ease: EASE_BUS, onUpdate: drive });
+
+    // 4. the right woman pops up from behind the hill, then the shop behind her
+    pop(el("after"), T.arrive);
+    go(el("shop"), { opacity: [0, 1], y: ["14%", "0%"] }, { delay: T.arrive + 0.3, duration: 1.1, ease: EASE_OUT });
+    go(el("field"), { "--fe": ["42%", "100%"] }, { delay: T.arrive + 0.3, duration: 1.3, ease: EASE_IO });
+    const cap = el("caption");
+    if (cap) go(cap, { opacity: [0, 1] }, { delay: T.arrive + 1.2, duration: 0.8, ease: "easeOut" });
+
+    const timer = setTimeout(() => setDone(true), T.end * 1000);
     return () => {
       clearTimeout(timer);
       run.forEach((c) => c.stop());
@@ -119,14 +142,13 @@ export default function JourneyStory() {
 
   /* where every layer starts (the finished scene is shown straight away for reduced motion) */
   const start = (id) => {
-    if (reduce) return id === "road" || id === "bus" ? { opacity: 0 } : id === "field" ? { "--fe": "100%" } : {};
+    if (reduce) return id === "field" ? { "--fe": "100%" } : {};
     if (id === "sky") return { clipPath: "circle(0% at 50% 64.5%)" };
     if (id === "bus") return { transform: busTransform(0), transformOrigin: `${(BUS_ANCHOR[0] / W) * 100}% ${(BUS_ANCHOR[1] / H) * 100}%`, willChange: "transform" };
     if (id === "road") return {};
     if (id === "field") return { opacity: 0, "--fe": "42%" };
     return { opacity: 0 };
   };
-
 
   return (
     <section className="overflow-hidden bg-[#FDFBF7] py-10 sm:py-16">
@@ -136,33 +158,41 @@ export default function JourneyStory() {
             key={round}
             ref={stageRef}
             role="img"
-            aria-label="A journey from labour to livelihood: a bus travels over the hill road; then a woman carrying a metal bowl on her head stands in a wheat field, and beside her a woman shows packets of spices in front of her own spice and general store."
+            aria-label="A journey from labour to livelihood: a bus drives up a hill road to a milestone that reads Taking a million from childhood to livelihood; behind the hill, a woman carrying a metal bowl on her head stands in a wheat field, and beside her a woman shows packets of spices in front of her own spice and general store."
             className="relative aspect-[1366/768] w-full overflow-hidden rounded-3xl bg-white shadow-xl ring-1 ring-black/5"
+            style={{ containerType: "inline-size" }}
           >
-            {LAYERS.map((l) => {
-              const img = (
-                <img
-                  key={l.id}
-                  data-layer={l.id}
-                  src={near ? l.src : undefined}
-                  alt=""
-                  width={W}
-                  height={H}
-                  decoding="async"
-                  draggable={false}
-                  className="pointer-events-none absolute inset-0 h-full w-full select-none"
-                  style={{ ...l.style, ...start(l.id) }}
-                />
-              );
-              return l.wrap ? (
-                <div key={l.id} className="pointer-events-none absolute inset-0" style={l.wrap}>
-                  {img}
-                </div>
-              ) : (
-                img
-              );
-            })}
+            {LAYERS.map((l) => (
+              <img
+                key={l.id}
+                data-layer={l.id}
+                src={near ? l.src : undefined}
+                alt=""
+                width={W}
+                height={H}
+                decoding="async"
+                draggable={false}
+                className="pointer-events-none absolute inset-0 h-full w-full select-none"
+                style={{ ...l.style, ...(l.origin ? { transformOrigin: l.origin } : null), ...start(l.id) }}
+              />
+            ))}
+            {(title || text) && (
+              <div
+                data-layer="caption"
+                className="pointer-events-none absolute bottom-[3%] left-1/2 hidden w-[52%] -translate-x-1/2 text-center text-white sm:block"
+                style={reduce ? undefined : { opacity: 0 }}
+              >
+                {title && <p className="font-extrabold uppercase" style={{ fontSize: "2.1cqw", lineHeight: 1.3 }}>{title}</p>}
+                {text && <p style={{ fontSize: "1.7cqw", lineHeight: 1.45, marginTop: "0.5cqw" }}>{text}</p>}
+              </div>
+            )}
           </div>
+          {(title || text) && (
+            <div className="mt-5 text-center sm:hidden">
+              {title && <p className="text-lg font-extrabold uppercase text-[#1A1A1A]">{title}</p>}
+              {text && <p className="mt-2 text-base text-[#1A1A1A]/80">{text}</p>}
+            </div>
+          )}
         </div>
 
         {!reduce && (
