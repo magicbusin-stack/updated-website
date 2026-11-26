@@ -29,6 +29,7 @@ import FaqSchema from "../components/seo/FaqSchema";
 import usePageMeta from "../hooks/usePageMeta";
 import EdpPillars from "../components/programmes/EdpPillars";
 import LrcFramework from "../components/programmes/LrcFramework";
+import JourneyStory from "../components/programmes/JourneyStory";
 
 /* ─────────────────────────── animation helpers ─────────────────────────── */
 const EASE = [0.16, 1, 0.3, 1];
@@ -951,6 +952,7 @@ export default function EntrepreneurshipDevelopmentProgramme() {
                 ]}
             />
 
+            <JourneyStory />
             <NeedSection />
             <AboutSection />
             <FeaturesSection />
