@@ -85,7 +85,7 @@ export const ROUTES = [
       "The Magic Bus Adolescent Programme helps adolescents ace life and learning through a sports-based life skills curriculum and education support.",
     label: "Adolescent Programme",
     parent: "/",
-    related: ["/school-to-work", "/sports-for-development", "/government-partnership-programme", "/youth-for-change-fellowship-programme", "/livelihood-programme"],
+    related: ["/school-to-work", "/sports-for-development", "/community-engagement", "/government-partnership-programme", "/youth-for-change-fellowship-programme", "/livelihood-programme"],
   },
   {
     path: "/school-to-work",
@@ -104,6 +104,15 @@ export const ROUTES = [
     label: "Sports for Development",
     parent: "/adolescent-programme",
     related: ["/adolescent-programme", "/school-to-work", "/youth-for-change-fellowship-programme"],
+  },
+  {
+    path: "/community-engagement",
+    title: "Community Engagement: Safe Spaces for Adolescents | Magic Bus",
+    description:
+      "Magic Bus works with parents, schools, local institutions and community volunteers so that adolescents are safe, supported and empowered to thrive.",
+    label: "Community Engagement",
+    parent: "/adolescent-programme",
+    related: ["/adolescent-programme", "/sports-for-development", "/school-to-work"],
   },
   {
     path: "/government-partnership-programme",

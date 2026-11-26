@@ -64,6 +64,7 @@ export default function Footer() {
               <li><Link to="/government-partnership-programme" className="font-medium hover:text-brand-yellow transition-colors">Government Partnership Programme</Link></li>
               <li><Link to="/school-to-work" className="font-medium hover:text-brand-yellow transition-colors">School-to-Work Transition Framework</Link></li>
               <li><Link to="/sports-for-development" className="font-medium hover:text-brand-yellow transition-colors">Sports for Development</Link></li>
+              <li><Link to="/community-engagement" className="font-medium hover:text-brand-yellow transition-colors">Community Engagement</Link></li>
               <li><Link to="/government-partnerships" className="font-medium hover:text-brand-yellow transition-colors">Government Partnerships</Link></li>
               <li><Link to="/youth-for-change-fellowship-programme" className="font-medium hover:text-brand-yellow transition-colors">Youth for Change Fellowship Programme</Link></li>
               <li><Link to="/mb-dost" className="font-medium hover:text-brand-yellow transition-colors">MB Dost</Link></li>
