@@ -49,7 +49,7 @@ export default function FoundationPartners() {
         
         {/* ===== 1) HERO BANNER ===== */}
         <HeroBanner
-          badgeText="Our Foundation Partners"
+          badgeText=""
           title="Working together for a better tomorrow."
           subtitle="Building collaborative ecosystems to expand child development and education"
           description="Strategic foundations and institutions that support our mission by providing vital funding, capacity building, and program recognition."
@@ -64,7 +64,7 @@ export default function FoundationPartners() {
         <section className="py-20 bg-white">
           <div className="max-w-7xl mx-auto px-6 lg:px-12">
             <div className="text-center max-w-5xl mx-auto">
-              <PartnerHeadline align="center" chip="Foundations & Institutions" line1="Our Foundation & Institutions" line2="Partners" />
+              <PartnerHeadline align="center" line1="Our Foundation & Institutions" line2="Partners" />
               
               <div className="mx-auto mt-10 max-w-3xl space-y-6 text-[#1A1A1A]/90 text-lg md:text-xl leading-relaxed">
                 <p>

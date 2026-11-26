@@ -51,9 +51,9 @@ export default function PartnerThanks({ title = "Thank You", who, message, partn
         <p className="mx-auto mt-6 max-w-3xl text-xl font-semibold leading-relaxed text-white sm:text-2xl md:text-3xl md:leading-relaxed">{message}</p>
 
         {logos.length > 0 && (
-          <div className="mx-auto mt-9 flex max-w-3xl flex-wrap items-center justify-center gap-3">
+          <div className="mx-auto mt-12 grid max-w-4xl grid-cols-2 gap-4 sm:grid-cols-3 sm:gap-6 md:gap-7">
             {logos.map((p) => (
-              <div key={p.name} className="flex h-16 w-24 items-center justify-center rounded-xl bg-white p-2 shadow-lg transition-transform duration-300 hover:-translate-y-1 sm:h-20 sm:w-32">
+              <div key={p.name} className="flex h-24 items-center justify-center rounded-2xl bg-white p-4 shadow-xl ring-1 ring-black/5 transition duration-300 hover:-translate-y-1.5 hover:shadow-2xl sm:h-28 sm:p-5 md:h-32 md:p-6">
                 <img src={p.logo} alt={p.name} loading="lazy" decoding="async" className="max-h-full w-full object-contain mix-blend-multiply" />
               </div>
             ))}

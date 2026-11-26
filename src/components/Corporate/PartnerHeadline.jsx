@@ -11,10 +11,12 @@ export default function PartnerHeadline({ chip, line1, line2, sub, align = "left
   const size = `clamp(2.25rem, ${(165 / Math.max(line1.length, 8)).toFixed(1)}cqw, 4.5rem)`;
   return (
     <div className={`@container ${center ? "mx-auto text-center" : ""}`}>
-      <span className="mb-5 inline-flex items-center gap-2 rounded-full border border-brand-red/15 bg-brand-red/5 px-4 py-1.5 text-sm font-bold uppercase tracking-wider text-brand-red">
-        <span className="h-2 w-2 animate-pulse rounded-full bg-brand-red" />
-        {chip}
-      </span>
+      {chip && (
+        <span className="mb-5 inline-flex items-center gap-2 rounded-full border border-brand-red/15 bg-brand-red/5 px-4 py-1.5 text-sm font-bold uppercase tracking-wider text-brand-red">
+          <span className="h-2 w-2 animate-pulse rounded-full bg-brand-red" />
+          {chip}
+        </span>
+      )}
 
       <h2 style={{ fontSize: size }} className="font-black leading-[1.08] tracking-tight text-[#0F172A]">
         {line1}
