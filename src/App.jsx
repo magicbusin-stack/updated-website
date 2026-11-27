@@ -16,6 +16,7 @@ const AdolescentProgramme = lazy(() => import('./pages/AdolescentProgramme'))
 const SchoolToWork = lazy(() => import('./pages/SchoolToWork'))
 const SportsForDevelopment = lazy(() => import('./pages/SportsForDevelopment'))
 const CommunityEngagement = lazy(() => import('./pages/CommunityEngagement'))
+const AcademicIntervention = lazy(() => import('./pages/AcademicIntervention'))
 const GovernmentPartnerships = lazy(() => import('./pages/GovernmentPartnerships'))
 const GovernmentPartnershipProgramme = lazy(() => import('./pages/GovernmentPartnershipProgramme'))
 const YouthForChangeFellowshipProgramme = lazy(() => import('./pages/YouthForChangeFellowshipProgramme'))
@@ -91,6 +92,7 @@ export function AppRoutes() {
           <Route path="/school-to-work" element={<SchoolToWork />} />
           <Route path="/sports-for-development" element={<SportsForDevelopment />} />
           <Route path="/community-engagement" element={<CommunityEngagement />} />
+          <Route path="/academic-intervention" element={<AcademicIntervention />} />
           <Route path="/government-partnerships" element={<GovernmentPartnerships />} />
           <Route path="/government-partnership-programme" element={<GovernmentPartnershipProgramme />} />
           <Route path="/youth-for-change-fellowship-programme" element={<YouthForChangeFellowshipProgramme />} />

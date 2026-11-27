@@ -58,6 +58,7 @@ const NAVIGATION_ITEMS = [
           { label: "School-to-Work Transition Framework", path: "/school-to-work" },
           { label: "Sports for Development", path: "/sports-for-development" },
           { label: "Community Engagement", path: "/community-engagement" },
+          { label: "Academic Intervention", path: "/academic-intervention" },
           { label: "Government Partnership Programme", path: "/government-partnership-programme" },
           { label: "Government Partnerships", path: "/government-partnerships" },
           { label: "Learning & Development", path: "/learning-development" },
