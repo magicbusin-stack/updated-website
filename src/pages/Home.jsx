@@ -4,7 +4,8 @@ import EventsCampaigns from '../components/Home/EventsCampaigns';
 import FAQSection from '../components/Home/FAQSectiom';
 import GetInvolvedSection from '../components/Home/GetInvolvedSection';
 import HeroCarousel from '../components/Home/HeroCarousel';
-import JourneyStepper from '../components/Home/JourneyStepper';
+import JourneyStory from '../components/programmes/JourneyStory';
+import SectionHeading from '../components/Home/SectionHeading';
 import OurOutreachSection from '../components/Home/OurOutreachSection';
 import PartnersShowcase from '../components/Home/PartnersShowcase';
 import ProgrammesSlider from '../components/Home/ProgrammesSlider';
@@ -18,7 +19,7 @@ export default function Home() {
     <Layout>
         <FaqSchema faqs={homefaq} />
         <HeroCarousel />
-        <JourneyStepper   />
+        <JourneyStory heading={<SectionHeading title="Childhood to Livelihood Journey" accent="Livelihood Journey" />} />
         <ProgrammesSlider />
         <OurOutreachSection />
         <SuccessStories />

@@ -11,9 +11,8 @@ import { RotateCcw } from "lucide-react";
    exactly the approved picture: the bus parked at the top of the hill with half of it under the white line.
 
    How it plays (once, when the scene is on screen; there is a Replay button):
-     1. at once: the bus is waiting at the start of the road on the left, and the sky, clouds, field and the left woman pop up
-     2. the bus drives along the curve to the middle of the hill (6 seconds)
-     3. when the bus is in the middle, the right woman pops up from behind the hill, with the shop behind her
+     1. only the hill and the milestone are there; the bus drives in from outside the left edge to the middle of the hill (3 seconds)
+     2. as soon as the bus is in the middle, everything pops up at once: sky, clouds, field, shop and BOTH women
 
    Visitors who prefer reduced motion see the finished scene straight away. */
 
@@ -27,7 +26,7 @@ const CX = 683.08;
 const CY = 1052.5;
 const BUS_ANCHOR = [683, 592]; // bottom centre of the parked bus
 const R_BUS = CY - BUS_ANCHOR[1];
-const BUS_FROM = -38; // degrees from the top of the hill: where the bus waits at the start of the road, on the left
+const BUS_FROM = -78; // degrees from the top of the hill: the bus starts out of sight, below the left edge
 
 function busTransform(t) {
   const deg = BUS_FROM * (1 - t);
@@ -65,18 +64,18 @@ const EASE_OUT = [0.16, 1, 0.3, 1];
 
 /* the timeline, in seconds */
 const T = {
-  go: 1.0, //      the bus sets off while the first pop-ups are still arriving ...
-  drive: 6, //     ... and takes 6 seconds to reach the middle of the hill
+  go: 0.3, //     the bus sets off ...
+  drive: 3, //    ... and takes 3 seconds to reach the middle of the hill
 };
 T.arrive = T.go + T.drive;
-T.end = T.arrive + 1.9;
+T.end = T.arrive + 2.4;
 
 /* title / text: shown on the hill once the bus has parked. Nothing is shown until wording is passed in. */
-export default function JourneyStory({ title, text }) {
+export default function JourneyStory({ title, text, heading }) {
   const reduce = useReducedMotion();
   const wrapRef = useRef(null);
   const stageRef = useRef(null);
-  const near = useInView(wrapRef, { once: true, margin: "800px" });
+  const near = useInView(wrapRef, { once: true, margin: "1600px" });
   const seen = useInView(wrapRef, { once: true, amount: 0.3 });
   const [ready, setReady] = useState(false);
   const [done, setDone] = useState(false);
@@ -111,22 +110,21 @@ export default function JourneyStory({ title, text }) {
     // the road line keeps running round the hill (moving left, against the bus) for as long as the scene is on
     go(el("stripe"), { "--a": ["0deg", "-10deg"] }, { duration: 1.1, ease: "linear", repeat: Infinity });
 
-    // 1. at once: the sky opens from the top of the hill, clouds fade in, then the field and the left woman pop up
-    go(el("sky"), { clipPath: ["circle(0% at 50% 64.5%)", "circle(95% at 50% 64.5%)"] }, { delay: 0, duration: 1.3, ease: EASE_IO });
-    go(el("clouds"), { opacity: [0, 1] }, { delay: 0.5, duration: 1.1, ease: "easeOut" });
-    go(el("clouds"), { x: ["1.5%", "-1.5%"] }, { delay: 0.5, duration: 16, ease: "linear" });
-    go(el("field"), { opacity: [0, 1], y: ["14%", "0%"] }, { delay: 0.5, duration: 1.0, ease: EASE_OUT });
-    pop(el("before"), 0.9);
-
-    // 2. the bus drives from the start of the road to the middle of the hill
+    // 1. the bus drives in from outside the left edge to the middle of the hill
     go(0, 1, { delay: T.go, duration: T.drive, ease: EASE_BUS, onUpdate: drive });
 
-    // 3. when the bus is in the middle, the right woman pops up from behind the hill, then the shop behind her
-    pop(el("after"), T.arrive);
-    go(el("shop"), { opacity: [0, 1], y: ["14%", "0%"] }, { delay: T.arrive + 0.3, duration: 1.1, ease: EASE_OUT });
-    go(el("field"), { "--fe": ["42%", "100%"] }, { delay: T.arrive + 0.3, duration: 1.3, ease: EASE_IO });
+    // 2. the bus is in the middle: everything pops up at once. The sky opens from the top of the hill; the field and the
+    //    shop rise behind it; the clouds fade in; both women pop up from behind the hill.
+    const w = T.arrive;
+    go(el("sky"), { clipPath: ["circle(0% at 50% 64.5%)", "circle(95% at 50% 64.5%)"] }, { delay: w, duration: 1.2, ease: EASE_IO });
+    go(el("clouds"), { opacity: [0, 1] }, { delay: w + 0.2, duration: 1.0, ease: "easeOut" });
+    go(el("clouds"), { x: ["1.5%", "-1.5%"] }, { delay: w + 0.2, duration: 16, ease: "linear" });
+    go(el("field"), { opacity: [0, 1], y: ["14%", "0%"] }, { delay: w + 0.1, duration: 1.0, ease: EASE_OUT });
+    go(el("shop"), { opacity: [0, 1], y: ["14%", "0%"] }, { delay: w + 0.1, duration: 1.0, ease: EASE_OUT });
+    pop(el("before"), w + 0.25);
+    pop(el("after"), w + 0.25);
     const cap = el("caption");
-    if (cap) go(cap, { opacity: [0, 1] }, { delay: T.arrive + 1.2, duration: 0.8, ease: "easeOut" });
+    if (cap) go(cap, { opacity: [0, 1] }, { delay: T.arrive + 1.4, duration: 0.8, ease: "easeOut" });
 
     const timer = setTimeout(() => setDone(true), T.end * 1000);
     return () => {
@@ -147,13 +145,14 @@ export default function JourneyStory({ title, text }) {
     if (id === "sky") return { clipPath: "circle(0% at 50% 64.5%)" };
     if (id === "bus") return { transform: busTransform(0), transformOrigin: `${(BUS_ANCHOR[0] / W) * 100}% ${(BUS_ANCHOR[1] / H) * 100}%`, willChange: "transform" };
     if (id === "road") return {};
-    if (id === "field") return { opacity: 0, "--fe": "42%" };
+    if (id === "field") return { opacity: 0, "--fe": "100%" };
     return { opacity: 0 };
   };
 
   return (
     <section className="overflow-hidden bg-[#FDFBF7] py-10 sm:py-16">
       <div className="mx-auto max-w-6xl px-6 lg:px-12">
+        {heading && <div className="mb-8 text-center md:mb-10">{heading}</div>}
         <div ref={wrapRef}>
           <div
             key={round}
