@@ -5,7 +5,7 @@ import { RotateCcw } from "lucide-react";
 /* "From Childhood to Livelihood": the eight layers of the journey artwork, stacked exactly as in the approved layout
    (all are 1366 x 768 transparent images, so every layer fills the same frame). Back to front:
 
-   03 sky  >  04 clouds  >  06 field  >  08 shop  >  05 woman (before)  >  07 woman (after)  >  01 road + milestone  >  02 bus
+   03 sky  >  04 clouds  >  06 field  >  08 shop  >  05 woman (before)  >  07 woman (after)  >  01 road + milestone  >  road stripe  >  02 bus
 
    The hill (road + milestone) is in front of the scene and the bus is in front of the hill. The finished scene is
    exactly the approved picture: the bus parked at the top of the hill with half of it under the white line.
@@ -42,6 +42,11 @@ function busTransform(t) {
 const FIELD_EDGE = "linear-gradient(to right, #000 var(--fe), transparent calc(var(--fe) + 7%))";
 const fieldMask = { WebkitMaskImage: FIELD_EDGE, maskImage: FIELD_EDGE };
 
+/* the white brush-stroke line on the road. It is shown through a dash pattern that circles the centre of the hill
+   (--a is the turn, in degrees), so the line looks like it is running under the bus. */
+const DASH = "repeating-conic-gradient(from var(--a) at 50% 137.04%, #000 0deg 7deg, transparent 7deg 10deg)";
+const stripeMask = { WebkitMaskImage: DASH, maskImage: DASH };
+
 const LAYERS = [
   { id: "sky", src: "/journey/03-sky.webp" },
   { id: "clouds", src: "/journey/04-clouds.webp" },
@@ -50,6 +55,7 @@ const LAYERS = [
   { id: "before", src: "/journey/05-woman-before.webp", origin: "41% 90%" },
   { id: "after", src: "/journey/07-woman-after.webp", origin: "58.6% 85%" },
   { id: "road", src: "/journey/01-road.webp" },
+  { id: "stripe", src: "/journey/01b-road-stripe.webp", style: stripeMask },
   { id: "bus", src: "/journey/02-bus.webp" },
 ];
 
@@ -102,6 +108,9 @@ export default function JourneyStory({ title, text }) {
       go(target, { opacity: [0, 1] }, { delay, duration: 0.35, ease: "easeOut" });
     };
 
+    // the road line keeps running round the hill (moving left, against the bus) for as long as the scene is on
+    go(el("stripe"), { "--a": ["0deg", "-10deg"] }, { duration: 1.1, ease: "linear", repeat: Infinity });
+
     // 1. at once: the sky opens from the top of the hill, clouds fade in, then the field and the left woman pop up
     go(el("sky"), { clipPath: ["circle(0% at 50% 64.5%)", "circle(95% at 50% 64.5%)"] }, { delay: 0, duration: 1.3, ease: EASE_IO });
     go(el("clouds"), { opacity: [0, 1] }, { delay: 0.5, duration: 1.1, ease: "easeOut" });
@@ -133,7 +142,8 @@ export default function JourneyStory({ title, text }) {
 
   /* where every layer starts (the finished scene is shown straight away for reduced motion) */
   const start = (id) => {
-    if (reduce) return id === "field" ? { "--fe": "100%" } : {};
+    if (reduce) return id === "field" ? { "--fe": "100%" } : id === "stripe" ? { WebkitMaskImage: "none", maskImage: "none" } : {};
+    if (id === "stripe") return { "--a": "0deg" };
     if (id === "sky") return { clipPath: "circle(0% at 50% 64.5%)" };
     if (id === "bus") return { transform: busTransform(0), transformOrigin: `${(BUS_ANCHOR[0] / W) * 100}% ${(BUS_ANCHOR[1] / H) * 100}%`, willChange: "transform" };
     if (id === "road") return {};
